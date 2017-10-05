@@ -1,0 +1,137 @@
+<%= form_for(elefe) do |f| %>
+  <% if elefe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(elefe.errors.count, "error") %> prohibited this elefe from being saved:</h2>
+
+      <ul>
+      <% elefe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nom %>
+    <%= f.text_field :nom %>
+  </div>
+
+  <div class="field">
+    <%= f.label :prenom %>
+    <%= f.text_field :prenom %>
+  </div>
+
+  <div class="field">
+    <%= f.label :rue %>
+    <%= f.text_field :rue %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cp %>
+    <%= f.text_field :cp %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ville %>
+    <%= f.text_field :ville %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_naissance %>
+    <%= f.datetime_select :date_naissance %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tel_mobile %>
+    <%= f.text_field :tel_mobile %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tel_fixe %>
+    <%= f.text_field :tel_fixe %>
+  </div>
+
+  <div class="field">
+    <%= f.label :graduation %>
+    <%= f.number_field :graduation %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ville_entrainement %>
+    <%= f.number_field :ville_entrainement %>
+  </div>
+
+  <div class="field">
+    <%= f.label :a_signaler %>
+    <%= f.text_area :a_signaler %>
+  </div>
+
+  <div class="field">
+    <%= f.label :urgence_nom %>
+    <%= f.text_field :urgence_nom %>
+  </div>
+
+  <div class="field">
+    <%= f.label :urgence_prenom %>
+    <%= f.text_field :urgence_prenom %>
+  </div>
+
+  <div class="field">
+    <%= f.label :urgence_parentee %>
+    <%= f.text_field :urgence_parentee %>
+  </div>
+
+  <div class="field">
+    <%= f.label :urgence_tel %>
+    <%= f.text_field :urgence_tel %>
+  </div>
+
+  <div class="field">
+    <%= f.label :soin_moi %>
+    <%= f.check_box :soin_moi %>
+  </div>
+
+  <div class="field">
+    <%= f.label :soin_tutelle %>
+    <%= f.check_box :soin_tutelle %>
+  </div>
+
+  <div class="field">
+    <%= f.label :info_ville %>
+    <%= f.number_field :info_ville %>
+  </div>
+
+  <div class="field">
+    <%= f.label :gcc_connait %>
+    <%= f.number_field :gcc_connait %>
+  </div>
+
+  <div class="field">
+    <%= f.label :parentee %>
+    <%= f.number_field :parentee %>
+  </div>
+
+  <div class="field">
+    <%= f.label :prix %>
+    <%= f.number_field :prix %>
+  </div>
+
+  <div class="field">
+    <%= f.label :reglement %>
+    <%= f.number_field :reglement %>
+  </div>
+
+  <div class="field">
+    <%= f.label :signature %>
+    <%= f.check_box :signature %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

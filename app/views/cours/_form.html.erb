@@ -1,0 +1,52 @@
+<%= form_for(cour) do |f| %>
+  <% if cour.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cour.errors.count, "error") %> prohibited this cour from being saved:</h2>
+
+      <ul>
+      <% cour.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nomvil %>
+    <%= f.text_field :nomvil %>
+  </div>
+
+  <div class="field">
+    <%= f.label :adresse %>
+    <%= f.text_field :adresse %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cp %>
+    <%= f.text_field :cp %>
+  </div>
+
+  <div class="field">
+    <%= f.label :telephon %>
+    <%= f.text_field :telephon %>
+  </div>
+
+  <div class="field">
+    <%= f.label :typcours %>
+    <%= f.number_field :typcours %>
+  </div>
+
+  <div class="field">
+    <%= f.label :dateh %>
+    <%= f.datetime_select :dateh %>
+  </div>
+
+  <div class="field">
+    <%= f.label :duree %>
+    <%= f.time_select :duree %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

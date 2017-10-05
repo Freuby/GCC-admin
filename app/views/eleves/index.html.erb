@@ -1,0 +1,73 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Eleves</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Prenom</th>
+      <th>Rue</th>
+      <th>Cp</th>
+      <th>Ville</th>
+      <th>Email</th>
+      <th>Date naissance</th>
+      <th>Tel mobile</th>
+      <th>Tel fixe</th>
+      <th>Graduation</th>
+      <th>Ville entrainement</th>
+      <th>A signaler</th>
+      <th>Urgence nom</th>
+      <th>Urgence prenom</th>
+      <th>Urgence parentee</th>
+      <th>Urgence tel</th>
+      <th>Soin moi</th>
+      <th>Soin tutelle</th>
+      <th>Info ville</th>
+      <th>Gcc connait</th>
+      <th>Parentee</th>
+      <th>Prix</th>
+      <th>Reglement</th>
+      <th>Signature</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @eleves.each do |elefe| %>
+      <tr>
+        <td><%= elefe.nom %></td>
+        <td><%= elefe.prenom %></td>
+        <td><%= elefe.rue %></td>
+        <td><%= elefe.cp %></td>
+        <td><%= elefe.ville %></td>
+        <td><%= elefe.email %></td>
+        <td><%= elefe.date_naissance %></td>
+        <td><%= elefe.tel_mobile %></td>
+        <td><%= elefe.tel_fixe %></td>
+        <td><%= elefe.graduation %></td>
+        <td><%= elefe.ville_entrainement %></td>
+        <td><%= elefe.a_signaler %></td>
+        <td><%= elefe.urgence_nom %></td>
+        <td><%= elefe.urgence_prenom %></td>
+        <td><%= elefe.urgence_parentee %></td>
+        <td><%= elefe.urgence_tel %></td>
+        <td><%= elefe.soin_moi %></td>
+        <td><%= elefe.soin_tutelle %></td>
+        <td><%= elefe.info_ville %></td>
+        <td><%= elefe.gcc_connait %></td>
+        <td><%= elefe.parentee %></td>
+        <td><%= elefe.prix %></td>
+        <td><%= elefe.reglement %></td>
+        <td><%= elefe.signature %></td>
+        <td><%= link_to 'Show', elefe %></td>
+        <td><%= link_to 'Edit', edit_elefe_path(elefe) %></td>
+        <td><%= link_to 'Destroy', elefe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Elefe', new_elefe_path %>

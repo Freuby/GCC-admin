@@ -1,0 +1,53 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nom: MyString
+  prenom: MyString
+  rue: MyString
+  cp: MyString
+  ville: MyString
+  email: MyString
+  date_naissance: 2017-10-05 12:19:08
+  tel_mobile: MyString
+  tel_fixe: MyString
+  graduation: 1
+  ville_entrainement: 1
+  a_signaler: MyText
+  urgence_nom: MyString
+  urgence_prenom: MyString
+  urgence_parentee: MyString
+  urgence_tel: MyString
+  soin_moi: false
+  soin_tutelle: false
+  info_ville: 1
+  gcc_connait: 1
+  parentee: 1
+  prix: 1
+  reglement: 1
+  signature: false
+
+two:
+  nom: MyString
+  prenom: MyString
+  rue: MyString
+  cp: MyString
+  ville: MyString
+  email: MyString
+  date_naissance: 2017-10-05 12:19:08
+  tel_mobile: MyString
+  tel_fixe: MyString
+  graduation: 1
+  ville_entrainement: 1
+  a_signaler: MyText
+  urgence_nom: MyString
+  urgence_prenom: MyString
+  urgence_parentee: MyString
+  urgence_tel: MyString
+  soin_moi: false
+  soin_tutelle: false
+  info_ville: 1
+  gcc_connait: 1
+  parentee: 1
+  prix: 1
+  reglement: 1
+  signature: false

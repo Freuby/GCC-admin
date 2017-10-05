@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nomvil: MyString
+  adresse: MyString
+  cp: MyString
+  telephon: MyString
+  typcours: 1
+  dateh: 2017-09-28 14:59:14
+  duree: 2017-09-28 14:59:14
+
+two:
+  nomvil: MyString
+  adresse: MyString
+  cp: MyString
+  telephon: MyString
+  typcours: 1
+  dateh: 2017-09-28 14:59:14
+  duree: 2017-09-28 14:59:14

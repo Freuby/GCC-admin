@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title><%= content_for?(:title) ? yield(:title) : "GCC admin" %></title>
+
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+  <header class="">
+      <%= render 'layouts/header' %>
+  </header>
+
+      <% flash.each do |key, value| %>
+          <div class="callout <%= key %>" style="margin-top: 7px" data-closable><%= value %>
+              <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+      <% end %>
+
+    <%= yield %>
+
+      <footer class="">
+          <%= render 'layouts/footer' %>
+      </footer>
+
+  </body>
+</html>
