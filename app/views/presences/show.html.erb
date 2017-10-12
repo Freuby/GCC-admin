@@ -1,14 +1,59 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Datecours:</strong>
-  <%= @presence.datecours %>
-</p>
+<h1>Tableau de présence</h1>
+<h2>Cours
+    <% if @cour[0].typcours == 0 %>
+        Adultes
+    <% elsif @cour[0].typcours == 1 %>
+        Enfants
+    <% elsif @cour[0].typcours == 2 %>
+        Mixte
+    <% end %>
+    <%= @cour[0].nomvil %>
+</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <% @presences.each do |j| %>
+            <% if j.elefe_id == @eleves[0].id %>
+                <th><%= j.datecours.day %>/<%= j.datecours.month %></th>
+            <% end %>
+        <% end %>
+    </tr>
+    </thead>
 
-<p>
-  <strong>Etat:</strong>
-  <%= @presence.etat %>
-</p>
+    <tbody>
+    <% @eleves.each do |elefe|  %>
+        <tr>
+            <td><%= elefe.nom %></td>
+            <td><%= elefe.prenom %></td>
+            <% @presences.each do |j| %>
+                <% if j.elefe_id == elefe.id %>
+                    <td><%= j.etat %></td>
+                <% end %>
+            <% end %>
+        </tr>
+    <% end %>
+
+    </tbody>
+    <tbody>
+        <tr>
+            <td><strong>Encadrant</strong></td>
+            <td></td>
+            <% @presences.each do |j| %>
+                <% if j.elefe_id == @eleves[0].id %>
+                    <td>
+                        <%= @enseignants.find(j.enseignant_id).nom %>
+                    </td>
+                <% end %>
+            <% end %>
+
+        </tr>
+    </tbody>
+</table>
+
 
 <%= link_to 'Edit', edit_presence_path(@presence) %> |
-<%= link_to 'Back', presences_path %>
+<%= link_to 'Retour', root_path %>

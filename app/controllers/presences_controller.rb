@@ -1,20 +1,40 @@
 class PresencesController < ApplicationController
   before_action :set_presence, only: [:show, :edit, :update, :destroy]
 
+  # POST /presencesel
+  def presencesel
+    @cours = Cour.all
+  end
+
+  # POST /consulpres
+  def consulpres
+    @cours = Cour.all
+  end
+
   # GET /presences
   # GET /presences.json
   def index
     @presences = Presence.all
+    @eleves = Elefe.where(:ville_entrainement => params[:select][:cour]).all
+    @cour = Cour.where(:id => params[:select][:cour])
+    @enseignants = Enseignant.all
   end
 
   # GET /presences/1
   # GET /presences/1.json
   def show
+    @enseignants = Enseignant.all
+    @eleves = Elefe.where(:ville_entrainement => @presence.cour_id).all
+    @presences = Presence.where(:cour_id => @presence.cour_id).all
+    @cour = Cour.where(:id => @presence.cour_id)
   end
 
   # GET /presences/new
   def new
     @presence = Presence.new
+    @eleves = Elefe.where(:ville_entrainement => params[:select][:cour]).all
+    @cour = Cour.where(:id => params[:select][:cour])
+    @enseignants = Enseignant.all
   end
 
   # GET /presences/1/edit
@@ -24,7 +44,15 @@ class PresencesController < ApplicationController
   # POST /presences
   # POST /presences.json
   def create
-    @presence = Presence.new(presence_params)
+    @eleves = Elefe.where(:ville_entrainement => params[:presence][:cour_id]).all
+    date = params[:presence]['datecours(1i)']+"-"+params[:presence]['datecours(2i)']+"-"+params[:presence]['datecours(3i)']
+    date = date.to_date
+    @eleves.each_with_index do |elefe, i|
+      @etat = params[:presence][:etat]
+      @presence = Presence.new(:datecours => date, :etat => @etat[i], :elefe_id => elefe.id, :cour_id => params[:presence][:cour_id], :enseignant_id => params[:presence][:enseignant_id])
+      @presence.save
+    end
+
 
     respond_to do |format|
       if @presence.save
@@ -69,6 +97,6 @@ class PresencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def presence_params
-      params.require(:presence).permit(:datecours, :etat)
+      params.require(:presence).permit(:datecours, :etat, :elefe_id, :cour_id, :enseignant_id)
     end
 end

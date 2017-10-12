@@ -1,3 +1,3 @@
 class Cour < ApplicationRecord
-  has_many :fiches
+  has_many :eleves
 end

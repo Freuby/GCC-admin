@@ -1,0 +1,21 @@
+<h1>Sélection du cours</h1>
+
+<%= form_for :select do |f| %>
+    <%= f.label :page, "Sélectionner le cours :" %>
+    <br />
+    <% @cours.each_with_index do |a,i| %>
+        <%= f.radio_button :cour, a.id %>
+        <%= f.label :cour, a.nomvil %> <%= f.label :cour, a.jour %>
+        <% if a.typcours == 0 %>
+            Adultes
+        <% elsif a.typcours == 1 %>
+            Enfants
+        <% elsif a.typcours == 2 %>
+            Mixte
+        <% end %>
+        <br/>
+    <% end %>
+    <div class="actions">
+        <%= f.submit :new, value: "Consulter", class: "btn btn-primary"  %>
+    </div>
+<% end %>

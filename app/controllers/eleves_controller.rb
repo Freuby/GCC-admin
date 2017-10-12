@@ -1,5 +1,6 @@
 class ElevesController < ApplicationController
   before_action :set_elefe, only: [:show, :edit, :update, :destroy]
+  before_action :set_cours, only: [:index, :show, :new, :edit, :create, :update, :destroy]
 
   # GET /eleves
   # GET /eleves.json
@@ -67,8 +68,16 @@ class ElevesController < ApplicationController
       @elefe = Elefe.find(params[:id])
     end
 
+    def set_cours
+      @cours = Cour.all
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def elefe_params
       params.require(:elefe).permit(:nom, :prenom, :rue, :cp, :ville, :email, :date_naissance, :tel_mobile, :tel_fixe, :graduation, :ville_entrainement, :a_signaler, :urgence_nom, :urgence_prenom, :urgence_parentee, :urgence_tel, :soin_moi, :soin_tutelle, :info_ville, :gcc_connait, :parentee, :prix, :reglement, :signature)
+    end
+
+    def cour_params
+      params.require(:cour).permit(:nomvil, :adresse, :cp, :telephon, :typcours, :jour, :dateh, :duree, :enseignant_id, :respcom_id, :resppres_id)
     end
 end

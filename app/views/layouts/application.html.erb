@@ -8,6 +8,7 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag :defaults %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -18,14 +19,20 @@
   </header>
 
       <% flash.each do |key, value| %>
-          <div class="callout <%= key %>" style="margin-top: 7px" data-closable><%= value %>
-              <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+          <div class="alert alert-warning alert-dismissible fade show <%= key %>" role="alert" data-closable><%= value %>
+              <button class="close" data-dismiss="alert" aria-label="Close" type="button" data-close>
                   <span aria-hidden="true">&times;</span>
               </button>
           </div>
       <% end %>
 
-    <%= yield %>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <%= yield %>
+            </div>
+        </div>
+    </div>
 
       <footer class="">
           <%= render 'layouts/footer' %>

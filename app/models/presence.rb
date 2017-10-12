@@ -1,4 +1,5 @@
 class Presence < ApplicationRecord
-  belongs_to :fiches
-  belongs_to :cours
+  belongs_to :elefe
+  belongs_to :cour
+  belongs_to :enseignant
 end

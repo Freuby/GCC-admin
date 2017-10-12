@@ -10,18 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005101908) do
+ActiveRecord::Schema.define(version: 20171012113850) do
 
   create_table "cours", force: :cascade do |t|
-    t.string   "nomvil",     default: "",                    null: false
-    t.string   "adresse",    default: "",                    null: false
-    t.string   "cp",         default: "",                    null: false
-    t.string   "telephon",   default: "",                    null: false
-    t.integer  "typcours",   default: 0,                     null: false
-    t.datetime "dateh",                                      null: false
-    t.time     "duree",      default: '2000-01-01 00:00:00', null: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.string   "nomvil",        default: "",                    null: false
+    t.string   "cp",            default: "",                    null: false
+    t.string   "telephon",      default: "",                    null: false
+    t.integer  "typcours",      default: 0,                     null: false
+    t.datetime "dateh",                                         null: false
+    t.time     "duree",         default: '2000-01-01 00:00:00', null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.integer  "enseignant_id"
+    t.integer  "respcom_id"
+    t.integer  "resppres_id"
+    t.text     "adresse"
+    t.string   "jour"
   end
 
   create_table "eleves", force: :cascade do |t|
@@ -51,13 +55,26 @@ ActiveRecord::Schema.define(version: 20171005101908) do
     t.boolean  "signature"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "user_id"
+  end
+
+  create_table "enseignants", force: :cascade do |t|
+    t.string   "nom"
+    t.string   "prenom"
+    t.integer  "graduation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "elefe_id"
   end
 
   create_table "presences", force: :cascade do |t|
-    t.date     "datecours",               null: false
-    t.string   "etat",       default: "", null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.date     "datecours",                  null: false
+    t.string   "etat",          default: "", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "elefe_id"
+    t.integer  "cour_id"
+    t.integer  "enseignant_id"
   end
 
   create_table "users", force: :cascade do |t|

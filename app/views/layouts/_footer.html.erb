@@ -1,0 +1,16 @@
+<div id="pdp" class="container fixed-bottom">
+    <div class="row">
+        <div class="col-4 text-center">
+            <% if current_user %>
+            Bienvenue <%= current_user.email %>
+            <% end %>
+        </div>
+        <div class="col-4 text-center">
+            GCC Admin
+        </div>
+        <div class="col-4 text-center">
+            <%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %>
+        </div>
+    </div>
+</div>
+

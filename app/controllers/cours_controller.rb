@@ -5,11 +5,13 @@ class CoursController < ApplicationController
   # GET /cours.json
   def index
     @cours = Cour.all
+    @enseignants = Enseignant.all
   end
 
   # GET /cours/1
   # GET /cours/1.json
   def show
+    set_enseignant(@cour.enseignant_id)
   end
 
   # GET /cours/new
@@ -19,6 +21,7 @@ class CoursController < ApplicationController
 
   # GET /cours/1/edit
   def edit
+    @enseignants = Enseignant.all
   end
 
   # POST /cours
@@ -56,7 +59,7 @@ class CoursController < ApplicationController
   def destroy
     @cour.destroy
     respond_to do |format|
-      format.html { redirect_to cours_url, notice: 'Cour was successfully destroyed.' }
+      format.html { redirect_to cours_url, notice: 'Le cours a bien été supprimé.' }
       format.json { head :no_content }
     end
   end
@@ -67,8 +70,16 @@ class CoursController < ApplicationController
       @cour = Cour.find(params[:id])
     end
 
+    def set_enseignant(ens_id)
+      @enseignant = Enseignant.find(ens_id)
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def cour_params
-      params.require(:cour).permit(:nomvil, :adresse, :cp, :telephon, :typcours, :dateh, :duree)
+      params.require(:cour).permit(:nomvil, :adresse, :cp, :telephon, :typcours, :jour, :dateh, :duree, :enseignant_id, :respcom_id, :resppres_id)
+    end
+
+    def enseignant_params
+      params.require(:enseignant).permit(:nom, :prenom, :graduation)
     end
 end

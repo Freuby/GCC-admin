@@ -1,39 +1,54 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Nomvil:</strong>
+    <strong>Enseignant référant :</strong>
+    <%= @enseignant.nom %>
+</p>
+
+<p>
+  <strong>Ville :</strong>
   <%= @cour.nomvil %>
 </p>
 
 <p>
-  <strong>Adresse:</strong>
+  <strong>Adresse :</strong>
   <%= @cour.adresse %>
 </p>
 
 <p>
-  <strong>Cp:</strong>
+  <strong>Code postal :</strong>
   <%= @cour.cp %>
 </p>
 
 <p>
-  <strong>Telephon:</strong>
+  <strong>Telephone :</strong>
   <%= @cour.telephon %>
 </p>
 
 <p>
-  <strong>Typcours:</strong>
-  <%= @cour.typcours %>
+  <strong>Type de cours :</strong>
+  <% if @cour.typcours == 0 %>
+    Adultes
+  <% elsif @cour.typcours == 1 %>
+    Enfants
+  <% elsif @cour.typcours == 2 %>
+    Mixte
+  <% end %>
 </p>
 
 <p>
-  <strong>Dateh:</strong>
-  <%= @cour.dateh %>
+    <strong>Jour du cours :</strong>
+    <%= @cour.jour %>
+</p>
+<p>
+  <strong>Heure :</strong>
+  <%= @cour.dateh.hour %>h<%= (@cour.dateh.min != 0 ? @cour.dateh.min : "") %>
 </p>
 
 <p>
-  <strong>Duree:</strong>
-  <%= @cour.duree %>
+  <strong>Durée :</strong>
+  <%= @cour.duree.hour %>h<%= (@cour.duree.min != 0 ? @cour.duree.min : "") %>
 </p>
 
-<%= link_to 'Edit', edit_cour_path(@cour) %> |
-<%= link_to 'Back', cours_path %>
+<%= link_to 'Modifier', edit_cour_path(@cour) %> |
+<%= link_to 'Retour', cours_path %>

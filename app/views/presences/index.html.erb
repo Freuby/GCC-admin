@@ -1,8 +1,64 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Presences</h1>
+<h2>Cours
+    <% if @cour[0].typcours == 0 %>
+        Adultes
+    <% elsif @cour[0].typcours == 1 %>
+        Enfants
+    <% elsif @cour[0].typcours == 2 %>
+        Mixte
+    <% end %>
+    <%= @cour[0].nomvil %>
+</h2>
 
-<table>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <% @presences.each do |j| %>
+            <% if j.elefe_id == @eleves[0].id %>
+                <th><%= j.datecours.day %>/<%= j.datecours.month %></th>
+            <% end %>
+        <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @eleves.each do |elefe|  %>
+        <tr>
+            <td><%= elefe.nom %></td>
+            <td><%= elefe.prenom %></td>
+            <% @presences.each do |j| %>
+                <% if j.elefe_id == elefe.id %>
+                    <td><%= j.etat %></td>
+                <% end %>
+            <% end %>
+        </tr>
+    <% end %>
+
+    </tbody>
+    <tbody>
+    <tr>
+        <td><strong>Encadrant</strong></td>
+        <td></td>
+        <% @presences.each do |j| %>
+            <% if j.elefe_id == @eleves[0].id %>
+                <td>
+                    <%= @enseignants.find(j.enseignant_id).nom %>
+                </td>
+            <% end %>
+        <% end %>
+
+    </tr>
+    </tbody>
+</table>
+
+<%= link_to 'Retour', root_path %>
+
+
+<!-- <table>
   <thead>
     <tr>
       <th>Datecours</th>
@@ -26,4 +82,4 @@
 
 <br>
 
-<%= link_to 'New Presence', new_presence_path %>
+<%= link_to 'New Presence', new_presence_path %> -->

@@ -1,5 +1,15 @@
-<h1>New Presence</h1>
+<h1>Tableau des présences</h1>
+<h2>Cours
+    <% if @cour[0].typcours == 0 %>
+        Adultes
+    <% elsif @cour[0].typcours == 1 %>
+        Enfants
+    <% elsif @cour[0].typcours == 2 %>
+        Mixte
+    <% end %>
+    <%= @cour[0].nomvil %>
+</h2>
 
 <%= render 'form', presence: @presence %>
 
-<%= link_to 'Back', presences_path %>
+<%= link_to 'Retour', presences_path %>

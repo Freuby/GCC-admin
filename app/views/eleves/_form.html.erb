@@ -17,7 +17,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :prenom %>
+    <%= f.label :prenom, "Prénom" %>
     <%= f.text_field :prenom %>
   </div>
 
@@ -27,7 +27,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :cp %>
+    <%= f.label :cp, "Code Postal" %>
     <%= f.text_field :cp %>
   </div>
 
@@ -42,8 +42,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :date_naissance %>
-    <%= f.datetime_select :date_naissance %>
+    <%= f.label :date_naissance, "Date de naissance" %>
+    <%= f.date_select :date_naissance, start_year: 1900 %>
   </div>
 
   <div class="field">
@@ -62,8 +62,18 @@
   </div>
 
   <div class="field">
-    <%= f.label :ville_entrainement %>
-    <%= f.number_field :ville_entrainement %>
+      <%= f.label :ville_entrainement, "Ville d'entraînement : " %>
+      <% @cours.each_with_index do |a,i| %>
+          <%= f.radio_button :ville_entrainement, a.id %>
+          <%= f.label :ville_entrainement, a.nomvil %>
+          <% if a.typcours == 0 %>
+              Adultes
+          <% elsif a.typcours == 1 %>
+              Enfants
+          <% elsif a.typcours == 2 %>
+              Mixte
+          <% end %>
+      <% end %>
   </div>
 
   <div class="field">
@@ -132,6 +142,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :go, value: "Valider", class: "btn btn-primary" %>
   </div>
 <% end %>

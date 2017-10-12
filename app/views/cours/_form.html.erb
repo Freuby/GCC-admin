@@ -11,42 +11,57 @@
     </div>
   <% end %>
 
+    <div class="field">
+        <%= f.label :enseignant_id, "Enseignant référant" %>
+        <%= f.select :enseignant_id, @enseignants.collect { |p| [p.nom, p.id] } %>
+    </div>
+
   <div class="field">
-    <%= f.label :nomvil %>
+    <%= f.label :nomvil, "Nom de la ville", class: "form-label" %>
     <%= f.text_field :nomvil %>
   </div>
 
   <div class="field">
-    <%= f.label :adresse %>
-    <%= f.text_field :adresse %>
+    <%= f.label :adresse, "Adresse" %>
+    <%= f.text_area :adresse %>
   </div>
 
   <div class="field">
-    <%= f.label :cp %>
+    <%= f.label :cp, "Code Postal" %>
     <%= f.text_field :cp %>
   </div>
 
   <div class="field">
-    <%= f.label :telephon %>
+    <%= f.label :telephon, "Téléphone" %>
     <%= f.text_field :telephon %>
   </div>
 
   <div class="field">
-    <%= f.label :typcours %>
-    <%= f.number_field :typcours %>
+    <%= f.label :typcours, "Type de cours" %><br />
+    <%= f.radio_button :typcours, 0 %>
+    <%= f.label :typcours, "Adultes" %>
+    <%= f.radio_button :typcours, 1 %>
+    <%= f.label :typcours, "Enfants" %>
+    <%= f.radio_button :typcours, 2 %>
+    <%= f.label :typcours, "Mixte" %>
   </div>
 
   <div class="field">
-    <%= f.label :dateh %>
-    <%= f.datetime_select :dateh %>
+    <%= f.label :jour, "Jour du cours" %>
+    <%= f.select :jour, ['lundi', 'mardi','mercredi','jeudi','vendredi','samedi','dimanche'] %>
   </div>
 
   <div class="field">
-    <%= f.label :duree %>
+    <%= f.label :dateh, "Heure de début du cours" %>
+    <%= f.time_select :dateh %>
+  </div>
+
+  <div class="field">
+    <%= f.label :duree, "Durée du cours" %>
     <%= f.time_select :duree %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :go, value: "Valider", class: "btn btn-primary" %>
   </div>
 <% end %>

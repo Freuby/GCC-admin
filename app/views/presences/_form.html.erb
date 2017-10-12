@@ -11,17 +11,41 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :datecours %>
-    <%= f.date_select :datecours %>
-  </div>
+    <div class="field">
+        <%= f.label :datecours %>
+        <%= f.date_select :datecours %>
+    </div>
+    <div class="field">
+        <%= f.label :enseignant_id, "Enseignant référant" %>
+        <%= f.select :enseignant_id, @enseignants.collect { |p| [p.nom, p.id] } %>
+    </div>
 
-  <div class="field">
-    <%= f.label :etat %>
-    <%= f.text_field :etat %>
-  </div>
+  <table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>Etat</th>
+    </tr>
+    </thead>
 
-  <div class="actions">
+    <tbody>
+    <% @eleves.each_with_index do |elefe, i|  %>
+        <tr>
+            <td><%= elefe.nom %></td>
+            <td><%= elefe.prenom %></td>
+            <td>
+                <div class="field">
+                    <%= f.text_field :etat, multiple: true %>
+                </div>
+            </td>
+
+        </tr>
+    <% end %>
+
+    </tbody>
+ </table>
+    <%= f.hidden_field :cour_id, value: @cour[0].id %>
     <%= f.submit %>
-  </div>
+
 <% end %>

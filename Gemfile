@@ -36,7 +36,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 gem 'devise'
 gem 'cancan'
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap', '~> 4.0.0.beta'
 gem 'autoprefixer-rails'
 
 group :development, :test do

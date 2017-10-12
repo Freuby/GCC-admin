@@ -2,21 +2,21 @@
 
 <h1>Eleves</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Nom</th>
       <th>Prenom</th>
-      <th>Rue</th>
+      <!-- <th>Rue</th>
       <th>Cp</th>
       <th>Ville</th>
       <th>Email</th>
       <th>Date naissance</th>
       <th>Tel mobile</th>
-      <th>Tel fixe</th>
+      <th>Tel fixe</th> -->
       <th>Graduation</th>
-      <th>Ville entrainement</th>
-      <th>A signaler</th>
+      <th>Ville</th>
+      <!-- <th>A signaler</th>
       <th>Urgence nom</th>
       <th>Urgence prenom</th>
       <th>Urgence parentee</th>
@@ -28,7 +28,7 @@
       <th>Parentee</th>
       <th>Prix</th>
       <th>Reglement</th>
-      <th>Signature</th>
+      <th>Signature</th> -->
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -38,16 +38,16 @@
       <tr>
         <td><%= elefe.nom %></td>
         <td><%= elefe.prenom %></td>
-        <td><%= elefe.rue %></td>
+        <!-- <td><%= elefe.rue %></td>
         <td><%= elefe.cp %></td>
         <td><%= elefe.ville %></td>
         <td><%= elefe.email %></td>
         <td><%= elefe.date_naissance %></td>
         <td><%= elefe.tel_mobile %></td>
-        <td><%= elefe.tel_fixe %></td>
+        <td><%= elefe.tel_fixe %></td> -->
         <td><%= elefe.graduation %></td>
         <td><%= elefe.ville_entrainement %></td>
-        <td><%= elefe.a_signaler %></td>
+        <!-- <td><%= elefe.a_signaler %></td>
         <td><%= elefe.urgence_nom %></td>
         <td><%= elefe.urgence_prenom %></td>
         <td><%= elefe.urgence_parentee %></td>
@@ -59,10 +59,10 @@
         <td><%= elefe.parentee %></td>
         <td><%= elefe.prix %></td>
         <td><%= elefe.reglement %></td>
-        <td><%= elefe.signature %></td>
-        <td><%= link_to 'Show', elefe %></td>
-        <td><%= link_to 'Edit', edit_elefe_path(elefe) %></td>
-        <td><%= link_to 'Destroy', elefe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= elefe.signature %></td> -->
+        <td><%= link_to 'Voir', elefe %></td>
+        <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td>
+        <td><%= link_to 'Effacer', elefe, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -70,4 +70,4 @@
 
 <br>
 
-<%= link_to 'New Elefe', new_elefe_path %>
+<%= link_to 'Ajouter un élève', new_elefe_path %>
