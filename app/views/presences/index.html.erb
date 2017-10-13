@@ -2,14 +2,14 @@
 
 <h1>Presences</h1>
 <h2>Cours
-    <% if @cour[0].typcours == 0 %>
+    <% if @presence.cour.typcours == 0 %>
         Adultes
-    <% elsif @cour[0].typcours == 1 %>
+    <% elsif @presence.cour.typcours == 1 %>
         Enfants
-    <% elsif @cour[0].typcours == 2 %>
+    <% elsif @presence.cour.typcours == 2 %>
         Mixte
     <% end %>
-    <%= @cour[0].nomvil %>
+    <%= @presence.cour.nomvil %>
 </h2>
 
 <table class="table">
@@ -17,23 +17,19 @@
     <tr>
         <th>Nom</th>
         <th>Prenom</th>
-        <% @presences.each do |j| %>
-            <% if j.elefe_id == @eleves[0].id %>
-                <th><%= j.datecours.day %>/<%= j.datecours.month %></th>
-            <% end %>
+        <% @presences.each do |presence| %>
+            <th><%= presence.datecours.day %>/<%= presence.datecours.month %></th>
         <% end %>
     </tr>
     </thead>
 
     <tbody>
-    <% @eleves.each do |elefe|  %>
+    <% @presence.eleves.each do |elefe|  %>
         <tr>
             <td><%= elefe.nom %></td>
             <td><%= elefe.prenom %></td>
-            <% @presences.each do |j| %>
-                <% if j.elefe_id == elefe.id %>
-                    <td><%= j.etat %></td>
-                <% end %>
+            <% @presences.each do |presence| %>
+                <td><%= elefe.etats.find_by_presence_id(presence.id).etat %></td>
             <% end %>
         </tr>
     <% end %>
@@ -43,14 +39,9 @@
     <tr>
         <td><strong>Encadrant</strong></td>
         <td></td>
-        <% @presences.each do |j| %>
-            <% if j.elefe_id == @eleves[0].id %>
-                <td>
-                    <%= @enseignants.find(j.enseignant_id).nom %>
-                </td>
-            <% end %>
+        <% @presences.each do |presence| %>
+            <td><%= presence.enseignant.prenom %> <%= presence.enseignant.nom %></td>
         <% end %>
-
     </tr>
     </tbody>
 </table>

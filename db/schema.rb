@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171012113850) do
+ActiveRecord::Schema.define(version: 20171013135435) do
 
   create_table "cours", force: :cascade do |t|
     t.string   "nomvil",        default: "",                    null: false
+    t.string   "adresse",       default: "",                    null: false
     t.string   "cp",            default: "",                    null: false
     t.string   "telephon",      default: "",                    null: false
     t.integer  "typcours",      default: 0,                     null: false
@@ -21,11 +22,9 @@ ActiveRecord::Schema.define(version: 20171012113850) do
     t.time     "duree",         default: '2000-01-01 00:00:00', null: false
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
-    t.integer  "enseignant_id"
-    t.integer  "respcom_id"
-    t.integer  "resppres_id"
-    t.text     "adresse"
     t.string   "jour"
+    t.integer  "enseignant_id"
+    t.index ["enseignant_id"], name: "index_cours_on_enseignant_id"
   end
 
   create_table "eleves", force: :cascade do |t|
@@ -55,7 +54,8 @@ ActiveRecord::Schema.define(version: 20171012113850) do
     t.boolean  "signature"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-    t.integer  "user_id"
+    t.integer  "presence_id"
+    t.index ["presence_id"], name: "index_eleves_on_presence_id"
   end
 
   create_table "enseignants", force: :cascade do |t|
@@ -64,7 +64,17 @@ ActiveRecord::Schema.define(version: 20171012113850) do
     t.integer  "graduation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "etats", force: :cascade do |t|
+    t.string   "etat"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "presence_id"
     t.integer  "elefe_id"
+    t.index ["elefe_id"], name: "index_etats_on_elefe_id"
+    t.index ["presence_id"], name: "index_etats_on_presence_id"
   end
 
   create_table "presences", force: :cascade do |t|
@@ -75,6 +85,9 @@ ActiveRecord::Schema.define(version: 20171012113850) do
     t.integer  "elefe_id"
     t.integer  "cour_id"
     t.integer  "enseignant_id"
+    t.index ["cour_id"], name: "index_presences_on_cour_id"
+    t.index ["elefe_id"], name: "index_presences_on_elefe_id"
+    t.index ["enseignant_id"], name: "index_presences_on_enseignant_id"
   end
 
   create_table "users", force: :cascade do |t|

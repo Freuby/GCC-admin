@@ -1,5 +1,4 @@
 class Elefe < ApplicationRecord
-  belongs_to :user
-  has_many :cours
-  has_many :presences
+  has_many :etats
+  has_many :presences, through: :etats
 end

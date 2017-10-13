@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails Admin_GCC: development" uuid="11d78fad-3c0d-4d78-bcba-9bcd028ddf19" />
+    <data-source name="Rails Admin_GCC: test" uuid="a19ca1d1-dc04-4edd-a873-f5ffa0083552" />
+    <data-source name="Rails Admin_GCC: development" uuid="fb2c644b-21f4-4350-8889-f40b10f443fb">
+      <first-sync>true</first-sync>
+    </data-source>
+    <data-source name="Rails Admin_GCC: test" uuid="1909025a-40f1-4766-ac9d-f935769d4d0a" />
+  </component>
+</project>

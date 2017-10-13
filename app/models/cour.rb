@@ -1,3 +1,3 @@
 class Cour < ApplicationRecord
-  has_many :eleves
+  belongs_to :enseignant
 end

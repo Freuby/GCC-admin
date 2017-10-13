@@ -14,19 +14,19 @@ class PresencesController < ApplicationController
   # GET /presences
   # GET /presences.json
   def index
-    @presences = Presence.all
-    @eleves = Elefe.where(:ville_entrainement => params[:select][:cour]).all
+    cour = params[:select][:cour]
+    @presences = Presence.includes(:eleves, :etats, :cour, :enseignant).where(:cour_id => cour).all
+    @presence = @presences.last
     @cour = Cour.where(:id => params[:select][:cour])
-    @enseignants = Enseignant.all
   end
 
   # GET /presences/1
   # GET /presences/1.json
   def show
+    @presences = Presence.includes(:eleves, :etats, :cour, :enseignant).where(:cour_id => @presence.cour_id).all
+    @presence = @presences.last
     @enseignants = Enseignant.all
     @eleves = Elefe.where(:ville_entrainement => @presence.cour_id).all
-    @presences = Presence.where(:cour_id => @presence.cour_id).all
-    @cour = Cour.where(:id => @presence.cour_id)
   end
 
   # GET /presences/new
@@ -47,16 +47,19 @@ class PresencesController < ApplicationController
     @eleves = Elefe.where(:ville_entrainement => params[:presence][:cour_id]).all
     date = params[:presence]['datecours(1i)']+"-"+params[:presence]['datecours(2i)']+"-"+params[:presence]['datecours(3i)']
     date = date.to_date
+    @presence = Presence.new(:datecours => date)
+    @etat = params[:presence][:etat]
     @eleves.each_with_index do |elefe, i|
-      @etat = params[:presence][:etat]
-      @presence = Presence.new(:datecours => date, :etat => @etat[i], :elefe_id => elefe.id, :cour_id => params[:presence][:cour_id], :enseignant_id => params[:presence][:enseignant_id])
-      @presence.save
+      @presence.etats << elefe.etats.create(etat: @etat[i])
     end
+    @presence.enseignant_id = params[:presence][:enseignant_id]
+    @presence.cour_id = params[:presence][:cour_id]
+    @presence.save
 
 
     respond_to do |format|
       if @presence.save
-        format.html { redirect_to @presence, notice: 'Presence was successfully created.' }
+        format.html { redirect_to @presence, notice: 'Les présences ont bien été enregistrées.' }
         format.json { render :show, status: :created, location: @presence }
       else
         format.html { render :new }
@@ -70,7 +73,7 @@ class PresencesController < ApplicationController
   def update
     respond_to do |format|
       if @presence.update(presence_params)
-        format.html { redirect_to @presence, notice: 'Presence was successfully updated.' }
+        format.html { redirect_to @presence, notice: 'Les présences ont bien été modifiées.' }
         format.json { render :show, status: :ok, location: @presence }
       else
         format.html { render :edit }
