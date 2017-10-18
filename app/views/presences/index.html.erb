@@ -11,14 +11,41 @@
     <% end %>
     <%= @presence.cour.nomvil %>
 </h2>
+<div class="row">
+    <div class="col-3">
+        <table class="table table-striped">
+              <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% @presence.eleves.each do |elefe|  %>
+                  <tr>
+                      <td><%= link_to elefe.nom, elefe_path(elefe.id) %></td>
+                      <td><%= elefe.prenom %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+              <tbody>
+                <tr>
+                    <td><strong>Encadrant</strong></td>
+                    <td></td>
+                </tr>
+              </tbody>
+        </table>
+    </div>
 
-<table class="table">
+
+<div class="col-9">
+<div id="index_presences">
+<table class="table table-striped">
     <thead>
     <tr>
-        <th>Nom</th>
-        <th>Prenom</th>
         <% @presences.each do |presence| %>
-            <th><%= presence.datecours.day %>/<%= presence.datecours.month %></th>
+            <% date = presence.datecours.day.to_s+'/'+presence.datecours.month.to_s %>
+            <td><%= link_to date, presence, method: :delete, data: { confirm: 'Supprimer les présences du '+date+' ?' } %></td>
         <% end %>
     </tr>
     </thead>
@@ -26,28 +53,34 @@
     <tbody>
     <% @presence.eleves.each do |elefe|  %>
         <tr>
-            <td><%= elefe.nom %></td>
-            <td><%= elefe.prenom %></td>
             <% @presences.each do |presence| %>
+                <% if elefe.etats.find_by_presence_id(presence.id) %>
                 <td><%= elefe.etats.find_by_presence_id(presence.id).etat %></td>
+                <% else %>
+                <td></td>
+                <% end %>
             <% end %>
         </tr>
     <% end %>
 
     </tbody>
+
     <tbody>
     <tr>
-        <td><strong>Encadrant</strong></td>
-        <td></td>
         <% @presences.each do |presence| %>
+            <% if presence %>
             <td><%= presence.enseignant.prenom %> <%= presence.enseignant.nom %></td>
+            <% end %>
         <% end %>
     </tr>
     </tbody>
 </table>
+</div>
+</div>
 
 <%= link_to 'Retour', root_path %>
 
+</div>
 
 <!-- <table>
   <thead>

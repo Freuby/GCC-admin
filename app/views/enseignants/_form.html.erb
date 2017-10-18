@@ -13,20 +13,21 @@
 
   <div class="field">
     <%= f.label :nom %>
-    <%= f.text_field :nom %>
+    <%= f.text_field :nom, class:"form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :prenom %>
-    <%= f.text_field :prenom %>
+    <%= f.label :prenom, "Prénom" %>
+    <%= f.text_field :prenom, class:"form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :graduation %>
-    <%= f.number_field :graduation %>
+    <%= f.select :graduation, @grades_adultes.collect { |g| [g, @grades_adultes.index(g)] }, {}, class: "form-control" %>
   </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <br/>
+  <div class="actions text-center">
+    <%= f.submit :go, value: "Valider", class: "btn btn-primary btn-lg" %>
   </div>
+  <br/>
 <% end %>

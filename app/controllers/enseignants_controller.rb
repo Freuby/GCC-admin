@@ -1,5 +1,6 @@
 class EnseignantsController < ApplicationController
   before_action :set_enseignant, only: [:show, :edit, :update, :destroy]
+  before_action :set_constant
 
   # GET /enseignants
   # GET /enseignants.json
@@ -70,5 +71,9 @@ class EnseignantsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def enseignant_params
       params.require(:enseignant).permit(:nom, :prenom, :graduation)
+    end
+
+    def set_constant
+      @grades_adultes = ["Débutant", "1e corda", "2e corda", "3e corda", "4e corda", "5e corda", "Estagiário", "Monitor", "Instrutor", "Contramestre", "Mestre Edificador", "Mestre Digno"]
     end
 end

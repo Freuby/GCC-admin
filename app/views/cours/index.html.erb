@@ -2,7 +2,7 @@
 
 <h1>Liste des Cours</h1>
 
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Ville</th>
@@ -37,7 +37,7 @@
         <td><%= cour.jour %></td>
         <td><%= cour.dateh.hour %>h<%= (cour.dateh.min != 0 ? cour.dateh.min : "") %></td>
         <!-- <td><%= cour.duree.hour %>h<%= (cour.duree.min != 0 ? cour.duree.min : "") %></td> -->
-        <td><%= @enseignants.find(cour.enseignant_id).nom %></td>
+        <td><%= @enseignants.find(cour.enseignant_id).prenom %> <%= @enseignants.find(cour.enseignant_id).nom %></td>
         <td><%= link_to 'Voir', cour %></td>
         <td><%= link_to 'Modifier', edit_cour_path(cour) %></td>
         <td><%= link_to 'Effacer', cour, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -23,18 +23,27 @@ class PresencesController < ApplicationController
   # GET /presences/1
   # GET /presences/1.json
   def show
-    @presences = Presence.includes(:eleves, :etats, :cour, :enseignant).where(:cour_id => @presence.cour_id).all
-    @presence = @presences.last
     @enseignants = Enseignant.all
-    @eleves = Elefe.where(:ville_entrainement => @presence.cour_id).all
+    @eleves = @presence.eleves
+    cour = @presence.cour_id
+    @presences = Presence.includes(:eleves, :etats, :cour, :enseignant).where(:cour_id => cour).all
+    @presence = @presences.last
+    @cour = Cour.where(:id => @presence.cour_id)
   end
 
   # GET /presences/new
   def new
-    @presence = Presence.new
-    @eleves = Elefe.where(:ville_entrainement => params[:select][:cour]).all
-    @cour = Cour.where(:id => params[:select][:cour])
-    @enseignants = Enseignant.all
+      @cour = Cour.find_by(:id => params[:select][:cour])
+      @eleves = Array[]
+      @presence = Presence.new
+      @eleves_all = Elefe.all
+      @eleves_all.each do |elefe|
+        c = elefe.cours
+        if c.detect { |b| b.id == @cour.id }
+          @eleves << elefe
+        end
+      end
+      @enseignants = Enseignant.all
   end
 
   # GET /presences/1/edit
@@ -44,28 +53,63 @@ class PresencesController < ApplicationController
   # POST /presences
   # POST /presences.json
   def create
-    @eleves = Elefe.where(:ville_entrainement => params[:presence][:cour_id]).all
-    date = params[:presence]['datecours(1i)']+"-"+params[:presence]['datecours(2i)']+"-"+params[:presence]['datecours(3i)']
-    date = date.to_date
-    @presence = Presence.new(:datecours => date)
-    @etat = params[:presence][:etat]
-    @eleves.each_with_index do |elefe, i|
-      @presence.etats << elefe.etats.create(etat: @etat[i])
-    end
-    @presence.enseignant_id = params[:presence][:enseignant_id]
-    @presence.cour_id = params[:presence][:cour_id]
-    @presence.save
-
-
-    respond_to do |format|
-      if @presence.save
-        format.html { redirect_to @presence, notice: 'Les présences ont bien été enregistrées.' }
-        format.json { render :show, status: :created, location: @presence }
-      else
-        format.html { render :new }
-        format.json { render json: @presence.errors, status: :unprocessable_entity }
+    if params[:commit] == "Ajouter l'élève"
+      nompren = params[:elefe]
+      nompren = nompren.split(', ')
+      el = Elefe.find_by(:nom => nompren[0], :prenom => nompren[1])
+      c = Cour.find_by(:id => params[:presence][:cour_id])
+      cours = el.cours
+      if !cours.detect { |b| b.id == c.id }
+        el.cours << c
       end
-    end
+      redirect_back(fallback_location: :back)
+
+    elsif params[:commit] == "Enlever l'élève"
+      nompren = params[:elefe]
+      nompren = nompren.split(', ')
+      el = Elefe.find_by(:nom => nompren[0], :prenom => nompren[1])
+      c = Cour.find_by(:id => params[:presence][:cour_id])
+      el.cours.delete(c)
+      redirect_back(fallback_location: :back)
+
+    elsif params[:commit] == "Ajouter"
+      puts "--------------"
+      puts params[:elefe_nom][:Nom]
+      puts params[:elefe_prenom][:Prenom]
+      el = Elefe.new( :nom => params[:elefe_nom][:Nom], :prenom => params[:elefe_prenom][:Prenom], :ville_entrainement => params[:presence][:cour_id] )
+      c = Cour.find_by(:id => params[:presence][:cour_id])
+      el.cours << c
+      el.save
+      redirect_back(fallback_location: :back)
+
+    elsif params[:commit] == "Valider"
+      # @eleves = Elefe.where(:ville_entrainement => params[:presence][:cour_id]).all
+      @cour = Cour.find(params[:presence][:cour_id])
+      @eleves = @cour.eleves
+      date = params[:presence]['datecours(1i)']+"-"+params[:presence]['datecours(2i)']+"-"+params[:presence]['datecours(3i)']
+      date = date.to_date
+      @presence = Presence.new(:datecours => date)
+
+      @eleves.each_with_index do |elefe, i|
+        j = i.to_s
+        @etat = params[:etat][j]
+        @presence.etats << elefe.etats.create(etat: @etat)
+      end
+      @presence.enseignant_id = params[:presence][:enseignant_id]
+      @presence.cour_id = params[:presence][:cour_id]
+      @presence.save
+
+
+      respond_to do |format|
+        if @presence.save
+          format.html { redirect_to @presence, notice: 'Les présences ont bien été enregistrées.' }
+          format.json { render :show, status: :created, location: @presence }
+        else
+          format.html { render :new }
+          format.json { render json: @presence.errors, status: :unprocessable_entity }
+        end
+      end
+     end
   end
 
   # PATCH/PUT /presences/1
@@ -87,7 +131,7 @@ class PresencesController < ApplicationController
   def destroy
     @presence.destroy
     respond_to do |format|
-      format.html { redirect_to presences_url, notice: 'Presence was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Cette date a bien été supprimée du tableau.' }
       format.json { head :no_content }
     end
   end

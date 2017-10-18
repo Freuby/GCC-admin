@@ -1,124 +1,149 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>FICHE ELEVE</h1>
+        </div>
+    </div>
+    <%= image_tag("photo-anonyme.jpg", alt: "Photo identité", id: "photo-identite") %>
+    <div class="row">
+        <div class="col-6">
+            <strong>Nom:</strong>
+            <%= @elefe.nom %>
+        </div>
+        <div class="col-6">
+            <strong>Prenom:</strong>
+            <%= @elefe.prenom %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <strong>Rue:</strong>
+            <%= @elefe.rue %>
+        </div>
+        <div class="col-6">
+            <strong>Date naissance:</strong>
+            <%= @elefe.date_naissance %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <strong>Code postal:</strong>
+            <%= @elefe.cp %>
+        </div>
+        <div class="col-4">
+            <strong>Ville:</strong>
+            <%= @elefe.ville %>
+        </div>
+        <div class="col-6">
+            <strong>Email:</strong>
+            <%= @elefe.email %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <strong>Tel mobile:</strong>
+            <%= @elefe.tel_mobile %>
+        </div>
+        <div class="col-6">
+            <strong>Tel fixe:</strong>
+            <%= @elefe.tel_fixe %>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-6">
+            <strong>Graduation:</strong>
+            <%= @elefe.graduation %>
+        </div>
+        <div class="col-6">
+            <strong>Ville entrainement:</strong>
+            <%= @elefe.ville_entrainement %>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-12">
+            <h3>Particularités médicales</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 field">
+            <strong>Maladie/Traitement/Autre à signaler:</strong>
+            <%= @elefe.a_signaler %>
+        </div>
+     </div>
+    <div class="row">
+        <div class="col-12"><h6>Personne à prévenir en cas d’urgence</h6></div>
 
-<p>
-  <strong>Nom:</strong>
-  <%= @elefe.nom %>
-</p>
+        <div class="col-6 field">
+            <strong>Nom:</strong>
+            <%= @elefe.urgence_nom %>
+        </div>
 
-<p>
-  <strong>Prenom:</strong>
-  <%= @elefe.prenom %>
-</p>
+         <div class="col-6 field">
+             <strong>Urgence prenom:</strong>
+             <%= @elefe.urgence_prenom %>
+         </div>
 
-<p>
-  <strong>Rue:</strong>
-  <%= @elefe.rue %>
-</p>
+         <div class="col-12 field">
+             <strong>Lien de parenté:</strong>
+             <%= @elefe.urgence_parentee %>
+         </div>
 
-<p>
-  <strong>Cp:</strong>
-  <%= @elefe.cp %>
-</p>
+         <div class="col-12 field">
+             <strong>Téléphone:</strong>
+             <%= @elefe.urgence_tel %>
+         </div>
 
-<p>
-  <strong>Ville:</strong>
-  <%= @elefe.ville %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @elefe.email %>
-</p>
-
-<p>
-  <strong>Date naissance:</strong>
-  <%= @elefe.date_naissance %>
-</p>
-
-<p>
-  <strong>Tel mobile:</strong>
-  <%= @elefe.tel_mobile %>
-</p>
-
-<p>
-  <strong>Tel fixe:</strong>
-  <%= @elefe.tel_fixe %>
-</p>
-
-<p>
-  <strong>Graduation:</strong>
-  <%= @elefe.graduation %>
-</p>
-
-<p>
-  <strong>Ville entrainement:</strong>
-  <%= @elefe.ville_entrainement %>
-</p>
-
-<p>
-  <strong>A signaler:</strong>
-  <%= @elefe.a_signaler %>
-</p>
-
-<p>
-  <strong>Urgence nom:</strong>
-  <%= @elefe.urgence_nom %>
-</p>
-
-<p>
-  <strong>Urgence prenom:</strong>
-  <%= @elefe.urgence_prenom %>
-</p>
-
-<p>
-  <strong>Urgence parentee:</strong>
-  <%= @elefe.urgence_parentee %>
-</p>
-
-<p>
-  <strong>Urgence tel:</strong>
-  <%= @elefe.urgence_tel %>
-</p>
-
-<p>
-  <strong>Soin moi:</strong>
-  <%= @elefe.soin_moi %>
-</p>
-
-<p>
-  <strong>Soin tutelle:</strong>
-  <%= @elefe.soin_tutelle %>
-</p>
-
-<p>
-  <strong>Info ville:</strong>
-  <%= @elefe.info_ville %>
-</p>
-
-<p>
-  <strong>Gcc connait:</strong>
-  <%= @elefe.gcc_connait %>
-</p>
-
-<p>
-  <strong>Parentee:</strong>
-  <%= @elefe.parentee %>
-</p>
-
-<p>
-  <strong>Prix:</strong>
-  <%= @elefe.prix %>
-</p>
-
-<p>
-  <strong>Reglement:</strong>
-  <%= @elefe.reglement %>
-</p>
-
-<p>
-  <strong>Signature:</strong>
-  <%= @elefe.signature %>
-</p>
-
+         <div class="col-12">
+             <p>J'autorise le représentant de l’Association Culture Brésil à prendre toute décision destinée à faire donner les soins médicaux chirurgicaux qui pourraient être nécessaires à :</p>
+             <%= @elefe.soin_moi %><%= @elefe.soin_tutelle %>
+         </div>
+     </div>
+    <div class="row">
+        <div class="col-12">
+            <p>Je souhaite être informé(e) des imprévus pouvant avoir lieu sur les cours dans villes de :</p>
+            <%= @elefe.info_ville %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p>Je connais le GCC grâce à:</p>
+            <%= @elefe.gcc_connait %>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-12">
+            <h3>Réglement cotisation annuelle</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <strong>Option famille:</strong>
+            <%= @elefe.parentee %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <strong>Montant du réglement:</strong>
+            <%= @elefe.prix %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <strong>Type réglement:</strong>
+            <%= @elefe.reglement %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <strong>Inscription complète ?</strong>
+            <%= @elefe.signature %>
+        </div>
+    </div>
+</div>
+<br/>
 <%= link_to 'Modifier', edit_elefe_path(@elefe) %> |
 <%= link_to 'Retour', eleves_path %>

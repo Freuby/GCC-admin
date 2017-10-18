@@ -1,14 +1,15 @@
 
-    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <%= link_to image_tag("logo_gcc.png", alt: "Grupo Cultura Capoeira", id: "logo"), root_path, class: "navbar-brand" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <%= link_to "GCC Admin", root_path, class: "navbar-brand" %>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="nav nav-tabs">
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
                 <% if user_signed_in? %>
-                    <li class="nav-item dropdown">
+                    <li class="dropdown">
                         <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mon compte</a>
                         <div class="dropdown-menu">
                             <%= link_to "Editer son profil", edit_user_registration_path, class:  "dropdown-item" %>
@@ -18,33 +19,31 @@
                 <% else %>
                     <li class="nav-item"><%= link_to "Créer un compte", new_user_session_path, class: "nav-link" %></li>
                 <% end %>
-                        <% if current_user %>
+
                 <% if current_user.admin == 1 %>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Elèves</a>
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Elèves</a>
                                     <div class="dropdown-menu">
                                         <%= link_to "Liste des élèves", eleves_path, class:  "dropdown-item" %>
                                         <%= link_to "Ajouter un élève", new_elefe_path, class:  "dropdown-item" %>
-                                        <%= link_to "Rechercher un élève", '#', class:  "dropdown-item" %>
-                                        <%= link_to "Supprimer des élèves", '#', class:  "dropdown-item" %>
                                     </div>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cours</a>
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cours</a>
                                     <div class="dropdown-menu">
                                          <%= link_to "Liste des cours", cours_path, class:  "dropdown-item" %>
                                          <%= link_to "Ajouter un cours", new_cour_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
-                                <li class="nav-item dropdown">
-                                <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Enseignants</a>
+                                <li class="dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Enseignants</a>
                                     <div class="dropdown-menu">
                                           <%= link_to "Liste des enseignants", enseignants_path, class:  "dropdown-item" %>
                                           <%= link_to "Ajouter un enseignants", new_enseignant_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
-                                <li class="nav-item dropdown">
-                                <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Présences</a>
+                                <li class="dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Présences</a>
                                     <div class="dropdown-menu">
                                           <%= link_to "Saisir des présences", presencesel_path, class:  "dropdown-item" %>
                                           <%= link_to "Consulter des présences", consulpres_path, class:  "dropdown-item" %>
@@ -53,10 +52,7 @@
                 <% else %>
                     Compte normal
                 <% end %>
-                        <% end %>
+
             </ul>
-
         </div>
-    </nav>
-
-</ul>
+ </nav>

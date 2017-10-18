@@ -13,11 +13,11 @@
 
     <div class="field">
         <%= f.label :datecours %>
-        <%= f.date_select :datecours %>
+        <%= f.date_select :datecours, class: "form-control" %>
     </div>
     <div class="field">
-        <%= f.label :enseignant_id, "Enseignant référant" %>
-        <%= f.select :enseignant_id, @enseignants.collect { |p| [p.nom, p.id] } %>
+        <%= f.label :enseignant_id, "Enseignant référant " %>
+        <%= f.select :enseignant_id, @enseignants.collect { |p| [p.nom, p.id] }, class: "form-control" %>
     </div>
 
   <table class="table">
@@ -36,16 +36,32 @@
             <td><%= elefe.prenom %></td>
             <td>
                 <div class="field">
-                    <%= f.text_field :etat, multiple: true %>
+                    <%= select( :etat, i, ['P','A','M/B','J'], { }, { } ) %>
                 </div>
             </td>
-
         </tr>
     <% end %>
-
     </tbody>
+    <%= form_for(presence) do |g| %>
+    <tbody>
+        <%= g.label :elefe, "Ajouter un élève existant " %>
+        <%= select_tag( :elefe, options_for_select(@eleves_all.map {|el| el.nom + ', ' + el.prenom}), class: "form-control") %>
+        <%= g.submit :nouv_ele_ex, value: "Ajouter l'élève", class: "btn btn-outline-primary btn-sm" %>
+        <%= g.submit :del_ele_ex, value: "Enlever l'élève", class: "btn btn-outline-primary btn-sm" %>
+    </tbody>
+    <% end %>
+      <br />
+      <%= form_for(presence) do |h| %>
+      <tbody>
+          <%= h.label :elefe, "Ajouter un élève " %>
+          <%= text_field :elefe_nom, "Nom", class: "form-control", placeholder: "Entrer un nom" %>
+          <%= text_field :elefe_prenom, "Prenom", class: "form-control", placeholder: "Entrer un prénom" %>
+          <%= h.hidden_field :cour_id, value: @cour.id %>
+          <%= h.submit :ajout_ele_new, value: "Ajouter", class: "btn btn-outline-primary btn-sm" %>
+      </tbody>
+      <% end %>
  </table>
-    <%= f.hidden_field :cour_id, value: @cour[0].id %>
-    <%= f.submit %>
+    <%= f.hidden_field :cour_id, value: @cour.id %>
+    <%= f.submit :creepres, value: "Valider", class: "btn btn-primary" %>
 
 <% end %>

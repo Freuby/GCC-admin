@@ -25,11 +25,18 @@ class ElevesController < ApplicationController
   # POST /eleves
   # POST /eleves.json
   def create
+    #info_ville = params[:elefe][:info_ville].join.to_i
+    #params[:elefe][:info_ville] = info_ville
+
     @elefe = Elefe.new(elefe_params)
+    cour = Cour.where(:id => params[:elefe][:ville_entrainement])
+    @elefe.cours << cour
+    u = current_user
+    u.eleves << @elefe
 
     respond_to do |format|
       if @elefe.save
-        format.html { redirect_to @elefe, notice: 'Elefe was successfully created.' }
+        format.html { redirect_to @elefe, notice: 'La fiche élève a bien été créée.' }
         format.json { render :show, status: :created, location: @elefe }
       else
         format.html { render :new }
@@ -41,9 +48,14 @@ class ElevesController < ApplicationController
   # PATCH/PUT /eleves/1
   # PATCH/PUT /eleves/1.json
   def update
+    cour = Cour.find_by(:id => params[:elefe][:ville_entrainement])
+    cours = @elefe.cours
+    if !cours.detect { |b| b.id == cour.id }
+      @elefe.cours << cour
+    end
     respond_to do |format|
       if @elefe.update(elefe_params)
-        format.html { redirect_to @elefe, notice: 'Elefe was successfully updated.' }
+        format.html { redirect_to @elefe, notice: 'La fiche élève a bien été modifiée.' }
         format.json { render :show, status: :ok, location: @elefe }
       else
         format.html { render :edit }
@@ -57,7 +69,7 @@ class ElevesController < ApplicationController
   def destroy
     @elefe.destroy
     respond_to do |format|
-      format.html { redirect_to eleves_url, notice: 'Elefe was successfully destroyed.' }
+      format.html { redirect_to eleves_url, notice: 'La fiche élève a bien été effacée.' }
       format.json { head :no_content }
     end
   end

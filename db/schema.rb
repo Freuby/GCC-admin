@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013135435) do
+ActiveRecord::Schema.define(version: 20171017162349) do
 
   create_table "cours", force: :cascade do |t|
     t.string   "nomvil",        default: "",                    null: false
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 20171013135435) do
     t.string   "jour"
     t.integer  "enseignant_id"
     t.index ["enseignant_id"], name: "index_cours_on_enseignant_id"
+  end
+
+  create_table "cours_eleves", id: false, force: :cascade do |t|
+    t.integer "cour_id",  null: false
+    t.integer "elefe_id", null: false
+    t.index ["cour_id", "elefe_id"], name: "index_cours_eleves_on_cour_id_and_elefe_id"
+    t.index ["elefe_id", "cour_id"], name: "index_cours_eleves_on_elefe_id_and_cour_id"
   end
 
   create_table "eleves", force: :cascade do |t|
@@ -55,7 +62,9 @@ ActiveRecord::Schema.define(version: 20171013135435) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "presence_id"
+    t.integer  "user_id"
     t.index ["presence_id"], name: "index_eleves_on_presence_id"
+    t.index ["user_id"], name: "index_eleves_on_user_id"
   end
 
   create_table "enseignants", force: :cascade do |t|

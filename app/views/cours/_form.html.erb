@@ -13,27 +13,27 @@
 
     <div class="field">
         <%= f.label :enseignant_id, "Enseignant référant" %>
-        <%= f.select :enseignant_id, @enseignants.collect { |p| [p.nom, p.id] } %>
+        <%= f.select :enseignant_id, @enseignants.collect { |p| [p.prenom+' '+p.nom, p.id] }, {}, class: "form-control" %>
     </div>
 
   <div class="field">
     <%= f.label :nomvil, "Nom de la ville", class: "form-label" %>
-    <%= f.text_field :nomvil %>
+    <%= f.text_field :nomvil, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :adresse, "Adresse" %>
-    <%= f.text_area :adresse %>
+    <%= f.text_area :adresse, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :cp, "Code Postal" %>
-    <%= f.text_field :cp %>
+    <%= f.text_field :cp, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :telephon, "Téléphone" %>
-    <%= f.text_field :telephon %>
+    <%= f.text_field :telephon, class: "form-control" %>
   </div>
 
   <div class="field">
@@ -48,7 +48,7 @@
 
   <div class="field">
     <%= f.label :jour, "Jour du cours" %>
-    <%= f.select :jour, ['lundi', 'mardi','mercredi','jeudi','vendredi','samedi','dimanche'] %>
+    <%= f.select :jour, ['lundi', 'mardi','mercredi','jeudi','vendredi','samedi','dimanche'], {}, class: "form-control" %>
   </div>
 
   <div class="field">
@@ -60,8 +60,9 @@
     <%= f.label :duree, "Durée du cours" %>
     <%= f.time_select :duree %>
   </div>
-
-  <div class="actions">
-    <%= f.submit :go, value: "Valider", class: "btn btn-primary" %>
+  <br/>
+  <div class="actions text-center">
+    <%= f.submit :go, value: "Valider", class: "btn btn-primary btn-lg" %>
   </div>
+  <br/>
 <% end %>
