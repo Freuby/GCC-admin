@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Batigrados</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Titre</th>
+      <th>Date bat</th>
+      <th>Tail tshirt</th>
+      <th>Tail pant</th>
+      <th>Tarif1</th>
+      <th>Tarif2</th>
+      <th>Grad up</th>
+      <th>Boolean</th>
+      <th>Repas1</th>
+      <th>Repas2</th>
+      <th>Repas3</th>
+      <th>Soiree</th>
+      <th>Info regl</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @batigrados.each do |batigrado| %>
+      <tr>
+        <td><%= batigrado.titre %></td>
+        <td><%= batigrado.date_bat %></td>
+        <td><%= batigrado.tail_tshirt %></td>
+        <td><%= batigrado.tail_pant %></td>
+        <td><%= batigrado.tarif1 %></td>
+        <td><%= batigrado.tarif2 %></td>
+        <td><%= batigrado.grad_up %></td>
+        <td><%= batigrado.boolean %></td>
+        <td><%= batigrado.repas1 %></td>
+        <td><%= batigrado.repas2 %></td>
+        <td><%= batigrado.repas3 %></td>
+        <td><%= batigrado.soiree %></td>
+        <td><%= batigrado.info_regl %></td>
+        <td><%= link_to 'Show', batigrado %></td>
+        <td><%= link_to 'Edit', edit_batigrado_path(batigrado) %></td>
+        <td><%= link_to 'Destroy', batigrado, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Batigrado', new_batigrado_path %>

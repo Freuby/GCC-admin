@@ -1,0 +1,2 @@
+module BatigradosHelper
+end

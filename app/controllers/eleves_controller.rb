@@ -6,6 +6,7 @@ class ElevesController < ApplicationController
   # GET /eleves.json
   def index
     @eleves = Elefe.all
+    @eleves_cu = @eleves.where(:user_id => current_user.id).all
   end
 
   # GET /eleves/1

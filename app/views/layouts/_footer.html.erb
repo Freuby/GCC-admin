@@ -8,9 +8,11 @@
         <div class="col-4 text-center">
             GCC Admin
         </div>
+        <% if current_user %>
         <div class="col-4 text-center">
             <%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %>
         </div>
+        <% end %>
     </div>
 </div>
 

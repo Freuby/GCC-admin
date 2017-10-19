@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171017162349) do
+ActiveRecord::Schema.define(version: 20171019123336) do
+
+  create_table "batigrados", force: :cascade do |t|
+    t.string   "titre"
+    t.date     "date_bat"
+    t.string   "tail_tshirt"
+    t.string   "tail_pant"
+    t.float    "tarif1"
+    t.float    "tarif2"
+    t.string   "grad_up"
+    t.string   "boolean"
+    t.boolean  "repas1"
+    t.boolean  "repas2"
+    t.boolean  "repas3"
+    t.boolean  "soiree"
+    t.string   "info_regl"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "batigrados_eleves", id: false, force: :cascade do |t|
+    t.integer "elefe_id",     null: false
+    t.integer "batigrado_id", null: false
+    t.index ["batigrado_id", "elefe_id"], name: "index_batigrados_eleves_on_batigrado_id_and_elefe_id"
+    t.index ["elefe_id", "batigrado_id"], name: "index_batigrados_eleves_on_elefe_id_and_batigrado_id"
+  end
 
   create_table "cours", force: :cascade do |t|
     t.string   "nomvil",        default: "",                    null: false
@@ -97,6 +122,36 @@ ActiveRecord::Schema.define(version: 20171017162349) do
     t.index ["cour_id"], name: "index_presences_on_cour_id"
     t.index ["elefe_id"], name: "index_presences_on_elefe_id"
     t.index ["enseignant_id"], name: "index_presences_on_enseignant_id"
+  end
+
+  create_table "repasgccs", force: :cascade do |t|
+    t.string   "titre"
+    t.text     "adresse"
+    t.date     "date_repas"
+    t.date     "date_lim"
+    t.string   "repas1_enf"
+    t.float    "r1e_tarif"
+    t.string   "repas2_enf"
+    t.float    "r2e_tarif"
+    t.string   "repas1_ad"
+    t.float    "r1a_tarif"
+    t.string   "repas2_ad"
+    t.float    "r2a_tarif"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ticket_repas", force: :cascade do |t|
+    t.integer  "qte1"
+    t.integer  "qte2"
+    t.integer  "qta1"
+    t.integer  "qta2"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "elefe_id"
+    t.integer  "repasgcc_id"
+    t.index ["elefe_id"], name: "index_ticket_repas_on_elefe_id"
+    t.index ["repasgcc_id"], name: "index_ticket_repas_on_repasgcc_id"
   end
 
   create_table "users", force: :cascade do |t|

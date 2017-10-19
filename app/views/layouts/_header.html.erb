@@ -19,7 +19,7 @@
                 <% else %>
                     <li class="nav-item"><%= link_to "Créer un compte", new_user_session_path, class: "nav-link" %></li>
                 <% end %>
-
+                <% if current_user %>
                 <% if current_user.admin == 1 %>
                                 <li class="dropdown">
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Elèves</a>
@@ -49,10 +49,48 @@
                                           <%= link_to "Consulter des présences", consulpres_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
+                                <li class="dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Événements</a>
+                                    <div class="dropdown-menu">
+                                          <%= link_to "Ajouter un Batigrado", new_batigrado_path, class:  "dropdown-item" %>
+                                          <%= link_to "Liste des Batigrados", batigrados_path, class:  "dropdown-item" %>
+                                          <%= link_to "Participants Batigrado", batigrados_path, class:  "dropdown-item" %>
+                                          <%= link_to "Ajouter un Repas du Grupo", new_repasgcc_path, class:  "dropdown-item" %>
+                                          <%= link_to "Consulter Repas du Grupo", repasgccs_path, class:  "dropdown-item" %>
+                                          <%= link_to "Participants Repas du Grupo", ticket_repas_path, class:  "dropdown-item" %>
+                                    </div>
+                                </li>
                 <% else %>
-                    Compte normal
+                                <li class="dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Affiliation</a>
+                                    <div class="dropdown-menu">
+                                        <%= link_to "Créer une fiche", new_elefe_path, class:  "dropdown-item" %>
+                                        <%= link_to "Mes fiches", eleves_path, class:  "dropdown-item" %>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Batigrados</a>
+                                    <div class="dropdown-menu">
+                                        <%= link_to "S'inscrire", root_path, class:  "dropdown-item" %>
+                                        <%= link_to "Mes batigrados", root_path, class:  "dropdown-item" %>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Repas du groupe</a>
+                                    <div class="dropdown-menu">
+                                         <%= link_to "S'inscrire", new_ticket_repa_path, class:  "dropdown-item" %>
+                                         <%= link_to "Mon inscription", ticket_repas_path, class:  "dropdown-item" %>
+                                    </div>
+                                 </li>
+                                <li class="dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Commandes</a>
+                                    <div class="dropdown-menu">
+                                        <%= link_to "Vêtements & Instruments", root_path, class:  "dropdown-item" %>
+                                        <%= link_to "Mes commandes", root_path, class:  "dropdown-item" %>
+                                    </div>
+                                </li>
                 <% end %>
-
+                <% end %>
             </ul>
         </div>
  </nav>

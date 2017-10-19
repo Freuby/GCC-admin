@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>Vous avez commandé :</p>
+<ul>
+<% if @ticket_repa.qte1 != 0 %>
+<li>
+  <%= @ticket_repa.qte1 %> x <%= @repasgcc.repas1_enf+" enfant" %>
+</li>
+<% end %>
+<% if @ticket_repa.qte2 != 0 %>
+<li>
+  <%= @ticket_repa.qte2 %> x <%= @repasgcc.repas2_enf+" enfant" %>
+</li>
+<% end %>
+<% if @ticket_repa.qta1 != 0 %>
+<li>
+  <%= @ticket_repa.qta1 %> x <%= @repasgcc.repas1_ad+" enfant" %>
+</li>
+<% end %>
+<% if @ticket_repa.qta2 != 0 %>
+<li>
+  <%= @ticket_repa.qta2 %> x <%= @repasgcc.repas2_ad+" enfant" %>
+</li>
+<% end %>
+</ul>
+<p>Nous avons bien pris en compte votre demande qui va nous permettre de nous préparer dans les meilleures conditions à vous accueillir.</p>
+<p>Merci de transmette au référant de votre ville votre réglement de <strong><%= number_to_currency(@total, unit: "", separator: ",", delimiter: "") %> euros.</strong></p>
+
+<%= link_to 'Modifier votre commande', edit_ticket_repa_path(@ticket_repa) %> |
+<%= link_to 'Retour', ticket_repas_path %>

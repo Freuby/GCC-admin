@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  titre: MyString
+  date_bat: 2017-10-19
+  tail_tshirt: MyString
+  tail_pant: MyString
+  tarif1: 1.5
+  tarif2: 1.5
+  grad_up: MyString
+  boolean: MyString
+  repas1: false
+  repas2: false
+  repas3: false
+  soiree: false
+  info_regl: MyString
+
+two:
+  titre: MyString
+  date_bat: 2017-10-19
+  tail_tshirt: MyString
+  tail_pant: MyString
+  tarif1: 1.5
+  tarif2: 1.5
+  grad_up: MyString
+  boolean: MyString
+  repas1: false
+  repas2: false
+  repas3: false
+  soiree: false
+  info_regl: MyString

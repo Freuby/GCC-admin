@@ -1,0 +1,77 @@
+<%= form_for(repasgcc) do |f| %>
+  <% if repasgcc.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(repasgcc.errors.count, "error") %> prohibited this repasgcc from being saved:</h2>
+
+      <ul>
+      <% repasgcc.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :titre %>
+    <%= f.text_field :titre %>
+  </div>
+
+  <div class="field">
+    <%= f.label :adresse %>
+    <%= f.text_area :adresse %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_repas %>
+    <%= f.date_select :date_repas, order: [:day, :month, :year] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_lim %>
+    <%= f.date_select :date_lim, order: [:day, :month, :year] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :repas1_enf %>
+    <%= f.text_field :repas1_enf %>
+  </div>
+
+  <div class="field">
+    <%= f.label :r1e_tarif %>
+    <%= f.text_field :r1e_tarif %>
+  </div>
+
+  <div class="field">
+    <%= f.label :repas2_enf %>
+    <%= f.text_field :repas2_enf %>
+  </div>
+
+  <div class="field">
+    <%= f.label :r2e_tarif %>
+    <%= f.text_field :r2e_tarif %>
+  </div>
+
+  <div class="field">
+    <%= f.label :repas1_ad %>
+    <%= f.text_field :repas1_ad %>
+  </div>
+
+  <div class="field">
+    <%= f.label :r1a_tarif %>
+    <%= f.text_field :r1a_tarif %>
+  </div>
+
+  <div class="field">
+    <%= f.label :repas2_ad %>
+    <%= f.text_field :repas2_ad %>
+  </div>
+
+  <div class="field">
+    <%= f.label :r2a_tarif %>
+    <%= f.text_field :r2a_tarif %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

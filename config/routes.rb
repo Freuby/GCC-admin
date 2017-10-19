@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
 
+  resources :ticket_repas
+  resources :repasgccs
+  resources :batigrados
   resources :etats
   resources :enseignants
   resources :eleves

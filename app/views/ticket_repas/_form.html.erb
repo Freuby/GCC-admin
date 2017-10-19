@@ -1,0 +1,40 @@
+<%= form_for(ticket_repa) do |f| %>
+  <% if ticket_repa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ticket_repa.errors.count, "error") %> prohibited this ticket_repa from being saved:</h2>
+
+      <ul>
+      <% ticket_repa.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :qte1, "Nombre de "+@repasgcc.repas1_enf+" enfant" %>
+    <%= f.number_field :qte1, value: 0 %> x <%= number_to_currency(@repasgcc.r1e_tarif, unit: "", separator: ",", delimiter: "") %> euros
+  </div>
+
+  <div class="field">
+      <%= f.label :qte2, "Nombre de "+@repasgcc.repas2_enf+" enfant" %>
+      <%= f.number_field :qte2, value: 0 %> x <%= number_to_currency(@repasgcc.r2e_tarif, unit: "", separator: ",", delimiter: "") %> euros
+  </div>
+
+  <div class="field">
+      <%= f.label :qta1, "Nombre de "+@repasgcc.repas1_ad+" adulte" %>
+      <%= f.number_field :qta1, value: 0 %> x <%= number_to_currency(@repasgcc.r1a_tarif, unit: "", separator: ",", delimiter: "") %> euros
+  </div>
+
+  <div class="field">
+      <%= f.label :qta2, "Nombre de "+@repasgcc.repas2_ad+" adulte" %>
+      <%= f.number_field :qta2, value: 0 %> x <%= number_to_currency(@repasgcc.r2a_tarif, unit: "", separator: ",", delimiter: "") %> euros
+  </div>
+  <br/>
+  <div class="actions text-center">
+    <%= f.hidden_field :elefe_id, value: @elefe.id %>
+    <%= f.hidden_field :repasgcc_id, value: @repasgcc.id %>
+    <%= f.submit :go, value: "Valider", class: "btn btn-primary btn-lg" %>
+  </div>
+  <br/>
+<% end %>

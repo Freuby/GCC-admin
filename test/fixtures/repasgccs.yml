@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  titre: MyString
+  adresse: MyText
+  date_repas: 2017-10-19
+  date_lim: 2017-10-19
+  repas1_enf: MyString
+  r1e_tarif: 1.5
+  repas2_enf: MyString
+  r2e_tarif: 1.5
+  repas1_ad: MyString
+  r1a_tarif: 1.5
+  repas2_ad: MyString
+  r2a_tarif: 1.5
+
+two:
+  titre: MyString
+  adresse: MyText
+  date_repas: 2017-10-19
+  date_lim: 2017-10-19
+  repas1_enf: MyString
+  r1e_tarif: 1.5
+  repas2_enf: MyString
+  r2e_tarif: 1.5
+  repas1_ad: MyString
+  r1a_tarif: 1.5
+  repas2_ad: MyString
+  r2a_tarif: 1.5
