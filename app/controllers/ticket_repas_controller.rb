@@ -23,6 +23,7 @@ class TicketRepasController < ApplicationController
   def new
     @ticket_repa = TicketRepa.new
     @repasgcc = Repasgcc.last
+    @elefe = Elefe.where(:user_id => current_user.id).first
   end
 
   # GET /ticket_repas/1/edit

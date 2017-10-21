@@ -83,6 +83,17 @@ class ElevesController < ApplicationController
 
     def set_cours
       @cours = Cour.all
+      @list_cours = Array []
+      @cours.each do |a|
+        if a.typcours == 0
+          tc = "Adultes"
+        elsif a.typcours == 1
+          tc = "Enfants"
+        elsif a.typcours == 2
+          tc = "Mixte"
+        end
+        @list_cours << a.nomvil+' '+tc
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -93,4 +104,5 @@ class ElevesController < ApplicationController
     def cour_params
       params.require(:cour).permit(:nomvil, :adresse, :cp, :telephon, :typcours, :jour, :dateh, :duree, :enseignant_id, :respcom_id, :resppres_id)
     end
+
 end

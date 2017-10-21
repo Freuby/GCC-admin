@@ -19,7 +19,7 @@
             <% @total = ticket_repa.qte1*@repasgcc.r1e_tarif + ticket_repa.qte2*@repasgcc.r2e_tarif + ticket_repa.qta1*@repasgcc.r1a_tarif + ticket_repa.qta2*@repasgcc.r2a_tarif %>
             <tr>
                 <td><%= i+1 %></td>
-                <td><%= @repasgcc.updated_at.strftime( '%d/%m/%Y' ) %></td>
+                <td><%= ticket_repa.updated_at.strftime( '%d/%m/%Y' ) %></td>
                 <td><%= @eleves.find_by(:id => ticket_repa.elefe.id).nom %> <%= @eleves.find_by(:id => ticket_repa.elefe.id).prenom %></td>
                 <% ville_id = @eleves.find_by(:id => ticket_repa.elefe.id).ville_entrainement %>
                 <td><%= @cours.find_by(:id => ville_id).nomvil %></td>
@@ -40,7 +40,6 @@
         <td>Votre commande du <%= @repasgcc.updated_at.strftime( '%d/%m/%Y' ) %> de <%= number_to_currency(@total, unit: "", separator: ",", delimiter: "") %> euros</td>
         <td><%= link_to 'Voir', ticket_repa %></td>
         <td><%= link_to 'Modifier', edit_ticket_repa_path(ticket_repa) %></td>
-        <td><%= link_to 'Supprimer', ticket_repa, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
       </tr>
     <% end %>
   </tbody>

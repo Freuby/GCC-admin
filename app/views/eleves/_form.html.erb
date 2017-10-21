@@ -61,7 +61,7 @@
   </div>
   <div class="col-6 field">
     <%= f.label :graduation %>
-    <%= f.number_field :graduation, class: "form-control" %>
+      <%= f.select :graduation, @grades_adultes.collect { |g| [g, @grades_adultes.index(g)] }, {}, class: "form-control" %>
   </div>
 </div>
 
@@ -72,17 +72,7 @@
     </div>
     <div class="field">
         <%= f.label :ville_entrainement, "Ville d'entraînement principale : " %>
-        <% @cours.each_with_index do |a,i| %>
-           <%= f.radio_button :ville_entrainement, a.id, class: "form-control" %>
-           <%= f.label :ville_entrainement, a.nomvil %>
-                        <% if a.typcours == 0 %>
-                            Adultes
-                        <% elsif a.typcours == 1 %>
-                            Enfants
-                        <% elsif a.typcours == 2 %>
-                            Mixte
-                        <% end %>
-         <% end %>
+        <%= f.select :ville_entrainement, @list_cours.collect { |g| [g, @list_cours.index(g)] }, {}, class: "form-control" %>
     </div>
 </div>
 

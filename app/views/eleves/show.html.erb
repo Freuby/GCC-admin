@@ -12,7 +12,7 @@
             <%= @elefe.nom %>
         </div>
         <div class="col-6">
-            <strong>Prenom:</strong>
+            <strong>Prénom:</strong>
             <%= @elefe.prenom %>
         </div>
     </div>
@@ -23,7 +23,8 @@
         </div>
         <div class="col-6">
             <strong>Date naissance:</strong>
-            <%= @elefe.date_naissance %>
+            <%= @elefe.date_naissance.strftime( '%d/%m/%Y' ) %>
+            (<%= Time.now.year-@elefe.date_naissance.year %> ans)
         </div>
     </div>
     <div class="row">
@@ -42,11 +43,11 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <strong>Tel mobile:</strong>
+            <strong>Tél mobile:</strong>
             <%= @elefe.tel_mobile %>
         </div>
         <div class="col-6">
-            <strong>Tel fixe:</strong>
+            <strong>Tél fixe:</strong>
             <%= @elefe.tel_fixe %>
         </div>
     </div>
@@ -54,11 +55,11 @@
     <div class="row">
         <div class="col-6">
             <strong>Graduation:</strong>
-            <%= @elefe.graduation %>
+            <%= @grades_adultes[@elefe.graduation.to_i] %>
         </div>
         <div class="col-6">
             <strong>Ville entrainement:</strong>
-            <%= @elefe.ville_entrainement %>
+            <%= @cours.find_by(:id => @elefe.ville_entrainement).nomvil %>
         </div>
     </div>
     <br/>

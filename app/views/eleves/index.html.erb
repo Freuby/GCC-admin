@@ -4,7 +4,7 @@
 <% if current_user.admin == 0 %>
     <h1>Mes fiches d'affiliation</h1>
     <% if @eleves_cu != nil %>
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -16,13 +16,14 @@
         </thead>
         <tbody>
         <% @eleves_cu.each do |elefe| %>
+        <tr>
             <td><%= elefe.nom %></td>
             <td><%= elefe.prenom %></td>
             <td><%= elefe.graduation %></td>
             <td><%= elefe.ville_entrainement %></td>
             <td><%= link_to 'Voir', elefe %></td>
             <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td>
-            <td><%= link_to 'Effacer', elefe, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
+        </tr>
         <% end %>
         </tbody>
     </table>
@@ -34,7 +35,7 @@
 <% if current_user.admin == 1 %>
 <h1>Eleves</h1>
 
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Nom</th>
@@ -77,8 +78,8 @@
         <td><%= elefe.date_naissance %></td>
         <td><%= elefe.tel_mobile %></td>
         <td><%= elefe.tel_fixe %></td> -->
-        <td><%= elefe.graduation %></td>
-        <td><%= elefe.ville_entrainement %></td>
+        <td><%= @grades_adultes[elefe.graduation.to_i] %></td>
+        <td><%= @cours.find_by(:id => elefe.ville_entrainement).nomvil %></td>
         <!-- <td><%= elefe.a_signaler %></td>
         <td><%= elefe.urgence_nom %></td>
         <td><%= elefe.urgence_prenom %></td>
@@ -94,7 +95,7 @@
         <td><%= elefe.signature %></td> -->
         <td><%= link_to 'Voir', elefe %></td>
         <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td>
-        <td><%= link_to 'Effacer', elefe, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
+        <!-- <td><%= link_to 'Effacer', elefe, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td> -->
       </tr>
     <% end %>
   </tbody>
