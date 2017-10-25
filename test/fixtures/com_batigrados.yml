@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nom: MyString
+  prenom: MyString
+  nom_grupo: MyString
+  email: MyString
+  ttshirt: MyString
+  tpant: MyString
+  bati1: false
+  bati2: false
+  gradup: false
+  repas1: false
+  repas2: false
+  repas3: false
+  soiree: false
+  montant: 1.5
+  reglt: MyString
+
+two:
+  nom: MyString
+  prenom: MyString
+  nom_grupo: MyString
+  email: MyString
+  ttshirt: MyString
+  tpant: MyString
+  bati1: false
+  bati2: false
+  gradup: false
+  repas1: false
+  repas2: false
+  repas3: false
+  soiree: false
+  montant: 1.5
+  reglt: MyString

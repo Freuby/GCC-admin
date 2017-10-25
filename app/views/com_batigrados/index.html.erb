@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Com Batigrados</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Prenom</th>
+      <th>Nom grupo</th>
+      <th>Email</th>
+      <th>Ttshirt</th>
+      <th>Tpant</th>
+      <th>Bati1</th>
+      <th>Bati2</th>
+      <th>Gradup</th>
+      <th>Repas1</th>
+      <th>Repas2</th>
+      <th>Repas3</th>
+      <th>Soiree</th>
+      <th>Montant</th>
+      <th>Reglt</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @com_batigrados.each do |com_batigrado| %>
+      <tr>
+        <td><%= com_batigrado.nom %></td>
+        <td><%= com_batigrado.prenom %></td>
+        <td><%= com_batigrado.nom_grupo %></td>
+        <td><%= com_batigrado.email %></td>
+        <td><%= com_batigrado.ttshirt %></td>
+        <td><%= com_batigrado.tpant %></td>
+        <td><%= com_batigrado.bati1 %></td>
+        <td><%= com_batigrado.bati2 %></td>
+        <td><%= com_batigrado.gradup %></td>
+        <td><%= com_batigrado.repas1 %></td>
+        <td><%= com_batigrado.repas2 %></td>
+        <td><%= com_batigrado.repas3 %></td>
+        <td><%= com_batigrado.soiree %></td>
+        <td><%= com_batigrado.montant %></td>
+        <td><%= com_batigrado.reglt %></td>
+        <td><%= link_to 'Show', com_batigrado %></td>
+        <td><%= link_to 'Edit', edit_com_batigrado_path(com_batigrado) %></td>
+        <td><%= link_to 'Destroy', com_batigrado, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Com Batigrado', new_com_batigrado_path %>

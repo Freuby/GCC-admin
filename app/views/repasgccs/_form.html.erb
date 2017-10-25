@@ -13,65 +13,65 @@
 
   <div class="field">
     <%= f.label :titre %>
-    <%= f.text_field :titre %>
+    <%= f.text_field :titre, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :adresse %>
-    <%= f.text_area :adresse %>
+    <%= f.text_area :adresse, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :date_repas %>
+    <%= f.label :date_repas, "Date" %>
     <%= f.date_select :date_repas, order: [:day, :month, :year] %>
   </div>
 
   <div class="field">
-    <%= f.label :date_lim %>
+    <%= f.label :date_lim, "Date limite de réservation" %>
     <%= f.date_select :date_lim, order: [:day, :month, :year] %>
   </div>
 
   <div class="field">
-    <%= f.label :repas1_enf %>
-    <%= f.text_field :repas1_enf %>
+    <%= f.label :repas1_enf, "Repas enfant" %>
+    <%= f.text_field :repas1_enf, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :r1e_tarif %>
-    <%= f.text_field :r1e_tarif %>
+    <%= f.label :r1e_tarif, "Prix" %>
+    <%= f.text_field :r1e_tarif, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :repas2_enf %>
-    <%= f.text_field :repas2_enf %>
+    <%= f.label :repas2_enf, "Repas enfant" %>
+    <%= f.text_field :repas2_enf, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :r2e_tarif %>
-    <%= f.text_field :r2e_tarif %>
+    <%= f.label :r2e_tarif, "Prix" %>
+    <%= f.text_field :r2e_tarif, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :repas1_ad %>
-    <%= f.text_field :repas1_ad %>
+    <%= f.label :repas1_ad, "Repas adulte" %>
+    <%= f.text_field :repas1_ad, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :r1a_tarif %>
-    <%= f.text_field :r1a_tarif %>
+    <%= f.label :r1a_tarif, "Prix" %>
+    <%= f.text_field :r1a_tarif, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :repas2_ad %>
-    <%= f.text_field :repas2_ad %>
+    <%= f.label :repas2_ad, "Repas adulte" %>
+    <%= f.text_field :repas2_ad, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :r2a_tarif %>
-    <%= f.text_field :r2a_tarif %>
+    <%= f.label :r2a_tarif, "Prix" %>
+    <%= f.text_field :r2a_tarif, class: "form-control" %>
   </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <br/>
+  <div class="actions text-center">
+    <%= f.submit :go, value: "Valider", class: "btn btn-primary btn-lg" %>
   </div>
 <% end %>

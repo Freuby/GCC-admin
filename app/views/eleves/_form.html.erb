@@ -72,7 +72,7 @@
     </div>
     <div class="field">
         <%= f.label :ville_entrainement, "Ville d'entraînement principale : " %>
-        <%= f.select :ville_entrainement, @list_cours.collect { |g| [g, @list_cours.index(g)] }, {}, class: "form-control" %>
+        <%= f.select :ville_entrainement, @list_cours.collect { |g| [g, @list_cours.index(g)+1] }, {}, class: "form-control" %>
     </div>
 </div>
 

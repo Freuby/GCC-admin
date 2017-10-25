@@ -1,0 +1,92 @@
+<%= form_for(com_batigrado) do |f| %>
+  <% if com_batigrado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(com_batigrado.errors.count, "error") %> prohibited this com_batigrado from being saved:</h2>
+
+      <ul>
+      <% com_batigrado.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nom %>
+    <%= f.text_field :nom %>
+  </div>
+
+  <div class="field">
+    <%= f.label :prenom %>
+    <%= f.text_field :prenom %>
+  </div>
+
+  <div class="field">
+    <%= f.label :nom_grupo %>
+    <%= f.text_field :nom_grupo %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ttshirt %>
+    <%= f.text_field :ttshirt %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tpant %>
+    <%= f.text_field :tpant %>
+  </div>
+
+  <div class="field">
+    <%= f.label :bati1 %>
+    <%= f.check_box :bati1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :bati2 %>
+    <%= f.check_box :bati2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :gradup %>
+    <%= f.check_box :gradup %>
+  </div>
+
+  <div class="field">
+    <%= f.label :repas1 %>
+    <%= f.check_box :repas1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :repas2 %>
+    <%= f.check_box :repas2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :repas3 %>
+    <%= f.check_box :repas3 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :soiree %>
+    <%= f.check_box :soiree %>
+  </div>
+
+  <div class="field">
+    <%= f.label :montant %>
+    <%= f.text_field :montant %>
+  </div>
+
+  <div class="field">
+    <%= f.label :reglt %>
+    <%= f.text_field :reglt %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

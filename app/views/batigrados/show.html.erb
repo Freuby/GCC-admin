@@ -1,69 +1,64 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= @batigrado.titre %></h1>
+
+<h4 class="text-center">
+  <%= @batigrado.description %>
+</h4>
+
+<p class="text-center">
+    du <%= (@batigrado.date_bat-1).strftime( '%d/%m/%Y' ) %> au <%= (@batigrado.date_bat+1).strftime( '%d/%m/%Y' ) %> - <%= @batigrado.adresse %> <%= @batigrado.cp %> <%= @batigrado.ville %>
+</p>
+
+<br/>
+
 <p>
-  <strong>Titre:</strong>
-  <%= @batigrado.titre %>
+  <strong>Tarif:</strong>
+  <%= @batigrado.tarif1.round %> euros pour 1 évènement
 </p>
 
 <p>
-  <strong>Date bat:</strong>
-  <%= @batigrado.date_bat %>
+  <strong>Tarif:</strong>
+  <%= @batigrado.tarif1.round+@batigrado.tarif2.round %> euros pour 2 évènements
 </p>
 
 <p>
-  <strong>Tail tshirt:</strong>
-  <%= @batigrado.tail_tshirt %>
+  <strong>Tarif caporistes hors GCC:</strong>
+  <%= @batigrado.tarif_ext.round %> euros
 </p>
 
 <p>
-  <strong>Tail pant:</strong>
-  <%= @batigrado.tail_pant %>
+  <strong>Tarif repas du samedi midi:</strong>
+  <%= "%.2f" % @batigrado.tar_rep1 %> euros
+</p>
+
+<% if @batigrado.tar_rep2 %>
+<p>
+  <strong>Tarif du petit déjeuner:</strong>
+  <%= "%.2f" % @batigrado.tar_rep2 %> euros
+</p>
+<% end %>
+<p>
+  <strong>Tarif repas du dimanche midi:</strong>
+  <%= "%.2f" % @batigrado.tar_rep3 %> euros
 </p>
 
 <p>
-  <strong>Tarif1:</strong>
-  <%= @batigrado.tarif1 %>
+  <strong>Tarif de la soiree (samedi soir):</strong>
+  <%= "%.2f" % @batigrado.tar_soiree %> euros
 </p>
 
 <p>
-  <strong>Tarif2:</strong>
-  <%= @batigrado.tarif2 %>
+  <strong>Adresse soirée:</strong>
+  <%= @batigrado.adr_soiree %>
 </p>
 
 <p>
-  <strong>Grad up:</strong>
-  <%= @batigrado.grad_up %>
+  <strong>Heure de début de soirée:</strong>
+  <%= @batigrado.heur_soiree.strftime( '%H:%M' ) %>
 </p>
 
-<p>
-  <strong>Boolean:</strong>
-  <%= @batigrado.boolean %>
-</p>
+<br/>
 
-<p>
-  <strong>Repas1:</strong>
-  <%= @batigrado.repas1 %>
-</p>
-
-<p>
-  <strong>Repas2:</strong>
-  <%= @batigrado.repas2 %>
-</p>
-
-<p>
-  <strong>Repas3:</strong>
-  <%= @batigrado.repas3 %>
-</p>
-
-<p>
-  <strong>Soiree:</strong>
-  <%= @batigrado.soiree %>
-</p>
-
-<p>
-  <strong>Info regl:</strong>
-  <%= @batigrado.info_regl %>
-</p>
-
-<%= link_to 'Edit', edit_batigrado_path(@batigrado) %> |
-<%= link_to 'Back', batigrados_path %>
+<%= link_to 'Modifier', edit_batigrado_path(@batigrado) %> |
+<%= link_to 'Retour', batigrados_path %>

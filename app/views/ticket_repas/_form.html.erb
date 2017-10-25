@@ -13,22 +13,22 @@
 
   <div class="field">
     <%= f.label :qte1, "Nombre de "+@repasgcc.repas1_enf+" enfant" %>
-    <%= f.number_field :qte1, value: 0 %> x <%= number_to_currency(@repasgcc.r1e_tarif, unit: "", separator: ",", delimiter: "") %> euros
+    <%= f.number_field :qte1 %> x <%= number_to_currency(@repasgcc.r1e_tarif, unit: "", separator: ",", delimiter: "") %> euros
   </div>
 
   <div class="field">
       <%= f.label :qte2, "Nombre de "+@repasgcc.repas2_enf+" enfant" %>
-      <%= f.number_field :qte2, value: 0 %> x <%= number_to_currency(@repasgcc.r2e_tarif, unit: "", separator: ",", delimiter: "") %> euros
+      <%= f.number_field :qte2 %> x <%= number_to_currency(@repasgcc.r2e_tarif, unit: "", separator: ",", delimiter: "") %> euros
   </div>
 
   <div class="field">
       <%= f.label :qta1, "Nombre de "+@repasgcc.repas1_ad+" adulte" %>
-      <%= f.number_field :qta1, value: 0 %> x <%= number_to_currency(@repasgcc.r1a_tarif, unit: "", separator: ",", delimiter: "") %> euros
+      <%= f.number_field :qta1 %> x <%= number_to_currency(@repasgcc.r1a_tarif, unit: "", separator: ",", delimiter: "") %> euros
   </div>
 
   <div class="field">
       <%= f.label :qta2, "Nombre de "+@repasgcc.repas2_ad+" adulte" %>
-      <%= f.number_field :qta2, value: 0 %> x <%= number_to_currency(@repasgcc.r2a_tarif, unit: "", separator: ",", delimiter: "") %> euros
+      <%= f.number_field :qta2 %> x <%= number_to_currency(@repasgcc.r2a_tarif, unit: "", separator: ",", delimiter: "") %> euros
   </div>
   <br/>
   <div class="actions text-center">

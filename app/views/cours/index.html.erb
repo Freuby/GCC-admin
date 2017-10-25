@@ -40,7 +40,7 @@
         <td><%= @enseignants.find(cour.enseignant_id).prenom %> <%= @enseignants.find(cour.enseignant_id).nom %></td>
         <td><%= link_to 'Voir', cour %></td>
         <td><%= link_to 'Modifier', edit_cour_path(cour) %></td>
-        <td><%= link_to 'Effacer', cour, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <!-- <td><%= link_to 'Effacer', cour, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
       </tr>
     <% end %>
   </tbody>

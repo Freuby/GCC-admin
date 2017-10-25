@@ -10,31 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019123336) do
+ActiveRecord::Schema.define(version: 20171023091517) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
+    t.text     "description"
     t.date     "date_bat"
-    t.string   "tail_tshirt"
-    t.string   "tail_pant"
+    t.text     "adresse"
+    t.string   "cp"
+    t.string   "ville"
     t.float    "tarif1"
     t.float    "tarif2"
-    t.string   "grad_up"
-    t.string   "boolean"
-    t.boolean  "repas1"
-    t.boolean  "repas2"
-    t.boolean  "repas3"
-    t.boolean  "soiree"
-    t.string   "info_regl"
+    t.float    "tarif_ext"
+    t.float    "tar_rep1"
+    t.float    "tar_rep2"
+    t.float    "tar_rep3"
+    t.float    "tar_soiree"
+    t.string   "adr_soiree"
+    t.datetime "heur_soiree"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  create_table "batigrados_eleves", id: false, force: :cascade do |t|
-    t.integer "elefe_id",     null: false
-    t.integer "batigrado_id", null: false
-    t.index ["batigrado_id", "elefe_id"], name: "index_batigrados_eleves_on_batigrado_id_and_elefe_id"
-    t.index ["elefe_id", "batigrado_id"], name: "index_batigrados_eleves_on_elefe_id_and_batigrado_id"
+  create_table "com_batigrados", force: :cascade do |t|
+    t.string   "nom"
+    t.string   "prenom"
+    t.string   "nom_grupo"
+    t.string   "email"
+    t.string   "ttshirt"
+    t.string   "tpant"
+    t.boolean  "bati1"
+    t.boolean  "bati2"
+    t.boolean  "gradup"
+    t.boolean  "repas1"
+    t.boolean  "repas2"
+    t.boolean  "repas3"
+    t.boolean  "soiree"
+    t.float    "montant"
+    t.string   "reglt"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "batigrado_id"
+    t.integer  "elefe_id"
+    t.index ["batigrado_id"], name: "index_com_batigrados_on_batigrado_id"
+    t.index ["elefe_id"], name: "index_com_batigrados_on_elefe_id"
   end
 
   create_table "cours", force: :cascade do |t|

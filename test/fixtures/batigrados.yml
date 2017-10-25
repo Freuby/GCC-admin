@@ -2,30 +2,34 @@
 
 one:
   titre: MyString
-  date_bat: 2017-10-19
-  tail_tshirt: MyString
-  tail_pant: MyString
+  description: MyText
+  date_bat: 2017-10-21
+  adresse: MyText
+  cp: MyString
+  ville: MyString
   tarif1: 1.5
   tarif2: 1.5
-  grad_up: MyString
-  boolean: MyString
-  repas1: false
-  repas2: false
-  repas3: false
-  soiree: false
-  info_regl: MyString
+  tarif_ext: 1.5
+  tar_rep1: 1.5
+  tar_rep2: 1.5
+  tar_rep3: 1.5
+  tar_soiree: 1.5
+  adr_soiree: MyString
+  heur_soiree: 2017-10-21
 
 two:
   titre: MyString
-  date_bat: 2017-10-19
-  tail_tshirt: MyString
-  tail_pant: MyString
+  description: MyText
+  date_bat: 2017-10-21
+  adresse: MyText
+  cp: MyString
+  ville: MyString
   tarif1: 1.5
   tarif2: 1.5
-  grad_up: MyString
-  boolean: MyString
-  repas1: false
-  repas2: false
-  repas3: false
-  soiree: false
-  info_regl: MyString
+  tarif_ext: 1.5
+  tar_rep1: 1.5
+  tar_rep2: 1.5
+  tar_rep3: 1.5
+  tar_soiree: 1.5
+  adr_soiree: MyString
+  heur_soiree: 2017-10-21

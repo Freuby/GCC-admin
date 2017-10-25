@@ -17,7 +17,7 @@ class BatigradosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create batigrado" do
     assert_difference('Batigrado.count') do
-      post batigrados_url, params: { batigrado: { boolean: @batigrado.boolean, date_bat: @batigrado.date_bat, grad_up: @batigrado.grad_up, info_regl: @batigrado.info_regl, repas1: @batigrado.repas1, repas2: @batigrado.repas2, repas3: @batigrado.repas3, soiree: @batigrado.soiree, tail_pant: @batigrado.tail_pant, tail_tshirt: @batigrado.tail_tshirt, tarif1: @batigrado.tarif1, tarif2: @batigrado.tarif2, titre: @batigrado.titre } }
+      post batigrados_url, params: { batigrado: { adr_soiree: @batigrado.adr_soiree, adresse: @batigrado.adresse, cp: @batigrado.cp, date_bat: @batigrado.date_bat, description: @batigrado.description, heur_soiree: @batigrado.heur_soiree, tar_rep1: @batigrado.tar_rep1, tar_rep2: @batigrado.tar_rep2, tar_rep3: @batigrado.tar_rep3, tar_soiree: @batigrado.tar_soiree, tarif1: @batigrado.tarif1, tarif2: @batigrado.tarif2, tarif_ext: @batigrado.tarif_ext, titre: @batigrado.titre, ville: @batigrado.ville } }
     end
 
     assert_redirected_to batigrado_url(Batigrado.last)
@@ -34,7 +34,7 @@ class BatigradosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update batigrado" do
-    patch batigrado_url(@batigrado), params: { batigrado: { boolean: @batigrado.boolean, date_bat: @batigrado.date_bat, grad_up: @batigrado.grad_up, info_regl: @batigrado.info_regl, repas1: @batigrado.repas1, repas2: @batigrado.repas2, repas3: @batigrado.repas3, soiree: @batigrado.soiree, tail_pant: @batigrado.tail_pant, tail_tshirt: @batigrado.tail_tshirt, tarif1: @batigrado.tarif1, tarif2: @batigrado.tarif2, titre: @batigrado.titre } }
+    patch batigrado_url(@batigrado), params: { batigrado: { adr_soiree: @batigrado.adr_soiree, adresse: @batigrado.adresse, cp: @batigrado.cp, date_bat: @batigrado.date_bat, description: @batigrado.description, heur_soiree: @batigrado.heur_soiree, tar_rep1: @batigrado.tar_rep1, tar_rep2: @batigrado.tar_rep2, tar_rep3: @batigrado.tar_rep3, tar_soiree: @batigrado.tar_soiree, tarif1: @batigrado.tarif1, tarif2: @batigrado.tarif2, tarif_ext: @batigrado.tarif_ext, titre: @batigrado.titre, ville: @batigrado.ville } }
     assert_redirected_to batigrado_url(@batigrado)
   end
 

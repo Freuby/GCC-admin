@@ -1,2 +1,41 @@
 <h3>Grupo Cultura Capoeira<% if current_user.admin == 1 %> - Bienvenue Admin<% end %></h3>
-<p>Dernière connexion le <%= current_user.last_sign_in_at %></p>
+<p class="text-right">Dernière connexion le <%= current_user.last_sign_in_at.strftime( '%d/%m/%Y' ) %></p>
+
+<% if current_user %>
+<% if current_user.admin == 1 %>
+
+<% else %>
+        <br/>
+        <div class="text-center">
+            <h4>Bienvenue sur le site administratif de l'association</h4>
+            <br/>
+            <p>Nous vous invitions à vous affilier à l'association par le biais du formulaire en ligne, et d'y joindre les pièces justificatives.</p>
+            <br/>
+            <p>Vous avez également la possibilité de vous inscrire aux divers événements proposés par l'association. Les formulaires d'inscription aux événements apparaitront dès leurs créations.</p>
+        </div>
+        <br/>
+        <div class="text-center">
+            <%= link_to "Remplir le formulaire d'affiliation en ligne", new_elefe_path, class:  "btn btn-outline-primary btn-lg" %>
+        </div>
+        <br/>
+        <% repasgcc = Repasgcc.last %>
+        <% @ticket_repa = TicketRepa.find_by(:elefe_id => @current_elefe.id) %>
+        <% if  !repasgcc.date_repas.past? %>
+            <div class="text-center">
+                <% if !@ticket_repa %>
+                <%= link_to "Commander des tickets pour le repas du groupe", new_ticket_repa_path, class:  "btn btn-outline-primary btn-lg" %>
+                <% else %>
+                <%= link_to "Modifier ma commande de tickets pour le repas du groupe", edit_ticket_repa_path(@ticket_repa), class:  "btn btn-outline-success btn-lg" %>
+                <% end %>
+            </div>
+        <% end %>
+        <br/>
+        <% last_batigrado = Batigrado.last %>
+        <% if  !last_batigrado.date_bat.past? %>
+            <div class="text-center">
+                <%= link_to "S'inscrire à un batigrado", new_com_batigrado_path, class:  "btn btn-outline-primary btn-lg" %>
+            </div>
+        <% end %>
+
+<% end %>
+<% end %>

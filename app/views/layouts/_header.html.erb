@@ -17,7 +17,7 @@
                         </div>
                     </li>
                 <% else %>
-                    <li class="nav-item"><%= link_to "Créer un compte", new_user_session_path, class: "nav-link" %></li>
+                    <li class="nav-item"><%= link_to "Créer un compte", new_user_registration_path, class: "nav-link" %></li>
                 <% end %>
                 <% if current_user %>
                 <% if current_user.admin == 1 %>
@@ -71,8 +71,8 @@
                                 <li class="dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Batigrados</a>
                                     <div class="dropdown-menu">
-                                        <%= link_to "S'inscrire", root_path, class:  "dropdown-item" %>
-                                        <%= link_to "Mes batigrados", root_path, class:  "dropdown-item" %>
+                                        <%= link_to "S'inscrire", new_com_batigrado_path, class:  "dropdown-item" %>
+                                        <%= link_to "Mes batigrados", com_batigrados_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
                                 <li class="dropdown">

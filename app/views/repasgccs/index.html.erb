@@ -1,23 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Repasgccs</h1>
+<h1>Repas du Grupo Cultura Capoeira</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Titre</th>
-      <th>Adresse</th>
+      <!-- <th>Adresse</th> -->
       <th>Date repas</th>
-      <th>Date lim</th>
-      <th>Repas1 enf</th>
+      <th>Date limite</th>
+      <!-- <th>Repas1 enf</th>
       <th>R1e tarif</th>
       <th>Repas2 enf</th>
       <th>R2e tarif</th>
       <th>Repas1 ad</th>
       <th>R1a tarif</th>
       <th>Repas2 ad</th>
-      <th>R2a tarif</th>
-      <th colspan="3"></th>
+      <th>R2a tarif</th> -->
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -25,20 +25,19 @@
     <% @repasgccs.each do |repasgcc| %>
       <tr>
         <td><%= repasgcc.titre %></td>
-        <td><%= repasgcc.adresse %></td>
+        <!-- <td><%= repasgcc.adresse %></td> -->
         <td><%= repasgcc.date_repas %></td>
         <td><%= repasgcc.date_lim %></td>
-        <td><%= repasgcc.repas1_enf %></td>
+        <!-- <td><%= repasgcc.repas1_enf %></td>
         <td><%= repasgcc.r1e_tarif %></td>
         <td><%= repasgcc.repas2_enf %></td>
         <td><%= repasgcc.r2e_tarif %></td>
         <td><%= repasgcc.repas1_ad %></td>
         <td><%= repasgcc.r1a_tarif %></td>
         <td><%= repasgcc.repas2_ad %></td>
-        <td><%= repasgcc.r2a_tarif %></td>
-        <td><%= link_to 'Show', repasgcc %></td>
-        <td><%= link_to 'Edit', edit_repasgcc_path(repasgcc) %></td>
-        <td><%= link_to 'Destroy', repasgcc, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= repasgcc.r2a_tarif %></td> -->
+        <td><%= link_to 'Voir', repasgcc %></td>
+        <td><%= link_to 'Modifier', edit_repasgcc_path(repasgcc) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -46,4 +45,4 @@
 
 <br>
 
-<%= link_to 'New Repasgcc', new_repasgcc_path %>
+<!-- <%= link_to 'Nouveau Repas', new_repasgcc_path %> ->>

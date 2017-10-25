@@ -20,7 +20,6 @@
         <td><%= @grades_adultes[enseignant.graduation.to_i] %></td>
         <td><%= link_to 'Voir', enseignant %></td>
         <td><%= link_to 'Modifier', edit_enseignant_path(enseignant) %></td>
-        <td><%= link_to 'Supprimer', enseignant, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
       </tr>
     <% end %>
   </tbody>

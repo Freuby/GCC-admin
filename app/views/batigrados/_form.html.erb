@@ -13,70 +13,83 @@
 
   <div class="field">
     <%= f.label :titre %>
-    <%= f.text_field :titre %>
+    <%= f.text_field :titre, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :date_bat %>
+    <%= f.label :description %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_bat, "Date du Batigrado (le samedi)" %>
     <%= f.date_select :date_bat %>
   </div>
 
   <div class="field">
-    <%= f.label :tail_tshirt %>
-    <%= f.text_field :tail_tshirt %>
+    <%= f.label :adresse %>
+    <%= f.text_area :adresse, class: "form-control" %>
+  </div>
+  <div class="row">
+      <div class="field col-4">
+        <%= f.label :cp, "Code Postal" %>
+        <%= f.text_field :cp, class: "form-control" %>
+      </div>
+
+      <div class="field col-8">
+        <%= f.label :ville %>
+        <%= f.text_field :ville, class: "form-control" %>
+      </div>
+  </div>
+  <hr/>
+  <div class="row">
+      <div class="field col-4">
+        <%= f.label :tarif1, "Tarif pour un batigrado" %>
+        <%= f.text_field :tarif1, class: "form-control" %>
+      </div>
+
+      <div class="field col-4">
+        <%= f.label :tarif2, "Tarif du deuxième batigrado" %>
+        <%= f.text_field :tarif2, class: "form-control" %>
+      </div>
+
+      <div class="field col-4">
+        <%= f.label :tarif_ext, "Tarif pour les capoeiristes extérieurs" %>
+        <%= f.text_field :tarif_ext, class: "form-control" %>
+      </div>
+  </div>
+  <hr/>
+  <div class="field">
+    <%= f.label :tar_rep1, "Tarif du repas du samedi midi" %>
+    <%= f.text_field :tar_rep1, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :tail_pant %>
-    <%= f.text_field :tail_pant %>
+    <%= f.label :tar_rep2, "Tarif du petit déjeuner" %>
+    <%= f.text_field :tar_rep2, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :tarif1 %>
-    <%= f.text_field :tarif1 %>
+    <%= f.label :tar_rep3, "Tarif du repas du dimanche midi" %>
+    <%= f.text_field :tar_rep3, class: "form-control" %>
+  </div>
+  <hr/>
+  <div class="field">
+    <%= f.label :tar_soiree, "Tarif de la soirée" %>
+    <%= f.text_field :tar_soiree, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :tarif2 %>
-    <%= f.text_field :tarif2 %>
+    <%= f.label :adr_soiree, "Adresse de la soirée" %>
+    <%= f.text_field :adr_soiree, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :grad_up %>
-    <%= f.text_field :grad_up %>
+    <%= f.label :heur_soiree, "Heure de la soirée" %>
+    <%= f.time_select :heur_soiree, class: "form-control" %>
   </div>
-
-  <div class="field">
-    <%= f.label :boolean %>
-    <%= f.text_field :boolean %>
-  </div>
-
-  <div class="field">
-    <%= f.label :repas1 %>
-    <%= f.check_box :repas1 %>
-  </div>
-
-  <div class="field">
-    <%= f.label :repas2 %>
-    <%= f.check_box :repas2 %>
-  </div>
-
-  <div class="field">
-    <%= f.label :repas3 %>
-    <%= f.check_box :repas3 %>
-  </div>
-
-  <div class="field">
-    <%= f.label :soiree %>
-    <%= f.check_box :soiree %>
-  </div>
-
-  <div class="field">
-    <%= f.label :info_regl %>
-    <%= f.text_field :info_regl %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <br/>
+  <div class="actions text-center">
+    <%= f.submit:go, value: "Valider", class: "btn btn-primary btn-lg" %>
   </div>
 <% end %>

@@ -19,8 +19,8 @@
         <tr>
             <td><%= elefe.nom %></td>
             <td><%= elefe.prenom %></td>
-            <td><%= elefe.graduation %></td>
-            <td><%= elefe.ville_entrainement %></td>
+            <td><%= @grades_adultes[elefe.graduation.to_i] %></td>
+            <td><%= @cours.find_by(:id => elefe.ville_entrainement).nomvil %></td>
             <td><%= link_to 'Voir', elefe %></td>
             <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td>
         </tr>
@@ -104,5 +104,5 @@
 
 <br>
 
-<%= link_to 'Ajouter un élève', new_elefe_path %>
+<%= link_to 'Nouvelle affiliation', new_elefe_path %>
 <% end %>
