@@ -161,12 +161,12 @@ ActiveRecord::Schema.define(version: 20171023091517) do
   end
 
   create_table "ticket_repas", force: :cascade do |t|
-    t.integer  "qte1"
-    t.integer  "qte2"
-    t.integer  "qta1"
-    t.integer  "qta2"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "qte1",        default: 0
+    t.integer  "qte2",        default: 0
+    t.integer  "qta1",        default: 0
+    t.integer  "qta2",        default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "elefe_id"
     t.integer  "repasgcc_id"
     t.index ["elefe_id"], name: "index_ticket_repas_on_elefe_id"

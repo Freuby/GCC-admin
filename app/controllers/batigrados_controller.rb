@@ -28,7 +28,7 @@ class BatigradosController < ApplicationController
 
     respond_to do |format|
       if @batigrado.save
-        format.html { redirect_to @batigrado, notice: 'Batigrado was successfully created.' }
+        format.html { redirect_to @batigrado, notice: 'Le batigrado a bien été ajouté.' }
         format.json { render :show, status: :created, location: @batigrado }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class BatigradosController < ApplicationController
   def update
     respond_to do |format|
       if @batigrado.update(batigrado_params)
-        format.html { redirect_to @batigrado, notice: 'Batigrado was successfully updated.' }
+        format.html { redirect_to @batigrado, notice: 'Le batigrado a bien été modifié.' }
         format.json { render :show, status: :ok, location: @batigrado }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class BatigradosController < ApplicationController
   def destroy
     @batigrado.destroy
     respond_to do |format|
-      format.html { redirect_to batigrados_url, notice: 'Batigrado was successfully destroyed.' }
+      format.html { redirect_to batigrados_url, notice: 'Le batigrado a bien été effacé.' }
       format.json { head :no_content }
     end
   end

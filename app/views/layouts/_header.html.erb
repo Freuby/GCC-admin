@@ -29,17 +29,17 @@
                                     </div>
                                 </li>
                                 <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Enseignants</a>
+                                    <div class="dropdown-menu">
+                                        <%= link_to "Liste des enseignants", enseignants_path, class:  "dropdown-item" %>
+                                        <%= link_to "Ajouter un enseignants", new_enseignant_path, class:  "dropdown-item" %>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cours</a>
                                     <div class="dropdown-menu">
                                          <%= link_to "Liste des cours", cours_path, class:  "dropdown-item" %>
                                          <%= link_to "Ajouter un cours", new_cour_path, class:  "dropdown-item" %>
-                                    </div>
-                                </li>
-                                <li class="dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Enseignants</a>
-                                    <div class="dropdown-menu">
-                                          <%= link_to "Liste des enseignants", enseignants_path, class:  "dropdown-item" %>
-                                          <%= link_to "Ajouter un enseignants", new_enseignant_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
                                 <li class="dropdown">

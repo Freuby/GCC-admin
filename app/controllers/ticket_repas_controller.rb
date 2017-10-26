@@ -6,7 +6,9 @@ class TicketRepasController < ApplicationController
   def index
     @repasgcc = Repasgcc.last
     @elefe = Elefe.where(:user_id => current_user.id).first
-    @ticket_repas = TicketRepa.where(:elefe_id => @elefe.id).all
+    if @elefe
+      @ticket_repas = TicketRepa.where(:elefe_id => @elefe.id).all
+    end
     @ticket_repas_all = TicketRepa.all
     @eleves = Elefe.all
     @cours = Cour.all

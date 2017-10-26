@@ -28,7 +28,7 @@ class EnseignantsController < ApplicationController
 
     respond_to do |format|
       if @enseignant.save
-        format.html { redirect_to @enseignant, notice: 'Enseignant was successfully created.' }
+        format.html { redirect_to @enseignant, notice: "L'enseignant a bien été ajouté." }
         format.json { render :show, status: :created, location: @enseignant }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class EnseignantsController < ApplicationController
   def update
     respond_to do |format|
       if @enseignant.update(enseignant_params)
-        format.html { redirect_to @enseignant, notice: 'Enseignant was successfully updated.' }
+        format.html { redirect_to @enseignant, notice: "L'enseignant a bien été modifié." }
         format.json { render :show, status: :ok, location: @enseignant }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class EnseignantsController < ApplicationController
   def destroy
     @enseignant.destroy
     respond_to do |format|
-      format.html { redirect_to enseignants_url, notice: 'Enseignant was successfully destroyed.' }
+      format.html { redirect_to enseignants_url, notice: "L'enseignant a bien été effacé." }
       format.json { head :no_content }
     end
   end

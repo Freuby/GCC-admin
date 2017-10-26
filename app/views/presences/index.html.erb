@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Presences</h1>
+<% if @presence %>
 <h2>Cours
     <% if @presence.cour.typcours == 0 %>
         Adultes
@@ -77,7 +78,9 @@
 </table>
 </div>
 </div>
-
+<% else %>
+    <br/><p>Il n'y a aucune présence de saisie pour ce cours.</p>
+<% end %>
 <%= link_to 'Retour', root_path %>
 
 </div>

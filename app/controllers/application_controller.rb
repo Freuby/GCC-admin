@@ -11,7 +11,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_eleve
-    @current_elefe = Elefe.where(:user_id => current_user.id).first
+    if current_user
+      @current_elefe = Elefe.where(:user_id => current_user.id).first
+    end
   end
 
 end
