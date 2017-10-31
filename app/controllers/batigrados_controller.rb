@@ -4,7 +4,7 @@ class BatigradosController < ApplicationController
   # GET /batigrados
   # GET /batigrados.json
   def index
-    @batigrados = Batigrado.all
+
   end
 
   # GET /batigrados/1

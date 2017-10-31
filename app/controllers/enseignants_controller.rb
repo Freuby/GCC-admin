@@ -4,7 +4,7 @@ class EnseignantsController < ApplicationController
   # GET /enseignants
   # GET /enseignants.json
   def index
-    @enseignants = Enseignant.all
+
   end
 
   # GET /enseignants/1
@@ -14,7 +14,7 @@ class EnseignantsController < ApplicationController
 
   # GET /enseignants/new
   def new
-    @enseignant = Enseignant.new
+
   end
 
   # GET /enseignants/1/edit

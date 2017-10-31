@@ -5,7 +5,7 @@ class RepasgccsController < ApplicationController
   # GET /repasgccs
   # GET /repasgccs.json
   def index
-    @repasgccs = Repasgcc.all
+
   end
 
   # GET /repasgccs/1

@@ -25,5 +25,7 @@ Rails.application.routes.draw do
 
   get '/presence_view', to: 'presences#show'
 
+  post '/com_batigrados/new', to: 'com_batigrados#new'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

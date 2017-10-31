@@ -5,7 +5,6 @@ class ElevesController < ApplicationController
   # GET /eleves
   # GET /eleves.json
   def index
-    @eleves = Elefe.all
     @eleves_cu = @eleves.where(:user_id => current_user.id).all
   end
 
@@ -82,7 +81,6 @@ class ElevesController < ApplicationController
     end
 
     def set_cours
-      @cours = Cour.all
       @list_cours = Array []
       @cours.each do |a|
         if a.typcours == 0

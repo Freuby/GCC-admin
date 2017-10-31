@@ -3,19 +3,19 @@ class PresencesController < ApplicationController
 
   # POST /presencesel
   def presencesel
-    @cours = Cour.all
+
   end
 
   # POST /consulpres
   def consulpres
-    @cours = Cour.all
+
   end
 
   # GET /presences
   # GET /presences.json
   def index
     cour = params[:select][:cour]
-    @presences = Presence.includes(:eleves, :etats, :cour, :enseignant).where(:cour_id => cour).all
+    @presences = @presences_all.includes(:eleves, :etats, :cour, :enseignant).where(:cour_id => cour).all
     @presence = @presences.last
     @cour = Cour.where(:id => params[:select][:cour])
   end
@@ -23,10 +23,9 @@ class PresencesController < ApplicationController
   # GET /presences/1
   # GET /presences/1.json
   def show
-    @enseignants = Enseignant.all
-    @eleves = @presence.eleves
+    @eleves_pres = @presence.eleves
     cour = @presence.cour_id
-    @presences = Presence.includes(:eleves, :etats, :cour, :enseignant).where(:cour_id => cour).all
+    @presences = @presences_all.includes(:eleves, :etats, :cour, :enseignant).where(:cour_id => cour).all
     @presence = @presences.last
     @cour = Cour.where(:id => @presence.cour_id)
   end
@@ -34,13 +33,12 @@ class PresencesController < ApplicationController
   # GET /presences/new
   def new
       @cour = Cour.find_by(:id => params[:select][:cour])
-      @eleves = Array[]
+      @eleves_pres = Array[]
       @presence = Presence.new
-      @eleves_all = Elefe.all
-      @eleves_all.each do |elefe|
+      @eleves.each do |elefe|
         c = elefe.cours
         if c.detect { |b| b.id == @cour.id }
-          @eleves << elefe
+          @eleves_pres << elefe
         end
       end
       @enseignants = Enseignant.all
@@ -83,14 +81,13 @@ class PresencesController < ApplicationController
       redirect_back(fallback_location: :back)
 
     elsif params[:commit] == "Valider"
-      # @eleves = Elefe.where(:ville_entrainement => params[:presence][:cour_id]).all
       @cour = Cour.find(params[:presence][:cour_id])
-      @eleves = @cour.eleves
+      @eleves_cour = @cour.eleves
       date = params[:presence]['datecours(1i)']+"-"+params[:presence]['datecours(2i)']+"-"+params[:presence]['datecours(3i)']
       date = date.to_date
       @presence = Presence.new(:datecours => date)
 
-      @eleves.each_with_index do |elefe, i|
+      @eleves_cour.each_with_index do |elefe, i|
         j = i.to_s
         @etat = params[:etat][j]
         @presence.etats << elefe.etats.create(etat: @etat)

@@ -4,8 +4,7 @@ class CoursController < ApplicationController
   # GET /cours
   # GET /cours.json
   def index
-    @cours = Cour.all
-    @enseignants = Enseignant.all
+
   end
 
   # GET /cours/1
@@ -17,12 +16,11 @@ class CoursController < ApplicationController
   # GET /cours/new
   def new
     @cour = Cour.new
-    @enseignants = Enseignant.all
   end
 
   # GET /cours/1/edit
   def edit
-    @enseignants = Enseignant.all
+
   end
 
   # POST /cours
