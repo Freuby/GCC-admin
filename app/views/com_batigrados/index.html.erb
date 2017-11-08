@@ -1,25 +1,28 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Inscriptions Batigrados</h1>
-
+<div class="row">
+<div class="col-12">
 <% if current_user.admin == 1 %>
 
-    <table class="table">
+<% @batigrados.each do |batigrado| %>
+    <h3 class="text-center"><%= batigrado.titre %></h3>
+    <table class="table table-responsive">
       <thead>
         <tr>
           <th>Nom</th>
           <th>Prenom</th>
-          <th>Nom grupo</th>
+          <th>Grupo</th>
           <th>Email</th>
-          <th>Ttshirt</th>
-          <th>Tpant</th>
-          <th>Bati1</th>
-          <th>Bati2</th>
-          <th>Gradup</th>
-          <th>Repas1</th>
-          <th>Repas2</th>
-          <th>Repas3</th>
-          <th>Soiree</th>
+          <th>Tshirt</th>
+          <th>Abada</th>
+          <th class="text-center">1 batigrado</th>
+          <th class="text-center">2 batigrados</th>
+          <th>Graduation</th>
+          <th class="text-center">Repas samedi midi</th>
+          <th class="text-center">Petit déjeuner</th>
+          <th class="text-center">Repas dimanche midi</th>
+          <th>Soirée</th>
           <th>Montant</th>
           <th>Reglt</th>
           <th colspan="3"></th>
@@ -27,52 +30,55 @@
       </thead>
 
       <tbody>
-        <% @com_batigrados.each do |com_batigrado| %>
+      <% @combat_bat = @com_batigrados.where(:batigrado_id => batigrado.id).all %>
+      <% @cbat_tri = @combat_bat.sort_by { |e| [ e.nom_grupo, e.nom, e.prenom ] } %>
+        <% @cbat_tri.each do |com_batigrado| %>
           <tr>
-            <td><%= com_batigrado.nom %></td>
-            <td><%= com_batigrado.prenom %></td>
+            <td>
+                <% if com_batigrado.elefe_id %>
+                    <%= link_to com_batigrado.nom, elefe_path(com_batigrado.elefe_id)  %>
+                <% else %>
+                    <%= com_batigrado.nom %>
+                <% end %>
+            </td>
+            <td>
+                <% if com_batigrado.elefe_id %>
+                    <%= link_to com_batigrado.prenom, elefe_path(com_batigrado.elefe_id)  %>
+                <% else %>
+                    <%= com_batigrado.prenom %>
+                <% end %>
+            </td>
             <td><%= com_batigrado.nom_grupo %></td>
             <td><%= com_batigrado.email %></td>
-            <td><%= com_batigrado.ttshirt %></td>
-            <td><%= com_batigrado.tpant %></td>
-            <td><%= com_batigrado.bati1 %></td>
-            <td><%= com_batigrado.bati2 %></td>
-            <td><%= com_batigrado.gradup %></td>
-            <td><%= com_batigrado.repas1 %></td>
-            <td><%= com_batigrado.repas2 %></td>
-            <td><%= com_batigrado.repas3 %></td>
-            <td><%= com_batigrado.soiree %></td>
+            <td class="text-center"><%= com_batigrado.ttshirt %></td>
+            <td class="text-center"><%= com_batigrado.tpant %></td>
+            <td class="text-center"><%= com_batigrado.bati1 ? 'X' : ' ' %></td>
+            <td class="text-center"><%= com_batigrado.bati2 ? 'X' : ' '  %></td>
+            <td class="text-center"><%= com_batigrado.gradup ? 'X' : ' '  %></td>
+            <td class="text-center"><%= com_batigrado.repas1 ? 'X' : ' '  %></td>
+            <td class="text-center"><%= com_batigrado.repas2 ? 'X' : ' '  %></td>
+            <td class="text-center"><%= com_batigrado.repas3 ? 'X' : ' '  %></td>
+            <td class="text-center"><%= com_batigrado.soiree ? 'X' : ' '  %></td>
             <td><%= com_batigrado.montant %></td>
             <td><%= com_batigrado.reglt %></td>
-            <td><%= link_to 'Show', com_batigrado %></td>
-            <td><%= link_to 'Edit', edit_com_batigrado_path(com_batigrado) %></td>
-            <td><%= link_to 'Destroy', com_batigrado, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Voir', com_batigrado %></td>
+            <td><%= link_to 'Supprimer', com_batigrado, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
 
+<% end %>
+
 <% elsif current_user.admin == 0 %>
 
-    <table class="table">
+    <table class="table table-responsive">
       <thead>
         <tr>
           <th>Nom</th>
           <th>Prenom</th>
-          <th>Nom grupo</th>
-          <th>Email</th>
-          <th>Ttshirt</th>
-          <th>Tpant</th>
-          <th>Bati1</th>
-          <th>Bati2</th>
-          <th>Gradup</th>
-          <th>Repas1</th>
-          <th>Repas2</th>
-          <th>Repas3</th>
-          <th>Soiree</th>
-          <th>Montant</th>
-          <th>Reglt</th>
-          <th colspan="3"></th>
+          <th>Batigrado</th>
+          <th colspan="2"></th>
         </tr>
       </thead>
 
@@ -81,27 +87,16 @@
           <tr>
             <td><%= com_batigrado.nom %></td>
             <td><%= com_batigrado.prenom %></td>
-            <td><%= com_batigrado.nom_grupo %></td>
-            <td><%= com_batigrado.email %></td>
-            <td><%= com_batigrado.ttshirt %></td>
-            <td><%= com_batigrado.tpant %></td>
-            <td><%= com_batigrado.bati1 %></td>
-            <td><%= com_batigrado.bati2 %></td>
-            <td><%= com_batigrado.gradup %></td>
-            <td><%= com_batigrado.repas1 %></td>
-            <td><%= com_batigrado.repas2 %></td>
-            <td><%= com_batigrado.repas3 %></td>
-            <td><%= com_batigrado.soiree %></td>
-            <td><%= com_batigrado.montant %></td>
-            <td><%= com_batigrado.reglt %></td>
-            <td><%= link_to 'Show', com_batigrado %></td>
-            <td><%= link_to 'Edit', edit_com_batigrado_path(com_batigrado) %></td>
-            <td><%= link_to 'Destroy', com_batigrado, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= @batigrados.find(com_batigrado.batigrado_id).ville%></td>
+            <td><%= link_to 'Voir', com_batigrado %></td>
+            <td><%= link_to 'Modifier', edit_com_batigrado_path(com_batigrado) %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
 <% end %>
+</div>
+</div>
 <br>
 
-<%= link_to 'New Com Batigrado', new_com_batigrado_path %>
+<%= link_to 'Retour', root_path %>

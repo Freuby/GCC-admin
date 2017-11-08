@@ -14,6 +14,35 @@
 
 @import "bootstrap";
 
+.blink_text {
+
+    animation:1s blinker linear infinite;
+    -webkit-animation:1s blinker linear infinite;
+    -moz-animation:1s blinker linear infinite;
+
+     color: red;
+    }
+
+    @-moz-keyframes blinker {
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }
+
+    @-webkit-keyframes blinker {
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }
+
+    @keyframes blinker {
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }
+
+table { table-layout:fixed; }
+
 #logo {
   height: 50px;
 }
@@ -27,7 +56,7 @@ footer {
 }
 #pdp {
   padding-top: 10px;
-  height: 50px;
+  min-height: 44px;
   background-color: lawngreen;
   color: black;
 }

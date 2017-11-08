@@ -13,7 +13,7 @@
                         <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mon compte</a>
                         <div class="dropdown-menu">
                             <%= link_to "Editer son profil", edit_user_registration_path, class:  "dropdown-item" %>
-                            <%= link_to "Settings", '#', class:  "dropdown-item" %>
+                            <!-- <%= link_to "Préfèrences", '#', class:  "dropdown-item" %> -->
                         </div>
                     </li>
                 <% else %>
@@ -75,6 +75,7 @@
                                         <%= link_to "Mes batigrados", com_batigrados_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
+                                <% if @current_elefe %>
                                 <li class="dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Repas du groupe</a>
                                     <div class="dropdown-menu">
@@ -83,12 +84,13 @@
                                     </div>
                                  </li>
                                 <li class="dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Commandes</a>
+                                <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Commandes</a>
                                     <div class="dropdown-menu">
                                         <%= link_to "Vêtements & Instruments", root_path, class:  "dropdown-item" %>
                                         <%= link_to "Mes commandes", root_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
+                                <% end %>
                 <% end %>
                 <% end %>
             </ul>

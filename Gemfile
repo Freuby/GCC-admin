@@ -35,6 +35,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'devise'
+gem 'devise-i18n'
 gem 'cancan'
 gem 'bootstrap', '~> 4.0.0.beta'
 gem 'autoprefixer-rails'
@@ -42,6 +43,9 @@ gem 'autoprefixer-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails', '~> 3.6'
+  gem "paperclip", "~> 5.0.0"
+  gem 'paperclip-i18n'
 end
 
 group :development do

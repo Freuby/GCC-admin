@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171023091517) do
+ActiveRecord::Schema.define(version: 20171107155901) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
@@ -103,10 +103,18 @@ ActiveRecord::Schema.define(version: 20171023091517) do
     t.integer  "prix"
     t.integer  "reglement"
     t.boolean  "signature"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "presence_id"
     t.integer  "user_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.string   "certifmed_file_name"
+    t.string   "certifmed_content_type"
+    t.integer  "certifmed_file_size"
+    t.datetime "certifmed_updated_at"
     t.index ["presence_id"], name: "index_eleves_on_presence_id"
     t.index ["user_id"], name: "index_eleves_on_user_id"
   end

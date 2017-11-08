@@ -1,7 +1,7 @@
 <%= form_for(elefe) do |f| %>
   <% if elefe.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(elefe.errors.count, "error") %> prohibited this elefe from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger" role="alert">
+      <h2>Le formulaire ne peut pas être enregistré à cause de <%= pluralize(elefe.errors.count, "erreur") %></h2>
 
       <ul>
       <% elefe.errors.full_messages.each do |message| %>
@@ -18,69 +18,78 @@
 </div>
 
 <div class="row">
-  <div class="col-6 field">
+    <div class="col-12">
+        <p>Ajoutez votre photo au format photo d'identité en jpg, png ou gif (< 1 mo)</p>
+        <%= f.file_field :photo %>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-6 field">
     <%= f.label :nom %>
     <%= f.text_field :nom, class: "form-control" %>
   </div>
-  <div class="col-6 field">
-    <%= f.label :date_naissance, "Date de naissance" %><br />
-    <%= f.date_select :date_naissance, class: "form-control", start_year: 1900 %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-6 field">
+  <div class="col-12 col-md-6 field">
     <%= f.label :prenom, "Prénom" %>
     <%= f.text_field :prenom, class: "form-control" %>
   </div>
-  <div class="col-6 field">
-    <%= f.label :tel_mobile, "Tél. portable" %>
-    <%= f.text_field :tel_mobile, class: "form-control" %>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-6 field">
+    <%= f.label :date_naissance, "Date de naissance" %><br />
+    <%= f.date_select :date_naissance, order: [:day, :month, :year], class: "form-control", start_year: 1900 %>
+  </div>
+  <div class="col-12 col-md-6 field">
+        <%= f.label :email %>
+        <%= f.text_field :email, value: current_user.email, class: "form-control" %>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-6 field">
+  <div class="col-12 col-md-6 field">
     <%= f.label :rue, "Rue/Lieu-dit" %>
     <%= f.text_field :rue, class: "form-control" %>
   </div>
-  <div class="col-6 field">
+  <div class="col-4 col-md-2 field">
+    <%= f.label :cp, "Code Postal" %>
+    <%= f.text_field :cp, class: "form-control" %>
+  </div>
+  <div class="col-8 col-md-4 field">
+    <%= f.label :ville %>
+    <%= f.text_field :ville, class: "form-control" %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-6 field">
+    <%= f.label :tel_mobile, "Tél. portable" %>
+    <%= f.text_field :tel_mobile, class: "form-control" %>
+  </div>
+  <div class="col-12 col-md-6 field">
     <%= f.label :tel_fixe, "Tél. fixe" %>
     <%= f.text_field :tel_fixe, class: "form-control" %>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-2 field">
-    <%= f.label :cp, "Code Postal" %>
-    <%= f.text_field :cp, class: "form-control" %>
-  </div>
-  <div class="col-4 field">
-    <%= f.label :ville %>
-    <%= f.text_field :ville, class: "form-control" %>
-  </div>
-  <div class="col-6 field">
+  <div class="col-12 col-md-6 field">
     <%= f.label :graduation %>
       <%= f.select :graduation, @grades_adultes.collect { |g| [g, @grades_adultes.index(g)] }, {}, class: "form-control" %>
   </div>
-</div>
-
-<div class="row">
-    <div class="col-6 field">
-        <%= f.label :email %>
-        <%= f.text_field :email, class: "form-control" %>
-    </div>
-    <div class="field">
+    <div class="col-12 col-md-6 field">
         <%= f.label :ville_entrainement, "Ville d'entraînement principale : " %>
         <%= f.select :ville_entrainement, @list_cours.collect { |g| [g, @list_cours.index(g)+1] }, {}, class: "form-control" %>
     </div>
 </div>
-
+ <br/>
 <div class="row">
   <div class="col-12">
       <h3>Particularités médicales</h3>
       <p>Une visite médicale est nécessaire à la pratique de cet Art Martial. Cette visite doit être passée et l’attestation rendue tous les 3 ans, impérativement dans un délai de 15 jours après l’affiliation ou
         renouvellement.</p>
+       <p>Ajoutez votre certificat médical en jpg, png, gif ou pdf (< 1 mo)</p>
+       <%= f.file_field :certifmed %>
   </div>
 </div>
 
@@ -148,8 +157,8 @@
           <div class="row">
               <div class="col-12">
                   <h3>Documents rendus aux affiliés</h3>
-                  <p>Je reconnais avoir pris connaissance des informations générales du Grupo Cultura Capoeira et m’engage à les respecter.
-                      Je reconnais avoir reçu un exemplaire du Livret d’Accueil et du Chronogramme d’activités.</p>
+                  <>Je reconnais avoir pris connaissance des informations générales du Grupo Cultura Capoeira et m’engage à les respecter.
+                      Je reconnais pouvoir consulter<a href="https://www.grupoculturacapoeira.com/mediatheque-photo-video.html#Documents" target="_blank"> le Livret d’Accueil et le Chronogramme d’activités.</a></p>
               </div>
           </div>
           <div class="row">

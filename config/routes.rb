@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :etats
   resources :enseignants
   resources :eleves
+  get '/eleves/:id/valid(.:format)', to: 'eleves#valid', as: 'valid_elefe'
   root 'application#accueil'
 
   devise_for :users, controllers: {

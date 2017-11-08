@@ -1,7 +1,12 @@
+<% if com_batigrado %>
+        <% @even_sel = com_batigrado.batigrado_id if com_batigrado.batigrado_id %>
+        <% @elefe = @eleves_all.where(:nom => com_batigrado.nom, :prenom => com_batigrado.prenom) if com_batigrado.nom%>
+<% end %>
 <% if !@even_sel %>
     <%= form_for :resp, :url => {:action => "new"} do |f| %>
+        <%= f.label :sel_bat, "Sélectionnez votre évènement:" %>
         <% @batigrados.each do |batigrado| %>
-        <%= f.label :sel_bat, "Sélectionnez votre évènement:" %><br/>
+        <br/>
         <%= f.radio_button :sel_bat, batigrado.id %>
         <%= f.label :sel_bat, batigrado.titre, value: batigrado.id %>
         <% end %>
@@ -65,16 +70,26 @@
             <%= f.label :bati1, "Je participe au "+@batigrado.titre+" (Tarif: "+@batigrado.tarif_ext.to_s+" euros)" %>
           </div>
           <% end %>
+      <% end %>
 
+      <% if com_batigrado %>  <!-- Edition et non création -->
+        <% if com_batigrado.batigrado_id %>
+            <%= f.hidden_field :nom, value: com_batigrado.nom %>
+            <%= f.hidden_field :prenom, value: com_batigrado.prenom %>
+            <%= f.hidden_field :email, value: current_user.email %>
+            <%= f.hidden_field :even_sel, value: @even_sel %>
+            <%= f.hidden_field :nom_grupo, value: com_batigrado.nom_grupo %>
+        <% end %>
+      <% end %>
 
-      <% else %> <!-- Capoeiriste du GCC -->
+      <% if @elefe %> <!-- Capoeiriste du GCC -->
 
          Bonjour <%= @elefe[0].prenom %>,
         <%= f.hidden_field :nom, value: @elefe[0].nom %>
         <%= f.hidden_field :prenom, value: @elefe[0].prenom %>
         <%= f.hidden_field :email, value: current_user.email %>
         <%= f.hidden_field :even_sel, value: @even_sel %>
-        <%= f.hidden_field :nom_grupo, "Grupo Cultura Capoeira" %>
+        <%= f.hidden_field :nom_grupo, value: "Grupo Cultura Capoeira" %>
 
         <div class="field">
             <%= f.label :ttshirt, "Taille de T-Shirt (ex: 8ans/S/M...)" %>

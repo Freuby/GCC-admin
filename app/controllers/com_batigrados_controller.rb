@@ -15,7 +15,6 @@ class ComBatigradosController < ApplicationController
 
   # GET /com_batigrados/new
   def new
-
     @eleves_all = @eleves.where(:user_id => current_user.id).all
     if !params[:resp].blank?
       @even_sel = params[:resp][:sel_bat]
@@ -46,12 +45,12 @@ class ComBatigradosController < ApplicationController
     @eleves_all = @eleves.where(:user_id => current_user.id).all
     @elefe = @eleves_all.where(:nom => params[:com_batigrado][:nom], :prenom => params[:com_batigrado][:prenom])
     b = @batigrados.find(params[:com_batigrado][:even_sel])
-    params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] ? 1 : 0)*b.tarif2
+    params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
     if @elefe.exists? #Eleve du GCC
       b.com_batigrados << @elefe[0].com_batigrados.create(com_batigrado_params)
       @com_batigrado = ComBatigrado.last
       respond_to do |format|
-      if b.com_batigrados
+      if @com_batigrados
           format.html { redirect_to @com_batigrado, notice: "Votre demande d'inscription a bien été enregistrée." }
           format.json { render :show, status: :created, location: @com_batigrado }
         else
@@ -60,10 +59,10 @@ class ComBatigradosController < ApplicationController
         end
       end
     else  #Eleve exterieur
-      @com_batigrado = ComBatigrado.new(com_batigrado_params)
-      b << @com_batigrado.create(com_batigrado_params)
+      b.com_batigrados << ComBatigrado.create(com_batigrado_params)
+      @com_batigrado = ComBatigrado.last
       respond_to do |format|
-        if @com_batigrado.save
+        if @com_batigrados
           format.html { redirect_to @com_batigrado, notice: "Votre demande d'inscription a bien été enregistrée." }
           format.json { render :show, status: :created, location: @com_batigrado }
         else

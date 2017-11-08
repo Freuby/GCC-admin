@@ -1,65 +1,46 @@
-<p id="notice"><%= notice %></p>
 <div class="container">
     <div class="row">
         <div class="col-12">
             <h1>FICHE ELEVE</h1>
         </div>
     </div>
-    <%= image_tag("photo-anonyme.jpg", alt: "Photo identité", id: "photo-identite") %>
+
     <div class="row">
-        <div class="col-6">
-            <strong>Nom:</strong>
-            <%= @elefe.nom %>
-        </div>
-        <div class="col-6">
-            <strong>Prénom:</strong>
-            <%= @elefe.prenom %>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <strong>Rue:</strong>
+        <div class="col-md-5 col-6">
+            <h4><strong>Nom: </strong><%= @elefe.nom %></h4>
+            <br/>
+            <strong>Adresse:</strong>
             <%= @elefe.rue %>
-        </div>
-        <div class="col-6">
-            <strong>Date naissance:</strong>
-            <%= @elefe.date_naissance.strftime( '%d/%m/%Y' ) %>
-            (<%= Time.now.year-@elefe.date_naissance.year %> ans)
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-2">
-            <strong>Code postal:</strong>
+            <br/>
+
             <%= @elefe.cp %>
-        </div>
-        <div class="col-4">
-            <strong>Ville:</strong>
+
             <%= @elefe.ville %>
-        </div>
-        <div class="col-6">
-            <strong>Email:</strong>
-            <%= @elefe.email %>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
+            <br/>
             <strong>Tél mobile:</strong>
             <%= @elefe.tel_mobile %>
-        </div>
-        <div class="col-6">
-            <strong>Tél fixe:</strong>
-            <%= @elefe.tel_fixe %>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col-6">
+            <br/>
             <strong>Graduation:</strong>
             <%= @grades_adultes[@elefe.graduation.to_i] %>
         </div>
-        <div class="col-6">
+        <div class="col-md-4 col-6">
+            <h4><strong>Prénom: </strong><%= @elefe.prenom %></h4>
+            <br/>
+            <strong>Date naissance:</strong>
+            <%= @elefe.date_naissance.strftime( '%d/%m/%Y' ) %>
+            (<%= Time.now.year-@elefe.date_naissance.year %> ans)
+            <br/>
+            <strong>Email:</strong>
+            <%= @elefe.email %>
+            <br/>
+            <strong>Tél fixe:</strong>
+            <%= @elefe.tel_fixe %>
+            <br/>
             <strong>Ville entrainement:</strong>
             <%= @cours.find_by(:id => @elefe.ville_entrainement).nomvil %>
+        </div>
+        <div class="col-md-3 col-12 text-center">
+            <%= image_tag @elefe.photo.url(:medium), class: "img-fluid" %>
         </div>
     </div>
     <br/>
@@ -68,6 +49,12 @@
             <h3>Particularités médicales</h3>
         </div>
     </div>
+     <div class="row">
+        <div class="col-12 text-center">
+            <a href=<%= @elefe.certifmed.url %> target="_blank">Voir mon certificat médical</a>
+        </div>
+    </div>
+    <br/>
     <div class="row">
         <div class="col-12 field">
             <strong>Maladie/Traitement/Autre à signaler:</strong>

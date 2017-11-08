@@ -1,5 +1,5 @@
 class ElevesController < ApplicationController
-  before_action :set_elefe, only: [:show, :edit, :update, :destroy]
+  before_action :set_elefe, only: [:show, :edit, :update, :destroy, :valid]
   before_action :set_cours, only: [:index, :show, :new, :edit, :create, :update, :destroy]
 
   # GET /eleves
@@ -74,6 +74,30 @@ class ElevesController < ApplicationController
     end
   end
 
+  # GET /eleves/1/valid
+  def valid
+    session[:return_to] ||= request.referer
+    if @elefe.signature == false || !@elefe.signature
+      @elefe.signature = true
+      respond_to do |format|
+        if @elefe.save
+          format.html { redirect_to session.delete(:return_to), notice: 'La fiche élève a bien été validée.' }
+        else
+          format.html { redirect_to session.delete(:return_to), notice: "Une erreur est survenue, la fiche élève n'a pas pu être validée." }
+        end
+      end
+    else
+        @elefe.signature = nil
+        respond_to do |format|
+          if @elefe.save
+            format.html { redirect_to session.delete(:return_to), notice: "L'élève a bien été désinscrit." }
+          else
+            format.html { redirect_to session.delete(:return_to), notice: "Une erreur est survenue, l'élève n'a pas pu être désinscrit." }
+          end
+        end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_elefe
@@ -96,7 +120,7 @@ class ElevesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def elefe_params
-      params.require(:elefe).permit(:nom, :prenom, :rue, :cp, :ville, :email, :date_naissance, :tel_mobile, :tel_fixe, :graduation, :ville_entrainement, :a_signaler, :urgence_nom, :urgence_prenom, :urgence_parentee, :urgence_tel, :soin_moi, :soin_tutelle, :info_ville, :gcc_connait, :parentee, :prix, :reglement, :signature)
+      params.require(:elefe).permit(:nom, :prenom, :rue, :cp, :ville, :email, :date_naissance, :tel_mobile, :tel_fixe, :graduation, :ville_entrainement, :a_signaler, :urgence_nom, :urgence_prenom, :urgence_parentee, :urgence_tel, :soin_moi, :soin_tutelle, :info_ville, :gcc_connait, :parentee, :prix, :reglement, :signature, :photo, :certifmed)
     end
 
     def cour_params

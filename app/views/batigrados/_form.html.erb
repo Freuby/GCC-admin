@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= f.label :date_bat, "Date du Batigrado (le samedi)" %>
-    <%= f.date_select :date_bat %>
+    <%= f.date_select :date_bat, order: [:day, :month, :year] %>
   </div>
 
   <div class="field">

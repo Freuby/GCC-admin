@@ -1,7 +1,23 @@
-<p id="notice"><%= notice %></p>
-
-<p>Pour finaliser votre inscription au <strong><%= @batigrado.titre %></strong>, il ne vous reste plus qu'à nous faire parvenir votre réglement de <strong><%= sprintf("%.2f", @com_batigrado.montant) %></strong> euros par le responsable communication de votre ville.</p>
-<p>
+<p>Merci <%= @com_batigrado.prenom %> pour votre inscription.</p>
+<p>Vous avez réservé :</p>
+<ul>
+    <li>un t-shirt taille <%= @com_batigrado.ttshirt %></li>
+    <% if @com_batigrado.gradup == true %><li>un changement de grade</li><% end %>
+    <% if @com_batigrado.repas1 == true %><li>le repas du samedi midi</li><% end %>
+    <% if @com_batigrado.soiree == true %><li>la soirée du samedi</li><% end %>
+    <% if @com_batigrado.repas2 == true %><li>le petit déjeuner</li><% end %>
+    <% if @com_batigrado.repas3 == true %><li>le repas du dimanche midi</li><% end %>
+</ul>
+<% if @com_batigrado.bati2 == true %><p>Vous participez aussi au 2ème batigrado lié au <%= @batigrado.titre %>.<% end %>
+<% if @com_batigrado.tpant %>Vous nous avez indiqué une taille de pantalon <%= @com_batigrado.tpant %> pour définir la taille de votre corde.</p><% end %>
+<p>Vous avez prévu de régler en: <strong><%= @reglements[@com_batigrado.reglt.to_i] %></strong></p>
+<% if @com_batigrado.elefe_id %>
+    <p>Pour finaliser votre inscription au <strong><%= @batigrado.titre %></strong>, il ne vous reste plus qu'à nous faire parvenir votre réglement de <strong><%= sprintf("%.2f", @com_batigrado.montant) %></strong> euros par le responsable communication de votre ville.</p>
+<% else %>
+    <p>Afin de finaliser votre inscription au <strong><%= @batigrado.titre %></strong>, en tant que capoeiriste extérieur au Grupo Cultura Capoeira,  vous devrez régler un total de <strong><%= sprintf("%.2f", @com_batigrado.montant) %></strong> euros dès votre arrivée.</p>
+<% end %>
+<p>A bientôt,</p>
+<!-- <p>
   <strong>Nom:</strong>
   <%= @com_batigrado.nom %>
 </p>
@@ -74,7 +90,7 @@
 <p>
   <strong>Reglt:</strong>
   <%= @com_batigrado.reglt %>
-</p>
+</p> -->
 
 <%= link_to 'Modifier', edit_com_batigrado_path(@com_batigrado) %> |
 <%= link_to 'Retour', com_batigrados_path %>

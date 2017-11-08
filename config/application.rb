@@ -13,6 +13,11 @@ module AdminGcc
     # -- all .rb files in that directory are automatically loaded.
     config.encoding = "utf-8"
     # config/initializers/locale.rb
+    I18n.enforce_available_locales = false
+    I18n.config.available_locales = :en
+    I18n.config.default_locale = :fr
 
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+    config.i18n.default_locale = :fr
   end
 end
