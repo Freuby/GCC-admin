@@ -5,12 +5,15 @@ class ElevesController < ApplicationController
   # GET /eleves
   # GET /eleves.json
   def index
-    @eleves_cu = @eleves.where(:user_id => current_user.id).all
+    if current_user.admin == 0
+      @eleves_cu = @eleves.where(:user_id => current_user.id).all
+    end
   end
 
   # GET /eleves/1
   # GET /eleves/1.json
   def show
+    @cours = Cour.all
   end
 
   # GET /eleves/new
@@ -106,6 +109,7 @@ class ElevesController < ApplicationController
 
     def set_cours
       @list_cours = Array []
+      @cours_id = Array []
       @cours.each do |a|
         if a.typcours == 0
           tc = "Adultes"
@@ -114,13 +118,14 @@ class ElevesController < ApplicationController
         elsif a.typcours == 2
           tc = "Mixte"
         end
+        @cours_id << a.id
         @list_cours << a.nomvil+' '+tc
       end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def elefe_params
-      params.require(:elefe).permit(:nom, :prenom, :rue, :cp, :ville, :email, :date_naissance, :tel_mobile, :tel_fixe, :graduation, :ville_entrainement, :a_signaler, :urgence_nom, :urgence_prenom, :urgence_parentee, :urgence_tel, :soin_moi, :soin_tutelle, :info_ville, :gcc_connait, :parentee, :prix, :reglement, :signature, :photo, :certifmed)
+      params.require(:elefe).permit(:nom, :prenom, :rue, :cp, :ville, :email, :date_naissance, :tel_mobile, :tel_fixe, :graduation, :ville_entrainement, :a_signaler, :urgence_nom, :urgence_prenom, :urgence_parentee, :urgence_tel, :soin_moi, :soin_tutelle, :info_ville, :gcc_connait, :parentee, :prix, :reglement, :signature, :user_id, :photo, :certifmed)
     end
 
     def cour_params

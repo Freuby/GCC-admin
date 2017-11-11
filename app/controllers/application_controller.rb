@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
  private
 
   def set_constants
-    @grades_adultes = ["Enfant débutant", "Enfant gradé", "Débutant", "1e corda", "2e corda", "3e corda", "4e corda", "5e corda", "Estagiário", "Monitor", "Instrutor", "Contramestre", "Mestre Edificador", "Mestre Digno"]
+    @typ_cours = ["adultes", "enfants", "mixte"]
+    @grades_adultes = ["Enfant débutant", "Enfant gradé", "Adulte Débutant", "1e corda", "2e corda", "3e corda", "4e corda", "5e corda", "Estagiário", "Monitor", "Instrutor", "Contramestre", "Mestre Edificador", "Mestre Digno"]
     @reglements = ["Espèces", "Chèque", "Tickets CAF", "ANCV", "Autres"]
     t = Time.now
     if t.month > 8  && t.month < 13
@@ -32,14 +33,22 @@ class ApplicationController < ActionController::Base
   end
 
   def set_data
-    @eleves = Elefe.where(:updated_at => @sept_courant..@aout_courant).all
     @batigrados = Batigrado.where(:updated_at => @sept_courant..@aout_courant).all
     @repasgccs = Repasgcc.where(:updated_at => @sept_courant..@aout_courant).all
     @cours = Cour.all
+    @eleves = Elefe.where(:updated_at => @sept_courant..@aout_courant).all
     @enseignants = Enseignant.all
     @presences_all = Presence.where(:created_at => @sept_courant..@aout_courant).all
     @com_batigrados = ComBatigrado.where(:created_at => @sept_courant..@aout_courant).all
     @ticket_repas = TicketRepa.where(:created_at => @sept_courant..@aout_courant).all
+    if current_user
+      if current_user.admin == 2
+        @prenom_ens = current_user.email.split('@')
+        @enseignant = @enseignants.find_by(:prenom => @prenom_ens[0].capitalize)
+        @cours = @enseignant.cours.where(:updated_at => @sept_courant..@aout_courant).all
+        @eleves = @cours.collect { |c| c.eleves }.flatten
+      end
+    end
   end
 
 end

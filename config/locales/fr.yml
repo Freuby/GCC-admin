@@ -99,6 +99,12 @@ fr:
       models:
         elefe:
           attributes:
+            photo:
+              blank: " - ce champs est manquant, merci d'ajouter votre photo"
+            nom:
+              blank: " - ce champs est manquant, merci d'y mettre une valeur"
+            prenom:
+              blank: " - ce champs est manquant, merci d'y mettre une valeur"
             rue:
               blank: " - ce champs est manquant, merci d'y mettre une valeur"
             cp:
@@ -109,6 +115,8 @@ fr:
               blank: " - ce champs est manquant, merci d'entrer un numéro de téléphone mobile"
             tel_fixe:
               blank: " - ce champs est manquant, merci d'entrer un numéro de téléphone fixe"
+            certifmed:
+              blank: " - ce champs est manquant, merci d'ajouter votre certificat médical"
             urgence_nom:
               blank: " - ce champs est manquant, merci d'entrer un nom de personne à prévenir en cas d'urgence"
             urgence_prenom:

@@ -56,4 +56,4 @@
 </p>
 
 <%= link_to 'Modifier', edit_repasgcc_path(@repasgcc) %> |
-<%= link_to 'Retour', repasgccs_path %>
+<%= link_to 'Retour',  request.referer.present? ? request.referer : root_path %>

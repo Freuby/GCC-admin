@@ -14,4 +14,4 @@
 </p>
 
 <%= link_to 'Modifier', edit_enseignant_path(@enseignant) %> |
-<%= link_to 'Retour', enseignants_path %>
+<%= link_to 'Retour',  request.referer.present? ? request.referer : root_path %>

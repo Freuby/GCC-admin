@@ -53,12 +53,12 @@
 
   <div class="field">
     <%= f.label :dateh, "Heure de début du cours" %>
-    <%= f.time_select :dateh %>
+    <%= f.time_select :dateh, {minute_step: 15} %>
   </div>
 
   <div class="field">
     <%= f.label :duree, "Durée du cours" %>
-    <%= f.time_select :duree %>
+    <%= f.time_select :duree, {minute_step: 15, start_hour: 1, end_hour: 5} %>
   </div>
   <br/>
   <div class="actions text-center">

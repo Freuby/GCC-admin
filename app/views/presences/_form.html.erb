@@ -13,7 +13,7 @@
 
     <div class="field">
         <%= f.label :datecours %>
-        <%= f.date_select :datecours, class: "form-control" %>
+        <%= f.date_select :datecours, order: [:day, :month, :year], class: "form-control" %>
     </div>
     <div class="field">
         <%= f.label :enseignant_id, "Enseignant référant " %>

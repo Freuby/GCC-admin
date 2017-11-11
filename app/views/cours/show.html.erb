@@ -49,4 +49,4 @@
 </p>
 
 <%= link_to 'Modifier', edit_cour_path(@cour) %> |
-<%= link_to 'Retour', cours_path %>
+<%= link_to 'Retour',  request.referer.present? ? request.referer : root_path %>

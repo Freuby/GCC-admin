@@ -36,7 +36,7 @@
             <strong>Tél fixe:</strong>
             <%= @elefe.tel_fixe %>
             <br/>
-            <strong>Ville entrainement:</strong>
+            <strong>Ville entrainement principale:</strong>
             <%= @cours.find_by(:id => @elefe.ville_entrainement).nomvil %>
         </div>
         <div class="col-md-3 col-12 text-center">
@@ -70,7 +70,7 @@
         </div>
 
          <div class="col-6 field">
-             <strong>Urgence prenom:</strong>
+             <strong>Prénom:</strong>
              <%= @elefe.urgence_prenom %>
          </div>
 
@@ -134,4 +134,4 @@
 </div>
 <br/>
 <%= link_to 'Modifier', edit_elefe_path(@elefe) %> |
-<%= link_to 'Retour', eleves_path %>
+<%= link_to 'Retour', request.referer.present? ? request.referer : root_path %>

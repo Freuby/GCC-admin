@@ -2,6 +2,11 @@
 <p class="text-right">Dernière connexion le <%= current_user.last_sign_in_at.strftime( '%d/%m/%Y' ) %></p>
 
 <% if current_user %>
+
+<!-- ######################################
+          ACCUEIL DES GRADES DU MESTRE
+     ###################################### -->
+
 <% if current_user.admin == 1 %>
             <h3>Elèves en attente de validation</h3>
 
@@ -34,16 +39,21 @@
           </tbody>
         </table>
 
+<!-- ######################################
+               ACCUEIL DES ELEVES
+     ###################################### -->
 
-<% else %>
+<% elsif current_user.admin == 0 %>
         <br/>
         <div class="text-center">
             <h4>Bienvenue sur le site administratif de l'association</h4>
             <br/>
             <% if !@current_elefe %>
-            <p>Nous vous invitions à vous affilier à l'association par le biais du formulaire en ligne, et d'y joindre les pièces justificatives.</p>
+            <p>Nous vous invitons à vous affilier à l'association par le biais du formulaire en ligne, et d'y joindre les pièces justificatives.</p>
             <br/>
-            <p>Vous avez également la possibilité de vous inscrire aux divers événements proposés par l'association. Les formulaires d'inscription aux événements apparaitront dès leurs créations.</p>
+            <p>Vous avez également la possibilité de vous inscrire aux divers événements proposés par l'association.</p>
+            <br/>
+            <p>Les formulaires d'inscription aux événements apparaitront dès leurs créations.</p>
             <% end %>
         </div>
         <br/>
@@ -60,7 +70,7 @@
         <% end %>
         <% repasgcc = @repasgccs.last %>
         <% if repasgcc %>
-            <% if  !repasgcc.date_repas.past? && @current_elefe%>
+            <% if  !repasgcc.date_repas.past? && @current_elefe %>
                 <% @ticket_repa = TicketRepa.find_by(:elefe_id => @current_elefe.id) %>
                 <div class="text-center">
                     <% if !@ticket_repa %>
@@ -80,6 +90,57 @@
                     <%= link_to "Mes batigrados", com_batigrados_path, class:  "btn btn-outline-success btn-lg btn-block" %>
                 </div>
             <% end %>
+        <% end %>
+
+<!-- ######################################
+     ACCUEIL DES GRADES DE MONITOR A MESTRE
+     ###################################### -->
+
+<% elsif current_user.admin == 2 %>
+    <p>Bonjour <%= @enseignant.prenom %>,</p>
+    <p>Voici vos cours cette année :</p>
+     <ul>
+    <% @cours.each do |cour| %>
+
+        <li>
+        <%= link_to cour.nomvil + ' cours ' + @typ_cours[cour.typcours], cour %>
+        </li>
+
+
+    <% end %>
+    </ul>
+
+    <h3>Elèves en attente de validation</h3>
+         <% @cours.each do |cour| %>
+         <h4><%= cour.nomvil %> cours <%= @typ_cours[cour.typcours] %></h4>
+            <table class="table table-striped table-responsive">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Prénom</th>
+                  <th>Graduation</th>
+                  <th colspan="3"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                    <% @eleves_cours = cour.eleves %>
+                    <% @eleves_cours.each do |elefe| %>
+                        <% if !elefe.signature %>
+                          <tr>
+                            <td <% if !elefe.signature %>bgcolor="#FF0000"<% end %>><%= elefe.nom %></td>
+                            <td <% if !elefe.signature %>bgcolor="#FF0000"<% end %>><%= elefe.prenom %></td>
+                            <td><%= @grades_adultes[elefe.graduation.to_i] %></td>
+
+                            <td><%= link_to 'Voir', elefe %></td>
+                            <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td>
+                            <% if !elefe.signature || elefe.signature == false %><td><%= link_to 'Valider', valid_elefe_path(elefe) %></td><% end %>
+                             <% if elefe.signature == true %><td><%= link_to 'Désinscrire', valid_elefe_path(elefe) %></td><% end %>
+                          </tr>
+                        <% end %>
+                    <% end %>
+              </tbody>
+            </table>
         <% end %>
 <% end %>
 <% end %>

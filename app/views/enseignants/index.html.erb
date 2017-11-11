@@ -27,4 +27,4 @@
 
 <br>
 
-<%= link_to 'Ajouter un enseignant', new_enseignant_path %>
+<%= link_to 'Ajouter un enseignant', new_enseignant_path %> | <%= link_to 'Retour', request.referer.present? ? request.referer : root_path %>

@@ -9,6 +9,7 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
                 <% if user_signed_in? %>
+                    <li class="nav-item"><%= link_to 'Accueil', root_path, class: "nav-link" %></li>
                     <li class="dropdown">
                         <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mon compte</a>
                         <div class="dropdown-menu">
@@ -20,7 +21,7 @@
                     <li class="nav-item"><%= link_to "Créer un compte", new_user_registration_path, class: "nav-link" %></li>
                 <% end %>
                 <% if current_user %>
-                <% if current_user.admin == 1 %>
+                <% if current_user.admin == 1 || current_user.admin == 2%>
                                 <li class="dropdown">
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Elèves</a>
                                     <div class="dropdown-menu">
@@ -55,12 +56,12 @@
                                           <%= link_to "Ajouter un Batigrado", new_batigrado_path, class:  "dropdown-item" %>
                                           <%= link_to "Liste des Batigrados", batigrados_path, class:  "dropdown-item" %>
                                           <%= link_to "Participants Batigrado", com_batigrados_path, class:  "dropdown-item" %>
-                                          <%= link_to "Ajouter un Repas du Grupo", new_repasgcc_path, class:  "dropdown-item" %>
+                                          <%= link_to "Ajouter un Repas du Grupo", new_repasgcc_path, class:  "dropdown-item" if current_user.admin == 1 %>
                                           <%= link_to "Consulter Repas du Grupo", repasgccs_path, class:  "dropdown-item" %>
-                                          <%= link_to "Participants Repas du Grupo", ticket_repas_path, class:  "dropdown-item" %>
+                                          <%= link_to "Participants Repas du Grupo", ticket_repas_path, class:  "dropdown-item" if current_user.admin == 1 %>
                                     </div>
                                 </li>
-                <% else %>
+                <% elsif current_user.admin == 0 %>
                                 <li class="dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Affiliation</a>
                                     <div class="dropdown-menu">
@@ -79,7 +80,10 @@
                                 <li class="dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Repas du groupe</a>
                                     <div class="dropdown-menu">
-                                         <%= link_to "S'inscrire", new_ticket_repa_path, class:  "dropdown-item" %>
+                                         <% @ticket_repa = TicketRepa.find_by(:elefe_id => @current_elefe.id) %>
+                                         <% if !@ticket_repa %>
+                                            <%= link_to "S'inscrire", new_ticket_repa_path, class:  "dropdown-item" %>
+                                         <% end %>
                                          <%= link_to "Mon inscription", ticket_repas_path, class:  "dropdown-item" %>
                                     </div>
                                  </li>

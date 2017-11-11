@@ -27,6 +27,13 @@ class CoursController < ApplicationController
   # POST /cours.json
   def create
     @cour = Cour.new(cour_params)
+    set_enseignant(@cour.enseignant_id)
+    @email = I18n.transliterate(@enseignant.prenom) + '@' + I18n.transliterate(@enseignant.nom) + '.com'
+    @users = User.all
+    if !@users.where(:email => @email).exists?
+      @user = User.new(:email => @email, :password => '1234567', :admin => 2)
+      @user.save
+    end
 
     respond_to do |format|
       if @cour.save

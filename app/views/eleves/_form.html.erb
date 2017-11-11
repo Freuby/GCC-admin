@@ -79,7 +79,7 @@
   </div>
     <div class="col-12 col-md-6 field">
         <%= f.label :ville_entrainement, "Ville d'entraînement principale : " %>
-        <%= f.select :ville_entrainement, @list_cours.collect { |g| [g, @list_cours.index(g)+1] }, {}, class: "form-control" %>
+        <%= f.select :ville_entrainement, @list_cours.collect { |g| [g, @cours_id[@list_cours.index(g)]] }, {}, class: "form-control" %>
     </div>
 </div>
  <br/>
@@ -157,8 +157,8 @@
           <div class="row">
               <div class="col-12">
                   <h3>Documents rendus aux affiliés</h3>
-                  <>Je reconnais avoir pris connaissance des informations générales du Grupo Cultura Capoeira et m’engage à les respecter.
-                      Je reconnais pouvoir consulter<a href="https://www.grupoculturacapoeira.com/mediatheque-photo-video.html#Documents" target="_blank"> le Livret d’Accueil et le Chronogramme d’activités.</a></p>
+                  <p>Je reconnais avoir pris connaissance des informations générales du Grupo Cultura Capoeira et m’engage à les respecter.</p>
+                  <p>Je reconnais pouvoir consulter<a href="https://www.grupoculturacapoeira.com/mediatheque-photo-video.html#Documents" target="_blank"> le Livret d’Accueil et le Chronogramme d’activités.</a></p>
               </div>
           </div>
           <div class="row">
@@ -186,7 +186,7 @@
 
 <div class="row">
   <div class="field">
-    <%= f.label :parentee %>
+    <%= f.label :parentee, "Parenté:" %>
     <%= f.number_field :parentee, class: "form-control" %>
   </div>
 </div>
@@ -197,8 +197,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :reglement %>
-    <%= f.number_field :reglement, class: "form-control" %>
+    <%= f.label :reglement, "Choisissez votre mode de réglement:" %>
+    <%= f.select :reglement, @reglements.collect { |g| [g, @reglements.index(g)] }, {}, class: "form-control" %>
   </div>
 
 <!--  <div class="field">

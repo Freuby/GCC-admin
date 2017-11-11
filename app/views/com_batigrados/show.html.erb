@@ -93,4 +93,4 @@
 </p> -->
 
 <%= link_to 'Modifier', edit_com_batigrado_path(@com_batigrado) %> |
-<%= link_to 'Retour', com_batigrados_path %>
+<%= link_to 'Retour',  request.referer.present? ? request.referer : root_path %>

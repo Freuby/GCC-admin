@@ -2,7 +2,7 @@
 
 <h1>Commande de tickets repas</h1>
 
-<% if current_user.admin == 1 %>
+<% if current_user.admin == 1 || current_user.admin == 2 %>
     <table class="table">
         <thead>
             <tr>
@@ -38,7 +38,7 @@
         <% @ticket_repas_el.each do |ticket_repa| %>
         <% @total = ticket_repa.qte1*@repasgcc.r1e_tarif + ticket_repa.qte2*@repasgcc.r2e_tarif + ticket_repa.qta1*@repasgcc.r1a_tarif + ticket_repa.qta2*@repasgcc.r2a_tarif %>
           <tr>
-            <td>Votre commande du <%= @repasgcc.updated_at.strftime( '%d/%m/%Y' ) %> de <%= number_to_currency(@total, unit: "", separator: ",", delimiter: "") %> euros</td>
+            <td>Votre commande du <%= ticket_repa.updated_at.strftime( '%d/%m/%Y' ) %> de <%= number_to_currency(@total, unit: "", separator: ",", delimiter: "") %> euros</td>
             <td><%= link_to 'Voir', ticket_repa %></td>
             <td><%= link_to 'Modifier', edit_ticket_repa_path(ticket_repa) %></td>
           </tr>

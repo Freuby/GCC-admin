@@ -25,4 +25,4 @@
 <p>Merci de transmette au référant de votre ville votre réglement de <strong><%= number_to_currency(@total, unit: "", separator: ",", delimiter: "") %> euros.</strong></p>
 
 <%= link_to 'Modifier votre commande', edit_ticket_repa_path(@ticket_repa) %> |
-<%= link_to 'Retour', ticket_repas_path %>
+<%= link_to 'Retour',  request.referer.present? ? request.referer : root_path %>

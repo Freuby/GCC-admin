@@ -63,4 +63,4 @@
 <br/>
 
 <%= link_to 'Modifier', edit_batigrado_path(@batigrado) %> |
-<%= link_to 'Retour', batigrados_path %>
+<%= link_to 'Retour',  request.referer.present? ? request.referer : root_path %>

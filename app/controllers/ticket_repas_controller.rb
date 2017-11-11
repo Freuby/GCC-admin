@@ -5,7 +5,9 @@ class TicketRepasController < ApplicationController
   # GET /ticket_repas.json
   def index
     @repasgcc = @repasgccs.last
+    if current_user.admin == 0
     @elefe = @eleves.where(:user_id => current_user.id).first
+    end
     if @elefe
       @ticket_repas_el = @ticket_repas.where(:elefe_id => @elefe.id).all
     else
@@ -37,17 +39,22 @@ class TicketRepasController < ApplicationController
   # POST /ticket_repas
   # POST /ticket_repas.json
   def create
-    @repasgcc = @repasgccs.last
-    @elefe = @eleves.where(:user_id => current_user.id).first
-    @ticket_repa = TicketRepa.new(ticket_repa_params)
+    if ( params[:ticket_repa][:qte1] + params[:ticket_repa][:qte2] + params[:ticket_repa][:qta1] + params[:ticket_repa][:qta2] ).to_i == 0
+      flash[:notice] = 'Vous devez réserver au moins un repas'
+      redirect_back(fallback_location: root_path)
+    else
+      @repasgcc = @repasgccs.last
+      @elefe = @eleves.where(:user_id => current_user.id).first
+      @ticket_repa = TicketRepa.new(ticket_repa_params)
 
-    respond_to do |format|
-      if @ticket_repa.save
-        format.html { redirect_to @ticket_repa, notice: 'Merci, vos tickets sont en préparation.' }
-        format.json { render :show, status: :created, location: @ticket_repa }
-      else
-        format.html { render :new }
-        format.json { render json: @ticket_repa.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @ticket_repa.save
+          format.html { redirect_to @ticket_repa, notice: 'Merci, vos tickets sont en préparation.' }
+          format.json { render :show, status: :created, location: @ticket_repa }
+        else
+          format.html { render :new }
+          format.json { render json: @ticket_repa.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -55,15 +62,20 @@ class TicketRepasController < ApplicationController
   # PATCH/PUT /ticket_repas/1
   # PATCH/PUT /ticket_repas/1.json
   def update
-    @repasgcc = @repasgccs.last
-    @elefe = @eleves.where(:user_id => current_user.id).first
-    respond_to do |format|
-      if @ticket_repa.update(ticket_repa_params)
-        format.html { redirect_to @ticket_repa, notice: 'Votre demande de ticket a bien été modifiée.' }
-        format.json { render :show, status: :ok, location: @ticket_repa }
-      else
-        format.html { render :edit }
-        format.json { render json: @ticket_repa.errors, status: :unprocessable_entity }
+    if ( params[:ticket_repa][:qte1] + params[:ticket_repa][:qte2] + params[:ticket_repa][:qta1] + params[:ticket_repa][:qta2] ).to_i == 0
+      flash[:notice] = 'Vous devez réserver au moins un repas'
+      redirect_back(fallback_location: root_path)
+    else
+      @repasgcc = @repasgccs.last
+      @elefe = @eleves.where(:user_id => current_user.id).first
+      respond_to do |format|
+        if @ticket_repa.update(ticket_repa_params)
+          format.html { redirect_to @ticket_repa, notice: 'Votre demande de ticket a bien été modifiée.' }
+          format.json { render :show, status: :ok, location: @ticket_repa }
+        else
+          format.html { render :edit }
+          format.json { render json: @ticket_repa.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

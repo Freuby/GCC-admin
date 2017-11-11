@@ -48,4 +48,4 @@
 
 <br>
 
-<%= link_to 'Créer un cours', new_cour_path %>
+<%= link_to 'Créer un cours', new_cour_path %> | <%= link_to 'Retour', request.referer.present? ? request.referer : root_path %>
