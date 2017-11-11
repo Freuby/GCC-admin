@@ -5,6 +5,12 @@ class ComBatigradosController < ApplicationController
   # GET /com_batigrados.json
   def index
     @com_batigrados_el = @com_batigrados.where(:email => current_user.email).all
+    respond_to do |format|
+      format.html { render :index }
+      format.pdf do
+        render :pdf => "index", :layout => 'pdf.html', :orientation =>'Landscape'
+      end
+    end
   end
 
   # GET /com_batigrados/1

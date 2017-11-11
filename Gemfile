@@ -41,6 +41,8 @@ gem 'bootstrap', '~> 4.0.0.beta'
 gem 'autoprefixer-rails'
 gem "paperclip", "~> 5.0.0"
 gem 'paperclip-i18n'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
