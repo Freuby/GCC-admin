@@ -1,8 +1,8 @@
 
 
-<% @batigrados.each.with_index do |batigrado, i| %>
 
-<h2>Liste des participants au <%= batigrado.titre %></h2>
+
+<h2>Liste des participants au <%= @batigrado.titre %></h2>
 
 <table class="table">
       <thead>
@@ -13,20 +13,20 @@
           <th>Email</th>
           <th>Tshirt</th>
           <th>Abada</th>
-          <th class="text-center">1 batigrado</th>
-          <% if batigrado.tarif2 %><th class="text-center">2 batigrados</th><% end %>
+          <th class="text-center">1 Bat.</th>
+          <% if @batigrado.tarif2 %><th class="text-center">2 Bat.</th><% end %>
           <th>Graduation</th>
-          <% if batigrado.tar_rep1 %><th class="text-center">Repas samedi midi</th><% end %>
-          <% if batigrado.tar_rep2 %><th class="text-center">Petit déjeuner</th><% end %>
-          <% if batigrado.tar_rep3 %><th class="text-center">Repas dimanche midi</th><% end %>
-          <% if batigrado.tar_soiree %><th>Soirée</th><% end %>
+          <% if @batigrado.tar_rep1 %><th class="text-center">Repas 1</th><% end %>
+          <% if @batigrado.tar_rep2 %><th class="text-center">Petit déj.</th><% end %>
+          <% if @batigrado.tar_rep3 %><th class="text-center">Repas 2</th><% end %>
+          <% if @batigrado.tar_soiree %><th>Soirée</th><% end %>
           <th>Montant</th>
           <th>Reglt</th>
         </tr>
       </thead>
 
       <tbody>
-      <% @combat_bat = @com_batigrados.where(:batigrado_id => batigrado.id).all %>
+      <% @combat_bat = @com_batigrados.where(:batigrado_id => @batigrado.id).all %>
       <% @cbat_tri = @combat_bat.sort_by { |e| [ e.nom_grupo, e.nom, e.prenom ] } %>
         <% @cbat_tri.each do |com_batigrado| %>
           <tr>
@@ -37,16 +37,15 @@
             <td class="text-center"><%= com_batigrado.ttshirt %></td>
             <td class="text-center"><%= com_batigrado.tpant %></td>
             <td class="text-center"><%= com_batigrado.bati1 ? 'X' : ' ' %></td>
-            <% if batigrado.tarif2 %><td class="text-center"><%= com_batigrado.bati2 ? 'X' : ' '  %></td><% end %>
+            <% if @batigrado.tarif2 %><td class="text-center"><%= com_batigrado.bati2 ? 'X' : ' '  %></td><% end %>
             <td class="text-center"><%= com_batigrado.gradup ? 'X' : ' '  %></td>
-            <% if batigrado.tar_rep1 %><td class="text-center"><%= com_batigrado.repas1 ? 'X' : ' '  %></td><% end %>
-            <% if batigrado.tar_rep2 %><td class="text-center"><%= com_batigrado.repas2 ? 'X' : ' '  %></td><% end %>
-            <% if batigrado.tar_rep3 %><td class="text-center"><%= com_batigrado.repas3 ? 'X' : ' '  %></td><% end %>
-            <% if batigrado.tar_soiree %><td class="text-center"><%= com_batigrado.soiree ? 'X' : ' '  %></td><% end %>
+            <% if @batigrado.tar_rep1 %><td class="text-center"><%= com_batigrado.repas1 ? 'X' : ' '  %></td><% end %>
+            <% if @batigrado.tar_rep2 %><td class="text-center"><%= com_batigrado.repas2 ? 'X' : ' '  %></td><% end %>
+            <% if @batigrado.tar_rep3 %><td class="text-center"><%= com_batigrado.repas3 ? 'X' : ' '  %></td><% end %>
+            <% if @batigrado.tar_soiree %><td class="text-center"><%= com_batigrado.soiree ? 'X' : ' '  %></td><% end %>
             <td><%= com_batigrado.montant %></td>
             <td><%= @reglements[com_batigrado.reglt.to_i] %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
- <% end %>

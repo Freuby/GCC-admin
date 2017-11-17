@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107155901) do
+ActiveRecord::Schema.define(version: 20171117144943) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20171107155901) do
     t.datetime "updated_at",                                    null: false
     t.string   "jour"
     t.integer  "enseignant_id"
+    t.boolean  "acb"
     t.index ["enseignant_id"], name: "index_cours_on_enseignant_id"
   end
 
@@ -97,7 +98,7 @@ ActiveRecord::Schema.define(version: 20171107155901) do
     t.string   "urgence_tel"
     t.boolean  "soin_moi"
     t.boolean  "soin_tutelle"
-    t.integer  "info_ville"
+    t.text     "info_ville"
     t.integer  "gcc_connait"
     t.integer  "parentee"
     t.integer  "prix"

@@ -27,8 +27,10 @@
             <h4><strong>Prénom: </strong><%= @elefe.prenom %></h4>
             <br/>
             <strong>Date naissance:</strong>
-            <%= @elefe.date_naissance.strftime( '%d/%m/%Y' ) %>
-            (<%= Time.now.year-@elefe.date_naissance.year %> ans)
+            <% if @elefe.date_naissance %>
+                <%= @elefe.date_naissance.strftime( '%d/%m/%Y' ) %>
+                (<%= Time.now.year-@elefe.date_naissance.year %> ans)
+            <% end %>
             <br/>
             <strong>Email:</strong>
             <%= @elefe.email %>
@@ -85,20 +87,19 @@
          </div>
 
          <div class="col-12">
-             <p>J'autorise le représentant de l’Association Culture Brésil à prendre toute décision destinée à faire donner les soins médicaux chirurgicaux qui pourraient être nécessaires à :</p>
-             <%= @elefe.soin_moi %><%= @elefe.soin_tutelle %>
+             <p>J'autorise le représentant de l’Association Culture Brésil à prendre toute décision destinée à faire donner les soins médicaux chirurgicaux qui pourraient être nécessaires à :
+             <% if @elefe.soin_moi == true %> Moi-même<% end %>
+             <% if @elefe.soin_tutelle == true %> Mon fils, ma fille, le mineur sous ma tutelle<% end %></p>
          </div>
      </div>
     <div class="row">
         <div class="col-12">
-            <p>Je souhaite être informé(e) des imprévus pouvant avoir lieu sur les cours dans villes de :</p>
-            <%= @elefe.info_ville %>
+            <p>Je souhaite être informé(e) des imprévus pouvant avoir lieu sur les cours dans villes de : <%= @elefe.info_ville %></p>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <p>Je connais le GCC grâce à:</p>
-            <%= @elefe.gcc_connait %>
+            <p>Je connais le GCC grâce à : <%= @GCC_connait[@elefe.gcc_connait] %></p>
         </div>
     </div>
     <br/>
@@ -109,29 +110,16 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <strong>Option famille:</strong>
-            <%= @elefe.parentee %>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <strong>Montant du réglement:</strong>
-            <%= @elefe.prix %>
+            <p><% if @elefe.parentee == 0 ||  @elefe.parentee == 2 %>Vous pratiquez 1 cours par semaine<% else %>Vous pratiquez 2 cours par semaine<% end %></p>
         </div>
     </div>
     <div class="row">
         <div class="col-6">
             <strong>Type réglement:</strong>
-            <%= @elefe.reglement %>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <strong>Inscription complète ?</strong>
-            <%= @elefe.signature %>
+            <%= @reglements[@elefe.reglement] %>
         </div>
     </div>
 </div>
 <br/>
 <%= link_to 'Modifier', edit_elefe_path(@elefe) %> |
-<%= link_to 'Retour', request.referer.present? ? request.referer : root_path %>
+<%= link_to 'Retour', root_path %>

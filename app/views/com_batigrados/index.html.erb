@@ -11,6 +11,7 @@
     <a data-toggle="collapse" data-parent="#accordion" href="#accordion<%= i %>" aria-expanded="true" aria-controls="accordion<%= i %>">
         <h3 class="text-center"><%= batigrado.titre %></h3>
     </a>
+    <%= link_to 'Créer le tableau PDF', com_batigrados_path(:format => 'pdf', :bat => batigrado), target: '_blank', class: 'text-right' %>
     <div id="accordion<%= i %>" class="collapse" role="tabpanel">
     <table class="table table-responsive">
       <thead>
@@ -106,4 +107,4 @@
 </div>
 <br>
 
-<%= link_to 'Retour', root_path %> | <%= link_to 'PDF', '/com_batigrados.pdf', target: '_blank' %>
+<%= link_to 'Retour', root_path %>

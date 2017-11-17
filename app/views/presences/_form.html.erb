@@ -10,58 +10,90 @@
       </ul>
     </div>
   <% end %>
-
-    <div class="field">
-        <%= f.label :datecours %>
+  <br/>
+    <div class="field text-center">
+        <%= f.label :datecours, "Date du cours" %>
         <%= f.date_select :datecours, order: [:day, :month, :year], class: "form-control" %>
     </div>
-    <div class="field">
-        <%= f.label :enseignant_id, "Enseignant référant " %>
-        <%= f.select :enseignant_id, @enseignants.collect { |p| [p.nom, p.id] }, class: "form-control" %>
+    <div class="field text-center">
+        <%= f.label :enseignant_id, "Enseignant" %>
+        <%= f.select :enseignant_id, @enseignants.collect { |p| [p.prenom+' '+p.nom, p.id] }, class: "form-control" %>
     </div>
+    <br/>
 
-  <table class="table">
-    <thead>
-    <tr>
-        <th>Nom</th>
-        <th>Prenom</th>
-        <th>Etat</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% @eleves_pres.each_with_index do |elefe, i|  %>
+      <table class="table table-responsive text-center">
+        <thead>
         <tr>
-            <td><%= elefe.nom %></td>
-            <td><%= elefe.prenom %></td>
-            <td>
-                <div class="field">
-                    <%= select( :etat, i, ['P','A','M/B','J'], { }, { } ) %>
-                </div>
-            </td>
+            <th class="text-center">Nom</th>
+            <th class="text-center">Prenom</th>
+            <th class="text-center">Etat</th>
         </tr>
-    <% end %>
-    </tbody>
-    <%= form_for(presence) do |g| %>
-    <tbody>
-        <%= g.label :elefe, "Ajouter un élève existant " %>
-        <%= select_tag( :elefe, options_for_select(@eleves.map {|el| el.nom + ', ' + el.prenom}), class: "form-control") %>
-        <%= g.submit :nouv_ele_ex, value: "Ajouter l'élève", class: "btn btn-outline-primary btn-sm" %>
-        <%= g.submit :del_ele_ex, value: "Enlever l'élève", class: "btn btn-outline-primary btn-sm" %>
-    </tbody>
-    <% end %>
-      <br />
-      <%= form_for(presence) do |h| %>
-      <tbody>
-          <%= h.label :elefe, "Ajouter un élève " %>
-          <%= text_field :elefe_nom, "Nom", class: "form-control", placeholder: "Entrer un nom" %>
-          <%= text_field :elefe_prenom, "Prenom", class: "form-control", placeholder: "Entrer un prénom" %>
-          <%= h.hidden_field :cour_id, value: @cour.id %>
-          <%= h.submit :ajout_ele_new, value: "Ajouter", class: "btn btn-outline-primary btn-sm" %>
-      </tbody>
-      <% end %>
- </table>
-    <%= f.hidden_field :cour_id, value: @cour.id %>
-    <%= f.submit :creepres, value: "Valider", class: "btn btn-primary btn-lg" %>
+        </thead>
+
+        <tbody>
+        <% @eleves_pres.each_with_index do |elefe, i|  %>
+            <tr>
+                <td><%= elefe.nom %></td>
+                <td><%= elefe.prenom %></td>
+                <td>
+                    <div class="field">
+                        <%= select( :etat, i, ['P','A','M/B','J'], { }, { } ) %>
+                    </div>
+                </td>
+            </tr>
+        <% end %>
+        </tbody>
+       </table>
+   <div class="text-center">
+   <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
+      Ajouter un élève
+    </button>
+    <br/><br/>
+   <%= f.hidden_field :cour_id, value: @cour.id %>
+   <%= f.submit :creepres, value: "Valider", class: "btn btn-primary btn-lg" %>
+   </div>
+
+   <!-- Modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="exampleModalLabel">Ajouter un élève</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <%= form_for(presence) do |g| %>
+
+            <%= g.label :elefe, "Ajouter un élève existant " %>
+            <% @eleves_alpha = @eleves.sort_by { |x| x.nom.downcase } %>
+            <%= select_tag( :elefe, options_for_select(@eleves_alpha.map {|el| el.nom + ', ' + el.prenom}), class: "form-control") %>
+            <%= g.hidden_field :cour_id, value: @cour.id %>
+            <br/>
+            <%= g.submit :nouv_ele_ex, value: "Ajouter l'élève", class: "btn btn-outline-success btn-sm" %>
+            <%= g.submit :del_ele_ex, value: "Enlever l'élève", class: "btn btn-outline-danger btn-sm" %>
+
+        <% end %>
+          <br /><hr>
+          <%= form_for(presence) do |h| %>
+
+              <%= h.label :elefe, "Ajouter un élève non inscrit" %>
+              <%= text_field :elefe_nom, "Nom", class: "form-control", placeholder: "Entrer un nom" %>
+              <%= text_field :elefe_prenom, "Prenom", class: "form-control", placeholder: "Entrer un prénom" %>
+              <br/>
+              <%= h.hidden_field :cour_id, value: @cour.id %>
+              <%= h.submit :ajout_ele_new, value: "Ajouter un nouvel élève", class: "btn btn-outline-success btn-sm" %>
+
+          <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% end %>
+

@@ -38,7 +38,7 @@
 <div class="row">
   <div class="col-12 col-md-6 field">
     <%= f.label :date_naissance, "Date de naissance" %><br />
-    <%= f.date_select :date_naissance, order: [:day, :month, :year], class: "form-control", start_year: 1900 %>
+    <%= f.date_select :date_naissance, order: [:day, :month, :year], class: "form-control", start_year: 1900, end_year: Time.now.year-3 %>
   </div>
   <div class="col-12 col-md-6 field">
         <%= f.label :email %>
@@ -79,7 +79,7 @@
   </div>
     <div class="col-12 col-md-6 field">
         <%= f.label :ville_entrainement, "Ville d'entraînement principale : " %>
-        <%= f.select :ville_entrainement, @list_cours.collect { |g| [g, @cours_id[@list_cours.index(g)]] }, {}, class: "form-control" %>
+        <%= f.select :ville_entrainement, @list_cours.collect { |g| [g, @cours_id[@list_cours.index(g)]] }, {}, class: "form-control", id: "cours" %>
     </div>
 </div>
  <br/>
@@ -127,30 +127,34 @@
   </p></div>
 
   <div class="col-6 field">
-    <%= f.check_box :soin_moi %>
+    <%= f.radio_button :soin_moi, true %>
     <%= f.label :soin_moi, "Moi-même" %>
   </div>
 
   <div class="col-6 field">
-    <%= f.check_box :soin_tutelle %>
+    <%= f.radio_button :soin_moi, false %>
     <%= f.label :soin_tutelle, "Mon fils, ma fille, le mineur sous ma tutelle" %>
   </div>
 </div>
-
+          <hr/><br/>
 <div class="row">
   <div class="col-12 field">
-  <p>Je souhaite être informé(e) des imprévus pouvant avoir lieu sur les cours dans villes de :</p>
-  <% @cours.each do |c| %>
-    <%= f.check_box :info_ville, {multiple: true}, c.id, nil %>
+  <p>Je souhaite être informé(e) des imprévus pouvant avoir lieu sur les cours dans les villes de :</p>
+  <% @nomvils = @cours.select(:nomvil).distinct %>
+  <% @nomvils.each do |c| %>
+    <%= f.check_box :info_ville, {multiple: true}, c.nomvil, nil %>
     <%= f.label :info_ville, c.nomvil %>
   <% end %>
   </div>
 </div>
-
+<hr/><br/>
 <div class=row">
   <div class="col-12 field">
-      <p>Comment avez-vous connu le Grupo Cultura Capoeira ?</p>
-      <%=  f.number_field :gcc_connait %>
+  <p>Comment avez-vous connu le Grupo Cultura Capoeira ?</p>
+      <% @GCC_connait.each.with_index do |g, i| %>
+        <%= f.radio_button :gcc_connait, i %>
+        <%= f.label :gcc_connait, g %>
+      <% end %>
   </div>
 </div>
 <br/>
@@ -161,6 +165,9 @@
                   <p>Je reconnais pouvoir consulter<a href="https://www.grupoculturacapoeira.com/mediatheque-photo-video.html#Documents" target="_blank"> le Livret d’Accueil et le Chronogramme d’activités.</a></p>
               </div>
           </div>
+
+<!-- Si le cours est géré par ACB -->
+<div id="acb">
           <div class="row">
               <div class="col-12">
                   <h3>Réglement cotisation annuelle</h3>
@@ -172,34 +179,47 @@
                       <li>Le règlement se fait en totalité en espèces, tickets CAF-ANCV-MSA ou chèque à l’ordre de l’Association Culture Brésil.</li>
                       <li>L’inscription se fait à l’année. En cas d’abandon de l’activité par l’élève, aucun remboursement ne sera effectué par l’Association.</li>
                       <li>L’élève qui choisit un cours par semaine ne peut pas changer son jour d’entraînement comme il le souhaite, ni substituer ses absences par d’autres cours dans d’autres villes sauf pour des raisons professionnelles ou médicales. Dans ce cas, il faudra remettre une attestation à l’association.</li>
-                      <li>Une facture sera émise par l’association et mise à disposition de l’affilié sur demande communiquée par email ou courrier postal pour une durée de 3ans.</li>
+                      <li>Une facture sera émise par l’association et mise à disposition de l’affilié sur demande communiquée par email ou courrier postal pour une durée de 3 ans.</li>
                   </ul>
               </div>
           </div>
 
-<div class="row">
-    <div class="col-12">
-        <h4>Tarif Cotisation Annuelle</h4>
-        <h5>(cocher l'option souhaitée)</h5>
+    <div class="row">
+        <div class="col-12">
+            <div id="cours_ad" class="field">
+            <h4>Tarif de base adultes - Cotisation Annuelle</h4>
+                <%= f.radio_button :parentee, 1 %>
+                <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[0].to_s+" euros/an)" %>
+                <br/>
+                <%= f.radio_button :parentee, 0 %>
+                <%= f.label :parentee, "2 entraînements par semaine ("+@tarif[1].to_s+" euros/an)" %>
+            </div>
+            <div id="cours_en" class="field">
+            <h4>Tarif de base enfants - Cotisation Annuelle</h4>
+                <%= f.radio_button :parentee, 2 %>
+                <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[2].to_s+" euros/an)" %>
+                <br/>
+                <%= f.radio_button :parentee, 1 %>
+                <%= f.label :parentee, "2 entraînements par semaine ("+@tarif[3].to_s+" euros/an)" %>
+            </div>
+            <p></p>
+            <p>Les réductions famille seront calculées après la création de chacunes des fiches d'affiliations des membres de la famille.</p>
+        </div>
     </div>
+
+
+
+      <div class="field">
+        <%= f.label :reglement, "Choisissez votre mode de réglement:" %>
+        <%= f.select :reglement, @reglements.collect { |g| [g, @reglements.index(g)] }, {}, class: "form-control" %>
+      </div>
 </div>
 
-<div class="row">
-  <div class="field">
-    <%= f.label :parentee, "Parenté:" %>
-    <%= f.number_field :parentee, class: "form-control" %>
-  </div>
+<!-- Si le cours est géré par une mairie -->
+
+<div id="no_acb">
+    <p><strong>Merci de vous rapprocher de la ville de <span id="ville"></span> pour le réglement de votre cotisation.</strong></p>
 </div>
-
-<div class="field">
-    <%= f.label :prix %>
-    <%= f.number_field :prix, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :reglement, "Choisissez votre mode de réglement:" %>
-    <%= f.select :reglement, @reglements.collect { |g| [g, @reglements.index(g)] }, {}, class: "form-control" %>
-  </div>
 
 <!--  <div class="field">
     <%= f.label :signature %>
@@ -213,3 +233,28 @@
 <% end %>
 
 </div>
+
+<script type="text/javascript">
+      cour = ('#cours').value;
+  str = $('#cours option:selected').text();
+  acb = str.substring(str.length-1, str.length);
+  typ = str.split(" ",2);
+  typ_cours = typ[1].substring(0, 1);
+  if (acb == '*') {
+    $('#acb').css("display", "none");
+    $('#no_acb').css("display", "inline");
+    $('#ville').append(str.split(" ",1));
+  }
+  else {
+    $('#acb').css("display", "inline");
+    $('#no_acb').css("display", "none");
+  }
+  if (typ_cours == 'E') {
+    $('#cours_en').css("display", "inline");
+    $('#cours_ad').css("display", "none");
+  }
+  else {
+    $('#cours_ad').css("display", "inline");
+    $('#cours_en').css("display", "none");
+  }
+</script>

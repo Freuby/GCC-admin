@@ -2,7 +2,7 @@
 
 <h1>Presences</h1>
 <% if @presence %>
-<h2>Cours
+<h3>Cours
     <% if @presence.cour.typcours == 0 %>
         Adultes
     <% elsif @presence.cour.typcours == 1 %>
@@ -11,26 +11,38 @@
         Mixte
     <% end %>
     <%= @presence.cour.nomvil %>
-</h2>
+</h3>
 <div class="row">
-    <div class="col-3">
+    <div class="col-7 col-md-4">
         <table class="table table-striped">
               <thead>
                 <tr>
+                    <th class="narrow">TP</th>
+                    <th class="narrow">TA</th>
                     <th>Nom</th>
                     <th>Prenom</th>
                 </tr>
               </thead>
               <tbody>
-              <% @presence.eleves.each do |elefe|  %>
+              <% @presence.eleves.each.with_index do |elefe, i|  %>
                   <tr>
+                      <td class="narrow"><%= @ttp[i] %></td>
+                      <td class="narrow"><%= @tta[i] %></td>
                       <td><%= link_to elefe.nom, elefe_path(elefe.id) %></td>
                       <td><%= elefe.prenom %></td>
                   </tr>
               <% end %>
               </tbody>
               <tbody>
-                <tr>
+              <tr style="background-color: yellow;">
+                  <td>Nombre</td>
+                  <td></td>
+                  <td>d'élèves</td>
+                  <td>Moy. <%= @total.inject(0.0) { |sum, el| sum + el } / @total.size %></td>
+              </tr>
+                <tr style="background-color: yellow;">
+                    <td></td>
+                    <td></td>
                     <td><strong>Encadrant</strong></td>
                     <td></td>
                 </tr>
@@ -39,12 +51,12 @@
     </div>
 
 
-<div class="col-9">
+<div class="col-5 col-md-8">
 <div id="index_presences">
 <table class="table table-striped">
     <thead>
-    <tr>
-        <% @presences.each do |presence| %>
+    <tr class="text-center">
+        <% @presences.sort_by { |date| date.datecours }.each do |presence| %>
             <% date = presence.datecours.day.to_s+'/'+presence.datecours.month.to_s %>
             <td><%= link_to date, presence, method: :delete, data: { confirm: 'Supprimer les présences du '+date+' ?' } %></td>
         <% end %>
@@ -52,13 +64,14 @@
     </thead>
 
     <tbody>
-    <% @presence.eleves.each do |elefe|  %>
-        <tr>
-            <% @presences.each do |presence| %>
+
+    <% @presence.eleves.each.with_index do |elefe, i|  %>
+        <tr class="text-center">
+            <% @presences.sort_by { |date| date.datecours }.each do |presence| %>
                 <% if elefe.etats.find_by_presence_id(presence.id) %>
-                <td><%= elefe.etats.find_by_presence_id(presence.id).etat %></td>
+                    <td><%= elefe.etats.find_by_presence_id(presence.id).etat %></td>
                 <% else %>
-                <td></td>
+                    <td></td>
                 <% end %>
             <% end %>
         </tr>
@@ -67,8 +80,13 @@
     </tbody>
 
     <tbody>
-    <tr>
-        <% @presences.each do |presence| %>
+    <tr class="text-center" style="background-color: yellow;">
+        <% @presences.each.with_index do |presence, i | %>
+            <td><%= @total[i] %></td>
+        <% end %>
+    </tr>
+    <tr class="text-center" style="background-color: yellow;">
+        <% @presences.sort_by { |date| date.datecours }.each do |presence| %>
             <% if presence %>
             <td><%= presence.enseignant.prenom %> <%= presence.enseignant.nom %></td>
             <% end %>
@@ -81,7 +99,7 @@
 <% else %>
     <br/><p>Il n'y a aucune présence de saisie pour ce cours.</p>
 <% end %>
-<%= link_to 'Retour', root_path %>
+<%= link_to 'Retour', request.referer.present? ? request.referer : root_path %>
 
 </div>
 

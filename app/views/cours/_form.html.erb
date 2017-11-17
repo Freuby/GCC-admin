@@ -38,6 +38,11 @@
 
   <div class="field">
     <%= f.label :typcours, "Type de cours" %><br />
+    <%= f.radio_button :acb, true %>
+    <%= f.label :acb, "Cours géré par l'Association Culture Brésil (ACB)" %>
+    <%= f.radio_button :acb, false %>
+    <%= f.label :acb, "Cours géré par une mairie" %>
+    <br/>
     <%= f.radio_button :typcours, 0 %>
     <%= f.label :typcours, "Adultes" %>
     <%= f.radio_button :typcours, 1 %>

@@ -8,6 +8,7 @@ class ComBatigradosController < ApplicationController
     respond_to do |format|
       format.html { render :index }
       format.pdf do
+        @batigrado = @batigrados.find(params[:bat])
         render :pdf => "index", :layout => 'pdf.html', :orientation =>'Landscape'
       end
     end
@@ -51,7 +52,7 @@ class ComBatigradosController < ApplicationController
     @eleves_all = @eleves.where(:user_id => current_user.id).all
     @elefe = @eleves_all.where(:nom => params[:com_batigrado][:nom], :prenom => params[:com_batigrado][:prenom])
     b = @batigrados.find(params[:com_batigrado][:even_sel])
-    params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
+    params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == true ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == true ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
     if @elefe.exists? #Eleve du GCC
       b.com_batigrados << @elefe[0].com_batigrados.create(com_batigrado_params)
       @com_batigrado = ComBatigrado.last
@@ -84,6 +85,8 @@ class ComBatigradosController < ApplicationController
   # PATCH/PUT /com_batigrados/1
   # PATCH/PUT /com_batigrados/1.json
   def update
+    b = @batigrados.find(params[:com_batigrado][:even_sel])
+    params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == '1' ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
     respond_to do |format|
       if @com_batigrado.update(com_batigrado_params)
         format.html { redirect_to @com_batigrado, notice: "Votre demande d'inscription a bien été modifiée." }

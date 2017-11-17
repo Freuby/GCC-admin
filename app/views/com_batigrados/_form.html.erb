@@ -5,10 +5,14 @@
 <% if !@even_sel %>
     <%= form_for :resp, :url => {:action => "new"} do |f| %>
         <%= f.label :sel_bat, "Sélectionnez votre évènement:" %>
-        <% @batigrados.each do |batigrado| %>
-        <br/>
-        <%= f.radio_button :sel_bat, batigrado.id %>
-        <%= f.label :sel_bat, batigrado.titre, value: batigrado.id %>
+        <% @batigrados.each.with_index do |batigrado, i| %>
+            <br/>
+            <% if i == 0 %>
+                <%= f.radio_button :sel_bat, batigrado.id, :checked => true %>
+            <% else %>
+                <%= f.radio_button :sel_bat, batigrado.id %>
+            <% end %>
+            <%= f.label :sel_bat, batigrado.titre, value: batigrado.id %>
         <% end %>
         <br/>
         <% if @eleves_all.exists? %>
@@ -30,8 +34,8 @@
 
     <%= form_for(com_batigrado) do |f| %>
       <% if com_batigrado.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(com_batigrado.errors.count, "error") %> prohibited this com_batigrado from being saved:</h2>
+        <div id="error_explanation" class="alert alert-danger" role="alert">
+          <h2>Le formulaire ne peut pas être enregistré à cause de <%= pluralize(elefe.errors.count, "erreur") %></h2>
 
           <ul>
           <% com_batigrado.errors.full_messages.each do |message| %>
@@ -99,10 +103,11 @@
         <hr/>
 
           <% if @batigrado.tarif1 %>
-          <div class="field text-center">
+          <%= f.hidden_field :bati1, value: '1' %>
+     <!-- <div class="field text-center">
             <%= f.check_box :bati1 %>
             <%= f.label :bati1, "Je participe au "+@batigrado.titre+" (Tarif: "+@batigrado.tarif1.to_s+" euros)" %>
-          </div>
+          </div> -->
           <% end %>
           <% if @batigrado.tarif2 %>
           <% tarif2 = @batigrado.tarif1+@batigrado.tarif2 %>

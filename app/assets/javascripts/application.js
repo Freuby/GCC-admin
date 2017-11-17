@@ -17,3 +17,32 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+document.addEventListener("turbolinks:load", function() {
+
+$('#cours').change(function() {
+  cour = this.value;
+  str = $('#cours option:selected').text();
+  acb = str.substring(str.length-1, str.length);
+  typ = str.split(" ",2);
+  typ_cours = typ[1].substring(0, 1);
+  if (acb == '*') {
+    $('#acb').css("display", "none");
+    $('#no_acb').css("display", "inline");
+    $('#ville').append(str.split(" ",1));
+  }
+  else {
+    $('#acb').css("display", "inline");
+    $('#no_acb').css("display", "none");
+  }
+  if (typ_cours == 'E') {
+    $('#cours_en').css("display", "inline");
+    $('#cours_ad').css("display", "none");
+  }
+  else {
+    $('#cours_ad').css("display", "inline");
+    $('#cours_en').css("display", "none");
+  }
+});
+
+});

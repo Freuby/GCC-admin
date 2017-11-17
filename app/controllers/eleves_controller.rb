@@ -1,6 +1,7 @@
 class ElevesController < ApplicationController
   before_action :set_elefe, only: [:show, :edit, :update, :destroy, :valid]
   before_action :set_cours, only: [:index, :show, :new, :edit, :create, :update, :destroy]
+  before_action :set_archive, only: [:index, :show, :create, :update]
 
   # GET /eleves
   # GET /eleves.json
@@ -28,22 +29,49 @@ class ElevesController < ApplicationController
   # POST /eleves
   # POST /eleves.json
   def create
+    cour = Cour.find(params[:elefe][:ville_entrainement])
+    u = current_user
     #info_ville = params[:elefe][:info_ville].join.to_i
     #params[:elefe][:info_ville] = info_ville
+    # CAS DES FICHES EXISTANTES
+    if @All_Eleves.exists?(:nom => params[:elefe][:nom], :prenom => params[:elefe][:prenom])
+      @fiche_exist = @All_Eleves.find_by(:nom => params[:elefe][:nom], :prenom => params[:elefe][:prenom])
+      # Fusion de l'élève avec une fiche existante créée à partir des présences (officialisation)
+      if !@fiche_exist.date_naissance
+        puts "On update eleve existant"
+        @elefe = @fiche_exist
+        cours = @elefe.cours
+        if !cours.detect { |b| b.id == cour.id }
+          @elefe.cours << cour
+        end
+        u.eleves << @elefe
+        respond_to do |format|
+          if @elefe.update(elefe_params)
+            format.html { redirect_to @elefe, notice: 'La fiche élève a bien été modifiée.' }
+            format.json { render :show, status: :ok, location: @elefe }
+          else
+            format.html { render :edit }
+            format.json { render json: @elefe.errors, status: :unprocessable_entity }
+          end
+        end
+      end
+      p
+     # Ne peut pas écraser une fiche existante
+      redirect_back(fallback_location: :back, alert: 'Il existe déjà un élève inscrit avec le même nom et prénom. Peut-être pourriez-vous entrer un deuxième prénom pour vous différencier ?')
+    # CAS CLASSIQUE DE L'INSCRIPTION
+    else
+      @elefe = Elefe.new(elefe_params)
+      @elefe.cours << cour
+      u.eleves << @elefe
 
-    @elefe = Elefe.new(elefe_params)
-    cour = Cour.where(:id => params[:elefe][:ville_entrainement])
-    @elefe.cours << cour
-    u = current_user
-    u.eleves << @elefe
-
-    respond_to do |format|
-      if @elefe.save
-        format.html { redirect_to @elefe, notice: 'La fiche élève a bien été créée.' }
-        format.json { render :show, status: :created, location: @elefe }
-      else
-        format.html { render :new }
-        format.json { render json: @elefe.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @elefe.save
+          format.html { redirect_to @elefe, notice: 'La fiche élève a bien été créée.' }
+          format.json { render :show, status: :created, location: @elefe }
+        else
+          format.html { render :new }
+          format.json { render json: @elefe.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -51,11 +79,14 @@ class ElevesController < ApplicationController
   # PATCH/PUT /eleves/1
   # PATCH/PUT /eleves/1.json
   def update
+    params[:elefe][:info_ville] = params[:elefe][:info_ville].join(',')
+    params[:elefe][:signature] = false
     cour = Cour.find_by(:id => params[:elefe][:ville_entrainement])
     cours = @elefe.cours
     if !cours.detect { |b| b.id == cour.id }
       @elefe.cours << cour
     end
+    @elefe.update_attributes(:updated_at => Time.now)
     respond_to do |format|
       if @elefe.update(elefe_params)
         format.html { redirect_to @elefe, notice: 'La fiche élève a bien été modifiée.' }
@@ -103,6 +134,10 @@ class ElevesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_archive
+      @archive_eleves = Elefe.where(:created_at => @date_fondation..@sept_courant, :updated_at => @date_fondation..@sept_courant).all
+    end
+
     def set_elefe
       @elefe = Elefe.find(params[:id])
     end
@@ -119,7 +154,11 @@ class ElevesController < ApplicationController
           tc = "Mixte"
         end
         @cours_id << a.id
-        @list_cours << a.nomvil+' '+tc
+        if a.acb == false
+          @list_cours << a.nomvil+' '+tc+'*'
+        else
+          @list_cours << a.nomvil+' '+tc
+        end
       end
     end
 

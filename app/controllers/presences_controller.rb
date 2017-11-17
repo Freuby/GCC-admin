@@ -14,10 +14,57 @@ class PresencesController < ApplicationController
   # GET /presences
   # GET /presences.json
   def index
-    cour = params[:select][:cour]
+    if params[:cour]
+      cour = params[:cour]
+      @cour = Cour.where(:id => params[:cour])
+    else
+      cour = params[:select][:cour]
+      @cour = Cour.where(:id => params[:select][:cour])
+    end
     @presences = @presences_all.includes(:eleves, :etats, :cour, :enseignant).where(:cour_id => cour).all
     @presence = @presences.last
-    @cour = Cour.where(:id => params[:select][:cour])
+
+    # Calcul du Total des Présents
+    if @presence
+    @ttp = Array []
+    @presence.eleves.each.with_index do |elefe, i|
+    a = 0
+      @presences.each do |presence|
+      if elefe.etats.find_by_presence_id(presence.id)
+        if elefe.etats.find_by_presence_id(presence.id).etat === "P"
+          a = a +1
+        end
+      end
+      end
+      @ttp[i] = a
+    end
+
+    # Calcul du Total des Absents
+    @tta = Array []
+    @presence.eleves.each.with_index do |elefe, i|
+    a = 0
+      @presences.each do |presence|
+      if elefe.etats.find_by_presence_id(presence.id)
+        if elefe.etats.find_by_presence_id(presence.id).etat === "A"
+          a = a +1
+        end
+      end
+      end
+      @tta[i] = a
+    end
+
+    # Calcul des présents par date de cours
+    @total = Array []
+    @presences.sort_by { |date| date.datecours }.each.with_index do |presence, i|
+        a = 0
+        presence.etats.each do |etat|
+          if etat.etat === 'P'
+            a = a + 1
+          end
+        end
+        @total[i] = a
+    end
+    end
   end
 
   # GET /presences/1
@@ -32,7 +79,11 @@ class PresencesController < ApplicationController
 
   # GET /presences/new
   def new
+    if params[:cour]
+      @cour = Cour.find_by(:id => params[:cour])
+    else
       @cour = Cour.find_by(:id => params[:select][:cour])
+    end
       @eleves_pres = Array[]
       @presence = Presence.new
       @eleves.each do |elefe|
@@ -60,7 +111,7 @@ class PresencesController < ApplicationController
       if !cours.detect { |b| b.id == c.id }
         el.cours << c
       end
-      redirect_back(fallback_location: :back)
+      redirect_to new_presence_path(:cour => params[:presence][:cour_id])
 
     elsif params[:commit] == "Enlever l'élève"
       nompren = params[:elefe]
@@ -68,17 +119,19 @@ class PresencesController < ApplicationController
       el = Elefe.find_by(:nom => nompren[0], :prenom => nompren[1])
       c = Cour.find_by(:id => params[:presence][:cour_id])
       el.cours.delete(c)
-      redirect_back(fallback_location: :back)
+      redirect_to new_presence_path(:cour => params[:presence][:cour_id])
 
-    elsif params[:commit] == "Ajouter"
-      puts "--------------"
-      puts params[:elefe_nom][:Nom]
-      puts params[:elefe_prenom][:Prenom]
-      el = Elefe.new( :nom => params[:elefe_nom][:Nom], :prenom => params[:elefe_prenom][:Prenom], :ville_entrainement => params[:presence][:cour_id] )
-      c = Cour.find_by(:id => params[:presence][:cour_id])
-      el.cours << c
-      el.save
-      redirect_back(fallback_location: :back)
+    elsif params[:commit] == "Ajouter un nouvel élève"
+      if !Elefe.find_by(:nom => params[:elefe_nom][:Nom], :prenom => params[:elefe_prenom][:Prenom])
+        el = Elefe.new( :nom => params[:elefe_nom][:Nom], :prenom => params[:elefe_prenom][:Prenom], :rue => '-', :cp => '-', :ville =>'-', :tel_mobile => '-', :tel_fixe => '-', :urgence_nom => '-', :urgence_prenom => '-', :urgence_tel => '-', :ville_entrainement => params[:presence][:cour_id] )
+        c = Cour.find_by(:id => params[:presence][:cour_id])
+        el.cours << c
+        el.save
+        redirect_to new_presence_path(:cour => params[:presence][:cour_id])
+      else
+        flash[:notice] = "Attention: Il y a déjà un élève portant ce nom et prénom"
+        redirect_to new_presence_path(:cour => params[:presence][:cour_id])
+      end
 
     elsif params[:commit] == "Valider"
       @cour = Cour.find(params[:presence][:cour_id])
@@ -126,9 +179,10 @@ class PresencesController < ApplicationController
   # DELETE /presences/1
   # DELETE /presences/1.json
   def destroy
+    p = @presence
     @presence.destroy
     respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Cette date a bien été supprimée du tableau.' }
+      format.html { redirect_to presences_path(:cour => p.cour_id), notice: 'Cette date a bien été supprimée du tableau.' }
       format.json { head :no_content }
     end
   end

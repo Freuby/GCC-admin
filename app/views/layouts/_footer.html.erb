@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-4 text-center">
             <% if current_user %>
-            Bienvenue <%= current_user.email %>
+                <p>Bienvenue <%= current_user.email %></p>
             <% end %>
         </div>
         <div class="col-4 text-center">
-            GCC Admin
+            <p>GCC Admin</p>
         </div>
         <% if current_user %>
         <div class="col-4 text-center">

@@ -17,7 +17,7 @@
                   <th>Prénom</th>
                   <th>Graduation</th>
                   <th>Ville</th>
-                  <th colspan="3"></th>
+                  <th colspan="2"></th>
                 </tr>
               </thead>
 
@@ -30,9 +30,9 @@
                 <td><%= @grades_adultes[elefe.graduation.to_i] %></td>
                 <td><%= @cours.find_by(:id => elefe.ville_entrainement).nomvil %></td>
                 <td><%= link_to 'Voir', elefe %></td>
-                <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td>
-                <% if !elefe.signature || elefe.signature == false %><td><%= link_to 'Valider', valid_elefe_path(elefe) %></td><% end %>
-                 <% if elefe.signature == true %><td><%= link_to 'Désinscrire', valid_elefe_path(elefe) %></td><% end %>
+                <!-- <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td> -->
+                <% if !elefe.signature || elefe.signature == false %><td><%= link_to 'Valider', valid_elefe_path(elefe), data: { confirm: 'Valider la fiche de cet élève ?' } %></td><% end %>
+                 <% if elefe.signature == true %><td><%= link_to 'Désinscrire', valid_elefe_path(elefe), data: { confirm: 'Désinscrire cet élève ?' } %></td><% end %>
               </tr>
             <% end %>
             <% end %>
@@ -119,7 +119,7 @@
                   <th>Nom</th>
                   <th>Prénom</th>
                   <th>Graduation</th>
-                  <th colspan="3"></th>
+                  <th colspan="2"></th>
                 </tr>
               </thead>
 
@@ -133,9 +133,9 @@
                             <td><%= @grades_adultes[elefe.graduation.to_i] %></td>
 
                             <td><%= link_to 'Voir', elefe %></td>
-                            <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td>
-                            <% if !elefe.signature || elefe.signature == false %><td><%= link_to 'Valider', valid_elefe_path(elefe) %></td><% end %>
-                             <% if elefe.signature == true %><td><%= link_to 'Désinscrire', valid_elefe_path(elefe) %></td><% end %>
+                            <!-- <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td> -->
+                            <% if !elefe.signature || elefe.signature == false %><td><%= link_to 'Valider', valid_elefe_path(elefe), data: { confirm: 'Valider la fiche de cet élève ?' } %></td><% end %>
+                            <% if elefe.signature == true %><td><%= link_to 'Désinscrire', valid_elefe_path(elefe), data: { confirm: 'Désinscrire cet élève ?' } %></td><% end %>
                           </tr>
                         <% end %>
                     <% end %>

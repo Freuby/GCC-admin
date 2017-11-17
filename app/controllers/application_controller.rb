@@ -16,7 +16,10 @@ class ApplicationController < ActionController::Base
     @typ_cours = ["adultes", "enfants", "mixte"]
     @grades_adultes = ["Enfant débutant", "Enfant gradé", "Adulte Débutant", "1e corda", "2e corda", "3e corda", "4e corda", "5e corda", "Estagiário", "Monitor", "Instrutor", "Contramestre", "Mestre Edificador", "Mestre Digno"]
     @reglements = ["Espèces", "Chèque", "Tickets CAF", "ANCV", "Autres"]
+    @GCC_connait = ["Moteur de recherche internet", "Site", "Affiche/Flyer", "Par un ami", "Vidéo", "Film"]
+    @tarif = [190, 230, 140, 180]
     t = Time.now
+    @date_fondation = Time.new(2001, 9, 1)
     if t.month > 8  && t.month < 13
       @sept_courant = Time.new(t.year, 9, 1)
       @aout_courant = Time.new(t.year+1, 8, 31)
@@ -33,10 +36,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_data
+    @All_Eleves = Elefe.all
     @batigrados = Batigrado.where(:updated_at => @sept_courant..@aout_courant).all
     @repasgccs = Repasgcc.where(:updated_at => @sept_courant..@aout_courant).all
     @cours = Cour.all
     @eleves = Elefe.where(:updated_at => @sept_courant..@aout_courant).all
+    @archive_eleves = Elefe.where(:created_at => @date_fondation..@sept_courant, :updated_at => @date_fondation..@sept_courant).all
     @enseignants = Enseignant.all
     @presences_all = Presence.where(:created_at => @sept_courant..@aout_courant).all
     @com_batigrados = ComBatigrado.where(:created_at => @sept_courant..@aout_courant).all

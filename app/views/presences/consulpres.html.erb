@@ -4,7 +4,11 @@
     <%= f.label :page, "Sélectionner le cours :" %>
     <br />
     <% @cours.each_with_index do |a,i| %>
-        <%= f.radio_button :cour, a.id %>
+        <% if i == 0 %>
+            <%= f.radio_button :cour, a.id, :checked => true %>
+        <% else %>
+            <%= f.radio_button :cour, a.id %>
+        <% end %>
         <%= f.label :cour, a.nomvil %> <%= f.label :cour, a.jour %>
         <% if a.typcours == 0 %>
             Adultes
