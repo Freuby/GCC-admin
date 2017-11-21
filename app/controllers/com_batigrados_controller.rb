@@ -66,6 +66,7 @@ class ComBatigradosController < ApplicationController
         end
       end
     else  #Eleve exterieur
+      params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == true ? 1 : 0)*b.tarif_ext
       b.com_batigrados << ComBatigrado.create(com_batigrado_params)
       @com_batigrado = ComBatigrado.last
       respond_to do |format|

@@ -36,6 +36,8 @@ class ElevesController < ApplicationController
     # CAS DES FICHES EXISTANTES
     if @All_Eleves.exists?(:nom => params[:elefe][:nom], :prenom => params[:elefe][:prenom])
       @fiche_exist = @All_Eleves.find_by(:nom => params[:elefe][:nom], :prenom => params[:elefe][:prenom])
+      params[:elefe][:info_ville] = params[:elefe][:info_ville].join(',') if params[:elefe][:info_ville] != nil
+      params[:elefe][:prix] = @tarif[params[:elefe][:parentee].to_i] if params[:elefe][:parentee] != nil
       # Fusion de l'élève avec une fiche existante créée à partir des présences (officialisation)
       if !@fiche_exist.date_naissance
         puts "On update eleve existant"
@@ -54,12 +56,14 @@ class ElevesController < ApplicationController
             format.json { render json: @elefe.errors, status: :unprocessable_entity }
           end
         end
-      end
-      p
+      else
      # Ne peut pas écraser une fiche existante
       redirect_back(fallback_location: :back, alert: 'Il existe déjà un élève inscrit avec le même nom et prénom. Peut-être pourriez-vous entrer un deuxième prénom pour vous différencier ?')
+      end
     # CAS CLASSIQUE DE L'INSCRIPTION
     else
+      params[:elefe][:info_ville] = params[:elefe][:info_ville].join(',') if params[:elefe][:info_ville] != nil
+      params[:elefe][:prix] = @tarif[params[:elefe][:parentee].to_i] if params[:elefe][:parentee] != nil
       @elefe = Elefe.new(elefe_params)
       @elefe.cours << cour
       u.eleves << @elefe
@@ -79,7 +83,8 @@ class ElevesController < ApplicationController
   # PATCH/PUT /eleves/1
   # PATCH/PUT /eleves/1.json
   def update
-    params[:elefe][:info_ville] = params[:elefe][:info_ville].join(',')
+    params[:elefe][:info_ville] = params[:elefe][:info_ville].join(',') if params[:elefe][:info_ville] != nil
+    params[:elefe][:prix] = @tarif[params[:elefe][:parentee].to_i] if params[:elefe][:parentee] != nil
     params[:elefe][:signature] = false
     cour = Cour.find_by(:id => params[:elefe][:ville_entrainement])
     cours = @elefe.cours
@@ -130,6 +135,11 @@ class ElevesController < ApplicationController
           end
         end
     end
+
+  # GET /stateleve
+    def stateleve
+    end
+
   end
 
   private

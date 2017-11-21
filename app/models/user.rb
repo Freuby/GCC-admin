@@ -8,7 +8,13 @@ class User < ApplicationRecord
 
   has_many :eleves
 
+  validates_format_of :email,:with => Devise::email_regexp
+  validates :email, presence: true, if: :mail_exist
   validates :password, length: { minimum: 6, message: " doit être plus grand (6 caratères minimum)" }, on: :update
   validates_confirmation_of :password, on: :update
+
+  def mail_exist
+    !Elefe.where(:email => :email)
+  end
 
 end

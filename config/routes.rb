@@ -11,13 +11,14 @@ Rails.application.routes.draw do
   get '/eleves/:id/valid(.:format)', to: 'eleves#valid', as: 'valid_elefe'
   root 'application#accueil'
 
-  devise_for :users, controllers: {
-      sessions: 'users/sessions'
-  }
+  devise_for :users, path_names: { sign_in: 'connexion', sign_out: 'deconnexion', sign_up: 'inscription'}, :controllers => { :registrations => "registrations" }
+
 
 
   resources :presences
   resources :cours
+
+  get '/stateleve', to: 'eleves#stateleve'
 
   get '/presencesel', to: 'presences#presencesel'
   get '/consulpres', to: 'presences#consulpres'

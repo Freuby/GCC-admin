@@ -6,9 +6,9 @@
     </div>
 
     <div class="row">
-        <div class="col-md-5 col-6">
+        <div class="col-md-5 col-12">
             <h4><strong>Nom: </strong><%= @elefe.nom %></h4>
-            <br/>
+
             <strong>Adresse:</strong>
             <%= @elefe.rue %>
             <br/>
@@ -23,9 +23,9 @@
             <strong>Graduation:</strong>
             <%= @grades_adultes[@elefe.graduation.to_i] %>
         </div>
-        <div class="col-md-4 col-6">
+        <div class="col-md-4 col-12">
             <h4><strong>Prénom: </strong><%= @elefe.prenom %></h4>
-            <br/>
+
             <strong>Date naissance:</strong>
             <% if @elefe.date_naissance %>
                 <%= @elefe.date_naissance.strftime( '%d/%m/%Y' ) %>
@@ -49,49 +49,55 @@
     <div class="row">
         <div class="col-12">
             <h3>Particularités médicales</h3>
+            <br/>
         </div>
     </div>
      <div class="row">
         <div class="col-12 text-center">
-            <a href=<%= @elefe.certifmed.url %> target="_blank">Voir mon certificat médical</a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cert_med">
+              Voir mon certificat médical
+            </button>
         </div>
     </div>
     <br/>
     <div class="row">
         <div class="col-12 field">
             <strong>Maladie/Traitement/Autre à signaler:</strong>
-            <%= @elefe.a_signaler %>
+            <% if @elefe.a_signaler != "" %><%= @elefe.a_signaler %><% else %> Vous n'avez rien signalé<% end %>
         </div>
      </div>
     <div class="row">
-        <div class="col-12"><h6>Personne à prévenir en cas d’urgence</h6></div>
 
-        <div class="col-6 field">
+        <div class="col-12"><br/><h6>Personne à prévenir en cas d’urgence</h6><br/></div>
+
+        <div class="col-12 col-md-6 field">
             <strong>Nom:</strong>
             <%= @elefe.urgence_nom %>
         </div>
 
-         <div class="col-6 field">
+         <div class="col-12 col-md-6 field">
              <strong>Prénom:</strong>
              <%= @elefe.urgence_prenom %>
          </div>
 
-         <div class="col-12 field">
+         <div class="col-12 col-md-6 field">
              <strong>Lien de parenté:</strong>
              <%= @elefe.urgence_parentee %>
          </div>
 
-         <div class="col-12 field">
+         <div class="col-12 col-md-6 field">
              <strong>Téléphone:</strong>
              <%= @elefe.urgence_tel %>
          </div>
 
          <div class="col-12">
+             <br/>
              <p>J'autorise le représentant de l’Association Culture Brésil à prendre toute décision destinée à faire donner les soins médicaux chirurgicaux qui pourraient être nécessaires à :
              <% if @elefe.soin_moi == true %> Moi-même<% end %>
              <% if @elefe.soin_tutelle == true %> Mon fils, ma fille, le mineur sous ma tutelle<% end %></p>
          </div>
      </div>
+                <hr/>
     <div class="row">
         <div class="col-12">
             <p>Je souhaite être informé(e) des imprévus pouvant avoir lieu sur les cours dans villes de : <%= @elefe.info_ville %></p>
@@ -106,20 +112,43 @@
     <div class="row">
         <div class="col-12">
             <h3>Réglement cotisation annuelle</h3>
+            <br/>
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
-            <p><% if @elefe.parentee == 0 ||  @elefe.parentee == 2 %>Vous pratiquez 1 cours par semaine<% else %>Vous pratiquez 2 cours par semaine<% end %></p>
+        <div class="col-12">
+            <p><% if @elefe.parentee == 0 ||  @elefe.parentee == 2 %>Vous pratiquez 1 cours par semaine<% elsif @elefe.parentee == 3 %>Vous pratiquez 2 cours par semaine<%elsif @elefe.parentee == 4 %>Votre cotisation doit être réglée directement auprès du centre d'activités de votre ville.<% end %></p>
         </div>
     </div>
+    <% if @elefe.reglement != nil %>
     <div class="row">
-        <div class="col-6">
+        <div class="col-12">
             <strong>Type réglement:</strong>
             <%= @reglements[@elefe.reglement] %>
         </div>
     </div>
+    <% end %>
 </div>
 <br/>
 <%= link_to 'Modifier', edit_elefe_path(@elefe) %> |
 <%= link_to 'Retour', root_path %>
+
+<!-- Modal -->
+<div class="modal fade" id="cert_med" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Certificat médical</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <a target="_blank" href="<%= @elefe.certifmed.url %>"><img id="cert_med" src=<%= @elefe.certifmed.url %> alt="" /></a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>

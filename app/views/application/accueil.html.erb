@@ -62,8 +62,19 @@
                 <%= link_to "Remplir le formulaire d'affiliation en ligne", new_elefe_path, class:  "btn btn-outline-primary btn-lg btn-block" %>
             </div>
             <br/>
-        <% else %>
+        <% elsif @eleves_current_user != nil %>
             <div class="text-center">
+                <% valid = true %>
+                <% @eleves_current_user.each do |el| %>
+                    <% if el.signature != nil %>
+                        <% if el.signature == false %><% valid = false %><% end %>
+                    <% end %>
+                <% end %>
+                <% if valid == true %>
+                    <p>Vos inscriptions sont toutes validées.</p>
+                <% else %>
+                    <% if @total_cotis != 0 %><p>Total de vos cotisations encore non validées : <%= @total_cotis %> euros</p><% end %>
+                <% end %>
                 <%= link_to "Mes formulaires d'affiliation", eleves_path, class:  "btn btn-outline-primary btn-lg btn-block" %>
             </div>
             <br/>
@@ -142,6 +153,24 @@
               </tbody>
             </table>
         <% end %>
+
+
+<!-- ######################################
+       ACCUEIL DES RESPONSABLES PRESENCES
+     ###################################### -->
+
+<% elsif current_user.admin == 3 %>
+
+                <h6>Bienvenue dans la gestion des présences à <%= @ville.capitalize %> pour les cours du <%= @jour %></h6>
+                            <br/>
+                <div class="text-center">
+                    <%= link_to "Saisir des présences", presencesel_path, class:  "btn btn-outline-primary btn-lg btn-block" %>
+                </div>
+                <br/>
+                <div class="text-center">
+                    <%= link_to "Consulter des présences", consulpres_path, class:  "btn btn-outline-primary btn-lg btn-block" %>
+                </div>
 <% end %>
+
 <% end %>
 <br/>

@@ -18,7 +18,23 @@
 //= require jquery_ujs
 //= require_tree .
 
+var city;
+var code;
+
 document.addEventListener("turbolinks:load", function() {
+
+
+$('#code').change().codePostal(function (cities) {
+      if(cities.length) {
+        $('#city').empty();
+        $('#city').append(cities.map(function (entry) {
+          return "<option>"+entry.city+"</option>";
+        }));
+      } else {
+        $('#city').val('');
+      }
+});
+
 
 $('#cours').change(function() {
   cour = this.value;
@@ -30,6 +46,8 @@ $('#cours').change(function() {
     $('#acb').css("display", "none");
     $('#no_acb').css("display", "inline");
     $('#ville').append(str.split(" ",1));
+    $('#mairie').attr('checked', 'checked');
+    $('#mairie').css("display", "none");
   }
   else {
     $('#acb').css("display", "inline");

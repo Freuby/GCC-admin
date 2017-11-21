@@ -26,7 +26,7 @@
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Elèves</a>
                                     <div class="dropdown-menu">
                                         <%= link_to "Liste des élèves", eleves_path, class:  "dropdown-item" %>
-                                        <%= link_to "Ajouter un élève", new_elefe_path, class:  "dropdown-item" %>
+                                        <%= link_to "Statistiques d'un élève", stateleve_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
                                 <li class="dropdown">
@@ -59,6 +59,14 @@
                                           <%= link_to "Ajouter un Repas du Grupo", new_repasgcc_path, class:  "dropdown-item" if current_user.admin == 1 %>
                                           <%= link_to "Consulter Repas du Grupo", repasgccs_path, class:  "dropdown-item" %>
                                           <%= link_to "Participants Repas du Grupo", ticket_repas_path, class:  "dropdown-item" if current_user.admin == 1 %>
+                                    </div>
+                                </li>
+                <% elsif current_user.admin == 3 %>
+                                <li class="dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Présences</a>
+                                    <div class="dropdown-menu">
+                                          <%= link_to "Saisir des présences", presencesel_path, class:  "dropdown-item" %>
+                                          <%= link_to "Consulter des présences", consulpres_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
                 <% elsif current_user.admin == 0 %>

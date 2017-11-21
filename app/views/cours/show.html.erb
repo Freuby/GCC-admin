@@ -51,5 +51,15 @@
   <%= @cour.duree.hour %>h<%= (@cour.duree.min != 0 ? @cour.duree.min : "") %>
 </p>
 
+<p>
+    <strong>Login du référant:</strong>
+    <%= @mail_ref %>
+</p>
+
+<p>
+    <strong>Login de gestion des présences:</strong>
+    <%= @mail_pres %>
+</p>
+
 <%= link_to 'Modifier', edit_cour_path(@cour) %> |
 <%= link_to 'Retour',  request.referer.present? ? request.referer : root_path %>

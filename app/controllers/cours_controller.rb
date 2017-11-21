@@ -11,6 +11,18 @@ class CoursController < ApplicationController
   # GET /cours/1.json
   def show
     set_enseignant(@cour.enseignant_id)
+    @mail_ref = User.find_by(:email => I18n.transliterate(@enseignant.prenom.downcase) + '@' + I18n.transliterate(@enseignant.nom.downcase) + '.com')
+    if !@mail_ref
+      @mail_ref = "introuvable"
+    else
+      @mail_ref = @mail_ref.email
+    end
+    @mail_pres = User.find_by(:email => I18n.transliterate(@cour.nomvil.downcase).delete(" ") + '@' + I18n.transliterate(@cour.jour.downcase) + '.pre')
+    if !@mail_pres
+      @mail_pres = "introuvable"
+    else
+      @mail_pres = @mail_pres.email
+    end
   end
 
   # GET /cours/new
@@ -29,9 +41,14 @@ class CoursController < ApplicationController
     @cour = Cour.new(cour_params)
     set_enseignant(@cour.enseignant_id)
     @email = I18n.transliterate(@enseignant.prenom) + '@' + I18n.transliterate(@enseignant.nom) + '.com'
+    @email2 = I18n.transliterate(params[:cour][:nomvil]).delete(" ") + '@' + I18n.transliterate(params[:cour][:jour]) + '.pre'
     @users = User.all
     if !@users.where(:email => @email).exists?
       @user = User.new(:email => @email, :password => '1234567', :admin => 2)
+      @user.save
+    end
+    if !@users.where(:email => @email2).exists?
+      @user = User.new(:email => @email2, :password => '1234567', :admin => 3)
       @user.save
     end
 

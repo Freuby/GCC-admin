@@ -27,7 +27,7 @@
 <div class="row">
   <div class="col-12 col-md-6 field">
     <%= f.label :nom %>
-    <%= f.text_field :nom, class: "form-control" %>
+    <%= f.text_field :nom, class: "form-control", required: true %>
   </div>
   <div class="col-12 col-md-6 field">
     <%= f.label :prenom, "Prénom" %>
@@ -42,7 +42,7 @@
   </div>
   <div class="col-12 col-md-6 field">
         <%= f.label :email %>
-        <%= f.text_field :email, value: current_user.email, class: "form-control" %>
+        <%= f.text_field :email, value: current_user.email, readonly: true, class: "form-control" %>
   </div>
 </div>
 
@@ -53,12 +53,13 @@
   </div>
   <div class="col-4 col-md-2 field">
     <%= f.label :cp, "Code Postal" %>
-    <%= f.text_field :cp, class: "form-control" %>
+    <%= f.text_field :cp, class: "form-control", id: "code" %>
   </div>
   <div class="col-8 col-md-4 field">
     <%= f.label :ville %>
-    <%= f.text_field :ville, class: "form-control" %>
+    <%= f.select :ville, '<option value="1" selected>'.html_safe+elefe.ville+"</option>".html_safe, {}, class: "form-control", id: "city" %>
   </div>
+
 </div>
 
 <div class="row">
@@ -75,7 +76,7 @@
 <div class="row">
   <div class="col-12 col-md-6 field">
     <%= f.label :graduation %>
-      <%= f.select :graduation, @grades_adultes.collect { |g| [g, @grades_adultes.index(g)] }, {}, class: "form-control" %>
+    <%= f.select :graduation, @grades_adultes.collect { |g| [g, @grades_adultes.index(g)] }, {}, class: "form-control" %>
   </div>
     <div class="col-12 col-md-6 field">
         <%= f.label :ville_entrainement, "Ville d'entraînement principale : " %>
@@ -95,11 +96,12 @@
 
 <div class="row">
     <div class="col-12 field">
+        <br/>
         <%= f.label :a_signaler,"Maladie/Traitement/Autre à signaler" %>
         <%= f.text_area :a_signaler, class: "form-control" %>
      </div>
 </div>
-
+<br/>
 <div class="row">
   <div class="col-12"><h6>Personne à prévenir en cas d’urgence</h6></div>
 
@@ -123,7 +125,7 @@
     <%= f.text_field :urgence_tel, class: "form-control" %>
   </div>
 
-  <div class="col-12"><p>J'autorise le représentant de l’Association Culture Brésil à prendre toute décision destinée à faire donner les soins médicaux chirurgicaux qui pourraient être nécessaires à :
+  <div class="col-12"><br/><p>J'autorise le représentant de l’Association Culture Brésil à prendre toute décision destinée à faire donner les soins médicaux chirurgicaux qui pourraient être nécessaires à :
   </p></div>
 
   <div class="col-6 field">
@@ -188,22 +190,22 @@
         <div class="col-12">
             <div id="cours_ad" class="field">
             <h4>Tarif de base adultes - Cotisation Annuelle</h4>
-                <%= f.radio_button :parentee, 1 %>
-                <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[0].to_s+" euros/an)" %>
-                <br/>
                 <%= f.radio_button :parentee, 0 %>
+                <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[0].to_s+" euros/an)", selected: true %>
+                <br/>
+                <%= f.radio_button :parentee, 1 %>
                 <%= f.label :parentee, "2 entraînements par semaine ("+@tarif[1].to_s+" euros/an)" %>
             </div>
             <div id="cours_en" class="field">
             <h4>Tarif de base enfants - Cotisation Annuelle</h4>
                 <%= f.radio_button :parentee, 2 %>
-                <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[2].to_s+" euros/an)" %>
+                <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[2].to_s+" euros/an)", selected: true %>
                 <br/>
-                <%= f.radio_button :parentee, 1 %>
+                <%= f.radio_button :parentee, 3 %>
                 <%= f.label :parentee, "2 entraînements par semaine ("+@tarif[3].to_s+" euros/an)" %>
             </div>
             <p></p>
-            <p>Les réductions famille seront calculées après la création de chacunes des fiches d'affiliations des membres de la famille.</p>
+            <p>Les réductions famille seront calculées après la création de chacune des fiches d'affiliations des membres de la famille.</p>
         </div>
     </div>
 
@@ -211,7 +213,7 @@
 
       <div class="field">
         <%= f.label :reglement, "Choisissez votre mode de réglement:" %>
-        <%= f.select :reglement, @reglements.collect { |g| [g, @reglements.index(g)] }, {}, class: "form-control" %>
+        <%= f.select :reglement, @reglements.collect { |g| [g, @reglements.index(g)] }, class: "form-control" %>
       </div>
 </div>
 
@@ -219,12 +221,9 @@
 
 <div id="no_acb">
     <p><strong>Merci de vous rapprocher de la ville de <span id="ville"></span> pour le réglement de votre cotisation.</strong></p>
+    <%= f.radio_button :parentee, 4 , id: "mairie"%>
 </div>
 
-<!--  <div class="field">
-    <%= f.label :signature %>
-    <%= f.check_box :signature, class: "form-control" %>
-  </div> -->
 <br />
   <div class="col-12 actions text-center">
     <%= f.submit :go, value: "Valider", class: "btn btn-primary btn-lg" %>
@@ -244,6 +243,8 @@
     $('#acb').css("display", "none");
     $('#no_acb').css("display", "inline");
     $('#ville').append(str.split(" ",1));
+    $('#mairie').attr('checked', 'checked');
+    $('#mairie').css("display", "none");
   }
   else {
     $('#acb').css("display", "inline");

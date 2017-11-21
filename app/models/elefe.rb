@@ -18,4 +18,9 @@ class Elefe < ApplicationRecord
   validates :certifmed, attachment_presence: false
   validates_attachment_content_type :certifmed, content_type: ["image/jpeg", "image/gif", "image/png", "application/pdf"]
   validates_with AttachmentSizeValidator, attributes: :certifmed, less_than: 1.megabytes
+
+  def mail_exist
+    !Elefe.where(:email => :email)
+  end
+
 end

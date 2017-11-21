@@ -1,7 +1,7 @@
 <h1>Commande des tickets</h1>
 <h2><%= @repasgcc.titre %> du <%= @repasgcc.date_repas.strftime( '%d/%m/%Y' ) %></h2>
 <p>Les élèves qui voudront acheter des tickets pour le repas devront réserver ceux-ci par le formulaire de commande ci-dessous et effectuer le règlement à la réservation.</p>
-<p>Nous vous prions de nous le remettre le règlement par l'intermédiaire du référant de votre ville.</p>
+<p>Nous vous prions de nous remettre le règlement par l'intermédiaire du référant de votre ville.</p>
 <p>Modes de règlement acceptés :</p>
 <ul>
     <li>Chèques*</li>
@@ -11,7 +11,7 @@
 </ul>
 <p>* Les chèques pourront être encaissés à la date voulue par l’élève si celui-ci l’indique au dos du chèque.</p>
 <p>* Le paiement pourra également se faire en plusieurs fois (uniquement par chèque).</p>
-<p>Les tickets seront remis durant la semaine qui précède le repas, voire le soir même du repas. Le bon de réservation ci-dessous est donc très important. Nous vous donnerons donc le ticket en entier : le talon vous donnera droit à l’apéritif offert et le reste du ticket servira à valider leur place au repas.</p>
+<p>Les tickets seront remis durant la semaine qui précède le repas, voire le soir même du repas. Le bon de réservation ci-dessous est donc très important.</p>
 <h2>Date limite du réglement : <%= @repasgcc.date_lim.strftime( '%d/%m/%Y' ) %></h2>
 
 <%= render 'form', ticket_repa: @ticket_repa %>
