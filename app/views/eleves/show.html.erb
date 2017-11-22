@@ -131,7 +131,7 @@
 </div>
 <br/>
 <%= link_to 'Modifier', edit_elefe_path(@elefe) %> |
-<%= link_to 'Retour', root_path %>
+<%= link_to 'Retour', request.referer.present? ? request.referer : root_path %>
 
 <!-- Modal -->
 <div class="modal fade" id="cert_med" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

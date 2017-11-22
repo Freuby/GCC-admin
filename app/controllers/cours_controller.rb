@@ -17,12 +17,6 @@ class CoursController < ApplicationController
     else
       @mail_ref = @mail_ref.email
     end
-    @mail_pres = User.find_by(:email => I18n.transliterate(@cour.nomvil.downcase).delete(" ") + '@' + I18n.transliterate(@cour.jour.downcase) + '.pre')
-    if !@mail_pres
-      @mail_pres = "introuvable"
-    else
-      @mail_pres = @mail_pres.email
-    end
   end
 
   # GET /cours/new
@@ -41,7 +35,7 @@ class CoursController < ApplicationController
     @cour = Cour.new(cour_params)
     set_enseignant(@cour.enseignant_id)
     @email = I18n.transliterate(@enseignant.prenom) + '@' + I18n.transliterate(@enseignant.nom) + '.com'
-    @email2 = I18n.transliterate(params[:cour][:nomvil]).delete(" ") + '@' + I18n.transliterate(params[:cour][:jour]) + '.pre'
+    @email2 = params[:cour][:mailpres]
     @users = User.all
     if !@users.where(:email => @email).exists?
       @user = User.new(:email => @email, :password => '1234567', :admin => 2)
@@ -66,6 +60,12 @@ class CoursController < ApplicationController
   # PATCH/PUT /cours/1
   # PATCH/PUT /cours/1.json
   def update
+    @email2 = params[:cour][:mailpres]
+    @users = User.all
+    if !@users.where(:email => @email2).exists?
+      @user = User.new(:email => @email2, :password => '1234567', :admin => 3)
+      @user.save
+    end
     respond_to do |format|
       if @cour.update(cour_params)
         format.html { redirect_to @cour, notice: 'Le cours a bien été modifié.' }
@@ -99,7 +99,7 @@ class CoursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cour_params
-      params.require(:cour).permit(:nomvil, :adresse, :cp, :telephon, :typcours, :jour, :dateh, :duree, :enseignant_id, :acb)
+      params.require(:cour).permit(:nomvil, :adresse, :cp, :telephon, :typcours, :jour, :dateh, :duree, :enseignant_id, :acb, :mailpres)
     end
 
     def enseignant_params

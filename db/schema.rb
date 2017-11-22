@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171117144943) do
+ActiveRecord::Schema.define(version: 20171121121015) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20171117144943) do
     t.string   "jour"
     t.integer  "enseignant_id"
     t.boolean  "acb"
+    t.string   "mailpres"
     t.index ["enseignant_id"], name: "index_cours_on_enseignant_id"
   end
 

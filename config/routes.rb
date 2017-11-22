@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   get '/presencesel', to: 'presences#presencesel'
   get '/consulpres', to: 'presences#consulpres'
+  get '/prespdf', to: 'presences#prespdf'
   post '/presencesel', to: 'presences#new'
   post '/consulpres', to: 'presences#index'
 

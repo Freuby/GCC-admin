@@ -63,79 +63,77 @@
     <% end %>
 <% end %>
 
-<% if current_user.admin == 1 || current_user.admin == 2 %>
+<% if current_user.admin == 1 %>
 <h1>Eleves</h1>
+<% @cours.each do |c| %>
+    <hr/>
+    <% @el_cour = @eleves.where(:ville_entrainement => c.id).all %>
+    <h6><a data-toggle="collapse" href="#coll_tabl<%= c.id %>" aria-expanded="false" aria-controls="coll_tabl<%= c.id %>">Elèves du cours <%= @typ_cours[c.typcours] %> de <%= c.nomvil %></a><em> (<%= @el_cour.count %> élève(s))</em></h6>
+    <div class="collapse" id="coll_tabl<%= c.id %>">
+    <table class="table table-striped table-responsive">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Graduation</th>
+          <th>Ville</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
 
-<table class="table table-striped table-responsive">
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Prénom</th>
-      <!-- <th>Rue</th>
-      <th>Cp</th>
-      <th>Ville</th>
-      <th>Email</th>
-      <th>Date naissance</th>
-      <th>Tel mobile</th>
-      <th>Tel fixe</th> -->
-      <th>Graduation</th>
-      <th>Ville</th>
-      <!-- <th>A signaler</th>
-      <th>Urgence nom</th>
-      <th>Urgence prenom</th>
-      <th>Urgence parentee</th>
-      <th>Urgence tel</th>
-      <th>Soin moi</th>
-      <th>Soin tutelle</th>
-      <th>Info ville</th>
-      <th>Gcc connait</th>
-      <th>Parentee</th>
-      <th>Prix</th>
-      <th>Reglement</th>
-      <th>Signature</th> -->
-      <th colspan="2"></th>
-    </tr>
-  </thead>
+      <tbody>
+        <% @el_cour.each do |elefe| %>
+          <tr>
+            <td <% if !elefe.signature %>bgcolor="#FF0000"<% end %>><%= elefe.nom %></td>
+            <td <% if !elefe.signature %>bgcolor="#FF0000"<% end %>><%= elefe.prenom %></td>
+            <td><%= @grades_adultes[elefe.graduation.to_i] %></td>
+            <td><%= @cours.find_by(:id => elefe.ville_entrainement).nomvil %></td>
+            <td><%= link_to 'Voir', elefe %></td>
+            <!-- <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td> -->
+            <% if !elefe.signature || elefe.signature == false %><td><%= link_to 'Valider', valid_elefe_path(elefe), data: { confirm: 'Valider la fiche de cet élève ?' } %></td><% end %>
+            <% if elefe.signature == true %><td><%= link_to 'Désinscrire', valid_elefe_path(elefe), data: { confirm: 'Désinscrire cet élève ?' } %></td><% end %>
+            <!-- <td><%= link_to 'Effacer', elefe, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td> -->
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+<% end %>
+<% end %>
 
-  <tbody>
-    <% @eleves.each do |elefe| %>
-      <tr>
-        <td <% if !elefe.signature %>bgcolor="#FF0000"<% end %>><%= elefe.nom %></td>
-        <td <% if !elefe.signature %>bgcolor="#FF0000"<% end %>><%= elefe.prenom %></td>
-        <!-- <td><%= elefe.rue %></td>
-        <td><%= elefe.cp %></td>
-        <td><%= elefe.ville %></td>
-        <td><%= elefe.email %></td>
-        <td><%= elefe.date_naissance %></td>
-        <td><%= elefe.tel_mobile %></td>
-        <td><%= elefe.tel_fixe %></td> -->
-        <td><%= @grades_adultes[elefe.graduation.to_i] %></td>
-        <td><%= @cours.find_by(:id => elefe.ville_entrainement).nomvil %></td>
-        <!-- <td><%= elefe.a_signaler %></td>
-        <td><%= elefe.urgence_nom %></td>
-        <td><%= elefe.urgence_prenom %></td>
-        <td><%= elefe.urgence_parentee %></td>
-        <td><%= elefe.urgence_tel %></td>
-        <td><%= elefe.soin_moi %></td>
-        <td><%= elefe.soin_tutelle %></td>
-        <td><%= elefe.info_ville %></td>
-        <td><%= elefe.gcc_connait %></td>
-        <td><%= elefe.parentee %></td>
-        <td><%= elefe.prix %></td>
-        <td><%= elefe.reglement %></td>
-        <td><%= elefe.signature %></td> -->
-        <td><%= link_to 'Voir', elefe %></td>
-        <!-- <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td> -->
-        <% if !elefe.signature || elefe.signature == false %><td><%= link_to 'Valider', valid_elefe_path(elefe), data: { confirm: 'Valider la fiche de cet élève ?' } %></td><% end %>
-        <% if elefe.signature == true %><td><%= link_to 'Désinscrire', valid_elefe_path(elefe), data: { confirm: 'Désinscrire cet élève ?' } %></td><% end %>
-        <!-- <td><%= link_to 'Effacer', elefe, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td> -->
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if current_user.admin == 2 %>
+<% @cours.each do |cour| %>
+         <h4><%= cour.nomvil %> cours <%= @typ_cours[cour.typcours] %></h4>
+            <table class="table table-striped table-responsive">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Prénom</th>
+                  <th>Graduation</th>
+                  <th colspan="2"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                    <% @eleves_cours = cour.eleves %>
+                    <% @eleves_cours.each do |elefe| %>
+                          <tr>
+                            <td <% if !elefe.signature %>bgcolor="#FF0000"<% end %>><%= elefe.nom %></td>
+                            <td <% if !elefe.signature %>bgcolor="#FF0000"<% end %>><%= elefe.prenom %></td>
+                            <td><%= @grades_adultes[elefe.graduation.to_i] %></td>
+
+                            <td><%= link_to 'Voir', elefe %></td>
+                            <!-- <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td> -->
+                            <% if !elefe.signature || elefe.signature == false %><td><%= link_to 'Valider', valid_elefe_path(elefe), data: { confirm: 'Valider la fiche de cet élève ?' } %></td><% end %>
+                            <% if elefe.signature == true %><td><%= link_to 'Désinscrire', valid_elefe_path(elefe), data: { confirm: 'Désinscrire cet élève ?' } %></td><% end %>
+                          </tr>
+                        <% end %>
+              </tbody>
+            </table>
+        <% end %>
 <% end %>
 
 <br>
 
-<%= link_to 'Nouvelle affiliation', new_elefe_path %> | <%= link_to 'Retour', root_path %>
+<% if current_user.admin == 0 %><%= link_to 'Nouvelle affiliation', new_elefe_path %> | <% end %><%= link_to 'Retour', root_path %>
 <% end %>

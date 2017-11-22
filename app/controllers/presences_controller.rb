@@ -14,6 +14,7 @@ class PresencesController < ApplicationController
   # GET /presences
   # GET /presences.json
   def index
+
     if params[:cour]
       cour = params[:cour]
       @cour = Cour.where(:id => params[:cour])
@@ -64,6 +65,62 @@ class PresencesController < ApplicationController
         end
         @total[i] = a
     end
+    end
+
+  end
+
+  # GET /prespdf
+  def prespdf
+    @presences = @presences_all.includes(:eleves, :etats, :cour, :enseignant).where(:cour_id => params[:cour]).all
+    @presence = @presences.last
+
+    # Calcul du Total des Présents
+    if @presence
+    @ttp = Array []
+      @presence.eleves.each.with_index do |elefe, i|
+      a = 0
+        @presences.each do |presence|
+          if elefe.etats.find_by_presence_id(presence.id)
+            if elefe.etats.find_by_presence_id(presence.id).etat === "P"
+              a = a +1
+            end
+          end
+        end
+        @ttp[i] = a
+      end
+    end
+
+    # Calcul du Total des Absents
+    @tta = Array []
+    @presence.eleves.each.with_index do |elefe, i|
+    a = 0
+      @presences.each do |presence|
+        if elefe.etats.find_by_presence_id(presence.id)
+          if elefe.etats.find_by_presence_id(presence.id).etat === "A"
+            a = a +1
+          end
+        end
+      end
+      @tta[i] = a
+    end
+
+    # Calcul des présents par date de cours
+    @total = Array []
+    @presences.sort_by { |date| date.datecours }.each.with_index do |presence, i|
+        a = 0
+        presence.etats.each do |etat|
+          if etat.etat === 'P'
+            a = a + 1
+          end
+        end
+        @total[i] = a
+    end
+
+    respond_to do |format|
+      format.html { render :index }
+      format.pdf do
+        render :pdf => "index", :layout => 'pdf.html', :orientation =>'Landscape'
+      end
     end
   end
 

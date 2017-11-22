@@ -71,11 +71,7 @@ class ApplicationController < ActionController::Base
         @eleves = @cours.collect { |c| c.eleves }.flatten
       end
       if current_user.admin == 3
-        firstpart = current_user.email.split('@')
-        secondpart = firstpart[1].split('.')
-        @ville = firstpart[0]
-        @jour = secondpart[0]
-        @cours = Cour.where(:nomvil => @ville.capitalize, :jour => @jour, :updated_at => @sept_courant..@aout_courant).all
+        @cours = Cour.where(:mailpres => current_user.email, :updated_at => @sept_courant..@aout_courant).all
         @eleves = @cours.collect { |c| c.eleves }.flatten
       end
     end

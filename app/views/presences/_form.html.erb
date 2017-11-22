@@ -53,7 +53,7 @@
    <%= f.submit :creepres, value: "Valider", class: "btn btn-primary btn-lg" %>
    </div>
 
-   <!-- Modal -->
+   <!-- Modal  ajout élèves -->
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -68,7 +68,7 @@
         <%= form_for(presence) do |g| %>
 
             <%= g.label :elefe, "Ajouter un élève existant " %>
-            <% @eleves_alpha = @eleves.sort_by { |x| x.nom.downcase } %>
+            <% @eleves_alpha = Elefe.all.sort_by { |x| x.nom.downcase } %>
             <%= select_tag( :elefe, options_for_select(@eleves_alpha.map {|el| el.nom + ', ' + el.prenom}), class: "form-control") %>
             <%= g.hidden_field :cour_id, value: @cour.id %>
             <br/>

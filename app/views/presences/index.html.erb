@@ -2,16 +2,8 @@
 
 <h1>Presences</h1>
 <% if @presence %>
-<h3>Cours
-    <% if @presence.cour.typcours == 0 %>
-        Adultes
-    <% elsif @presence.cour.typcours == 1 %>
-        Enfants
-    <% elsif @presence.cour.typcours == 2 %>
-        Mixte
-    <% end %>
-    <%= @presence.cour.nomvil %>
-</h3>
+<h3>Cours <%= @typ_cours[@presence.cour.typcours] %> <%= @presence.cour.nomvil %></h3>
+
 <div class="row">
     <div class="col-7 col-md-4">
         <table class="table table-striped">
@@ -99,7 +91,8 @@
 <% else %>
     <br/><p>Il n'y a aucune présence de saisie pour ce cours.</p>
 <% end %>
-<%= link_to 'Retour', request.referer.present? ? request.referer : root_path %>
+<% cour = @cour[0].id %>
+<%= link_to 'Retour', request.referer.present? ? request.referer : root_path %><% if @presence %> | <%= link_to 'Créer le tableau PDF', prespdf_path(:format => 'pdf', :cour => cour), target: '_blank', class: 'text-right' %><% end %>
 
 </div>
 

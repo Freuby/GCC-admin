@@ -24,5 +24,5 @@
 <p>Nous avons bien pris en compte votre demande qui va nous permettre de nous préparer dans les meilleures conditions à vous accueillir.</p>
 <p>Merci de transmette au référant de votre ville votre réglement de <strong><%= number_to_currency(@total, unit: "", separator: ",", delimiter: "") %> euros.</strong></p>
 
-<%= link_to 'Modifier votre commande', edit_ticket_repa_path(@ticket_repa) %> |
+<% if current_user.admin == 0 %><%= link_to 'Modifier votre commande', edit_ticket_repa_path(@ticket_repa) %> | <% end %>
 <%= link_to 'Retour',  request.referer.present? ? request.referer : root_path %>

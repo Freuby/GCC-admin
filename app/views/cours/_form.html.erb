@@ -37,8 +37,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :typcours, "Type de cours" %><br />
-    <%= f.radio_button :acb, true %>
+    <%= f.label :acb, "Type de cours" %><br />
+    <%= f.radio_button :acb, true, :checked => true %>
     <%= f.label :acb, "Cours géré par l'Association Culture Brésil (ACB)" %>
     <%= f.radio_button :acb, false %>
     <%= f.label :acb, "Cours géré par une mairie" %>
@@ -65,6 +65,12 @@
     <%= f.label :duree, "Durée du cours" %>
     <%= f.time_select :duree, {minute_step: 15, start_hour: 1, end_hour: 5} %>
   </div>
+
+  <div class="field">
+    <%= f.label :mailpres, "Mail d'accès à la gestion des présences (le mot de passe sera 1234567 pour le 1er accès)" %>
+    <%= f.text_field :mailpres, class: "form-control" %>
+  </div>
+
   <br/>
   <div class="actions text-center">
     <%= f.submit :go, value: "Valider", class: "btn btn-primary btn-lg" %>
