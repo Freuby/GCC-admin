@@ -77,17 +77,18 @@
             <br/>
         <% elsif @eleves_current_user != nil %>
             <div class="text-center">
-                <% valid = true %>
                 <% @eleves_current_user.each do |el| %>
                     <% if el.signature != nil %>
-                        <% if el.signature == false %><% valid = false %><% end %>
+                        <% if el.signature == true  %>
+                            <p>Vos inscriptions sont toutes validées.</p>
+                        <% else %>
+                            <% if @total_cotis != 0 %><p>Total de vos cotisations encore non validées : <%= @total_cotis %> euros</p><% end %>
+                        <% end %>
+                    <% else %>
+                        <% if @total_cotis != 0 %><p>Total de vos cotisations encore non validées : <%= @total_cotis %> euros</p><% end %>
                     <% end %>
                 <% end %>
-                <% if valid == true %>
-                    <p>Vos inscriptions sont toutes validées.</p>
-                <% else %>
-                    <% if @total_cotis != 0 %><p>Total de vos cotisations encore non validées : <%= @total_cotis %> euros</p><% end %>
-                <% end %>
+
                 <%= link_to "Mes formulaires d'affiliation", eleves_path, class:  "btn btn-outline-primary btn-lg btn-block" %>
             </div>
             <br/>

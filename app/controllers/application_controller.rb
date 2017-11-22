@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     if current_user.admin == 0 && @eleves.where(:user_id => current_user.id).exists?
       @eleves_current_user = @eleves.where(:user_id => current_user.id).all
       @eleves_current_user = @eleves_current_user.sort_by{ |p| p.prix }.reverse
-      if @eleves_current_user[0].signature == false
+      if @eleves_current_user[0].signature == false || @eleves_current_user[0].signature == nil
         @total_cotis = @eleves_current_user[0].prix
       else
         @total_cotis = 0
