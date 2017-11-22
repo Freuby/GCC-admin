@@ -76,9 +76,10 @@
                                         <%= link_to "Mes fiches", eleves_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
-                                <% repasgcc = @repasgccs.last %>
-                                <% if repasgcc %>
-                                    <% if  !repasgcc.date_repas.past? && @current_elefe %>
+                                <% if @current_elefe %>
+                                <% last_batigrado = Batigrado.last %>
+                                <% if last_batigrado %>
+                                    <% if  !last_batigrado.date_bat.past? %>
                                         <li class="dropdown">
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Batigrados</a>
                                             <div class="dropdown-menu">
@@ -88,10 +89,9 @@
                                         </li>
                                     <% end %>
                                 <% end %>
-                                <% if @current_elefe %>
-                                <% last_batigrado = Batigrado.last %>
-                                <% if last_batigrado %>
-                                    <% if  !last_batigrado.date_bat.past? %>
+                                <% repasgcc = @repasgccs.last %>
+                                <% if repasgcc %>
+                                    <% if  !repasgcc.date_repas.past? && @current_elefe %>
                                         <li class="dropdown">
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Repas du groupe</a>
                                             <div class="dropdown-menu">

@@ -86,8 +86,14 @@ class ComBatigradosController < ApplicationController
   # PATCH/PUT /com_batigrados/1
   # PATCH/PUT /com_batigrados/1.json
   def update
+    @eleves_all = @eleves.where(:user_id => current_user.id).all
+    @elefe = @eleves_all.where(:nom => params[:com_batigrado][:nom], :prenom => params[:com_batigrado][:prenom])
     b = @batigrados.find(params[:com_batigrado][:even_sel])
-    params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == '1' ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
+    if @elefe.exists? #Eleve du GCC
+      params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == '1' ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
+    else  #Eleve exterieur
+      params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == true ? 1 : 0)*b.tarif_ext
+    end
     respond_to do |format|
       if @com_batigrado.update(com_batigrado_params)
         format.html { redirect_to @com_batigrado, notice: "Votre demande d'inscription a bien été modifiée." }
