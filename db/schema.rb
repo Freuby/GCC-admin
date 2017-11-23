@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171121121015) do
+ActiveRecord::Schema.define(version: 20171123125408) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 20171121121015) do
     t.datetime "updated_at",  null: false
     t.integer  "presence_id"
     t.integer  "elefe_id"
+    t.boolean  "ponctuel"
     t.index ["elefe_id"], name: "index_etats_on_elefe_id"
     t.index ["presence_id"], name: "index_etats_on_presence_id"
   end

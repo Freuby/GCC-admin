@@ -23,3 +23,9 @@ table {
     text-align: center;
     margin: auto;
 }
+
+.page-break {
+ display:block;
+ clear:both;
+ page-break-after:always;
+}

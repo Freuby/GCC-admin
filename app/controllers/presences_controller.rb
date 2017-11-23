@@ -56,14 +56,19 @@ class PresencesController < ApplicationController
 
     # Calcul des présents par date de cours
     @total = Array []
+    @totalponct = Array []
     @presences.sort_by { |date| date.datecours }.each.with_index do |presence, i|
         a = 0
+        b = 0
         presence.etats.each do |etat|
-          if etat.etat === 'P'
+          if etat.etat === 'P' && etat.ponctuel != true
             a = a + 1
+          elsif etat.etat === 'P' && etat.ponctuel == true
+            b = b + 1
           end
         end
         @total[i] = a
+        @totalponct[i] = b
     end
     end
 
@@ -106,14 +111,19 @@ class PresencesController < ApplicationController
 
     # Calcul des présents par date de cours
     @total = Array []
+    @totalponct = Array []
     @presences.sort_by { |date| date.datecours }.each.with_index do |presence, i|
         a = 0
+        b = 0
         presence.etats.each do |etat|
-          if etat.etat === 'P'
+          if etat.etat === 'P' && etat.ponctuel != true
             a = a + 1
+          elsif etat.etat === 'P' && etat.ponctuel == true
+            b = b + 1
           end
         end
         @total[i] = a
+        @totalponct[i] = b
     end
 
     respond_to do |format|
@@ -200,7 +210,15 @@ class PresencesController < ApplicationController
       @eleves_cour.each_with_index do |elefe, i|
         j = i.to_s
         @etat = params[:etat][j]
-        @presence.etats << elefe.etats.create(etat: @etat)
+        @eid = elefe.id.to_s
+        @ponctuel = params[:ponctuel][@eid]
+        if @ponctuel == "1"
+          @p = true
+        else
+          @p = false
+        end
+        puts @p
+        @presence.etats << elefe.etats.create(etat: @etat, ponctuel: @p)
       end
       @presence.enseignant_id = params[:presence][:enseignant_id]
       @presence.cour_id = params[:presence][:cour_id]
@@ -253,5 +271,6 @@ class PresencesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def presence_params
       params.require(:presence).permit(:datecours, :etat, :elefe_id, :cour_id, :enseignant_id)
+      params.require(:ponctuel)
     end
 end

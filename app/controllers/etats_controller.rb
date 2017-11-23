@@ -69,6 +69,6 @@ class EtatsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def etat_params
-      params.require(:etat).permit(:etat, :description)
+      params.require(:etat).permit(:etat, :description, :ponctuel)
     end
 end

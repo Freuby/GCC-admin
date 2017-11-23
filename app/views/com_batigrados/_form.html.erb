@@ -35,7 +35,7 @@
     <%= form_for(com_batigrado) do |f| %>
       <% if com_batigrado.errors.any? %>
         <div id="error_explanation" class="alert alert-danger" role="alert">
-          <h2>Le formulaire ne peut pas être enregistré à cause de <%= pluralize(elefe.errors.count, "erreur") %></h2>
+          <h2>Le formulaire ne peut pas être enregistré à cause de <%= pluralize(com_batigrado.errors.count, "erreur") %></h2>
 
           <ul>
           <% com_batigrado.errors.full_messages.each do |message| %>
@@ -52,7 +52,7 @@
       </div>
 
 
-      <% if !@elefe %> <!-- Capoeiriste extérieur -->
+      <% if !@elefe || !@elefe[0] %> <!-- Capoeiriste extérieur -->
         <p>Bonjour <%= @prenom_ext %>,</p>
         <p>C'est un grand plaisir de vous accueillir à notre batigrado.</p>
         <p>Merci de remplir la suite du formulaire ci-dessous pour vous inscrire.</p>
@@ -86,9 +86,9 @@
         <% end %>
       <% end %>
 
-      <% if @elefe %> <!-- Capoeiriste du GCC -->
+      <% if @elefe && @elefe[0] %> <!-- Capoeiriste du GCC -->
 
-         Bonjour <%= @elefe[0].prenom %>,
+        Bonjour <%= @elefe[0].prenom %>,
         <%= f.hidden_field :nom, value: @elefe[0].nom %>
         <%= f.hidden_field :prenom, value: @elefe[0].prenom %>
         <%= f.hidden_field :email, value: current_user.email %>

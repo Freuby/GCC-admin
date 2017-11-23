@@ -17,6 +17,7 @@
               </thead>
               <tbody>
               <% @presence.eleves.each.with_index do |elefe, i|  %>
+              <% if !elefe.etats.find_by(ponctuel: true) %>
                   <tr>
                       <td class="narrow"><%= @ttp[i] %></td>
                       <td class="narrow"><%= @tta[i] %></td>
@@ -31,6 +32,7 @@
                     <% end %>
                   </tr>
               <% end %>
+              <% end %>
               </tbody>
               <tbody>
               <tr style="background-color: yellow;">
@@ -40,6 +42,68 @@
                   <td>Moy. <%= @total.inject(0.0) { |sum, el| sum + el } / @total.size %></td>
                   <% @presences.each.with_index do |presence, i | %>
                       <td><%= @total[i] %></td>
+                  <% end %>
+              </tr>
+                <tr style="background-color: yellow;">
+                    <td></td>
+                    <td></td>
+                    <td><strong>Encadrant</strong></td>
+                    <td></td>
+
+                    <% @presences.sort_by { |date| date.datecours }.each do |presence| %>
+                        <% if presence %>
+                        <td><%= presence.enseignant.prenom %> <%= presence.enseignant.nom %></td>
+                        <% end %>
+                    <% end %>
+                </tr>
+              </tbody>
+        </table>
+
+<div class="page-break"></div>
+
+<h2>Cours <%= @typ_cours[@presence.cour.typcours] %> <%= @presence.cour.nomvil %> - Ponctuels</h2>
+
+
+        <table class="table table-striped">
+              <thead>
+                <tr>
+                    <th class="narrow">TP</th>
+                    <th class="narrow">TA</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <% @presences.sort_by { |date| date.datecours }.each do |presence| %>
+                        <% date = presence.datecours.day.to_s+'/'+presence.datecours.month.to_s %>
+                        <th><%= date %></th>
+                    <% end %>
+                </tr>
+              </thead>
+              <tbody>
+              <% @presence.eleves.each.with_index do |elefe, i|  %>
+              <% if elefe.etats.find_by(ponctuel: true) %>
+                  <tr>
+                      <td class="narrow"><%= @ttp[i] %></td>
+                      <td class="narrow"><%= @tta[i] %></td>
+                      <td><%= elefe.nom %></td>
+                      <td><%= elefe.prenom %></td>
+                    <% @presences.sort_by { |date| date.datecours }.each do |presence| %>
+                        <% if elefe.etats.find_by_presence_id(presence.id) %>
+                            <td><%= elefe.etats.find_by_presence_id(presence.id).etat %></td>
+                        <% else %>
+                            <td></td>
+                        <% end %>
+                    <% end %>
+                  </tr>
+              <% end %>
+              <% end %>
+              </tbody>
+              <tbody>
+              <tr style="background-color: yellow;">
+                  <td>Nombre</td>
+                  <td></td>
+                  <td>d'élèves</td>
+                  <td>Moy. <%= @totalponct.inject(0.0) { |sum, el| sum + el } / @total.size %></td>
+                  <% @presences.each.with_index do |presence, i | %>
+                      <td><%= @totalponct[i] %></td>
                   <% end %>
               </tr>
                 <tr style="background-color: yellow;">
