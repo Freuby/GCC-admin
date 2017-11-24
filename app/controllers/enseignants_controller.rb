@@ -10,6 +10,7 @@ class EnseignantsController < ApplicationController
   # GET /enseignants/1
   # GET /enseignants/1.json
   def show
+    @cours_ens = @cours.where(:enseignant_id => @enseignant.id).all
   end
 
   # GET /enseignants/new

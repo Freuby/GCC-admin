@@ -21,7 +21,7 @@
                     <li class="nav-item"><%= link_to "Créer un compte", new_user_registration_path, class: "nav-link" %></li>
                 <% end %>
                 <% if current_user %>
-                <% if current_user.admin == 1 || current_user.admin == 2%>
+                <% if current_user.admin == 1 || current_user.admin == 2 %>
                                 <li class="dropdown">
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Elèves</a>
                                     <div class="dropdown-menu">

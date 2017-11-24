@@ -1,2 +1,6 @@
 <h1>Statistiques des élèves</h1>
 <h5 class="blink_text">développement en cours</h5>
+<% @eleves.each do |el| %>
+    <strong><%= el.nom %> <%= el.prenom %> : </strong><%= el.etats.where(etat: "P").all.count %> présence(s) - <%= el.etats.where(etat: "A").all.count %> abscence(s) - <%= el.etats.where(etat: "J").all.count %> justifié(es) - <%= el.etats.where(etat: "M/B").all.count %> malade(s) ou blessé(es)
+    <br />
+<% end %>

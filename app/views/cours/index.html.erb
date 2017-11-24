@@ -14,7 +14,7 @@
       <th>Heure</th>
       <!-- <th>Durée</th> -->
       <th>Enseignant</th>
-      <th colspan="2"></th>
+      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -38,6 +38,7 @@
         <td><%= cour.dateh.hour %>h<%= (cour.dateh.min != 0 ? cour.dateh.min : "") %></td>
         <!-- <td><%= cour.duree.hour %>h<%= (cour.duree.min != 0 ? cour.duree.min : "") %></td> -->
         <td><%= @enseignants.find(cour.enseignant_id).prenom %> <%= @enseignants.find(cour.enseignant_id).nom %></td>
+        <td><%= cour.eleves.count %> élève(s)</td>
         <td><%= link_to 'Voir', cour %></td>
         <td><%= link_to 'Modifier', edit_cour_path(cour) %></td>
         <!-- <td><%= link_to 'Effacer', cour, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->

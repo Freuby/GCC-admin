@@ -137,8 +137,9 @@ class ElevesController < ApplicationController
     end
 
   # GET /stateleve
-    def stateleve
-    end
+  def stateleve
+
+  end
 
   end
 

@@ -1,16 +1,27 @@
-<p>
+<br/>
+<h5>
   <strong>Nom:</strong>
   <%= @enseignant.nom %>
-</p>
-
-<p>
-  <strong>Prenom:</strong>
+</h5>
+<br/>
+<h5>
+  <strong>Prénom:</strong>
   <%= @enseignant.prenom %>
-</p>
-
+</h5>
+<br/>
 <p>
   <strong>Graduation:</strong>
     <%= @grades_adultes[@enseignant.graduation] %>
+</p>
+
+<p>
+  <strong>Référant des cours de:</strong>
+  <ul>
+  <% @cours_ens.each do |c| %>
+      <li><%= c.nomvil %> - <%= @typ_cours[c.typcours] %> les <%= c.jour.pluralize %> à <%= c.dateh.hour %>h<%= c.dateh.min %></li>
+  <% end %>
+  </ul>
+
 </p>
 
 <%= link_to 'Modifier', edit_enseignant_path(@enseignant) %> |
