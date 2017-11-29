@@ -46,7 +46,9 @@ class TicketRepasController < ApplicationController
       @repasgcc = @repasgccs.last
       @elefe = @eleves.where(:user_id => current_user.id).first
       @ticket_repa = TicketRepa.new(ticket_repa_params)
-
+      @total = @ticket_repa.qte1*@repasgcc.r1e_tarif + @ticket_repa.qte2*@repasgcc.r2e_tarif + @ticket_repa.qta1*@repasgcc.r1a_tarif + @ticket_repa.qta2*@repasgcc.r2a_tarif
+      current_user.commandes << Commande.create(description: @repasgcc.titre, montant: @total)
+      @ticket_repa.commandes << current_user.commandes.last
       respond_to do |format|
         if @ticket_repa.save
           format.html { redirect_to @ticket_repa, notice: 'Merci, vos tickets sont en préparation.' }
@@ -70,6 +72,10 @@ class TicketRepasController < ApplicationController
       @elefe = @eleves.where(:user_id => current_user.id).first
       respond_to do |format|
         if @ticket_repa.update(ticket_repa_params)
+          @total = @ticket_repa.qte1*@repasgcc.r1e_tarif + @ticket_repa.qte2*@repasgcc.r2e_tarif + @ticket_repa.qta1*@repasgcc.r1a_tarif + @ticket_repa.qta2*@repasgcc.r2a_tarif
+          puts "*********$*********$********"
+          puts @total
+          @ticket_repa.commandes.first.update(montant: @total)
           format.html { redirect_to @ticket_repa, notice: 'Votre demande de ticket a bien été modifiée.' }
           format.json { render :show, status: :ok, location: @ticket_repa }
         else

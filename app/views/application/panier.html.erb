@@ -1,0 +1,52 @@
+<%= form_for :paiement do |f| %>
+
+
+<h1>Votre panier</h1>
+
+<table class="table table-responsive table-bordered table-sm">
+    <thead>
+        <tr>
+            <th class="text-center">Commande du</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Montant (euros)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% current_user.commandes.each do |com| %>
+        <% if com.sold == true%><tr class="table-success"><% else %><tr class="table-danger"><% end %>
+            <td class="text-center"><%= com.updated_at.strftime( '%d/%m/%Y' ) %></td>
+            <td><%= com.description %></td>
+            <td class="text-right"><%= number_to_currency(com.montant, unit: "", separator: ",", delimiter: "") %></td>
+            <td class="text-right"><% if com.sold == true %><p>réglement envoyé</p><% else %><p class="blink_text">réglement à effectuer</p><% end %></td>
+        </tr>
+        <% end %>
+        <tr class="table-dark text-white">
+            <td></td>
+            <td>Total</td>
+            <td class="text-right"><%= number_to_currency(@sold, unit: "", separator: ",", delimiter: "") %></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+<% if current_user.commandes.where(sold: false).all.any? %>
+    <div class="row">
+        <div class="col-6 field">
+            <%= f.label :mode_paie, "Choisissez votre mode de réglement:" %>
+            <%= f.select :mode_paie, @reglements.collect { |g| [g, @reglements.index(g)] }, {}, class: "form-control" %>
+            <%= f.hidden_field :montant, value: @sold %>
+            <%= f.hidden_field :valide, value: false %>
+        </div>
+        <div class="col-6 actions text-center">
+            <% if current_user.eleves.count > 1 && @txt_fam != "" %>
+                <%= f.submit :famille, value: @txt_fam, data: { confirm: "Êtes-vous sûr de vouloir appliquer l'option famille ?"  }, class: "btn btn-success btn-lg" %>
+            <% end %>
+            <br/><br/>
+            <%= f.submit :sold, value: "Régler vos commandes", class: "btn btn-primary btn-lg" %>
+        </div>
+    </div>
+<% end %>
+<% end %>
+<br/>
+<%= link_to 'Retour', root_path %>

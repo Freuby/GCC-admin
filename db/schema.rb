@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171123125408) do
+ActiveRecord::Schema.define(version: 20171127135701) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
@@ -54,6 +54,24 @@ ActiveRecord::Schema.define(version: 20171123125408) do
     t.integer  "elefe_id"
     t.index ["batigrado_id"], name: "index_com_batigrados_on_batigrado_id"
     t.index ["elefe_id"], name: "index_com_batigrados_on_elefe_id"
+  end
+
+  create_table "commandes", force: :cascade do |t|
+    t.string   "description"
+    t.float    "montant"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "user_id"
+    t.integer  "com_batigrado_id"
+    t.integer  "ticket_repa_id"
+    t.boolean  "sold",             default: false
+    t.integer  "elefe_id"
+    t.integer  "paiement_id"
+    t.index ["com_batigrado_id"], name: "index_commandes_on_com_batigrado_id"
+    t.index ["elefe_id"], name: "index_commandes_on_elefe_id"
+    t.index ["paiement_id"], name: "index_commandes_on_paiement_id"
+    t.index ["ticket_repa_id"], name: "index_commandes_on_ticket_repa_id"
+    t.index ["user_id"], name: "index_commandes_on_user_id"
   end
 
   create_table "cours", force: :cascade do |t|
@@ -139,6 +157,16 @@ ActiveRecord::Schema.define(version: 20171123125408) do
     t.boolean  "ponctuel"
     t.index ["elefe_id"], name: "index_etats_on_elefe_id"
     t.index ["presence_id"], name: "index_etats_on_presence_id"
+  end
+
+  create_table "paiements", force: :cascade do |t|
+    t.float    "montant"
+    t.integer  "mode_paie"
+    t.boolean  "valide"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_paiements_on_user_id"
   end
 
   create_table "presences", force: :cascade do |t|

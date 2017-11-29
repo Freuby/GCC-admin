@@ -40,7 +40,11 @@
           <tr>
             <td>Votre commande du <%= ticket_repa.updated_at.strftime( '%d/%m/%Y' ) %> de <%= number_to_currency(@total, unit: "", separator: ",", delimiter: "") %> euros</td>
             <td><%= link_to 'Voir', ticket_repa %></td>
-            <td><%= link_to 'Modifier', edit_ticket_repa_path(ticket_repa) %></td>
+            <td>
+                <% if !current_user.commandes.where(sold: true).all.any? { |com| com.ticket_repa_id == ticket_repa.id } %>
+                    <%= link_to 'Modifier', edit_ticket_repa_path(ticket_repa) %>
+                <% end %>
+            </td>
           </tr>
         <% end %>
     <% else %>

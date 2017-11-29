@@ -31,7 +31,7 @@
           <th>Soirée</th>
           <th>Montant</th>
           <th>Reglt</th> -->
-          <th colspan="1"></th>
+          <th>Email</th>
         </tr>
       </thead>
 
@@ -55,8 +55,8 @@
                 <% end %>
             </td>
             <td><%= com_batigrado.nom_grupo %></td>
-       <!-- <td><%= com_batigrado.email %></td>
-            <td class="text-center"><%= com_batigrado.ttshirt %></td>
+            <td><%= com_batigrado.email %></td>
+            <!-- <td class="text-center"><%= com_batigrado.ttshirt %></td>
             <td class="text-center"><%= com_batigrado.tpant %></td>
             <td class="text-center"><%= com_batigrado.bati1 ? 'X' : ' ' %></td>
             <td class="text-center"><%= com_batigrado.bati2 ? 'X' : ' '  %></td>
@@ -67,7 +67,7 @@
             <td class="text-center"><%= com_batigrado.soiree ? 'X' : ' '  %></td>
             <td><%= com_batigrado.montant %></td>
             <td><%= com_batigrado.reglt %></td> -->
-            <td><%= link_to 'Voir', com_batigrado %></td>
+            <!-- <td><%= link_to 'Voir', com_batigrado %></td> -->
             <!-- <td><%= link_to 'Supprimer', com_batigrado, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td> -->
           </tr>
         <% end %>
@@ -97,7 +97,13 @@
             <td><%= com_batigrado.prenom %></td>
             <td><%= @batigrados.find(com_batigrado.batigrado_id).ville%></td>
             <td><%= link_to 'Voir', com_batigrado %></td>
-            <td><%= link_to 'Modifier', edit_com_batigrado_path(com_batigrado) %></td>
+            <td>
+            <% if current_user.commandes.where(sold: true).all.any? { |com| com.com_batigrado_id == com_batigrado.id } %>
+                Commande validée
+            <% else %>
+                <%= link_to 'Modifier', edit_com_batigrado_path(com_batigrado) %>
+            <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>

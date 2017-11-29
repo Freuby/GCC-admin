@@ -159,10 +159,10 @@
       </div>
       <% end %>
 
-      <div class="field">
+  <!--    <div class="field">
         <%= f.label :reglt, "Choisissez votre mode de réglement:" %>
         <%= f.select :reglt, @reglements.collect { |g| [g, @reglements.index(g)] }, {}, class: "form-control" %>
-      </div>
+      </div> -->
       <br/>
       <div class="actions text-center">
         <%= f.submit :go, value: "Valider", class: "btn btn-primary btn-lg" %>

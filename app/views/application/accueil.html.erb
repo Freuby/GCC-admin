@@ -52,7 +52,63 @@
                 </table>
                 </div>
             <% end %>
+            <h3>Paiements en cours</h3>
+            <% @users = User.all %>
+            <% @users.each do |u| %>
+                <% if u.paiements.exists? && u.paiements.last.valide == false %>
+                    <ul>
+                        <% u.paiements.where(valide: false).all.each.with_index do |p, j| %>
+                            <li>
+                                <%= u.email %>
+                                <% if !u.eleves.exists? %>
+                                    (non affilié)
+                                <% else %>
+                                    (<%= u.eleves.first.nom %>  <%= u.eleves.first.prenom %>)
+                                <% end %>
+                                 - Le <%= p.updated_at.strftime( '%d/%m/%Y' ) %> -
+                                 <%= number_to_currency(p.montant, unit: "", separator: ",", delimiter: "") %> euros -
+                                 paiement par <%= @reglements[p.mode_paie] %>
+                                 <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#CommandesModal<%= j %>">Voir</button>
+                                 <span style="display: inline-block;">
+                                  <%= form_tag('/valide', method: "post") do |f| %>
+                                    <%= hidden_field_tag :paiement, p.id %>
+                                    <%= submit_tag "Paiement reçu", data: {confirm: "Êtes-vous sûr de vouloir confirmer ce paiement ? Cette action est irréversible."}, class: "btn btn-outline-success btn-sm" %>
+                                  <% end %>
+                                  </span>
+                             </li>
+                        <% end %>
+                    </ul>
+                <% end %>
+            <% end %>
 
+  <!-- Modals Commandes -->
+
+<% @users.each do |u| %>
+    <% u.paiements.where(valide: false).all.each.with_index do |p, j| %>
+    <div class="modal fade" id="CommandesModal<%= j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h5 class="modal-title" id="exampleModalLabel">Commandes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <ul>
+            <% p.commandes.each do |com| %>
+                <li><%= com.description %> | <%= number_to_currency(com.montant, unit: "", separator: ",", delimiter: "") %> euros</li>
+            <% end %>
+          </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+<% end %>
 
 
 <!-- ######################################
@@ -64,6 +120,10 @@
         <div class="text-center">
             <h4>Bienvenue sur le site administratif de l'association</h4>
             <br/>
+            <% if @sold != 0 %>
+                <p class="blink_text">Vous avez des commandes en attente de réglement dans votre panier</p>
+                <p class="text-center"><%= link_to "Accèder à mes commandes", panier_path, class: "btn btn-outline-primary" %></p>
+            <% end %>
             <% if !@current_elefe %>
             <p>Nous vous invitons à vous affilier à l'association par le biais du formulaire en ligne, et d'y joindre les pièces justificatives.</p>
             <br/>
@@ -80,18 +140,6 @@
             <br/>
         <% elsif @eleves_current_user != nil %>
             <div class="text-center">
-                <% @eleves_current_user.each do |el| %>
-                    <% if el.signature != nil %>
-                        <% if el.signature == true  %>
-                            <p>Vos inscriptions sont toutes validées.</p>
-                        <% else %>
-                            <% if @total_cotis != 0 %><p>Total de vos cotisations encore non validées : <%= @total_cotis %> euros</p><% end %>
-                        <% end %>
-                    <% else %>
-                        <% if @total_cotis != 0 %><p>Total de vos cotisations encore non validées : <%= @total_cotis %> euros</p><% end %>
-                    <% end %>
-                <% end %>
-
                 <%= link_to "Mes formulaires d'affiliation", eleves_path, class:  "btn btn-outline-primary btn-lg btn-block" %>
             </div>
             <br/>
@@ -104,7 +152,9 @@
                     <% if !@ticket_repa %>
                         <%= link_to "Réservation repas du groupe", new_ticket_repa_path, class:  "btn btn-outline-primary btn-lg btn-block" %>
                     <% else %>
-                        <%= link_to "Modifier réservation repas", edit_ticket_repa_path(@ticket_repa), class:  "btn btn-outline-success btn-lg btn-block" %>
+                        <% if !current_user.commandes.where(sold: true).all.any? { |com| com.ticket_repa_id == @ticket_repa.id } %>
+                            <%= link_to "Modifier réservation repas", edit_ticket_repa_path(@ticket_repa), class:  "btn btn-outline-success btn-lg btn-block" %>
+                        <% end %>
                     <% end %>
                 </div>
             <% end %>
@@ -119,6 +169,23 @@
                 </div>
             <% end %>
         <% end %>
+        <br/>
+        <h3><a data-toggle="collapse" href="#paiements" aria-expanded="false" aria-controls="paiements">Mes réglements</a></h3>
+        <% if current_user.paiements.where(valide: false).exists? %><span class="blink_text float-right"><%= pluralize(current_user.paiements.where(valide: false).count, 'paiement') %> en attente</span><% end %>
+        <div class="collapse" id="paiements">
+            <ul>
+            <% current_user.paiements.each do |p| %>
+                <li>
+                    Le <%= p.updated_at.strftime( '%d/%m/%Y' ) %> : <%= number_to_currency(p.montant, unit: "", separator: ",", delimiter: "") %> euros par <%= @reglements[p.mode_paie] %> -
+                    <% if p.valide == true %>
+                        reçu
+                    <% else %>
+                        <span class="blink_text"> en cours</span>
+                    <% end %>
+                </li>
+            <% end %>
+            </ul>
+        </div>
 
 <!-- ######################################
      ACCUEIL DES GRADES DE MONITOR A MESTRE

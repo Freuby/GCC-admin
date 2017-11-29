@@ -38,6 +38,7 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'cancan'
 gem 'bootstrap', '~> 4.0.0.beta'
+gem 'font-awesome-sass', '~> 4.7.0'
 gem 'autoprefixer-rails'
 gem "paperclip", "~> 5.0.0"
 gem 'paperclip-i18n'

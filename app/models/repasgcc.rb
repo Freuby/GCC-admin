@@ -1,3 +1,3 @@
 class Repasgcc < ApplicationRecord
-  has_many :ticketrepas
+  has_many :ticket_repas
 end

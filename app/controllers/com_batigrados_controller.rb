@@ -31,13 +31,23 @@ class ComBatigradosController < ApplicationController
         @elefe = @eleves_all.where(:nom => nompren[0], :prenom => nompren[1])
         @com_batigrado = ComBatigrado.new
         b = @batigrados.find(@even_sel)
+        nom = nompren[0]
+        prenom = nompren[1]
       else
         @nom_ext = params[:resp][:nom]
         @prenom_ext = params[:resp][:prenom]
         @grupo_ext = params[:resp][:nom_grupo]
         @com_batigrado = ComBatigrado.new
         b = @batigrados.find(@even_sel)
+        nom = @nom_ext
+        prenom = @prenom_ext
       end
+    end
+    # verif pas déjà com_batigrado meme eleve meme batigrado
+    if !@com_batigrados.find_by(batigrado_id: @even_sel, nom: nom, prenom: prenom )
+    else
+      flash[:alert] = "Il existe déjà une commande à votre nom pour ce batigrado"
+      redirect_back(fallback_location: :back)
     end
   end
 
@@ -52,35 +62,37 @@ class ComBatigradosController < ApplicationController
     @eleves_all = @eleves.where(:user_id => current_user.id).all
     @elefe = @eleves_all.where(:nom => params[:com_batigrado][:nom], :prenom => params[:com_batigrado][:prenom])
     b = @batigrados.find(params[:com_batigrado][:even_sel])
-    params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == true ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == true ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
-    if @elefe.exists? #Eleve du GCC
-      b.com_batigrados << @elefe[0].com_batigrados.create(com_batigrado_params)
-      @com_batigrado = ComBatigrado.last
-      respond_to do |format|
-      if @com_batigrados
-          format.html { redirect_to @com_batigrado, notice: "Votre demande d'inscription a bien été enregistrée." }
-          format.json { render :show, status: :created, location: @com_batigrado }
-        else
-          format.html { render :new }
-          format.json { render json: @com_batigrado.errors, status: :unprocessable_entity }
-        end
-      end
-    else  #Eleve exterieur
-      params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == true ? 1 : 0)*b.tarif_ext
-      b.com_batigrados << ComBatigrado.create(com_batigrado_params)
-      @com_batigrado = ComBatigrado.last
-      respond_to do |format|
+      params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == '1' ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
+      if @elefe.exists? #Eleve du GCC
+        b.com_batigrados << @elefe[0].com_batigrados.create(com_batigrado_params)
+        current_user.commandes << Commande.create(description: b.titre, montant: params[:com_batigrado][:montant])
+        @com_batigrado = ComBatigrado.last
+        @com_batigrado.commandes << current_user.commandes.last
+        respond_to do |format|
         if @com_batigrados
-          format.html { redirect_to @com_batigrado, notice: "Votre demande d'inscription a bien été enregistrée." }
-          format.json { render :show, status: :created, location: @com_batigrado }
-        else
-          format.html { render :new }
-          format.json { render json: @com_batigrado.errors, status: :unprocessable_entity }
+            format.html { redirect_to @com_batigrado, notice: "Votre demande d'inscription a bien été enregistrée." }
+            format.json { render :show, status: :created, location: @com_batigrado }
+          else
+            format.html { render :new }
+            format.json { render json: @com_batigrado.errors, status: :unprocessable_entity }
+          end
+        end
+      else  #Eleve exterieur
+        params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif_ext
+        b.com_batigrados << ComBatigrado.create(com_batigrado_params)
+        current_user.commandes << Commande.create(description: b.titre, montant: params[:com_batigrado][:montant])
+        @com_batigrado = ComBatigrado.last
+        @com_batigrado.commandes << current_user.commandes.last
+        respond_to do |format|
+          if @com_batigrados
+            format.html { redirect_to @com_batigrado, notice: "Votre demande d'inscription a bien été enregistrée." }
+            format.json { render :show, status: :created, location: @com_batigrado }
+          else
+            format.html { render :new }
+            format.json { render json: @com_batigrado.errors, status: :unprocessable_entity }
+          end
         end
       end
-    end
-
-
   end
 
   # PATCH/PUT /com_batigrados/1
@@ -89,13 +101,15 @@ class ComBatigradosController < ApplicationController
     @eleves_all = @eleves.where(:user_id => current_user.id).all
     @elefe = @eleves_all.where(:nom => params[:com_batigrado][:nom], :prenom => params[:com_batigrado][:prenom])
     b = @batigrados.find(params[:com_batigrado][:even_sel])
+
     if @elefe.exists? #Eleve du GCC
       params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == '1' ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
     else  #Eleve exterieur
-      params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == true ? 1 : 0)*b.tarif_ext
+      params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif_ext
     end
     respond_to do |format|
       if @com_batigrado.update(com_batigrado_params)
+        @com_batigrado.commandes.first.update(montant: params[:com_batigrado][:montant])
         format.html { redirect_to @com_batigrado, notice: "Votre demande d'inscription a bien été modifiée." }
         format.json { render :show, status: :ok, location: @com_batigrado }
       else

@@ -22,6 +22,7 @@
             <td><%= @grades_adultes[elefe.graduation.to_i] %></td>
             <td><%= @cours.find_by(:id => elefe.ville_entrainement).nomvil %></td>
             <td><%= link_to 'Voir', elefe %></td>
+
             <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td>
             <% if !elefe.signature || elefe.signature == false %><td class="text-center blink_text">En attente de validation</td><% end %>
         </tr>

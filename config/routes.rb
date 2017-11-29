@@ -20,6 +20,10 @@ Rails.application.routes.draw do
 
   get '/stateleve', to: 'eleves#stateleve'
 
+  get '/panier', to: 'application#panier'
+  post '/panier', to: 'application#panier_valid'
+  post '/valide', to: 'application#valide'
+
   get '/presencesel', to: 'presences#presencesel'
   get '/consulpres', to: 'presences#consulpres'
   get '/prespdf', to: 'presences#prespdf'

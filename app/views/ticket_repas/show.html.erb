@@ -21,8 +21,14 @@
 </li>
 <% end %>
 </ul>
-<p>Nous avons bien pris en compte votre demande qui va nous permettre de nous préparer dans les meilleures conditions à vous accueillir.</p>
-<p>Merci de transmette au référant de votre ville votre réglement de <strong><%= number_to_currency(@total, unit: "", separator: ",", delimiter: "") %> euros.</strong></p>
+<p>Nous avons bien pris en compte votre demande qui va nous permettre de nous préparer, dans les meilleures conditions, à vous accueillir.</p>
+<% if !current_user.commandes.where(sold: true).all.any? { |com| com.ticket_repa_id == @ticket_repa.id } %>
+    <p>Il ne vous reste plus qu'à procéder au réglement de <strong><%= number_to_currency(@total, unit: "", separator: ",", delimiter: "") %> euros.</strong></p>
+<% end %>
 
-<% if current_user.admin == 0 %><%= link_to 'Modifier votre commande', edit_ticket_repa_path(@ticket_repa) %> | <% end %>
+<% if current_user.admin == 0 %>
+  <% if !current_user.commandes.where(sold: true).all.any? { |com| com.ticket_repa_id == @ticket_repa.id } %>
+    <%= link_to 'Modifier votre commande', edit_ticket_repa_path(@ticket_repa) %> |
+  <% end %>
+<% end %>
 <%= link_to 'Retour',  request.referer.present? ? request.referer : root_path %>

@@ -1,4 +1,4 @@
-<p>Merci <%= @com_batigrado.prenom %> pour votre inscription.</p>
+<p>Merci <%= @com_batigrado.prenom %> pour votre inscription,</p>
 <p>Vous avez réservé :</p>
 <ul>
     <li>un t-shirt taille <%= @com_batigrado.ttshirt %></li>
@@ -10,11 +10,19 @@
 </ul>
 <% if @com_batigrado.bati2 == true %><p>Vous participez aussi au 2ème batigrado lié au <%= @batigrado.titre %>.<% end %>
 <% if @com_batigrado.tpant %>Vous nous avez indiqué une taille de pantalon <%= @com_batigrado.tpant %> pour définir la taille de votre corde.</p><% end %>
-<p>Vous avez prévu de régler en: <strong><%= @reglements[@com_batigrado.reglt.to_i] %></strong></p>
-<% if @com_batigrado.elefe_id %>
-    <p>Pour finaliser votre inscription au <strong><%= @batigrado.titre %></strong>, il ne vous reste plus qu'à nous faire parvenir votre réglement de <strong><%= sprintf("%.2f", @com_batigrado.montant) %></strong> euros par le responsable communication de votre ville.</p>
+
+<% if !current_user.commandes.where(sold: true).all.any? { |com| com.com_batigrado_id == @com_batigrado.id } %>
+    <% if @com_batigrado.elefe_id %>
+        <p>Pour finaliser votre inscription au <strong><%= @batigrado.titre %></strong>, il ne vous reste plus qu'à effectuer votre réglement de <strong><%= sprintf("%.2f", @com_batigrado.montant) %></strong> euros.</p>
+        <br/>
+        <p class="text-center"><%= link_to "Accèder à mes commandes", panier_path, class: "btn btn-outline-primary" %></p>
+    <% else %>
+        <p>Afin de finaliser votre inscription au <strong><%= @batigrado.titre %></strong>, en tant que capoeiriste extérieur au Grupo Cultura Capoeira,  vous devrez régler un total de <strong><%= sprintf("%.2f", @com_batigrado.montant) %></strong> euros.</p>
+        <br/>
+        <p class="text-center"><%= link_to "Accèder à mes commandes", panier_path, class: "btn btn-outline-primary" %></p>
+    <% end %>
 <% else %>
-    <p>Afin de finaliser votre inscription au <strong><%= @batigrado.titre %></strong>, en tant que capoeiriste extérieur au Grupo Cultura Capoeira,  vous devrez régler un total de <strong><%= sprintf("%.2f", @com_batigrado.montant) %></strong> euros dès votre arrivée.</p>
+    <p>Votre commande a bien été envoyée.</p>
 <% end %>
 <p>A bientôt,</p>
 <!-- <p>
@@ -91,6 +99,8 @@
   <strong>Reglt:</strong>
   <%= @com_batigrado.reglt %>
 </p> -->
+<% if !current_user.commandes.where(sold: true).all.any? { |com| com.com_batigrado_id == @com_batigrado.id } %>
+  <%= link_to 'Modifier', edit_com_batigrado_path(@com_batigrado) %> |
+<% end %>
 
-<%= link_to 'Modifier', edit_com_batigrado_path(@com_batigrado) %> |
 <%= link_to 'Retour',  request.referer.present? ? request.referer : root_path %>

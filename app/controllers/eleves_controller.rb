@@ -47,6 +47,8 @@ class ElevesController < ApplicationController
           @elefe.cours << cour
         end
         u.eleves << @elefe
+        u.commandes << Commande.create(description: 'Affiliation '+params[:elefe][:nom]+' '+params[:elefe][:prenom], montant: params[:elefe][:prix])
+        @elefe.commandes << u.commandes.last
         respond_to do |format|
           if @elefe.update(elefe_params)
             format.html { redirect_to @elefe, notice: 'La fiche élève a bien été modifiée.' }
@@ -67,7 +69,8 @@ class ElevesController < ApplicationController
       @elefe = Elefe.new(elefe_params)
       @elefe.cours << cour
       u.eleves << @elefe
-
+      u.commandes << Commande.create(description: 'Affiliation '+params[:elefe][:nom]+' '+params[:elefe][:prenom], montant: params[:elefe][:prix])
+      @elefe.commandes << u.commandes.last
       respond_to do |format|
         if @elefe.save
           format.html { redirect_to @elefe, notice: 'La fiche élève a bien été créée.' }
@@ -91,6 +94,7 @@ class ElevesController < ApplicationController
     if !cours.detect { |b| b.id == cour.id }
       @elefe.cours << cour
     end
+    @elefe.commandes.first.update(montant: params[:elefe][:prix])
     @elefe.update_attributes(:updated_at => Time.now)
     respond_to do |format|
       if @elefe.update(elefe_params)

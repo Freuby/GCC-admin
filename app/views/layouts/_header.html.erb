@@ -96,14 +96,13 @@
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Repas du groupe</a>
                                             <div class="dropdown-menu">
                                                  <% @ticket_repa = TicketRepa.find_by(:elefe_id => @current_elefe.id) %>
-                                                 <% if !@ticket_repa %>
-                                                    <%= link_to "S'inscrire", new_ticket_repa_path, class:  "dropdown-item" %>
-                                                 <% end %>
+                                                 <%= link_to "S'inscrire", new_ticket_repa_path, class:  "dropdown-item" %>
                                                  <%= link_to "Mon inscription", ticket_repas_path, class:  "dropdown-item" %>
                                             </div>
                                          </li>
                                     <% end %>
                                 <% end %>
+                                <!--
                                 <li class="dropdown">
                                 <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Commandes</a>
                                     <div class="dropdown-menu">
@@ -111,9 +110,12 @@
                                         <%= link_to "Mes commandes", root_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
+                                -->
                                 <% end %>
                 <% end %>
-                <% end %>
             </ul>
+            <% if current_user.admin == 0 %><div class="navbar-text float-right"><a style="color: white;" href="<%= panier_path %>"><i class="fa fa-shopping-basket fa-2x" aria-hidden="true"></i> <%= number_to_currency(@sold, unit: "", separator: ",", delimiter: "").to_s %> <i class="fa fa-eur" aria-hidden="true"></i></a></div><% end %>
+            <% end %>
+
         </div>
  </nav>

@@ -7,6 +7,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :eleves
+  has_many :commandes
+  has_many :paiements
 
   validates_format_of :email,:with => Devise::email_regexp
   validates :email, presence: true, if: :mail_exist

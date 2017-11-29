@@ -6,6 +6,7 @@ class Elefe < ApplicationRecord
   has_many :com_batigrados
   has_many :batigrados, through: :com_batigrados
   belongs_to :user
+  has_many :commandes
 
   validates :nom, :prenom, :rue, :cp, :ville, :tel_mobile, :tel_fixe, :urgence_nom, :urgence_prenom, :urgence_tel, presence: true
 

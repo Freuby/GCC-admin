@@ -105,19 +105,19 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <p>Je connais le GCC grâce à : <%= @GCC_connait[@elefe.gcc_connait] %></p>
+            <p>Je connais le GCC grâce à : <%= @GCC_connait[@elefe.gcc_connait] if @elefe.gcc_connait %></p>
         </div>
     </div>
     <br/>
-    <div class="row">
+   <!-- <div class="row">
         <div class="col-12">
             <h3>Réglement cotisation annuelle</h3>
             <br/>
         </div>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-12">
-            <p><% if @elefe.parentee == 0 ||  @elefe.parentee == 2 %>Vous pratiquez 1 cours par semaine<% elsif @elefe.parentee == 3 %>Vous pratiquez 2 cours par semaine<%elsif @elefe.parentee == 4 %>Votre cotisation doit être réglée directement auprès du centre d'activités de votre ville.<% end %></p>
+            <p><% if @elefe.parentee == 0 ||  @elefe.parentee == 2 %>Vous pratiquez 1 cours par semaine<% elsif @elefe.parentee == 1 || @elefe.parentee == 3 %>Vous pratiquez 2 cours par semaine<%elsif @elefe.parentee == 4 %>Votre cotisation doit être réglée directement auprès du centre d'activités de votre ville.<% end %></p>
         </div>
     </div>
     <% if @elefe.reglement != nil %>
@@ -131,7 +131,7 @@
 </div>
 <br/>
 <%= link_to 'Modifier', edit_elefe_path(@elefe) %> |
-<%= link_to 'Retour', request.referer.present? ? request.referer : root_path %>
+<%= link_to 'Retour', root_path %>
 
 <!-- Modal -->
 <div class="modal fade" id="cert_med" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

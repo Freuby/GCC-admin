@@ -5,9 +5,104 @@ class ApplicationController < ActionController::Base
   before_action :set_constants
   before_action :set_current_eleve
   before_action :set_data
+  before_action :set_caddy
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
+  end
+
+  # GET /panier
+  def panier
+    if current_user.commandes.where(sold: false).all.any?
+      el = current_user.eleves.sort_by { |el| el.prix }.reverse
+      if el.count > 1
+        if el.second.prix != el.second.commandes.last.montant
+          @txt_fam = "Enlever option famille"
+        else
+          @txt_fam = "Option famille"
+        end
+      else
+        @txt_fam = ""
+      end
+    else
+      @txt_fam = ""
+    end
+  end
+
+  # POST /panier_valid
+  # POST /panier_valid.json
+  def panier_valid
+  balance = 0
+    if params[:commit] == 'Option famille'
+      current_user.eleves.sort_by { |el| el.prix }.reverse.each.with_index do |ele, i|
+        if i == 1 && ele.commandes.exists?
+          nouv_montant = ele.prix / 2
+          ele.commandes.last.update(montant: nouv_montant)
+          balance = balance - nouv_montant if ele.commandes.last.sold == true
+        end
+        if i == 2 && ele.commandes.exists?
+          ele.commandes.last.update(montant: 0)
+          balance = balance - ele.prix if ele.commandes.last.sold == true
+        end
+        if i > 2 && ele.commandes.exists?
+          nouv_montant = ele.prix / 2
+          ele.commandes.last.update(montant: nouv_montant)
+          balance = balance - nouv_montant if ele.commandes.last.sold == true
+        end
+      end
+      if balance != 0
+        current_user.commandes << Commande.create(description: "Balance sur soldes précédents", montant: balance)
+      end
+      redirect_to panier_path, notice: 'Option famille appliquée avec succès.'
+    end
+
+    if params[:commit] == 'Enlever option famille'
+      current_user.eleves.sort_by { |el| el.prix }.reverse.each.with_index do |ele, i|
+        if i == 1 && ele.commandes.exists?
+          nouv_montant = ele.prix / 2
+          ele.commandes.last.update(montant: ele.prix)
+          balance = balance + nouv_montant if ele.commandes.last.sold == true
+        end
+        if i == 2 && ele.commandes.exists?
+          ele.commandes.last.update(montant: ele.prix)
+          balance = balance + ele.prix if ele.commandes.last.sold == true
+        end
+        if i > 2 && ele.commandes.exists?
+          nouv_montant = ele.prix / 2
+          ele.commandes.last.update(montant: ele.prix)
+          balance = balance + nouv_montant if ele.commandes.last.sold == true
+        end
+      end
+      if balance != 0
+        current_user.commandes << Commande.create(description: "Balance sur soldes précédents", montant: balance)
+      end
+      redirect_to panier_path, notice: 'Option famille retirée avec succès.'
+    end
+
+    if params[:commit] == 'Régler vos commandes'
+      @paiement = Paiement.new(paiement_params)
+      @paiement.commandes << current_user.commandes.where(:sold => false).all
+      current_user.paiements << @paiement
+      respond_to do |format|
+        if @paiement.save
+          @paiement.commandes.each do |com|
+            com.update(sold: true)
+          end
+          format.html { redirect_to template: "panier_valid", notice: 'Votre réglement a bien été enregistré.' }
+          format.json { render :panier, status: :created, location: panier_path }
+        else
+          format.html { render :panier_valid }
+          format.json { render json: @paiement.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
+
+  # POST /valide
+  def valide
+    @p = Paiement.find(params[:paiement])
+    @p.update(:valide => true)
+    redirect_to root_path
   end
 
  private
@@ -45,18 +140,6 @@ class ApplicationController < ActionController::Base
     if current_user.admin == 0 && @eleves.where(:user_id => current_user.id).exists?
       @eleves_current_user = @eleves.where(:user_id => current_user.id).all
       @eleves_current_user = @eleves_current_user.sort_by{ |p| p.prix }.reverse
-      if @eleves_current_user[0].signature == false || @eleves_current_user[0].signature == nil
-        @total_cotis = @eleves_current_user[0].prix
-      else
-        @total_cotis = 0
-      end
-      @eleves_current_user.each.with_index do |el, i|
-        if el.signature == false
-          if i ==1 || i > 2
-            @total_cotis = @total_cotis + (el.prix / 2) if el.prix != nil
-          end
-        end
-      end
     end
     @archive_eleves = Elefe.where(:created_at => @date_fondation..@sept_courant, :updated_at => @date_fondation..@sept_courant).all
     @enseignants = Enseignant.all
@@ -76,6 +159,21 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  end
+
+  def set_caddy
+    @sold = 0
+    if current_user
+      current_user.commandes.each do |com|
+        if com.sold != true
+          @sold = @sold + com.montant
+        end
+      end
+    end
+  end
+
+  def paiement_params
+    params.require(:paiement).permit(:montant, :mode_paie, :user_id, :valide)
   end
 
 end
