@@ -1,0 +1,31 @@
+<h1>Transmission de réglement</h1>
+<p>Votre réglement de <%= number_to_currency(@paiement.montant, unit: "", separator: ",", delimiter: "") %> euros a bien été enregistré.</p>
+<% case @paiement.mode_paie %>
+<% when 0 %>
+    <p>Pour terminer votre réglement en <%= @reglements[@paiement.mode_paie] %>, merci de nous transmettre la somme nécessaire par l'intermédiaire du responsable communication de votre ville d'entraînement.</p>
+    <p>Votre réglement sera définitivement validé lorsqu'il aura bien été reçu en comptabilité.</p>
+<% when 1 %>
+    <p>Pour terminer votre réglement par <%= @reglements[@paiement.mode_paie] %>, merci de nous transmettre la somme nécessaire par l'intermédiaire du responsable communication de votre ville d'entraînement ou nous l'envoyer à cette adresse:</p>
+    <p>Association Culture Brésil</p>
+    <p>16 rue de Normandie</p>
+    <p>53410 Bourgon</p>
+    <p>Votre réglement sera définitivement validé lorsqu'il aura bien été reçu en comptabilité.</p>
+<% when 2 %>
+    <p>Pour terminer votre réglement par <%= @reglements[@paiement.mode_paie] %>, merci de nous transmettre la somme nécessaire par l'intermédiaire du responsable communication de votre ville d'entraînement ou nous l'envoyer à cette adresse:</p>
+    <p>Association Culture Brésil</p>
+    <p>16 rue de Normandie</p>
+    <p>53410 Bourgon</p>
+    <p>Votre réglement sera définitivement validé lorsqu'il aura bien été reçu en comptabilité.</p>
+<% when 3 %>
+    <p>Pour terminer votre réglement par <%= @reglements[@paiement.mode_paie] %>, merci de nous transmettre la somme nécessaire par l'intermédiaire du responsable communication de votre ville d'entraînement ou nous l'envoyer à cette adresse:</p>
+    <p>Association Culture Brésil</p>
+    <p>16 rue de Normandie</p>
+    <p>53410 Bourgon</p>
+    <p>Votre réglement sera définitivement validé lorsqu'il aura bien été reçu en comptabilité.</p>
+<% when 4 %>
+    <p>Pour effectuer votre réglement avec un moyen de paiement différent de ceux que nous vous proposons, nous vous prions de vous rapprocher du responsable communication de votre ville d'entraînement ou de nous contacter directement par mail à
+        <a href="mailto:<%= mail_grupo %>"><%= mail_grupo %></a></p>
+<% else %>
+    Mode de paiement inconnu
+<% end %>
+<%= link_to root_path, 'Retour' %>

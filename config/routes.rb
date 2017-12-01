@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :ticket_repas
   resources :repasgccs
   resources :etats
-  resources :enseignants
+  resources :enseignants, path: "encadrants"
   resources :eleves
   get '/eleves/:id/valid(.:format)', to: 'eleves#valid', as: 'valid_elefe'
   root 'application#accueil'
@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   get '/panier', to: 'application#panier'
   post '/panier', to: 'application#panier_valid'
+  get '/panier_confirm', to: 'application#panier_confirm'
   post '/valide', to: 'application#valide'
 
   get '/presencesel', to: 'presences#presencesel'

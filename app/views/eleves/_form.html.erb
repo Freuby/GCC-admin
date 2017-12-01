@@ -1,13 +1,13 @@
 <%= form_for(elefe) do |f| %>
   <% if elefe.errors.any? %>
     <div id="error_explanation" class="alert alert-danger" role="alert">
-      <h2>Le formulaire ne peut pas être enregistré à cause de <%= pluralize(elefe.errors.count, "erreur") %></h2>
+      <h2 class="text-center">Le formulaire ne peut pas être enregistré à cause de <%= pluralize(elefe.errors.count, "erreur") %></h2>
 
-      <ul>
+   <!--   <ul>
       <% elefe.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
-      </ul>
+      </ul> -->
     </div>
   <% end %>
 
@@ -27,11 +27,11 @@
 <div class="row">
   <div class="col-12 col-md-6 field">
     <%= f.label :nom %>
-    <%= f.text_field :nom, class: "form-control", required: true %>
+    <%= f.text_field :nom, class: "form-control "+field_class(elefe, :nom) %>
   </div>
   <div class="col-12 col-md-6 field">
     <%= f.label :prenom, "Prénom" %>
-    <%= f.text_field :prenom, class: "form-control" %>
+    <%= f.text_field :prenom, class: "form-control "+field_class(elefe, :prenom) %>
   </div>
 </div>
 
@@ -49,11 +49,11 @@
 <div class="row">
   <div class="col-12 col-md-6 field">
     <%= f.label :rue, "Rue/Lieu-dit" %>
-    <%= f.text_field :rue, class: "form-control" %>
+    <%= f.text_field :rue, class: "form-control "+field_class(elefe, :rue) %>
   </div>
   <div class="col-4 col-md-2 field">
     <%= f.label :cp, "Code Postal" %>
-    <%= f.text_field :cp, class: "form-control", id: "code" %>
+    <%= f.text_field :cp, class: "form-control "+field_class(elefe, :cp), id: "code" %>
   </div>
   <div class="col-8 col-md-4 field">
     <%= f.label :ville %>
@@ -65,11 +65,11 @@
 <div class="row">
   <div class="col-12 col-md-6 field">
     <%= f.label :tel_mobile, "Tél. portable" %>
-    <%= f.text_field :tel_mobile, class: "form-control" %>
+    <%= f.text_field :tel_mobile, class: "form-control "+field_class(elefe, :tel_mobile) %>
   </div>
   <div class="col-12 col-md-6 field">
     <%= f.label :tel_fixe, "Tél. fixe" %>
-    <%= f.text_field :tel_fixe, class: "form-control" %>
+    <%= f.text_field :tel_fixe, class: "form-control "+field_class(elefe, :tel_fixe) %>
   </div>
 </div>
 
@@ -107,12 +107,12 @@
 
   <div class="col-6 field">
     <%= f.label :urgence_nom, "Nom" %>
-    <%= f.text_field :urgence_nom, class: "form-control" %>
+    <%= f.text_field :urgence_nom, class: "form-control "+field_class(elefe, :urgence_nom) %>
   </div>
 
   <div class="col-6 field">
     <%= f.label :urgence_prenom, "Prénom" %>
-    <%= f.text_field :urgence_prenom, class: "form-control" %>
+    <%= f.text_field :urgence_prenom, class: "form-control "+field_class(elefe, :urgence_prenom) %>
   </div>
 
   <div class="col-12 field">
@@ -122,7 +122,7 @@
 
   <div class="col-12 field">
     <%= f.label :urgence_tel, "Téléphone" %>
-    <%= f.text_field :urgence_tel, class: "form-control" %>
+    <%= f.text_field :urgence_tel, class: "form-control "+field_class(elefe, :urgence_tel) %>
   </div>
 
   <div class="col-12"><br/><p>J'autorise le représentant de l’Association Culture Brésil à prendre toute décision destinée à faire donner les soins médicaux chirurgicaux qui pourraient être nécessaires à :
@@ -130,12 +130,12 @@
 
   <div class="col-6 field">
     <%= f.radio_button :soin_moi, true %>
-    <%= f.label :soin_moi, "Moi-même" %>
+    <%= f.label :soin_moi, "Moi-même", class: field_class(elefe, :soin_moi) %>
   </div>
 
   <div class="col-6 field">
     <%= f.radio_button :soin_moi, false %>
-    <%= f.label :soin_tutelle, "Mon fils, ma fille, le mineur sous ma tutelle" %>
+    <%= f.label :soin_moi, "Mon fils, ma fille, le mineur sous ma tutelle", class: field_class(elefe, :soin_moi) %>
   </div>
 </div>
           <hr/><br/>
@@ -191,18 +191,18 @@
             <div id="cours_ad" class="field">
             <h4>Tarif de base adultes - Cotisation Annuelle</h4>
                 <%= f.radio_button :parentee, 0 %>
-                <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[0].to_s+" euros/an)", selected: true %>
+                <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[0].to_s+" euros/an)", class: field_class(elefe, :parentee) %>
                 <br/>
                 <%= f.radio_button :parentee, 1 %>
-                <%= f.label :parentee, "2 entraînements par semaine ("+@tarif[1].to_s+" euros/an)" %>
+                <%= f.label :parentee, "2 entraînements par semaine ("+@tarif[1].to_s+" euros/an)", class: field_class(elefe, :parentee) %>
             </div>
             <div id="cours_en" class="field">
             <h4>Tarif de base enfants - Cotisation Annuelle</h4>
                 <%= f.radio_button :parentee, 2 %>
-                <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[2].to_s+" euros/an)", selected: true %>
+                <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[2].to_s+" euros/an)", class: field_class(elefe, :parentee) %>
                 <br/>
                 <%= f.radio_button :parentee, 3 %>
-                <%= f.label :parentee, "2 entraînements par semaine ("+@tarif[3].to_s+" euros/an)" %>
+                <%= f.label :parentee, "2 entraînements par semaine ("+@tarif[3].to_s+" euros/an)", class: field_class(elefe, :parentee) %>
             </div>
             <p></p>
             <p>Les réductions famille seront calculées après la création de chacune des fiches d'affiliations des membres de la famille.</p>

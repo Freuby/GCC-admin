@@ -8,7 +8,8 @@ class Elefe < ApplicationRecord
   belongs_to :user
   has_many :commandes
 
-  validates :nom, :prenom, :rue, :cp, :ville, :tel_mobile, :tel_fixe, :urgence_nom, :urgence_prenom, :urgence_tel, presence: true
+  validates :nom, :prenom, :rue, :cp, :ville, :tel_mobile, :tel_fixe, :urgence_nom, :urgence_prenom, :urgence_tel, :parentee, presence: true
+  validates_inclusion_of :soin_moi,:in => [true, false]
 
   has_attached_file :photo, styles: { medium: "175x225!", original: "350x450!", thumb: "70x90!" }, default_url: "photo-anonyme.jpg"
   validates :photo, attachment_presence: false

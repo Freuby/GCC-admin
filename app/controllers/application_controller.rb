@@ -88,14 +88,20 @@ class ApplicationController < ActionController::Base
           @paiement.commandes.each do |com|
             com.update(sold: true)
           end
-          format.html { redirect_to template: "panier_valid", notice: 'Votre réglement a bien été enregistré.' }
-          format.json { render :panier, status: :created, location: panier_path }
+          format.html { redirect_to panier_confirm_path(:pid => @paiement.id), notice: 'Votre réglement a bien été enregistré.' }
+          format.json { render :panier, status: :created, location: panier_confirm_path }
         else
-          format.html { render :panier_valid }
+          format.html { render :panier_confirm }
           format.json { render json: @paiement.errors, status: :unprocessable_entity }
         end
       end
     end
+  end
+
+  #GET /panier_confirm
+  def panier_confirm
+    @paiement = Paiement.find(params[:pid])
+
   end
 
   # POST /valide
@@ -108,6 +114,7 @@ class ApplicationController < ActionController::Base
  private
 
   def set_constants
+    @mail_grupo = "marcelo@grupoculturacapoeira.com"
     @typ_cours = ["adultes", "enfants", "mixte"]
     @grades_adultes = ["Enfant débutant", "Enfant gradé", "Adulte Débutant", "1e corda", "2e corda", "3e corda", "4e corda", "5e corda", "Estagiário", "Monitor", "Instrutor", "Contramestre", "Mestre Edificador", "Mestre Digno"]
     @reglements = ["Espèces", "Chèque", "Tickets CAF", "Chèques vacances ANCV", "Autres"]
@@ -165,7 +172,7 @@ class ApplicationController < ActionController::Base
     @sold = 0
     if current_user
       current_user.commandes.each do |com|
-        if com.sold != true
+        if com.sold != true && com.montant != nil
           @sold = @sold + com.montant
         end
       end

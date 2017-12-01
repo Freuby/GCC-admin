@@ -9,4 +9,12 @@ def flash_class(level)
     end
 end
 
+def field_class(resource, field_name)
+  if resource.errors[field_name].present?
+    return "error".html_safe
+  else
+    return "".html_safe
+  end
+end
+
 end
