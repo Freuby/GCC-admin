@@ -38,7 +38,7 @@
 <div class="row">
   <div class="col-12 col-md-6 field">
     <%= f.label :date_naissance, "Date de naissance" %><br />
-    <%= f.date_select :date_naissance, order: [:day, :month, :year], class: "form-control", start_year: 1900, end_year: Time.now.year-3 %>
+    <%= f.date_select :date_naissance, order: [:day, :month, :year], class: "form-control", start_year: Time.now.year-90, end_year: Time.now.year-3 %>
   </div>
   <div class="col-12 col-md-6 field">
         <%= f.label :email %>
@@ -188,15 +188,7 @@
 
     <div class="row">
         <div class="col-12">
-            <div id="cours_ad" class="field">
-            <h4>Tarif de base adultes - Cotisation Annuelle</h4>
-                <%= f.radio_button :parentee, 0 %>
-                <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[0].to_s+" euros/an)", class: field_class(elefe, :parentee) %>
-                <br/>
-                <%= f.radio_button :parentee, 1 %>
-                <%= f.label :parentee, "2 entraînements par semaine ("+@tarif[1].to_s+" euros/an)", class: field_class(elefe, :parentee) %>
-            </div>
-            <div id="cours_en" class="field">
+            <div id="" class="field">
             <h4>Tarif de base enfants - Cotisation Annuelle</h4>
                 <%= f.radio_button :parentee, 2 %>
                 <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[2].to_s+" euros/an)", class: field_class(elefe, :parentee) %>
@@ -205,6 +197,18 @@
                 <%= f.label :parentee, "2 entraînements par semaine ("+@tarif[3].to_s+" euros/an)", class: field_class(elefe, :parentee) %>
             </div>
             <p></p>
+            <div id="" class="field">
+            <h4>Tarif de base adultes - Cotisation Annuelle</h4>
+                <%= f.radio_button :parentee, 0 %>
+                <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[0].to_s+" euros/an)", class: field_class(elefe, :parentee) %>
+                <br/>
+                <%= f.radio_button :parentee, 1 %>
+                <%= f.label :parentee, "2 entraînements par semaine ("+@tarif[1].to_s+" euros/an)", class: field_class(elefe, :parentee) %>
+            </div>
+            <p></p>
+            <h4>Contrat social</h4>
+                <%= f.radio_button :parentee, 4 %>
+                <%= f.label :parentee, "Je bénéficie d'un contrat social avec l'association", class: field_class(elefe, :parentee) %>
             <p>Les réductions famille seront calculées après la création de chacune des fiches d'affiliations des membres de la famille.</p>
         </div>
     </div>
@@ -235,7 +239,7 @@
 </div>
 
 <script type="text/javascript">
-      cour = ('#cours').value;
+  cour = ('#cours').value;
   str = $('#cours option:selected').text();
   acb = str.substring(str.length-1, str.length);
   typ = str.split(" ",2);

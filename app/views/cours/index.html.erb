@@ -19,7 +19,7 @@
   </thead>
 
   <tbody>
-    <% @cours.each do |cour| %>
+    <% @cours.sort_by{|c| [c.nomvil, c.typcours]}.reverse.each do |cour| %>
       <tr>
         <td><%= cour.nomvil %></td>
         <!-- <td><%= cour.adresse %></td>
