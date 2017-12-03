@@ -13,7 +13,7 @@
   <br/>
     <div class="field text-center">
         <%= f.label :datecours, "Date du cours" %>
-        <%= f.date_select :datecours, order: [:day, :month, :year], class: "form-control" %>
+        <%= f.select :datecours, calendrier(@cour.jour)-@dates_pres, class: "form-control" %>
     </div>
     <div class="field text-center">
         <%= f.label :enseignant_id, "Enseignant" %>

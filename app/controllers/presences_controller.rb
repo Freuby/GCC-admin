@@ -160,6 +160,11 @@ class PresencesController < ApplicationController
         end
       end
       @enseignants = Enseignant.all
+      @pres_cour = @presences_all.where(:cour_id => @cour.id).all
+      @dates_pres = Array []
+      @pres_cour.each do |p|
+        @dates_pres << p.datecours.strftime("%d/%m/%Y")
+      end
   end
 
   # GET /presences/1/edit
@@ -203,7 +208,7 @@ class PresencesController < ApplicationController
     elsif params[:commit] == "Valider"
       @cour = Cour.find(params[:presence][:cour_id])
       @eleves_cour = @cour.eleves
-      date = params[:presence]['datecours(1i)']+"-"+params[:presence]['datecours(2i)']+"-"+params[:presence]['datecours(3i)']
+      date = params[:presence][:datecours]
       date = date.to_date
       @presence = Presence.new(:datecours => date)
 

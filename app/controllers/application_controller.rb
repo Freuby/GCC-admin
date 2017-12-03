@@ -121,13 +121,13 @@ class ApplicationController < ActionController::Base
     @GCC_connait = ["Démonstration","Moteur de recherche internet", "Site", "Affiche/Flyer", "Par un ami", "Vidéo", "Autre"]
     @tarif = [190, 230, 140, 180, 0]
     t = Time.now
-    @date_fondation = Time.new(2001, 9, 1)
+    @date_fondation = Date.new(2001, 9, 1)
     if t.month > 8  && t.month < 13
-      @sept_courant = Time.new(t.year, 9, 1)
-      @aout_courant = Time.new(t.year+1, 8, 31)
+      @sept_courant = Date.new(t.year, 9, 1)
+      @aout_courant = Date.new(t.year+1, 8, 31)
     else
-      @sept_courant = Time.new(t.year-1, 9, 1)
-      @aout_courant = Time.new(t.year, 8, 31)
+      @sept_courant = Date.new(t.year-1, 9, 1)
+      @aout_courant = Date.new(t.year, 8, 31)
     end
   end
 

@@ -29,7 +29,7 @@
             <strong>Date naissance:</strong>
             <% if @elefe.date_naissance %>
                 <%= @elefe.date_naissance.strftime( '%d/%m/%Y' ) %>
-                (<%= Time.now.year-@elefe.date_naissance.year %> ans)
+                (<%= (Time.now-@elefe.date_naissance).to_i/(365*24*3600) %> ans)
             <% end %>
             <br/>
             <strong>Email:</strong>
