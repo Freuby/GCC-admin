@@ -195,7 +195,7 @@ class PresencesController < ApplicationController
 
     elsif params[:commit] == "Ajouter un nouvel élève"
       if !Elefe.find_by(:nom => params[:elefe_nom][:Nom], :prenom => params[:elefe_prenom][:Prenom])
-        el = Elefe.new( :nom => params[:elefe_nom][:Nom], :prenom => params[:elefe_prenom][:Prenom], :rue => '-', :cp => '-', :ville =>'-', :tel_mobile => '-', :tel_fixe => '-', :urgence_nom => '-', :urgence_prenom => '-', :urgence_tel => '-', :ville_entrainement => params[:presence][:cour_id] )
+        el = Elefe.new( :nom => params[:elefe_nom][:Nom], :prenom => params[:elefe_prenom][:Prenom], :rue => '-', :cp => '-', :ville =>'-', :tel_mobile => '-', :tel_fixe => '-', :urgence_nom => '-', :urgence_prenom => '-', :urgence_tel => '-', :ville_entrainement => params[:presence][:cour_id], :parentee => 5, :soin_moi => false )
         c = Cour.find_by(:id => params[:presence][:cour_id])
         el.cours << c
         el.save
