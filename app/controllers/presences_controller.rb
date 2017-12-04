@@ -32,7 +32,7 @@ class PresencesController < ApplicationController
     a = 0
       @presences.each do |presence|
       if elefe.etats.find_by_presence_id(presence.id)
-        if elefe.etats.find_by_presence_id(presence.id).etat === "P"
+        if elefe.etats.find_by_presence_id(presence.id).etat === "P" || elefe.etats.find_by_presence_id(presence.id).etat === "M/B"
           a = a +1
         end
       end
@@ -61,9 +61,9 @@ class PresencesController < ApplicationController
         a = 0
         b = 0
         presence.etats.each do |etat|
-          if etat.etat === 'P' && etat.ponctuel != true
+          if etat.etat === 'P' || etat.etat === 'M/B' && etat.ponctuel != true
             a = a + 1
-          elsif etat.etat === 'P' && etat.ponctuel == true
+          elsif etat.etat === 'P' || etat.etat === 'M/B' && etat.ponctuel == true
             b = b + 1
           end
         end
@@ -86,7 +86,7 @@ class PresencesController < ApplicationController
       a = 0
         @presences.each do |presence|
           if elefe.etats.find_by_presence_id(presence.id)
-            if elefe.etats.find_by_presence_id(presence.id).etat === "P"
+            if elefe.etats.find_by_presence_id(presence.id).etat === "P" || elefe.etats.find_by_presence_id(presence.id).etat === "M/B"
               a = a +1
             end
           end
@@ -116,9 +116,9 @@ class PresencesController < ApplicationController
         a = 0
         b = 0
         presence.etats.each do |etat|
-          if etat.etat === 'P' && etat.ponctuel != true
+          if etat.etat === 'P' || etat.etat === 'M/B' && etat.ponctuel != true
             a = a + 1
-          elsif etat.etat === 'P' && etat.ponctuel == true
+          elsif etat.etat === 'P' || etat.etat === 'M/B' && etat.ponctuel == true
             b = b + 1
           end
         end
@@ -213,7 +213,7 @@ class PresencesController < ApplicationController
       @presence = Presence.new(:datecours => date)
 
       @eleves_cour.each_with_index do |elefe, i|
-        j = i.to_s
+        j = elefe.id.to_s
         @etat = params[:etat][j]
         @eid = elefe.id.to_s
         @ponctuel = params[:ponctuel][@eid]

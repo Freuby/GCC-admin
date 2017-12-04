@@ -130,7 +130,7 @@
     <% end %>
 </div>
 <br/>
-<%= link_to 'Modifier', edit_elefe_path(@elefe) %> |
+<% if current_user %><% if !current_user.admin == 0 %><%= link_to 'Modifier', edit_elefe_path(@elefe) %> | <% end %><% end %>
 <%= link_to 'Retour', root_path %>
 
 <!-- Modal -->

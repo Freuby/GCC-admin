@@ -40,7 +40,7 @@
                 <td><%= elefe.prenom %></td>
                 <td>
                     <div class="field">
-                        <%= select( :etat, i, ['P','A','M/B','J'], { }, { } ) %>
+                        <%= select( :etat, elefe.id, ['P','A','M/B','J'], { }, { } ) %>
                     </div>
                 </td>
             </tr>
@@ -70,7 +70,7 @@
                 <td><%= elefe.prenom %></td>
                 <td>
                     <div class="field">
-                        <%= select( :etat, i, [nil,'P','A','M/B','J'], { }, { } ) %>
+                        <%= select( :etat, elefe.id, [nil,'P','A','M/B','J'], { }, { } ) %>
                     </div>
                 </td>
             </tr>
