@@ -154,8 +154,7 @@ class PresencesController < ApplicationController
       @eleves_pres = Array[]
       @presence = Presence.new
       @eleves.each do |elefe|
-        c = elefe.cours
-        if c.detect { |b| b.id == @cour.id }
+      if elefe.cours.exists?(@cour.id)
           @eleves_pres << elefe
         end
       end
@@ -182,6 +181,7 @@ class PresencesController < ApplicationController
       cours = el.cours
       if !cours.detect { |b| b.id == c.id }
         el.cours << c
+        el.save
       end
       redirect_to new_presence_path(:cour => params[:presence][:cour_id])
 

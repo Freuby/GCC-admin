@@ -34,6 +34,7 @@
         <tbody>
         <% @eleves_pres.each_with_index do |elefe, i|  %>
         <% if !elefe.etats.find_by(ponctuel: true) %>
+        <% puts elefe.nom %>
             <tr>
                 <td><%= check_box :ponctuel, elefe.id %></td>
                 <td><%= elefe.nom %></td>
@@ -62,6 +63,8 @@
         </thead>
 
         <tbody>
+        <% puts "@@@@@@@@@@@@@@@@@@@@@" %>
+        <% puts @eleves_pres.inspect %>
         <% @eleves_pres.each_with_index do |elefe, i|  %>
         <% if elefe.etats.find_by(ponctuel: true) %>
             <tr>
