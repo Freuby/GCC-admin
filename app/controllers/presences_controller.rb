@@ -156,7 +156,7 @@ class PresencesController < ApplicationController
       @eleves_pres = Array[]
       @presence = Presence.new
       @eleves.each do |elefe|
-      if elefe.cours.exists?(@cour.id)
+      if elefe.cours.exists?(@cour.id) && !@eleves_pres.any? {|ep| ep == elefe }
           @eleves_pres << elefe
         end
       end
@@ -173,7 +173,7 @@ class PresencesController < ApplicationController
     @cour = @cours.find(@presences_all.find(params[:id]).cour_id)
     @eleves_pres = Array[]
       @eleves.each do |elefe|
-        if elefe.cours.exists?(@cour.id)
+        if elefe.cours.exists?(@cour.id) && !@eleves_pres.any? {|ep| ep == elefe }
             @eleves_pres << elefe
         end
       end

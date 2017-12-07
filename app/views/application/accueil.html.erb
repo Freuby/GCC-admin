@@ -68,7 +68,7 @@
                                  - Le <%= p.updated_at.strftime( '%d/%m/%Y' ) %> -
                                  <%= number_to_currency(p.montant, unit: "", separator: ",", delimiter: "") %> euros -
                                  paiement par <%= @reglements[p.mode_paie] %>
-                                 <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#CommandesModal<%= j %>">Voir</button>
+                                 <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#CommandesModal<%= p.id %>">Voir</button>
                                  <span style="display: inline-block;">
                                   <%= form_tag('/valide', method: "post") do |f| %>
                                     <%= hidden_field_tag :paiement, p.id %>
@@ -85,7 +85,7 @@
 
 <% @users.each do |u| %>
     <% u.paiements.where(valide: false).all.each.with_index do |p, j| %>
-    <div class="modal fade" id="CommandesModal<%= j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="CommandesModal<%= p.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header text-center">
