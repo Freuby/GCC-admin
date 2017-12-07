@@ -11,10 +11,12 @@
     </div>
   <% end %>
   <br/>
+  <% if !presence.persisted? %>
     <div class="field text-center">
         <%= f.label :datecours, "Date du cours" %>
         <%= f.select :datecours, calendrier(@cour.jour)-@dates_pres, class: "form-control" %>
     </div>
+  <% end %>
     <div class="field text-center">
         <%= f.label :enseignant_id, "Enseignant" %>
         <%= f.select :enseignant_id, @enseignants.collect { |p| [p.prenom+' '+p.nom, p.id] }, class: "form-control" %>
@@ -63,12 +65,10 @@
         </thead>
 
         <tbody>
-        <% puts "@@@@@@@@@@@@@@@@@@@@@" %>
-        <% puts @eleves_pres.inspect %>
         <% @eleves_pres.each_with_index do |elefe, i|  %>
         <% if elefe.etats.find_by(ponctuel: true) %>
             <tr>
-                <td></td>
+                <td><%= check_box :ponctuel, elefe.id, { :checked => "checked" } %></td>
                 <td><%= elefe.nom %></td>
                 <td><%= elefe.prenom %></td>
                 <td>

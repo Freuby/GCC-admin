@@ -16,6 +16,27 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+#datepres {
+  color: #007bff;
+}
+
+#datepres:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+#datepres:hover ~ .visonhover {
+  display: block;
+}
+
+.visonhover:hover {
+  display: block;
+}
+
+.visonhover {
+  display: none;
+}
+
 .blink_text {
 
     animation:1s blinker linear infinite;
@@ -61,6 +82,10 @@ thead {
 td.narrow, th.narrow {
   width: 30px;
   text-align: center;
+}
+
+td, th {
+  width: 70px;
 }
 
 #logo {

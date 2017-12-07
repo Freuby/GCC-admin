@@ -39,7 +39,7 @@
                   <td>Nombre</td>
                   <td></td>
                   <td>d'élèves</td>
-                  <td>Moy. <%= @total.inject(0.0) { |sum, el| sum + el } / @total.size %></td>
+                  <td>Moy. <%= sprintf('%.1f', @total.inject(0.0) { |sum, el| sum + el } / @total.size) %></td>
                   <% @presences.each.with_index do |presence, i | %>
                       <td><%= @total[i] %></td>
                   <% end %>

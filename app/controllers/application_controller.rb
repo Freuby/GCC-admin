@@ -143,7 +143,7 @@ class ApplicationController < ActionController::Base
     @batigrados = Batigrado.where(:updated_at => @sept_courant..@aout_courant).all
     @repasgccs = Repasgcc.where(:updated_at => @sept_courant..@aout_courant).all
     @cours = Cour.all
-    @eleves = Elefe.where(:updated_at => @sept_courant..@aout_courant).all
+    @eleves = Elefe.includes(:etats).where(:updated_at => @sept_courant..@aout_courant).all
     if current_user.admin == 0 && @eleves.where(:user_id => current_user.id).exists?
       @eleves_current_user = @eleves.where(:user_id => current_user.id).all
       @eleves_current_user = @eleves_current_user.sort_by{ |p| p.prix }.reverse
