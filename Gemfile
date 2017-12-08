@@ -45,6 +45,7 @@ gem 'paperclip-i18n'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'vicopo', '~> 1.1', '>= 1.1.8'
+gem 'seed_dump'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
