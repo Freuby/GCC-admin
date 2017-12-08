@@ -86,13 +86,13 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'test.artandteo.com' }
 
-  ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.delivery_method = :smtp
 
 
-  ActionMailer::Base.sendmail_settings = {
-          location: "/usr/sbin/sendmail",
-          arguments: '-i -t'
-  }
+  #ActionMailer::Base.sendmail_settings = {
+  #        location: "/usr/sbin/sendmail",
+  #        arguments: '-i -t'
+  #}
 
   # ActionMailer::Base.delivery_method = :sendmail
   ActionMailer::Base.delivery_method = :file
