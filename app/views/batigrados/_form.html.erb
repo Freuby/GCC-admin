@@ -45,38 +45,38 @@
   <div class="row">
       <div class="field col-4">
         <%= f.label :tarif1, "Tarif pour un batigrado" %>
-        <%= f.text_field :tarif1, class: "form-control" %>
+        <%= f.number_field :tarif1, class: "form-control", step: 0.1 %>
       </div>
 
       <div class="field col-4">
         <%= f.label :tarif2, "Tarif du deuxième batigrado" %>
-        <%= f.text_field :tarif2, class: "form-control" %>
+        <%= f.number_field :tarif2, class: "form-control", step: 0.1 %>
       </div>
 
       <div class="field col-4">
         <%= f.label :tarif_ext, "Tarif pour les capoeiristes extérieurs" %>
-        <%= f.text_field :tarif_ext, class: "form-control" %>
+        <%= f.number_field :tarif_ext, class: "form-control", step: 0.1 %>
       </div>
   </div>
   <hr/>
   <div class="field">
     <%= f.label :tar_rep1, "Tarif du repas du samedi midi" %>
-    <%= f.text_field :tar_rep1, class: "form-control" %>
+    <%= f.number_field :tar_rep1, class: "form-control", step: 0.1 %>
   </div>
 
   <div class="field">
     <%= f.label :tar_rep2, "Tarif du petit déjeuner" %>
-    <%= f.text_field :tar_rep2, class: "form-control" %>
+    <%= f.number_field :tar_rep2, class: "form-control", step: 0.1 %>
   </div>
 
   <div class="field">
     <%= f.label :tar_rep3, "Tarif du repas du dimanche midi" %>
-    <%= f.text_field :tar_rep3, class: "form-control" %>
+    <%= f.number_field :tar_rep3, class: "form-control", step: 0.1 %>
   </div>
   <hr/>
   <div class="field">
     <%= f.label :tar_soiree, "Tarif de la soirée" %>
-    <%= f.text_field :tar_soiree, class: "form-control" %>
+    <%= f.number_field :tar_soiree, class: "form-control", step: 0.1 %>
   </div>
 
   <div class="field">

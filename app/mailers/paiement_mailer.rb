@@ -1,0 +1,2 @@
+class PaiementMailer < ApplicationMailer
+end

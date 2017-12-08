@@ -4,7 +4,7 @@ class User < ApplicationRecord
   attr_accessor :login
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_many :eleves
   has_many :commandes

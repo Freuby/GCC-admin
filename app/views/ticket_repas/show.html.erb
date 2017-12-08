@@ -12,18 +12,20 @@
 <% end %>
 <% if @ticket_repa.qta1 != 0 %>
 <li>
-  <%= @ticket_repa.qta1 %> x <%= @repasgcc.repas1_ad+" enfant" %>
+  <%= @ticket_repa.qta1 %> x <%= @repasgcc.repas1_ad+" adulte" %>
 </li>
 <% end %>
 <% if @ticket_repa.qta2 != 0 %>
 <li>
-  <%= @ticket_repa.qta2 %> x <%= @repasgcc.repas2_ad+" enfant" %>
+  <%= @ticket_repa.qta2 %> x <%= @repasgcc.repas2_ad+" adulte" %>
 </li>
 <% end %>
 </ul>
 <p>Nous avons bien pris en compte votre demande qui va nous permettre de nous préparer, dans les meilleures conditions, à vous accueillir.</p>
 <% if !current_user.commandes.where(sold: true).all.any? { |com| com.ticket_repa_id == @ticket_repa.id } %>
     <p>Il ne vous reste plus qu'à procéder au réglement de <strong><%= number_to_currency(@total, unit: "", separator: ",", delimiter: "") %> euros.</strong></p>
+    <br/>
+    <p class="text-center"><%= link_to "Accèder à mes commandes", panier_path, class: "btn btn-outline-primary" %></p>
 <% end %>
 
 <% if current_user.admin == 0 %>

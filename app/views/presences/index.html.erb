@@ -4,7 +4,7 @@
 <% if @presence %>
 <h3>Cours <%= @typ_cours[@presence.cour.typcours] %> <%= @presence.cour.nomvil %></h3>
 
-<div class="row presences">
+<div class="row">
     <div class="col-6 col-md-4">
         <table class="table table-striped">
               <thead>
@@ -52,7 +52,7 @@
     <tr class="text-center">
         <% @presences.sort_by { |date| date.datecours }.each do |presence| %>
             <% date = presence.datecours.day.to_s+'/'+presence.datecours.month.to_s %>
-            <td>
+            <td class="col_dates">
             <div id="datepres"><%= date %></div>
             <div class="visonhover"><%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>'.html_safe, edit_presence_path(presence.id), data: { confirm: 'Modifier les présences du '+date+' ?' } %>&nbsp;&nbsp;<%= link_to '<i class="fa fa-trash-o" aria-hidden="true"></i>'.html_safe, presence, method: :delete, data: { confirm: 'Supprimer les présences du '+date+' ?' } %></div>
             </td>
@@ -145,7 +145,7 @@
     <tr class="text-center">
         <% @presences.sort_by { |date| date.datecours }.each do |presence| %>
             <% date = presence.datecours.day.to_s+'/'+presence.datecours.month.to_s %>
-            <td><%= date %></td>
+            <td class="col_dates"><%= date %></td>
         <% end %>
     </tr>
     </thead>

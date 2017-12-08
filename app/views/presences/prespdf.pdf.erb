@@ -101,7 +101,7 @@
                   <td>Nombre</td>
                   <td></td>
                   <td>d'élèves</td>
-                  <td>Moy. <%= @totalponct.inject(0.0) { |sum, el| sum + el } / @total.size %></td>
+                  <td>Moy. <%= sprintf('%.1f', @totalponct.inject(0.0) { |sum, el| sum + el } / @total.size) %></td>
                   <% @presences.each.with_index do |presence, i | %>
                       <td><%= @totalponct[i] %></td>
                   <% end %>
