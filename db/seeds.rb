@@ -1,120 +1,92 @@
-Cour::HABTM_Eleves.create!([
-  {cour_id: 5, elefe_id: 1},
-  {cour_id: 7, elefe_id: 2},
-  {cour_id: 7, elefe_id: 3},
-  {cour_id: 7, elefe_id: 4},
-  {cour_id: 3, elefe_id: 5},
-  {cour_id: 3, elefe_id: 6},
-  {cour_id: 7, elefe_id: 7},
-  {cour_id: 3, elefe_id: 8},
-  {cour_id: 7, elefe_id: 9},
-  {cour_id: 8, elefe_id: 10},
-  {cour_id: 8, elefe_id: 11},
-  {cour_id: 3, elefe_id: 12},
-  {cour_id: 8, elefe_id: 13},
-  {cour_id: 8, elefe_id: 14},
-  {cour_id: 7, elefe_id: 15},
-  {cour_id: 8, elefe_id: 16},
-  {cour_id: 8, elefe_id: 17},
-  {cour_id: 8, elefe_id: 18},
-  {cour_id: 8, elefe_id: 19},
-  {cour_id: 8, elefe_id: 20},
-  {cour_id: 3, elefe_id: 21},
-  {cour_id: 8, elefe_id: 22},
-  {cour_id: 8, elefe_id: 23},
-  {cour_id: 8, elefe_id: 24},
-  {cour_id: 8, elefe_id: 9},
-  {cour_id: 8, elefe_id: 15},
-  {cour_id: 8, elefe_id: 27},
-  {cour_id: 8, elefe_id: 28},
-  {cour_id: 8, elefe_id: 26},
-  {cour_id: 8, elefe_id: 25},
-  {cour_id: 3, elefe_id: 29},
-  {cour_id: 3, elefe_id: 30},
-  {cour_id: 3, elefe_id: 31},
-  {cour_id: 3, elefe_id: 32},
-  {cour_id: 3, elefe_id: 33},
-  {cour_id: 3, elefe_id: 34},
-  {cour_id: 3, elefe_id: 35},
-  {cour_id: 3, elefe_id: 36},
-  {cour_id: 3, elefe_id: 23},
-  {cour_id: 7, elefe_id: 37},
-  {cour_id: 7, elefe_id: 38}
-])
-Elefe::HABTM_Cours.create!([
-  {cour_id: 5, elefe_id: 1},
-  {cour_id: 7, elefe_id: 2},
-  {cour_id: 7, elefe_id: 3},
-  {cour_id: 7, elefe_id: 4},
-  {cour_id: 3, elefe_id: 5},
-  {cour_id: 3, elefe_id: 6},
-  {cour_id: 7, elefe_id: 7},
-  {cour_id: 3, elefe_id: 8},
-  {cour_id: 7, elefe_id: 9},
-  {cour_id: 8, elefe_id: 10},
-  {cour_id: 8, elefe_id: 11},
-  {cour_id: 3, elefe_id: 12},
-  {cour_id: 8, elefe_id: 13},
-  {cour_id: 8, elefe_id: 14},
-  {cour_id: 7, elefe_id: 15},
-  {cour_id: 8, elefe_id: 16},
-  {cour_id: 8, elefe_id: 17},
-  {cour_id: 8, elefe_id: 18},
-  {cour_id: 8, elefe_id: 19},
-  {cour_id: 8, elefe_id: 20},
-  {cour_id: 3, elefe_id: 21},
-  {cour_id: 8, elefe_id: 22},
-  {cour_id: 8, elefe_id: 23},
-  {cour_id: 8, elefe_id: 24},
-  {cour_id: 8, elefe_id: 9},
-  {cour_id: 8, elefe_id: 15},
-  {cour_id: 8, elefe_id: 27},
-  {cour_id: 8, elefe_id: 28},
-  {cour_id: 8, elefe_id: 26},
-  {cour_id: 8, elefe_id: 25},
-  {cour_id: 3, elefe_id: 29},
-  {cour_id: 3, elefe_id: 30},
-  {cour_id: 3, elefe_id: 31},
-  {cour_id: 3, elefe_id: 32},
-  {cour_id: 3, elefe_id: 33},
-  {cour_id: 3, elefe_id: 34},
-  {cour_id: 3, elefe_id: 35},
-  {cour_id: 3, elefe_id: 36},
-  {cour_id: 3, elefe_id: 23},
-  {cour_id: 7, elefe_id: 37},
-  {cour_id: 7, elefe_id: 38}
-])
-User.create!([
-  {email: "mestre@mestre.com", encrypted_password: "$2a$11$hteDsEU48nY3vN48xCDJsO4U2mnol1/6B9Tm9Ub1.EYjRMBVUWan.", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 13, current_sign_in_at: "2017-12-08 08:53:09", last_sign_in_at: "2017-12-07 19:43:17", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 1},
-  {email: "christophe@poirier.com", encrypted_password: "$2a$11$S12BISQ8LOOfiqdnHeili.4toS3q/LHfWfa5r5VEMontlZ6MoRX6q", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, admin: 2},
-  {email: "gcc.mayenne@gmail.com", encrypted_password: "$2a$11$.acmGgUgYgYPYO1c3z10nexaUxkgixluMEC1cJP0t/biAjwrtO0nC", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, admin: 3},
-  {email: "marcelo@brandao.com", encrypted_password: "$2a$11$O/aAdkaEVA6yqugdap9e9OesEgjNyqyPINzAhGF4jl4PXgMJVpOba", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, admin: 2},
-  {email: "gcc.evron@gmail.com", encrypted_password: "$2a$11$lx91clxo4hgkPnnVnol7Jug4h.gIOPWjeVglE6GLUZLH8OjpItUrG", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 7, current_sign_in_at: "2017-12-07 19:39:38", last_sign_in_at: "2017-12-07 19:31:39", current_sign_in_ip: "176.139.138.39", last_sign_in_ip: "78.213.209.39", admin: 3},
-  {email: "gcc.laval@gmail.com", encrypted_password: "$2a$11$MbRih8hJfvs2ga4VZFXu5O91tN8cyOh41F9Skmme8y4GAIR6yPkpG", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, admin: 3},
-  {email: "a@a.com", encrypted_password: "$2a$11$Iu.hf3twevpjaOZb7NxBKuzMYCrDepm4qNqwmGGTFhsshKCs9zpJy", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 5, current_sign_in_at: "2017-11-30 06:09:37", last_sign_in_at: "2017-11-29 16:57:47", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "caroline@berteau.com", encrypted_password: "$2a$11$i7Rk1vpLrBUb2IrFKB8FTOL1vXVtU5NFjIVufiWhJLuBScg8c9r3i", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, admin: 2},
-  {email: "gcc.vitre@gmail.com", encrypted_password: "$2a$11$dH.WRZgsei2LUNKUd1L2EePdcU1Dvfd7.cSvYomUUsFXKjNgtT8im", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, admin: 3},
-  {email: "gael.le_dem@orange.fr", encrypted_password: "$2a$11$K62MDh1JPrYQA5IGE01kD.102Wz7LHlZwNX.75bA7psoNCSIs6JC2", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 2, current_sign_in_at: "2017-12-01 10:36:41", last_sign_in_at: "2017-12-01 09:36:39", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "gcc.avaloirs@gmail.com", encrypted_password: "$2a$11$mUw4ZnFG70RybVSOAshMU.AaowZBA6MK9bNaEamAcMKlkHoSuygbu", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-08 08:18:36", last_sign_in_at: "2017-12-08 08:18:36", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 3},
-  {email: "rebulard@orange.fr", encrypted_password: "$2a$11$Ew.TDzG7hYdgD84ZxDg8a.WbbbFGEEpKzwsPmgPT5sfvZqHLiHSeO", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-01 11:08:30", last_sign_in_at: "2017-12-01 11:08:30", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "daniel.hamelin0307@orange.fr", encrypted_password: "$2a$11$i8DKfRdK2wwWdhOj.RntuuQvCwehY3dw.kJTJjkQGKY/572eq06m.", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-01 19:28:43", last_sign_in_at: "2017-12-01 19:28:43", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "clograndin@yahoo.fr", encrypted_password: "$2a$11$texDLKJ8RqZx4K/5nOEfZ.0KP0Iy7R916qrYq3GMvrSo3OPY1EqV2", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-01 19:39:50", last_sign_in_at: "2017-12-01 19:39:50", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "timoutimou@gmail.com", encrypted_password: "$2a$11$yFcX1HcbLTKVVc8p4QX19u26aL/tkL/RjO6v8m5yv9WLWmM6vBAsG", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-01 19:55:35", last_sign_in_at: "2017-12-01 19:55:35", current_sign_in_ip: "41.200.149.146", last_sign_in_ip: "41.200.149.146", admin: 0},
-  {email: "cindy.chauviere@sfr.fr", encrypted_password: "$2a$11$HSy1uKyX1QzRHMOzaKfsIOaRkWRqn8x6bEFrdkXIMiwf9EkxO1Azy", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-02 13:11:23", last_sign_in_at: "2017-12-02 13:11:23", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "sebastien.patault@orange.fr", encrypted_password: "$2a$11$ebcFWN.W7TmqBt8/HTgSk.KSUP701KdFbCgglSQ/MXEK0K.sD3Gwq", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-02 13:14:16", last_sign_in_at: "2017-12-02 13:14:16", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "virg.gonnet@yahoo.fr", encrypted_password: "$2a$11$fD/ZWoUhk88T/2bqjA1sFeippymPaOabzHKoprpiHj90Is7Ensqzu", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-02 13:19:10", last_sign_in_at: "2017-12-02 13:19:10", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "pottierpascal@live.fr", encrypted_password: "$2a$11$nC1nKgTjYEQHpYUTuprS..TC6OoU3GGIqd/JRUYKJaw/LImF9nkw6", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-02 13:23:17", last_sign_in_at: "2017-12-02 13:23:17", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "frederic.reubrecht@gmail.com", encrypted_password: "$2a$11$M.Jalp98Pjo9E6fbvHT57.nthd27OyDoX47aKogksUvloslRwQH0C", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 4, current_sign_in_at: "2017-12-08 09:22:36", last_sign_in_at: "2017-12-08 09:21:26", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "mabreb@wanadoo.fr", encrypted_password: "$2a$11$051ot.wSBW8ef3SHZzUhvel/X.nmTBug/fo6ESz7lXgdpnC/M6zTe", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-02 13:48:40", last_sign_in_at: "2017-12-02 13:48:40", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "guillaume@grupoculturacapoeira.com", encrypted_password: "$2a$11$6PUjmM5JDQrK89bykW.qie1L2QYObjGoc3iUWY/IizAX0aqmsRPFu", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-02 14:06:44", last_sign_in_at: "2017-12-02 14:06:44", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "eugenie03@hotmail.fr", encrypted_password: "$2a$11$zgVqXa4P61iYbCNX8ooIJ.ISFbghXz.bFTZD5QXR6AV2Eca46k9.e", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-02 14:10:27", last_sign_in_at: "2017-12-02 14:10:27", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "jardin.angelique@orange.fr", encrypted_password: "$2a$11$frhSnyhMnekX7NKr.5QZ7evyyJdTMiNiDnzyPwdLpeOjGokrfld7.", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-02 14:13:50", last_sign_in_at: "2017-12-02 14:13:50", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "clemence.doison@yahoo.fr", encrypted_password: "$2a$11$DBiADKY6ZFCDDs98S9k5suh.cSOPMPCLwMz/9B5OKPRbzinPCGFSq", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-03 15:27:59", last_sign_in_at: "2017-12-03 15:27:59", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "djemadogore@gmail.com", encrypted_password: "$2a$11$ozuNCrqi06AzfN5wZQNUE.m1k4cv5hIcgo6VjDBkEdHolkNJWvrOq", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-03 16:01:24", last_sign_in_at: "2017-12-03 16:01:24", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "chartmannt@hotmail.com", encrypted_password: "$2a$11$G080OVa9gxcG9izTorvG0.3i5newtRCHciq.y9D4AdnKFZ31nUVIa", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-03 16:04:23", last_sign_in_at: "2017-12-03 16:04:23", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "c.aubisse@laposte.net", encrypted_password: "$2a$11$KMKp7LvDY2mxPEsdgLyBM.0MB0CvyjfPkZRhwSuv/ArOyQx/rlGnO", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2017-12-03 16:06:03", last_sign_in_at: "2017-12-03 16:06:03", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0},
-  {email: "antonnerir@live.com", encrypted_password: "$2a$11$lsG7kJ1/8k4zT8daJRu91.L.XtcMx9Ml/Cc4ezWecwcpbKwQoJjZG", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 2, current_sign_in_at: "2017-12-08 08:30:02", last_sign_in_at: "2017-12-08 08:21:27", current_sign_in_ip: "78.213.209.39", last_sign_in_ip: "78.213.209.39", admin: 0}
-])
+
+user = User.new(email: "mestre@mestre.com", password: "1234567", password_confirmation: "1234567", admin: 1)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "christophe@poirier.com", password: "1234567", password_confirmation: "1234567", admin: 2)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "gcc.mayenne@gmail.com", password: "1234567", password_confirmation: "1234567", admin: 3)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "marcelo@brandao.com", password: "1234567", password_confirmation: "1234567", admin: 2)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "gcc.evron@gmail.com", password: "1234567", password_confirmation: "1234567", admin: 3)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "gcc.laval@gmail.com", password: "1234567", password_confirmation: "1234567", admin: 3)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "a@a.com", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "caroline@berteau.com", password: "1234567", password_confirmation: "1234567", admin: 2)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "gcc.vitre@gmail.com", password: "1234567", password_confirmation: "1234567", admin: 3)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "gael.le_dem@orange.fr", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "gcc.avaloirs@gmail.com", password: "1234567", password_confirmation: "1234567", admin: 3)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "rebulard@orange.fr", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "daniel.hamelin0307@orange.fr", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "clograndin@yahoo.fr", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "timoutimou@gmail.com", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "cindy.chauviere@sfr.fr", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "sebastien.patault@orange.fr", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "virg.gonnet@yahoo.fr", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "pottierpascal@live.fr", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "frederic.reubrecht@gmail.com", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "mabreb@wanadoo.fr", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "guillaume@grupoculturacapoeira.com", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "eugenie03@hotmail.fr", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "jardin.angelique@orange.fr", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "clemence.doison@yahoo.fr", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "djemadogore@gmail.com", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "chartmannt@hotmail.com", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "c.aubisse@laposte.net", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+user = User.new(email: "antonnerir@live.com", password: "1234567", password_confirmation: "1234567", admin: 0)
+user.skip_confirmation!
+user.save!
+
 Batigrado.create!([
   {titre: "22 Batigrado GRUPO CULTURA CAPOEIRA", description: "", date_bat: "2018-05-05", adresse: "Route de Tours", cp: "53000", ville: "Laval", tarif1: 50.0, tarif2: 20.0, tarif_ext: 50.0, tar_rep1: 6.0, tar_rep2: nil, tar_rep3: 6.0, tar_soiree: 8.0, adr_soiree: "Palindrome", heur_soiree: "2017-11-29 20:00:00"}
 ])
@@ -540,3 +512,87 @@ Repasgcc.create!([
 TicketRepa.create!([
   {qte1: 0, qte2: 1, qta1: 2, qta2: 0, elefe_id: 1, repasgcc_id: 1}
 ])
+
+Elefe.find(1).cours << Cour.find(5)
+Elefe.find(2).cours << Cour.find(7)
+Elefe.find(3).cours << Cour.find(7)
+Elefe.find(4).cours << Cour.find(7)
+Elefe.find(5).cours << Cour.find(3)
+Elefe.find(6).cours << Cour.find(3)
+Elefe.find(7).cours << Cour.find(7)
+Elefe.find(8).cours << Cour.find(3)
+Elefe.find(9).cours << Cour.find(7)
+Elefe.find(10).cours << Cour.find(8)
+Elefe.find(11).cours << Cour.find(8)
+Elefe.find(12).cours << Cour.find(3)
+Elefe.find(13).cours << Cour.find(8)
+Elefe.find(14).cours << Cour.find(8)
+Elefe.find(15).cours << Cour.find(7)
+Elefe.find(16).cours << Cour.find(8)
+Elefe.find(17).cours << Cour.find(8)
+Elefe.find(18).cours << Cour.find(8)
+Elefe.find(19).cours << Cour.find(8)
+Elefe.find(20).cours << Cour.find(8)
+Elefe.find(21).cours << Cour.find(3)
+Elefe.find(22).cours << Cour.find(8)
+Elefe.find(23).cours << Cour.find(8)
+Elefe.find(24).cours << Cour.find(8)
+Elefe.find(9).cours << Cour.find(8)
+Elefe.find(15).cours << Cour.find(8)
+Elefe.find(27).cours << Cour.find(8)
+Elefe.find(28).cours << Cour.find(8)
+Elefe.find(26).cours << Cour.find(8)
+Elefe.find(25).cours << Cour.find(8)
+Elefe.find(29).cours << Cour.find(3)
+Elefe.find(30).cours << Cour.find(3)
+Elefe.find(31).cours << Cour.find(3)
+Elefe.find(32).cours << Cour.find(3)
+Elefe.find(33).cours << Cour.find(3)
+Elefe.find(34).cours << Cour.find(3)
+Elefe.find(35).cours << Cour.find(3)
+Elefe.find(36).cours << Cour.find(3)
+Elefe.find(23).cours << Cour.find(3)
+Elefe.find(37).cours << Cour.find(7)
+Elefe.find(38).cours << Cour.find(7)
+
+Cour.find(5).eleves << Elefe.find(1)
+Cour.find(7).eleves << Elefe.find(2)
+Cour.find(7).eleves << Elefe.find(3)
+Cour.find(7).eleves << Elefe.find(4)
+Cour.find(7).eleves << Elefe.find(7)
+Cour.find(7).eleves << Elefe.find(9)
+Cour.find(7).eleves << Elefe.find(15)
+Cour.find(7).eleves << Elefe.find(37)
+Cour.find(7).eleves << Elefe.find(38)
+Cour.find(3).eleves << Elefe.find(5)
+Cour.find(3).eleves << Elefe.find(6)
+Cour.find(3).eleves << Elefe.find(8)
+Cour.find(3).eleves << Elefe.find(12)
+Cour.find(3).eleves << Elefe.find(21)
+Cour.find(3).eleves << Elefe.find(29)
+Cour.find(3).eleves << Elefe.find(30)
+Cour.find(3).eleves << Elefe.find(31)
+Cour.find(3).eleves << Elefe.find(32)
+Cour.find(3).eleves << Elefe.find(33)
+Cour.find(3).eleves << Elefe.find(34)
+Cour.find(3).eleves << Elefe.find(35)
+Cour.find(3).eleves << Elefe.find(36)
+Cour.find(3).eleves << Elefe.find(23)
+Cour.find(8).eleves << Elefe.find(10)
+Cour.find(8).eleves << Elefe.find(11)
+Cour.find(8).eleves << Elefe.find(13)
+Cour.find(8).eleves << Elefe.find(14)
+Cour.find(8).eleves << Elefe.find(16)
+Cour.find(8).eleves << Elefe.find(17)
+Cour.find(8).eleves << Elefe.find(18)
+Cour.find(8).eleves << Elefe.find(19)
+Cour.find(8).eleves << Elefe.find(20)
+Cour.find(8).eleves << Elefe.find(22)
+Cour.find(8).eleves << Elefe.find(23)
+Cour.find(8).eleves << Elefe.find(24)
+Cour.find(8).eleves << Elefe.find(9)
+Cour.find(8).eleves << Elefe.find(15)
+Cour.find(8).eleves << Elefe.find(27)
+Cour.find(8).eleves << Elefe.find(28)
+Cour.find(8).eleves << Elefe.find(26)
+Cour.find(8).eleves << Elefe.find(25)
