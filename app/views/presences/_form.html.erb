@@ -33,7 +33,7 @@
         </tr>
         </thead>
 
-        <tbody>
+        <tbody class="presences">
         <% @eleves_pres.each_with_index do |elefe, i|  %>
         <% if !elefe.etats.find_by(ponctuel: true) %>
         <% puts elefe.nom %>
@@ -64,7 +64,7 @@
         </tr>
         </thead>
 
-        <tbody>
+        <tbody class="presences">
         <% @eleves_pres.each_with_index do |elefe, i|  %>
         <% if elefe.etats.find_by(ponctuel: true) %>
             <tr>

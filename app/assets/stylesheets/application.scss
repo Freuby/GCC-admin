@@ -84,7 +84,7 @@ td.narrow, th.narrow {
   text-align: center;
 }
 
-td, th {
+.presences ~ td, .presences ~ th {
   width: 70px;
 }
 

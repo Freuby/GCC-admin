@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   # GET /panier
   def panier
     if current_user.commandes.where(sold: false).all.any?
-      el = current_user.eleves.sort_by { |el| el.prix }.reverse
+      el = current_user.eleves.sort_by { |el| el.prix }
       if el.count > 1
         if el.second.prix != el.second.commandes.last.montant
           @txt_fam = "Enlever option famille"
@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   def panier_valid
   balance = 0
     if params[:commit] == 'Option famille'
-      current_user.eleves.sort_by { |el| el.prix }.reverse.each.with_index do |ele, i|
+      current_user.eleves.sort_by { |el| el.prix }.each.with_index do |ele, i|
         if i == 1 && ele.commandes.exists?
           nouv_montant = ele.prix / 2
           ele.commandes.last.update(montant: nouv_montant)
@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
     end
 
     if params[:commit] == 'Enlever option famille'
-      current_user.eleves.sort_by { |el| el.prix }.reverse.each.with_index do |ele, i|
+      current_user.eleves.sort_by { |el| el.prix }.each.with_index do |ele, i|
         if i == 1 && ele.commandes.exists?
           nouv_montant = ele.prix / 2
           ele.commandes.last.update(montant: ele.prix)
