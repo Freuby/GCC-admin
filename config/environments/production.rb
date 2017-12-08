@@ -84,13 +84,18 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = { host: 'grupoculturacapoeira.com' }
+  config.action_mailer.default_url_options = { host: 'test.artandteo.com' }
 
   ActionMailer::Base.delivery_method = :smtp
-   ActionMailer::Base.sendmail_settings = {
-          location: "/usr/sbin/sendmail",
-          arguments: '-i -t'
+
+  ActionMailer::Base.sendmail_settings = {
+    location: "frederic.reubrecht@gmail.com"
   }
+
+  #ActionMailer::Base.sendmail_settings = {
+   #       location: "/usr/sbin/sendmail",
+    #      arguments: '-i -t'
+  #}
 
   ActionMailer::Base.delivery_method = :sendmail
   ActionMailer::Base.perform_deliveries = true
