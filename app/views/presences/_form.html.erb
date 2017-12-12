@@ -35,7 +35,13 @@
 
         <tbody>
         <% @eleves_pres.each_with_index do |elefe, i|  %>
-        <% if !elefe.etats.find_by(ponctuel: true) %>
+                  <% @ponctuel = false %>
+                  <% @presences_all.where(:cour_id => @cour.id).each do |p| %>
+                    <% if elefe.etats.where(:presence_id => p.id, :ponctuel => true).any? %>
+                         <% @ponctuel = true %>
+                    <% end %>
+                  <% end %>
+        <% if @ponctuel != true  %>
         <% puts elefe.nom %>
             <tr>
                 <td><%= check_box :ponctuel, elefe.id %></td>
@@ -66,7 +72,13 @@
 
         <tbody>
         <% @eleves_pres.each_with_index do |elefe, i|  %>
-        <% if elefe.etats.find_by(ponctuel: true) %>
+                  <% @ponctuel = false %>
+                  <% @presences_all.where(:cour_id => @cour.id).each do |p| %>
+                    <% if elefe.etats.where(:presence_id => p.id, :ponctuel => true).any? %>
+                         <% @ponctuel = true %>
+                    <% end %>
+                  <% end %>
+        <% if @ponctuel == true  %>
             <tr>
                 <td><%= check_box :ponctuel, elefe.id, { :checked => "checked" } %></td>
                 <td><%= elefe.nom %></td>
