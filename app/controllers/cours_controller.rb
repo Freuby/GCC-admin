@@ -38,11 +38,13 @@ class CoursController < ApplicationController
     @email2 = params[:cour][:mailpres]
     @users = User.all
     if !@users.where(:email => @email).exists?
-      @user = User.new(:email => @email, :password => '1234567', :admin => 2)
+      @user = User.new(:email => @email, :password => '1234567', :password_confirmation => '1234567', :admin => 2)
+      @user.skip_confirmation!
       @user.save
     end
     if !@users.where(:email => @email2).exists?
-      @user = User.new(:email => @email2, :password => '1234567', :admin => 3)
+      @user = User.new(:email => @email2, :password => '1234567', :password_confirmation => '1234567', :admin => 3)
+      @user.skip_confirmation!
       @user.save
     end
 

@@ -60,6 +60,7 @@ class PresencesController < ApplicationController
     @presences.sort_by { |date| date.datecours }.each.with_index do |presence, i|
         a = 0
         b = 0
+
         presence.etats.each do |etat|
           if etat.etat === 'P' || etat.etat === 'M/B'
             a = a + 1
@@ -234,8 +235,18 @@ class PresencesController < ApplicationController
         @ponctuel = params[:ponctuel][@eid]
         if @ponctuel == "1"
           @p = true
+          @presences_all.where(:cour_id => @cour.id).each do |p| # toutes les présences de elefe de ce cours à ponctuel true
+            elefe.etats.where(:presence_id => p.id).each do |et|
+              et.update(ponctuel: true)
+            end
+          end
         else
           @p = false
+          @presences_all.where(:cour_id => @cour.id).each do |p| # toutes les présences de elefe de ce cours à ponctuel false
+            elefe.etats.where(:presence_id => p.id).each do |et|
+              et.update(ponctuel: false)
+            end
+          end
         end
         @presence.etats << elefe.etats.create(etat: @etat, ponctuel: @p)
       end
@@ -302,8 +313,18 @@ class PresencesController < ApplicationController
         @ponctuel = params[:ponctuel][@eid]
         if @ponctuel == "1"
           @p = true
+          @presences_all.where(:cour_id => @cour.id).each do |p| # toutes les présences de elefe de ce cours à ponctuel true
+            elefe.etats.where(:presence_id => p.id).each do |et|
+              et.update(ponctuel: true)
+            end
+          end
         else
           @p = false
+          @presences_all.where(:cour_id => @cour.id).each do |p| # toutes les présences de elefe de ce cours à ponctuel false
+            elefe.etats.where(:presence_id => p.id).each do |et|
+              et.update(ponctuel: false)
+            end
+          end
         end
         elefe.etats.where(:presence_id => @presence.id).each do |et|
           et.update(etat: @etat, ponctuel: @p)
