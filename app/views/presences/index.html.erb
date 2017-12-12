@@ -17,7 +17,13 @@
               </thead>
               <tbody>
               <% @presence.eleves.each.with_index do |elefe, i|  %>
-              <% if !elefe.etats.find_by(ponctuel: true) %>
+                  <% @ponctuel = false %>
+                  <% @presences_all.where(:cour_id => @presence.cour.id).each do |p| %>
+                    <% if elefe.etats.where(:presence_id => p.id, :ponctuel => true).any? %>
+                         <% @ponctuel = true %>
+                    <% end %>
+                  <% end %>
+              <% if @ponctuel != true  %>
                   <tr>
                       <td class="narrow"><%= @ttp[i] %></td>
                       <td class="narrow"><%= @tta[i] %></td>
@@ -63,7 +69,13 @@
     <tbody>
 
     <% @presence.eleves.each.with_index do |elefe, i|  %>
-    <% if !elefe.etats.find_by(ponctuel: true) %>
+              <% @ponctuel = false %>
+              <% @presences_all.where(:cour_id => @presence.cour.id).each do |p| %>
+                    <% if elefe.etats.where(:presence_id => p.id, :ponctuel => true).any? %>
+                         <% @ponctuel = true %>
+                    <% end %>
+              <% end %>
+    <% if @ponctuel != true  %>
         <tr class="text-center">
             <% @presences.sort_by { |date| date.datecours }.each do |presence| %>
                 <% et = elefe.etats.find_by_presence_id(presence.id) %>
@@ -116,7 +128,13 @@
               </thead>
               <tbody>
               <% @presence.eleves.each.with_index do |elefe, i|  %>
-              <% if elefe.etats.find_by(ponctuel: true) %>
+                  <% @ponctuel = false %>
+                  <% @presences_all.where(:cour_id => @presence.cour.id).each do |p| %>
+                    <% if elefe.etats.where(:presence_id => p.id, :ponctuel => true).any? %>
+                         <% @ponctuel = true %>
+                    <% end %>
+                  <% end %>
+              <% if @ponctuel == true  %>
                   <tr>
                       <td class="narrow"><%= @ttp[i] %></td>
                       <td class="narrow"><%= @tta[i] %></td>
@@ -153,7 +171,13 @@
     <tbody>
 
     <% @presence.eleves.each.with_index do |elefe, i|  %>
-    <% if elefe.etats.find_by(ponctuel: true) %>
+                  <% @ponctuel = false %>
+                  <% @presences_all.where(:cour_id => @presence.cour.id).each do |p| %>
+                    <% if elefe.etats.where(:presence_id => p.id, :ponctuel => true).any? %>
+                         <% @ponctuel = true %>
+                    <% end %>
+                  <% end %>
+              <% if @ponctuel == true  %>
         <tr class="text-center">
             <% @presences.sort_by { |date| date.datecours }.each do |presence| %>
                <% et = elefe.etats.find_by_presence_id(presence.id) %>
