@@ -35,5 +35,9 @@ Rails.application.routes.draw do
 
   post '/com_batigrados/new', to: 'com_batigrados#new'
 
+  get '/gestion/paiements', to: 'gestion#paiements'
+  get '/gestion/commandes', to: 'gestion#commandes'
+  get '/gestion/tableau', to: 'gestion#tableau'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

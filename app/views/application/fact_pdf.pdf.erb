@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <%= wicked_pdf_stylesheet_link_tag "pdf_fact" -%>
+
+  </head>
+  <body onload='number_pages'>
+    <div class="row">
+        <div class="col-6 text-center">
+                    <%= wicked_pdf_image_tag 'B_logo_GCC.jpg' %>
+                    <p>ASSOCIATION CULTURE BRESIL</p>
+                    <p>16 rue de Normandie</p>
+                    <p>53410 Bourgon</p>
+                    <p>Président: Marcelo Brandão de Macedo</p>
+                    <p class="text-right">06.70.32.46.66</p>
+        </div>
+        <div class="col-6"></div>
+    </div>
+    <div class="row">
+        <div class="col-6"></div>
+        <div class="col-6">
+                <% @elefe_fact = Elefe.where(:user_id => @p.user_id).first %>
+                    <h4>FACTURE du <%= @p.updated_at.strftime("%d/%m/%Y") %></h4>
+                    <h4>
+                        <%= @elefe_fact.prenom %> <%= @elefe_fact.nom %><br/>
+                        <%= @elefe_fact.rue %><br/>
+                        <%= @elefe_fact.cp %> <%= @elefe_fact.ville %>
+                    </h4>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-6">
+                    <p></p>
+        </div>
+        <div class="col-6 text-right">
+                    <p>Bourgon, le <%= Time.now.strftime("%d/%m/%Y") %> </p>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Désignation</th>
+                                <th>Tarif (euros)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @p.commandes.each do |c| %>
+                            <tr>
+                                <td></td>
+                                <td><%= c.description %></td>
+                                <td><%= number_to_currency(c.montant, unit: "", separator: ",", delimiter: "") %></td>
+                            </tr>
+                            <% end %>
+
+                            <tr>
+                                <td></td>
+                                <td>Total</td>
+                                <td><%= number_to_currency(@p.montant, unit: "", separator: ",", delimiter: "") %></td>
+                            </tr>
+                        </tbody>
+                    </table>
+        </div>
+    </div>
+    <div class="text-right">
+                    <p>Facture réglée le <%= @p.updated_at.strftime("%d/%m/%Y") %> par <%= @reglements[@p.mode_paie] %></p>
+                    <br/><br/>
+                    <p>Mr Brandão De Macedo Marcelo</p>
+                    <p>Président</p>
+    </div>
+  </body>
+</html>

@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+require "yaml"
+
   protect_from_forgery with: :exception
   before_action :set_locale
   before_action :authenticate_user!
@@ -6,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_eleve
   before_action :set_data
   before_action :set_caddy
+  before_action :set_comptes
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
@@ -108,6 +111,11 @@ class ApplicationController < ActionController::Base
   def valide
     @p = Paiement.find(params[:paiement])
     @p.update(:valide => true)
+    piece_jointe = render_to_string :pdf => "facture"+@p.id.to_s+"u"+@p.user_id.to_s, :template => 'application/fact_pdf.pdf.erb'
+    @user = User.find(@p.user_id)
+    @elefe_fact = Elefe.where(:user_id => @p.user_id).first
+    UserMailer.paiement_email(@user, piece_jointe).deliver_now
+    UserMailer.paiement_email(@mestre, piece_jointe).deliver_now
     redirect_to root_path
   end
 
@@ -139,9 +147,11 @@ class ApplicationController < ActionController::Base
 
   def set_data
   if current_user
+    @mestre = User.find_by(:email => 'marcelo@grupoculturacapoeira.com')
     @All_Eleves = Elefe.all
     @batigrados = Batigrado.where(:updated_at => @sept_courant..@aout_courant).all
     @repasgccs = Repasgcc.where(:updated_at => @sept_courant..@aout_courant).all
+    @paiements = Paiement.where(:updated_at => @sept_courant..@aout_courant).all
     @cours = Cour.all
     @eleves = Elefe.includes(:etats).where(:updated_at => @sept_courant..@aout_courant).all
     if current_user.admin == 0 && @eleves.where(:user_id => current_user.id).exists?
@@ -177,6 +187,12 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+  end
+
+  def set_comptes
+    #@comptes = YAML.load_file("#{Rails.root}/config/comptes.yml")[Rails.env]
+    puts "############"
+    puts @comptes.inspect
   end
 
   def paiement_params

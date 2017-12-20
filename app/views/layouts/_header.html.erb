@@ -60,6 +60,16 @@
                                           <%= link_to "Participants Repas du Grupo", ticket_repas_path, class:  "dropdown-item" if current_user.admin == 1 %>
                                     </div>
                                 </li>
+                                <% if current_user.admin == 1 %>
+                                    <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion</a>
+                                        <div class="dropdown-menu">
+                                              <%= link_to "Historique des paiements", gestion_paiements_path, class:  "dropdown-item" %>
+                                              <%= link_to "Historique des commandes", gestion_commandes_path, class:  "dropdown-item" %>
+                                              <%= link_to "Tableau comptable", gestion_tableau_path, class:  "dropdown-item" %>
+                                        </div>
+                                    </li>
+                                <% end %>
                 <% elsif current_user.admin == 3 %>
                                 <li class="dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Présences</a>

@@ -1,0 +1,33 @@
+<h1>Historique des commandes <%= @sept_courant.year %> / <%= @aout_courant.year %></h1>
+<table class="table table-striped table-responsive">
+    <thead>
+        <tr>
+            <th class="text-center narrow">#</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Elève</th>
+            <th class="text-center">Ville</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Montant (euros)</th>
+            <th class="text-center">Envoyé</th>
+            <th class="text-center">Soldé</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @commandes_all.sort_by { |d| d.created_at }.each do |c| %>
+        <tr>
+            <th class="text-center narrow"><%= c.id %></th>
+            <th class="text-center"><%= c.created_at.strftime("%d/%m/%Y") %></th>
+            <th><%= paie_elefe(c).prenom %> <%= paie_elefe(c).nom %></th>
+            <th><%= @cours.find(paie_elefe(c).ville_entrainement).nomvil %></th>
+            <th><%= c.description %></th>
+            <th class="text-right"><%= number_to_currency(c.montant, unit: "", separator: ",", delimiter: "") %></th>
+            <th class="text-center">
+                <% if c.paiement_id %>
+                    <%= Paiement.find(c.paiement_id) ? 'oui' : 'non' %>
+                <% end %>
+            </th>
+            <th class="text-center"><%= c.sold ? 'oui' : 'non' %></th>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
