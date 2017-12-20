@@ -9,7 +9,8 @@
       <th>Nom</th>
       <th>Prenom</th>
       <th>Graduation</th>
-      <th colspan="2"></th>
+      <th></th>
+      <% if current_user.admin == 1 %><th></th><% end %>
     </tr>
   </thead>
 
@@ -20,7 +21,7 @@
         <td><%= enseignant.prenom %></td>
         <td><%= @grades_adultes[enseignant.graduation.to_i] %></td>
         <td><%= link_to 'Voir', enseignant %></td>
-        <td><%= link_to 'Modifier', edit_enseignant_path(enseignant) %></td>
+        <% if current_user.admin == 1 %><td><%= link_to 'Modifier', edit_enseignant_path(enseignant) %></td><% end %>
       </tr>
     <% end %>
   </tbody>
@@ -33,7 +34,8 @@
       <th>Nom</th>
       <th>Prenom</th>
       <th>Graduation</th>
-      <th colspan="2"></th>
+      <th></th>
+      <% if current_user.admin == 1 %><th></th><% end %>
     </tr>
   </thead>
 
@@ -44,7 +46,7 @@
         <td><%= enseignant.prenom %></td>
         <td><%= @grades_adultes[enseignant.graduation.to_i] %></td>
         <td><%= link_to 'Voir', enseignant %></td>
-        <td><%= link_to 'Modifier', edit_enseignant_path(enseignant) %></td>
+        <% if current_user.admin == 1 %><td><%= link_to 'Modifier', edit_enseignant_path(enseignant) %></td><% end %>
       </tr>
     <% end %>
   </tbody>

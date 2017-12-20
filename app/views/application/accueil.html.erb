@@ -234,7 +234,7 @@
                             <!-- <td><%= link_to 'Modifier', edit_elefe_path(elefe) %></td> -->
                             <% if !elefe.signature || elefe.signature == false %>
                                <td><% if elefe.email %><%= link_to 'Valider', valid_elefe_path(elefe), data: { confirm: 'Valider la fiche de cet élève ?' } %>
-                                   <% else %><%= elefe.etats.count %> présence(s) - <%= elefe.cours.count %> cour(s)<% end %>
+                                   <% else %><%= elefe.etats.where(etat: "P").count+elefe.etats.where(etat: "M/B").count %> présence(s) - <%= elefe.cours.count %> cour(s)<% end %>
                                </td>
                             <% end %>
                             <% if elefe.signature == true %><td><%= link_to 'Désinscrire', valid_elefe_path(elefe), data: { confirm: 'Désinscrire cet élève ?' } %></td><% end %>
