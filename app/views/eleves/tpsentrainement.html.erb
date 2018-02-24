@@ -1,0 +1,48 @@
+<h1>Temps d'entraînement</h1>
+
+<% @eleves_current_user.each do |el| %>
+    <h3>Présences de <%= el.nom + ' ' + el.prenom %> (<%= @grades_adultes[el.graduation] %>) - <%= @sept_courant.year %>/<%= @aout_courant.year %></h3>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th width="4%"></th>
+                <th width="16%" colspan="5" class="text-center">lundi</th>
+                <th width="16%" colspan="5" class="text-center">mardi</th>
+                <th width="16%" colspan="5" class="text-center">mercredi</th>
+                <th width="16%" colspan="5" class="text-center">jeudi</th>
+                <th width="16%" colspan="5" class="text-center">vendredi</th>
+                <th width="16%" colspan="5" class="text-center">samedi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @mois = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6] %>
+            <% @nom_mois = ["sept.","oct.","nov.","déc.","jan.","févr.","mar.","avr.","mai","juin"] %>
+            <% @mois.each_with_index do |m, i| %>
+            <tr>
+                <td class="nopad"><%= @nom_mois[i] %></td>
+                <% (1..6).each do |wd| %>
+                    <% @jours = (@sept_courant..@aout_courant).select{|d| d.month == m.to_i && d.wday == wd} %>
+                    <% @jours.each do |j| %>
+                    <% @pres = Presence.where(datecours: j.strftime("%F")) %>
+                    <% @el_pres = 0 %>
+                    <% @pres.each do |p| %>
+                        <% @et = Etat.where(presence_id: p.id, elefe_id: el.id).first %>
+                        <% if @et != nil %>
+                            <% if @et.etat == "P" || @et.etat == "M/B" %><% @el_pres = 1 %><% end %>
+                            <% if @et.etat == "A" %><% @el_pres = 2 %><% end %>
+                            <% if @et.etat == "J" %><% @el_pres = 3 %><% end %>
+                        <% end %>
+                    <% end %>
+                    <td class="text-center nopad"
+                        <% if @el_pres == 1 %>style="background-color: #468847; color: #FFF;"<% end %>
+                        <% if @el_pres == 2 %>style="background-color: #B00100; color: #FFF;"<% end %>
+                        <% if @el_pres == 3 %>style="background-color: #734d71; color: #FFF;"<% end %>
+                    ><%= j.day %></td>
+                    <% end %>
+                    <% if @jours.count < 5 %><td colspan="<%= 5 - @jours.count %>"></td><% end %>
+                <% end %>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>

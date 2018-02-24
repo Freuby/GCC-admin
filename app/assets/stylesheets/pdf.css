@@ -3,7 +3,7 @@ h2, th, td {
 }
 
 h2 {
-    color: olivedrab;
+    color: #66CC33;
     text-align: center;
     font-size: 18px;
 }
@@ -15,7 +15,7 @@ th, td {
 }
 
 th {
-    background-color: yellow;
+    background-color: #FFFF33;
 }
 
 table {

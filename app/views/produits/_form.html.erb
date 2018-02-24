@@ -1,0 +1,201 @@
+<%= form_for(produit) do |f| %>
+  <% if produit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(produit.errors.count, "error") %> prohibited this produit from being saved:</h2>
+
+      <ul>
+      <% produit.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <p>* champs obligatoire</p>
+    <div class="row">
+      <div class="field col-12 col-md-6">
+        <%= f.label :ref, "Référence *" %>
+        <%= f.text_field :ref, class: "form-control "+field_class(produit, :ref) %>
+     </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :nom, "Nom *" %>
+        <%= f.text_field :nom, class: "form-control "+field_class(produit, :nom) %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :couleur %>
+        <%= f.text_field :couleur, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :taille %>
+        <%= f.text_field :taille, class: "form-control " %>
+      </div>
+      <div class="field col-12 col-md-6">
+        <%= f.label :marque %>
+        <%= f.text_field :marque, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :prix, "Prix *" %>
+        <%= f.text_field :prix, class: "form-control "+field_class(produit, :prix) %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <br/>
+        <%= f.check_box :dispo %>
+        <%= f.label :dispo, "Produit en stock" %>
+      </div>
+
+      <div class="field col-12 col-md-12">
+        <%= f.label :descriptif, "Descriptif *" %>
+        <%= f.text_area :descriptif, class: "form-control "+field_class(produit, :descriptif) %>
+      </div>
+    </div>
+    <hr>
+      <div class="row">
+          <div class="col-12">
+              <p>Ajoutez jusqu'à 6 photos du produit en jpg, png ou gif (< 500 ko / photo)</p>
+              <%= f.file_field :photo1 %><%= f.file_field :photo2 %><%= f.file_field :photo3 %><%= f.file_field :photo4 %><%= f.file_field :photo5 %><%= f.file_field :photo6 %>
+          </div>
+      </div>
+      <hr>
+      <div class="row">
+          <div class="col-12">
+                <p>Vous pouvez ajouter un fichier notice au format PDF (< 1 mo)</p>
+                <%= f.file_field :notpdf %>
+          </div>
+      </div>
+    <hr>
+    <div class="row">
+      <div class="field col-12 col-md-6">
+        <%= f.label :delai, "Délai de fabrication (en jours)" %>
+        <%= f.number_field :delai, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :typ_livr %>
+        <%= f.number_field :typ_livr, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :tar_livr %>
+        <%= f.text_field :tar_livr, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :del_livr %>
+        <%= f.number_field :del_livr, class: "form-control " %>
+      </div>
+    </div>
+    <hr>
+    <p>Vous pouvez ajouter des caractéristiques et attributs complémentaires :</p>
+    <div class="row">
+      <div class="field col-12 col-md-6">
+        <%= f.label :caract0 %>
+        <%= f.text_field :caract0, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :attr0 %>
+        <%= f.text_field :attr0, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :caract1 %>
+        <%= f.text_field :caract1, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :attr1 %>
+        <%= f.text_field :attr1, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :caract2 %>
+        <%= f.text_field :caract2, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :attr2 %>
+        <%= f.text_field :attr2, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :caract3 %>
+        <%= f.text_field :caract3, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :attr3 %>
+        <%= f.text_field :attr3, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :caract4 %>
+        <%= f.text_field :caract4, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :attr4 %>
+        <%= f.text_field :attr4, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :caract5 %>
+        <%= f.text_field :caract5, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :attr5 %>
+        <%= f.text_field :attr5, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :caract6 %>
+        <%= f.text_field :caract6, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :attr6 %>
+        <%= f.text_field :attr6, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :caract7 %>
+        <%= f.text_field :caract7, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :attr7 %>
+        <%= f.text_field :attr7, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :caract8 %>
+        <%= f.text_field :caract8, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :attr8 %>
+        <%= f.text_field :attr8, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :caract9 %>
+        <%= f.text_field :caract9, class: "form-control " %>
+      </div>
+
+      <div class="field col-12 col-md-6">
+        <%= f.label :attr9 %>
+        <%= f.text_field :attr9, class: "form-control " %>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="actions col-12 col-md-12 text-center">
+        <%= f.submit :valider, value: "Valider", class: "btn btn-primary btn-lg" %>
+      </div>
+    </div>
+  <% end %>

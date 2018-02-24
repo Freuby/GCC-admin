@@ -1,0 +1,161 @@
+<p id="notice"><%= notice %></p>
+
+<% if @produit.dispo == true %>
+<div class="row">
+    <div class="col-2 col-sm-1">
+        <%= image_tag @produit.photo1.url(:medium), class: "img-fluid thumbprod" %>
+        <%= image_tag @produit.photo2.url(:medium), class: "img-fluid thumbprod" %>
+        <%= image_tag @produit.photo3.url(:medium), class: "img-fluid thumbprod" %>
+        <%= image_tag @produit.photo4.url(:medium), class: "img-fluid thumbprod" %>
+        <%= image_tag @produit.photo5.url(:medium), class: "img-fluid thumbprod" %>
+        <%= image_tag @produit.photo6.url(:medium), class: "img-fluid thumbprod" %>
+        <%= image_tag @produit.notpdf.url(:medium), class: "img-fluid thumbprod" %>
+    </div>
+    <div class="col-10 col-sm-5 mediumprod">
+        <%= image_tag @produit.photo1.url(:medium), class: "img-fluid" %>
+    </div>
+    <div class="col-12 col-sm-6">
+        <h5 style="display: inline;"><%= @produit.nom %></h5><p style="display: inline;"> de <%= @produit.marque %></p>
+        <p>(ref: <%= @produit.ref %>)</p>
+        <% if @produit.couleur.length > 0 %>
+            <p>
+              <strong>Couleur:</strong>
+              <%= @produit.couleur %>
+            </p>
+        <% end %>
+        <% if @produit.descriptif.length > 0 %>
+            <p>
+              <%= @produit.descriptif %>
+            </p>
+        <% end %>
+
+        <hr />
+
+        <% if @produit.prix != nil %>
+        <span>
+          <strong>Prix: </strong>
+          <h4 style="color: red; float: right;"><%= number_to_currency(@produit.prix, unit: "", separator: ",", delimiter: "") %>&nbsp<i class="fa fa-eur" aria-hidden="true"></i></h4>
+        </span>
+        <br/>
+        <% end %>
+        <br/>
+        <%= form_for :compdt, url: '/compdts' do |f| %>
+            <% if @produit.taille.length > 0 %>
+                <strong>Taille: </strong>
+                <%= f.select :taille, options_for_select(@tailles), class: "form-control" %>
+                <br/>
+            <% end %>
+            <strong>Quantité:</strong>
+            <%= f.number_field :qte, options = { value: 1, min: 1 } %>
+            <%= f.hidden_field :couleur, value: @produit.couleur %>
+            <%= f.hidden_field :typ_livr, value: @produit.typ_livr %>
+            <br/>
+            <strong>Ville de livraison:</strong>
+            <% @collect = @cours.collect { |c| [c.nomvil + ' ' + c.dateh.hour.to_s + 'h' + c.dateh.min.to_s, c.id] } %>
+            <%= f.select :vill_collect, options_for_select(@collect), class: "form-control" %>
+            <%= f.hidden_field :nom, value: @current_elefe.nom if @current_elefe %>
+            <%= f.hidden_field :prenom, value: @current_elefe.prenom if @current_elefe %>
+            <%= f.hidden_field :rue, value: @current_elefe.rue if @current_elefe %>
+            <%= f.hidden_field :cp, value: @current_elefe.cp if @current_elefe %>
+            <%= f.hidden_field :ville, value: @current_elefe.ville if @current_elefe %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.hidden_field :produit_id, value: @produit.id %>
+            <% if current_user.admin == 0 %>
+            <hr/>
+            <%= f.submit "Ajouter au caddy", class: "btn btn-primary" %>
+            <% end %>
+        <% end %>
+        <p></p>
+        <% if @produit.delai != nil %>
+        <p>
+          <strong>Delai de fabrication:</strong>
+          <%= @produit.delai %>
+        </p>
+        <% end %>
+        <% if @produit.typ_livr != nil %>
+        <p>
+          <strong>Type de livraison:</strong>
+          <%= @produit.typ_livr %>
+        </p>
+        <% end %>
+        <% if @produit.tar_livr != nil %>
+        <p>
+          <strong>Tarif livraison:</strong>
+          <%= @produit.tar_livr %>
+        </p>
+        <% end %>
+        <% if @produit.del_livr != nil %>
+        <p>
+          <strong>Delai de livraison:</strong>
+          <%= @produit.del_livr %>
+        </p>
+        <% end %>
+        <hr/>
+        <% if @produit.caract0.length > 0 %>
+        <p>
+          <strong><%= @produit.caract0 %></strong>
+          <%= @produit.attr0 %>
+        </p>
+        <% end %>
+        <% if @produit.caract1.length > 0 %>
+        <p>
+          <strong><%= @produit.caract1 %></strong>
+          <%= @produit.attr1 %>
+        </p>
+        <% end %>
+        <% if @produit.caract2.length > 0 %>
+        <p>
+          <strong><%= @produit.caract2 %></strong>
+          <%= @produit.attr2 %>
+        </p>
+        <% end %>
+        <% if @produit.caract3.length > 0 %>
+        <p>
+          <strong><%= @produit.caract3 %></strong>
+          <%= @produit.attr3 %>
+        </p>
+        <% end %>
+        <% if @produit.caract4.length > 0 %>
+        <p>
+          <strong><%= @produit.caract4 %></strong>
+          <%= @produit.attr4 %>
+        </p>
+        <% end %>
+        <% if @produit.caract5.length > 0 %>
+        <p>
+          <strong><%= @produit.caract5 %></strong>
+          <%= @produit.attr5 %>
+        </p>
+        <% end %>
+        <% if @produit.caract6.length > 0 %>
+        <p>
+          <strong><%= @produit.caract6 %></strong>
+          <%= @produit.attr6 %>
+        </p>
+        <% end %>
+        <% if @produit.caract7.length > 0 %>
+        <p>
+          <strong><%= @produit.caract7 %></strong>
+          <%= @produit.attr7 %>
+        </p>
+        <% end %>
+        <% if @produit.caract8.length > 0 %>
+        <p>
+          <strong><%= @produit.caract8 %></strong>
+          <%= @produit.attr8 %>
+        </p>
+        <% end %>
+        <% if @produit.caract9.length > 0 %>
+        <p>
+          <strong><%= @produit.caract9 %></strong>
+          <%= @produit.attr9 %>
+        </p>
+        <% end %>
+    </div>
+</div>
+<% else %>
+    <p>Produit non disponible pour le moment.</p>
+<% end %>
+
+<%= link_to 'Modifier', edit_produit_path(@produit) %> |
+<%= link_to 'Retour', produits_path %>

@@ -1,5 +1,5 @@
 class EnseignantsController < ApplicationController
-  before_action :set_enseignant, only: [:show, :edit, :update, :destroy]
+  before_action :set_enseignant, only: [:show, :edit, :create, :update, :destroy]
 
   # GET /enseignants
   # GET /enseignants.json
@@ -65,6 +65,9 @@ class EnseignantsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_enseignant
+      if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+        return head :forbidden
+      end
       @enseignant = Enseignant.find(params[:id])
     end
 

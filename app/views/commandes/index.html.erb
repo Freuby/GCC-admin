@@ -1,0 +1,9 @@
+<h1>Mes commandes</h1>
+
+<% @commandes.each do |c| %>
+    <ul>
+        <li>Le <%= c.created_at.strftime('%d/%m/%Y') %> commande de: <%= c.description %> pour un montant de <%= number_to_currency(c.montant, unit: "", separator: ",", delimiter: "") %>&nbsp<i class="fa fa-eur" aria-hidden="true"></i>
+            <% if c.sold == false %>(réglement non effectué)<% end %>
+        </li>
+    </ul>
+<% end %>

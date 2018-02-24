@@ -139,13 +139,27 @@ class ElevesController < ApplicationController
           end
         end
     end
+  end
 
   # GET /stateleve
   def stateleve
 
   end
 
+  # GET /tpsentrainement
+  def tpsentrainement
+    @eleves_current_user.each do |el|
+      @metats = Etat.where(elefe_id: el.id, etat: "P" || "M/B")
+    end
+    puts "################-----############"
+    puts @metats.inspect
   end
+
+  # GET /rei
+  def rei
+
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -155,6 +169,11 @@ class ElevesController < ApplicationController
 
     def set_elefe
       @elefe = Elefe.find(params[:id])
+      if @elefe.user_id != current_user.id
+        if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+          return head :forbidden
+        end
+      end
     end
 
     def set_cours

@@ -14,16 +14,25 @@ class BatigradosController < ApplicationController
 
   # GET /batigrados/new
   def new
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
     @batigrado = Batigrado.new
   end
 
   # GET /batigrados/1/edit
   def edit
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
   end
 
   # POST /batigrados
   # POST /batigrados.json
   def create
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
     @batigrado = Batigrado.new(batigrado_params)
 
     respond_to do |format|
@@ -40,6 +49,9 @@ class BatigradosController < ApplicationController
   # PATCH/PUT /batigrados/1
   # PATCH/PUT /batigrados/1.json
   def update
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
     respond_to do |format|
       if @batigrado.update(batigrado_params)
         format.html { redirect_to @batigrado, notice: 'Le batigrado a bien été modifié.' }
@@ -54,6 +66,9 @@ class BatigradosController < ApplicationController
   # DELETE /batigrados/1
   # DELETE /batigrados/1.json
   def destroy
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
     @batigrado.destroy
     respond_to do |format|
       format.html { redirect_to batigrados_url, notice: 'Le batigrado a bien été effacé.' }

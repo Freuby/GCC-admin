@@ -4,7 +4,9 @@ class CoursController < ApplicationController
   # GET /cours
   # GET /cours.json
   def index
-
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
   end
 
   # GET /cours/1
@@ -21,17 +23,25 @@ class CoursController < ApplicationController
 
   # GET /cours/new
   def new
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
     @cour = Cour.new
   end
 
   # GET /cours/1/edit
   def edit
-
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
   end
 
   # POST /cours
   # POST /cours.json
   def create
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
     @cour = Cour.new(cour_params)
     set_enseignant(@cour.enseignant_id)
     @email = I18n.transliterate(@enseignant.prenom) + '@' + I18n.transliterate(@enseignant.nom) + '.com'
@@ -62,6 +72,9 @@ class CoursController < ApplicationController
   # PATCH/PUT /cours/1
   # PATCH/PUT /cours/1.json
   def update
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
     @email2 = params[:cour][:mailpres]
     @users = User.all
     if !@users.where(:email => @email2).exists?
@@ -82,6 +95,9 @@ class CoursController < ApplicationController
   # DELETE /cours/1
   # DELETE /cours/1.json
   def destroy
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
     @cour.destroy
     respond_to do |format|
       format.html { redirect_to cours_url, notice: 'Le cours a bien été supprimé.' }

@@ -1,0 +1,19 @@
+<h1>Factures</h1>
+<div class="row">
+    <div class="col-12 mx-auto">
+        <%= paginate @pdfs %>
+    </div>
+</div>
+<hr/>
+<ul>
+    <% @pdfs.each do |pdf| %>
+        <% fichier = '../factures/'+pdf %>
+        <li><%= link_to pdf, fichier, target: "_blank" %></li>
+    <% end %>
+</ul>
+<hr/>
+<div class="row">
+    <div class="col-12 mx-auto">
+        <%= paginate @pdfs %>
+    </div>
+</div>

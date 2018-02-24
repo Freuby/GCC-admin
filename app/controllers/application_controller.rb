@@ -111,11 +111,18 @@ require "yaml"
   def valide
     @p = Paiement.find(params[:paiement])
     @p.update(:valide => true)
+    filename = "fact_"+@p.created_at.to_s
+    save_path = Rails.root.join('public/factures', "#{filename}.pdf")
     piece_jointe = render_to_string :pdf => "facture"+@p.id.to_s+"u"+@p.user_id.to_s, :template => 'application/fact_pdf.pdf.erb'
+    # sauvegarde facture dans /factures
+    File.open(save_path, 'wb') do |file|
+      file << piece_jointe
+    end
     @user = User.find(@p.user_id)
     @elefe_fact = Elefe.where(:user_id => @p.user_id).first
+    # envoi facture par mail à user
     UserMailer.paiement_email(@user, piece_jointe).deliver_now
-    UserMailer.paiement_email(@mestre, piece_jointe).deliver_now
+    # UserMailer.paiement_email(@mestre, piece_jointe).deliver_now (Ne fonctionne pas car pas elefe associé)
     redirect_to root_path
   end
 
@@ -125,7 +132,7 @@ require "yaml"
     @mail_grupo = "marcelo@grupoculturacapoeira.com"
     @typ_cours = ["adultes", "enfants", "mixte"]
     @grades_adultes = ["Enfant débutant", "Enfant gradé", "Adulte Débutant", "1e corda", "2e corda", "3e corda", "4e corda", "5e corda", "Estagiário", "Monitor", "Instrutor", "Contramestre", "Mestre Edificador", "Mestre Digno"]
-    @reglements = ["Espèces", "Chèque", "Tickets CAF", "Chèques vacances ANCV", "Autres"]
+    @reglements = ["Espèces", "Chèque", "Tickets CAF", "Chèques vacances ANCV", "Autres", "Paypal ou CB"]
     @GCC_connait = ["Démonstration","Moteur de recherche internet", "Site", "Affiche/Flyer", "Par un ami", "Vidéo", "Autre"]
     @tarif = [190, 230, 140, 180, 0]
     t = Time.now
@@ -163,6 +170,7 @@ require "yaml"
     @presences_all = Presence.where(:created_at => @sept_courant..@aout_courant).all
     @com_batigrados = ComBatigrado.where(:created_at => @sept_courant..@aout_courant).all
     @ticket_repas = TicketRepa.where(:created_at => @sept_courant..@aout_courant).all
+    @produits_all = Produit.all
     if current_user
       if current_user.admin == 2
         @prenom_ens = current_user.email.split('@')
@@ -191,8 +199,6 @@ require "yaml"
 
   def set_comptes
     #@comptes = YAML.load_file("#{Rails.root}/config/comptes.yml")[Rails.env]
-    puts "############"
-    puts @comptes.inspect
   end
 
   def paiement_params

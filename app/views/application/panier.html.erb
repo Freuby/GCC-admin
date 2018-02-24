@@ -18,13 +18,17 @@
             <td class="text-center"><%= com.updated_at.strftime( '%d/%m/%Y' ) %></td>
             <td><%= com.description %></td>
             <td class="text-right"><%= number_to_currency(com.montant, unit: "", separator: ",", delimiter: "") %></td>
-            <td class="text-right"><% if com.sold == true %><p>réglement envoyé</p><% else %><p class="blink_text">réglement à effectuer</p><% end %></td>
+            <td class="text-right">
+                <% if com.sold == true %><p>réglement envoyé</p>
+                <% else %><p class="blink_text">réglement à effectuer</p><%= link_to 'Supprimer', commande_path(com), method: :delete, data: { confirm: 'Êtes-vous sûr?' } %>
+                <% end %>
+            </td>
         </tr>
         <% end %>
         <tr class="table-dark text-white">
             <td></td>
             <td>Total</td>
-            <td class="text-right"><%= number_to_currency(@sold, unit: "", separator: ",", delimiter: "") %></td>
+            <td id="montant" class="text-right"><%= number_to_currency(@sold, unit: "", separator: ",", delimiter: "") %></td>
             <td></td>
         </tr>
     </tbody>
@@ -33,20 +37,83 @@
 <% if current_user.commandes.where(sold: false).all.any? %>
     <div class="row">
         <div class="col-6 field">
-            <%= f.label :mode_paie, "Choisissez votre mode de réglement:" %>
-            <%= f.select :mode_paie, @reglements.collect { |g| [g, @reglements.index(g)] }, {}, class: "form-control" %>
-            <%= f.hidden_field :montant, value: @sold %>
-            <%= f.hidden_field :valide, value: false %>
+            <%= f.label :mode_paie, "Choisissez votre mode de réglement:" %> <p></p>
+            <div class="text-center">
+                <div id="paypal-button"></div>
+                <hr/>
+                <%= f.select :mode_paie, @reglements[0..@reglements.count-2].collect { |g| [g, @reglements.index(g)] }, {}, class: "form-control", id: "mode_paie" %>
+                <%= f.hidden_field :montant, value: @sold %>
+                <%= f.hidden_field :valide, value: false %>
+            </div>
         </div>
         <div class="col-6 actions text-center">
             <% if current_user.eleves.count > 1 && @txt_fam != "" %>
                 <%= f.submit :famille, value: @txt_fam, data: { confirm: "Êtes-vous sûr de vouloir appliquer l'option famille ?"  }, class: "btn btn-success btn-lg" %>
             <% end %>
             <br/><br/>
-            <%= f.submit :sold, value: "Régler vos commandes", class: "btn btn-primary btn-lg" %>
+            <%= f.submit :sold, value: "Régler vos commandes", class: "btn btn-primary btn-lg", id: "submit" %>
         </div>
     </div>
 <% end %>
 <% end %>
 <br/>
 <%= link_to 'Retour', root_path %>
+
+<script>
+if ($('#paypal-button').length != 0) {
+    var paiement = String($('#montant').text().replace(",","."));
+
+    paypal.Button.render({
+        env: 'sandbox', // Or 'sandbox' or 'production',
+
+        client: {
+            sandbox:    'AZWM2qaytFDXYhmE1qOTe6WbGWSXj7ZAWOnYJIDrz6dheLhO_dToYkbF9HCA46ftqngByO8yXjiu43Cd',
+            production: 'AQgewOy4dukgM0wDCXaGq9ebZOPw6AucEiBXlfJ6-xr475LVjCZY99ah1aGLktcJa1dFwWtKso9tQN1I'
+        },
+
+        commit: true, // Show a 'Pay Now' button
+
+        style: {
+            color: 'gold',
+            shape: 'pill',
+            size: 'medium',
+            layout: 'vertical'
+        },
+
+        payment: function (data, actions) {
+            return actions.payment.create({
+                payment: {
+                    transactions: [
+                        {
+                            amount: { total: paiement, currency: 'EUR' }
+                        }
+                    ]
+                }
+            });
+        },
+
+        onAuthorize: function (data, actions) {
+            return actions.payment.execute().then(function(payment) {
+
+                // The payment is complete!
+                // You can now show a confirmation message to the customer
+                $("#mode_paie").val('5').change();
+                $("#submit").click();
+            });
+        },
+
+        onCancel: function (data, actions) {
+            /*
+             * Buyer cancelled the payment
+             */
+             alert("Vous avez annulé le paiement.")
+        },
+
+        onError: function (err) {
+            /*
+             * An error occurred during the transaction
+             */
+             alert("Il s'est produit une erreur inconnue pendant votre réglement. Nous vous proposons d'essayer une nouvelle fois ou bien de choisir un autre moyen de paiment.")
+        }
+    }, '#paypal-button'); }
+</script>

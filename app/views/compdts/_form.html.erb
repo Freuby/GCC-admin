@@ -1,0 +1,67 @@
+<%= form_for(compdt) do |f| %>
+  <% if compdt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(compdt.errors.count, "error") %> prohibited this compdt from being saved:</h2>
+
+      <ul>
+      <% compdt.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :qte %>
+    <%= f.number_field :qte %>
+  </div>
+
+  <div class="field">
+    <%= f.label :couleur %>
+    <%= f.text_field :couleur %>
+  </div>
+
+  <div class="field">
+    <%= f.label :taille %>
+    <%= f.text_field :taille %>
+  </div>
+
+  <div class="field">
+    <%= f.label :typ_livr %>
+    <%= f.number_field :typ_livr %>
+  </div>
+
+  <div class="field">
+    <%= f.label :vill_collect %>
+    <%= f.number_field :vill_collect %>
+  </div>
+
+  <div class="field">
+    <%= f.label :nom %>
+    <%= f.text_field :nom %>
+  </div>
+
+  <div class="field">
+    <%= f.label :prenom %>
+    <%= f.text_field :prenom %>
+  </div>
+
+  <div class="field">
+    <%= f.label :rue %>
+    <%= f.text_field :rue %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cp %>
+    <%= f.text_field :cp %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ville %>
+    <%= f.text_field :ville %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

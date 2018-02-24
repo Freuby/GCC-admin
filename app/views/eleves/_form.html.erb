@@ -173,6 +173,11 @@
           <div class="row">
               <div class="col-12">
                   <h3>Réglement cotisation annuelle</h3>
+
+                  <% if elefe.signature == true %>
+                  <p>Votre réglement a déjà été validé.</p>
+                  <% else %>
+
                   <p>Je reconnais avoir pris connaissance des informations générales du Grupo Cultura Capoeira et m’engage à les respecter.
                       Je reconnais avoir reçu un exemplaire du Livret d’Accueil et du Chronogramme d’activités.</p>
                   <p>Important :</p>
@@ -229,6 +234,8 @@
     <p><strong>Merci de vous rapprocher de la ville de <span id="ville"></span> pour le réglement de votre cotisation.</strong></p>
     <%= f.radio_button :parentee, 4 , id: "mairie"%>
 </div>
+
+            <% end %> <!-- FIN de Si déjà validé -->
 
 <br />
   <div class="col-12 actions text-center">

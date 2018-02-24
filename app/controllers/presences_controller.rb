@@ -3,18 +3,24 @@ class PresencesController < ApplicationController
 
   # POST /presencesel
   def presencesel
-
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2 && @current_user.admin != 3)
+      return head :forbidden
+    end
   end
 
   # POST /consulpres
   def consulpres
-
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2 && @current_user.admin != 3)
+      return head :forbidden
+    end
   end
 
   # GET /presences
   # GET /presences.json
   def index
-
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2 && @current_user.admin != 3)
+      return head :forbidden
+    end
     if params[:cour]
       cour = params[:cour]
       @cour = Cour.where(:id => params[:cour])
@@ -140,6 +146,9 @@ class PresencesController < ApplicationController
   # GET /presences/1
   # GET /presences/1.json
   def show
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2 && @current_user.admin != 3)
+      return head :forbidden
+    end
     @eleves_pres = @presence.eleves
     cour = @presence.cour_id
     @presences = @presences_all.includes(:eleves, :etats, :cour, :enseignant).where(:cour_id => cour).all
@@ -149,6 +158,9 @@ class PresencesController < ApplicationController
 
   # GET /presences/new
   def new
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2 && @current_user.admin != 3)
+      return head :forbidden
+    end
     if params[:cour]
       @cour = Cour.find_by(:id => params[:cour])
     else
@@ -171,6 +183,9 @@ class PresencesController < ApplicationController
 
   # GET /presences/1/edit
   def edit
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2 && @current_user.admin != 3)
+      return head :forbidden
+    end
     @cour = @cours.find(@presences_all.find(params[:id]).cour_id)
     @eleves_pres = Array[]
       @eleves.each do |elefe|
@@ -189,6 +204,9 @@ class PresencesController < ApplicationController
   # POST /presences
   # POST /presences.json
   def create
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2 && @current_user.admin != 3)
+      return head :forbidden
+    end
     if params[:commit] == "Ajouter l'élève"
       nompren = params[:elefe]
       nompren = nompren.split(', ')
@@ -270,6 +288,9 @@ class PresencesController < ApplicationController
   # PATCH/PUT /presences/1
   # PATCH/PUT /presences/1.json
   def update
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2 && @current_user.admin != 3)
+      return head :forbidden
+    end
       if params[:commit] == "Ajouter l'élève"
       nompren = params[:elefe]
       nompren = nompren.split(', ')
@@ -347,6 +368,9 @@ class PresencesController < ApplicationController
   # DELETE /presences/1
   # DELETE /presences/1.json
   def destroy
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2 && @current_user.admin != 3)
+      return head :forbidden
+    end
     p = @presence
     @presence.destroy
     respond_to do |format|

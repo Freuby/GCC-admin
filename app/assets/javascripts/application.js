@@ -23,7 +23,6 @@ var code;
 
 document.addEventListener("turbolinks:load", function() {
 
-
 $('#code').change().codePostal(function (cities) {
       if(cities.length) {
         $('#city').empty();
@@ -61,6 +60,13 @@ $('#cours').change(function() {
     $('#cours_ad').css("display", "inline");
     $('#cours_en').css("display", "none");
   }
+});
+
+// clic sur thumb produits
+
+$('.thumbprod').click(function() {
+    var saveSrc = $(this).attr('src');
+    $('.mediumprod img').attr('src', saveSrc);
 });
 
 });

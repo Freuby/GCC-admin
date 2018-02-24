@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
-
+  resources :commandes, only: [:index, :destroy]
+  resources :compdts
+  resources :produits
   resources :com_batigrados
   resources :batigrados
   resources :ticket_repas
   resources :repasgccs
-  resources :etats
   resources :enseignants, path: "encadrants"
   resources :eleves
   get '/eleves/:id/valid(.:format)', to: 'eleves#valid', as: 'valid_elefe'
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
   resources :cours
 
   get '/stateleve', to: 'eleves#stateleve'
+  get '/tpsentrainement', to: 'eleves#tpsentrainement'
+  get '/rei', to: 'eleves#rei'
 
   get '/panier', to: 'application#panier'
   post '/panier', to: 'application#panier_valid'
@@ -38,6 +41,7 @@ Rails.application.routes.draw do
   get '/gestion/paiements', to: 'gestion#paiements'
   get '/gestion/commandes', to: 'gestion#commandes'
   get '/gestion/tableau', to: 'gestion#tableau'
+  get '/gestion/factures', to: 'gestion#factures'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

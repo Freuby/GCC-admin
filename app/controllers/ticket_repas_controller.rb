@@ -73,8 +73,6 @@ class TicketRepasController < ApplicationController
       respond_to do |format|
         if @ticket_repa.update(ticket_repa_params)
           @total = @ticket_repa.qte1*@repasgcc.r1e_tarif + @ticket_repa.qte2*@repasgcc.r2e_tarif + @ticket_repa.qta1*@repasgcc.r1a_tarif + @ticket_repa.qta2*@repasgcc.r2a_tarif
-          puts "*********$*********$********"
-          puts @total
           @ticket_repa.commandes.first.update(montant: @total)
           format.html { redirect_to @ticket_repa, notice: 'Votre demande de ticket a bien été modifiée.' }
           format.json { render :show, status: :ok, location: @ticket_repa }
@@ -102,6 +100,12 @@ class TicketRepasController < ApplicationController
     def set_ticket_repa
       @repasgcc = @repasgccs.last
       @ticket_repa = @ticket_repas.find(params[:id])
+
+      if @ticket_repa.user_id != current_user.id
+        if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+          return head :forbidden
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

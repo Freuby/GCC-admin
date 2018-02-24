@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+<% @prod = Produit.find(@compdt.produit_id) %>
+<p>Vous avez commandé <strong><%= @compdt.qte %></strong> <%= @prod.nom %>.</p>
+<p>
+  <strong>Couleur:</strong>
+  <%= @compdt.couleur %>
+</p>
+
+<p>
+  <strong>Taille:</strong>
+  <%= @compdt.taille %>
+</p>
+<% if @compdt.typ_livr %>
+<p>
+  <strong>Type de livraison:</strong>
+  <%= @compdt.typ_livr %>
+</p>
+<% end %>
+<p>
+  <strong>Cours de collecte demandée:</strong>
+  <% @c = Cour.find(@compdt.vill_collect) %>
+  <%= @c.nomvil + ' ' + @c.dateh.hour.to_s + 'h' + @c.dateh.min.to_s %>
+</p>
+
+<p><%= @compdt.nom %> <%= @compdt.prenom %></p>
+
+<p><%= @compdt.rue %></p>
+
+<p><%= @compdt.cp %> <%= @compdt.ville %></p>
+<div class="col-12 text-center">
+<%= link_to 'Mon Panier', panier_path, class: "btn btn-primary btn-lg" %>
+</div>
+<p></p>
+<!-- <%= link_to 'Modifier votre commande', edit_compdt_path(@compdt) %> | -->
+<%= link_to 'Retour', produits_path %>

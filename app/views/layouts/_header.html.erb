@@ -9,48 +9,48 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
                 <% if user_signed_in? %>
-                    <li class="nav-item"><%= link_to 'Accueil', root_path, class: "nav-link" %></li>
+                    <li class="nav-item <% if current_page?(root_path) %>active<% end %>"><a class="nav-link" href="/" >Accueil</a></li>
                     <li class="dropdown">
-                        <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mon compte</a>
+                        <a class="nav-link dropdown-toggle <% if current_page?(edit_user_registration_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mon compte</a>
                         <div class="dropdown-menu">
-                            <%= link_to "Editer son profil", edit_user_registration_path, class:  "dropdown-item" %>
+                            <%= link_to "Editer mon profil", edit_user_registration_path, class:  "dropdown-item" %>
                             <!-- <%= link_to "Préfèrences", '#', class:  "dropdown-item" %> -->
                         </div>
                     </li>
                 <% else %>
-                    <li class="nav-item"><%= link_to "Créer un compte", new_user_registration_path, class: "nav-link" %></li>
+                    <li class="nav-item <% if current_page?(new_user_registration_path) %>active<% end %>"><%= link_to "Créer un compte", new_user_registration_path, class: "nav-link" %></li>
                 <% end %>
                 <% if current_user %>
                 <% if current_user.admin == 1 || current_user.admin == 2 %>
                                 <li class="dropdown">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Elèves</a>
+                                    <a class="nav-link dropdown-toggle <% if current_page?(eleves_path) || current_page?(stateleve_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Elèves</a>
                                     <div class="dropdown-menu">
                                         <%= link_to "Liste des élèves", eleves_path, class:  "dropdown-item" %>
                                         <%= link_to "Statistiques d'un élève", stateleve_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
                                 <li class="dropdown">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Encadrants</a>
+                                    <a class="nav-link dropdown-toggle <% if current_page?(enseignants_path) || current_page?(new_enseignant_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Encadrants</a>
                                     <div class="dropdown-menu">
                                         <%= link_to "Liste des encadrants", enseignants_path, class:  "dropdown-item" %>
                                         <%= link_to "Ajouter un encadrant", new_enseignant_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
                                 <li class="dropdown">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cours</a>
+                                    <a class="nav-link dropdown-toggle <% if current_page?(cours_path) || current_page?(new_cour_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cours</a>
                                     <div class="dropdown-menu">
                                          <%= link_to "Liste des cours", cours_path, class:  "dropdown-item" %>
                                          <%= link_to "Ajouter un cours", new_cour_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
                                 <li class="dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Présences</a>
+                                <a class="nav-link dropdown-toggle <% if current_page?(consulpres_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Présences</a>
                                     <div class="dropdown-menu">
                                           <%= link_to "Consulter des présences", consulpres_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
                                 <li class="dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Événements</a>
+                                <a class="nav-link dropdown-toggle <% if current_page?(new_batigrado_path) || current_page?(batigrados_path) || current_page?(com_batigrados_path) || current_page?(new_repasgcc_path) || current_page?(repasgccs_path) || current_page?(ticket_repas_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Événements</a>
                                     <div class="dropdown-menu">
                                           <%= link_to "Ajouter un Batigrado", new_batigrado_path, class:  "dropdown-item" %>
                                           <%= link_to "Liste des Batigrados", batigrados_path, class:  "dropdown-item" %>
@@ -62,17 +62,25 @@
                                 </li>
                                 <% if current_user.admin == 1 %>
                                     <li class="dropdown">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion</a>
+                                    <a class="nav-link dropdown-toggle <% if current_page?(new_produit_path) || current_page?(produits_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">E-commerce</a>
+                                        <div class="dropdown-menu">
+                                            <%= link_to "Créer un nouveau produit", new_produit_path, class:  "dropdown-item" %>
+                                            <%= link_to "Produits en ligne", produits_path, class:  "dropdown-item" %>
+                                        </div>
+                                    </li>
+                                    <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle <% if current_page?(gestion_paiements_path) || current_page?(gestion_commandes_path) || current_page?(gestion_factures_path) || current_page?(gestion_tableau_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion</a>
                                         <div class="dropdown-menu">
                                               <%= link_to "Historique des paiements", gestion_paiements_path, class:  "dropdown-item" %>
                                               <%= link_to "Historique des commandes", gestion_commandes_path, class:  "dropdown-item" %>
+                                              <%= link_to "Factures envoyées", gestion_factures_path, class: "dropdown-item" %>
                                               <%= link_to "Tableau comptable", gestion_tableau_path, class:  "dropdown-item" %>
                                         </div>
                                     </li>
                                 <% end %>
                 <% elsif current_user.admin == 3 %>
                                 <li class="dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Présences</a>
+                                <a class="nav-link dropdown-toggle <% if current_page?(presencesel_path) || current_page?(consulpres_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Présences</a>
                                     <div class="dropdown-menu">
                                           <%= link_to "Saisir des présences", presencesel_path, class:  "dropdown-item" %>
                                           <%= link_to "Consulter des présences", consulpres_path, class:  "dropdown-item" %>
@@ -80,47 +88,54 @@
                                 </li>
                 <% elsif current_user.admin == 0 %>
                                 <li class="dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Affiliation</a>
+                                <a class="nav-link dropdown-toggle <% if current_page?(new_elefe_path) || current_page?(eleves_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Affiliation</a>
                                     <div class="dropdown-menu">
                                         <%= link_to "Créer une fiche", new_elefe_path, class:  "dropdown-item" %>
                                         <%= link_to "Mes fiches", eleves_path, class:  "dropdown-item" %>
                                     </div>
                                 </li>
                                 <% if @current_elefe %>
-                                <% last_batigrado = Batigrado.last %>
-                                <% if last_batigrado %>
-                                    <% if  !last_batigrado.date_bat.past? %>
+                                            <li class="dropdown">
+                                            <a class="nav-link dropdown-toggle <% if current_page?(tpsentrainement_path) || current_page?(rei_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ma capoeira</a>
+                                                <div class="dropdown-menu">
+                                                    <%= link_to "Temps d'entraînement", tpsentrainement_path, class:  "dropdown-item" %>
+                                                    <%= link_to "REI", rei_path, class:  "dropdown-item" %>
+                                                </div>
+                                            </li>
+                                    <% last_batigrado = Batigrado.last %>
+                                    <% if last_batigrado %>
+                                        <% if  !last_batigrado.date_bat.past? %>
+                                            <li class="dropdown">
+                                            <a class="nav-link dropdown-toggle <% if current_page?(new_com_batigrado_path) || current_page?(com_batigrados_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Batigrados</a>
+                                                <div class="dropdown-menu">
+                                                    <%= link_to "S'inscrire", new_com_batigrado_path, class:  "dropdown-item" %>
+                                                    <%= link_to "Mes batigrados", com_batigrados_path, class:  "dropdown-item" %>
+                                                </div>
+                                            </li>
+                                        <% end %>
+                                    <% end %>
+                                    <% repasgcc = @repasgccs.last %>
+                                    <% if repasgcc %>
+                                        <% if  !repasgcc.date_repas.past? %>
+                                            <li class="dropdown">
+                                            <a class="nav-link dropdown-toggle <% if current_page?(new_ticket_repa_path) || current_page?(ticket_repas_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Repas du groupe</a>
+                                                <div class="dropdown-menu">
+                                                     <% @ticket_repa = TicketRepa.find_by(:elefe_id => @current_elefe.id) %>
+                                                     <%= link_to "S'inscrire", new_ticket_repa_path, class:  "dropdown-item" %>
+                                                     <%= link_to "Mon inscription", ticket_repas_path, class:  "dropdown-item" %>
+                                                </div>
+                                             </li>
+                                        <% end %>
+                                    <% end %>
+                                    <% if @produits_all %>
                                         <li class="dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Batigrados</a>
+                                        <a class="nav-link dropdown-toggle <% if current_page?(produits_path) || current_page?(commandes_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Commandes</a>
                                             <div class="dropdown-menu">
-                                                <%= link_to "S'inscrire", new_com_batigrado_path, class:  "dropdown-item" %>
-                                                <%= link_to "Mes batigrados", com_batigrados_path, class:  "dropdown-item" %>
+                                                <%= link_to "Vêtements & Instruments", produits_path, class:  "dropdown-item" %>
+                                                <%= link_to "Mes commandes", commandes_path, class:  "dropdown-item" %>
                                             </div>
                                         </li>
                                     <% end %>
-                                <% end %>
-                                <% repasgcc = @repasgccs.last %>
-                                <% if repasgcc %>
-                                    <% if  !repasgcc.date_repas.past? && @current_elefe %>
-                                        <li class="dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Repas du groupe</a>
-                                            <div class="dropdown-menu">
-                                                 <% @ticket_repa = TicketRepa.find_by(:elefe_id => @current_elefe.id) %>
-                                                 <%= link_to "S'inscrire", new_ticket_repa_path, class:  "dropdown-item" %>
-                                                 <%= link_to "Mon inscription", ticket_repas_path, class:  "dropdown-item" %>
-                                            </div>
-                                         </li>
-                                    <% end %>
-                                <% end %>
-                                <!--
-                                <li class="dropdown">
-                                <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Commandes</a>
-                                    <div class="dropdown-menu">
-                                        <%= link_to "Vêtements & Instruments", root_path, class:  "dropdown-item" %>
-                                        <%= link_to "Mes commandes", root_path, class:  "dropdown-item" %>
-                                    </div>
-                                </li>
-                                -->
                                 <% end %>
                 <% end %>
             </ul>

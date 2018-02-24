@@ -12,12 +12,76 @@
  *
  */
 
-@import "bootstrap";
+
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+  $primary: #3366CC;
+  $secondary: #999999;
+  $success: #66CC33;
+  $info: #999999;
+  $warning: #FFFF33;
+  $danger: #CC3333;
+  $light: #FFFFFF;
+  $dark: #333333;
+
+$theme-colors: (
+  primary: $primary,
+  secondary: $secondary,
+  success: $success,
+  info: $info,
+  warning: $warning,
+  danger: $danger,
+  light: $light,
+  dark: $dark
+) !default;
+
+@import "bootstrap";
+
+$footer_col: $primary;
+
+// --------------------------------
+
+body {
+  background:
+  url('band_brazil_left.jpg') repeat-y left top,
+  url('band_brazil_right.jpg') repeat-y right top;
+}
+
+li.active > a, a.active {
+  color: $success !important;
+}
+
+a.active::before {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 3px;
+  height: 3px;
+  width: 80%;
+  background-color: $warning;
+}
+
+.img-card {
+  height: 150px;
+  margin: auto;
+  text-align: center;
+}
+
+.thumbprod {
+  width: 75px;
+  margin: auto;
+}
+
+.mediumprod {
+  border: 1px solid $dark;
+  margin: auto;
+  margin-top: 0;
+  text-align: center;
+}
+
 #datepres {
-  color: #007bff;
+  color: $primary;
 }
 
 #datepres:hover {
@@ -43,7 +107,7 @@
     -webkit-animation:1s blinker linear infinite;
     -moz-animation:1s blinker linear infinite;
 
-     color: red;
+     color: $danger;
     }
 
     @-moz-keyframes blinker {
@@ -69,19 +133,23 @@ img {
 }
 
 .error {
-  border: 2px solid red;
+  border: 2px solid $danger;
 }
 
 table {
   table-layout:fixed;
   padding-left: 25%;
+  box-shadow: 1px 1px 12px $secondary;
   }
 thead {
-  background-color: yellow;
+  background-color: $warning;
 }
 td.narrow, th.narrow {
   width: 30px;
   text-align: center;
+}
+td.nopad {
+  padding: 0;
 }
 
 .col_dates {
@@ -90,6 +158,8 @@ td.narrow, th.narrow {
 
 #logo {
   height: 70px;
+  -webkit-filter: drop-shadow(5px 5px 5px $dark);
+  filter: drop-shadow(5px 5px 5px $dark);
 }
 
 #index_presences {
@@ -102,12 +172,15 @@ footer {
 #pdp {
   padding-top: 10px;
   min-height: 44px;
-  background-color: lawngreen;
-  color: black;
+  background-color: $footer_col;
+  color: #FFF;
+  a {
+    color: #FFF;
+  }
 }
 
 .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
-  background-color: #ffda12;
+  background-color: $warning;
 }
 
 #photo-identite {
@@ -121,7 +194,8 @@ h1, h3 {
   margin-bottom: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
-  border: 1px solid black;
+  border: 1px solid $dark;
+  box-shadow: 1px 1px 12px $secondary;
 }
 
 h6 {

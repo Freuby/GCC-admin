@@ -47,6 +47,7 @@ gem 'wkhtmltopdf-binary'
 gem 'vicopo', '~> 1.1', '>= 1.1.8'
 gem 'seed_dump'
 gem 'listen', '~> 3.0.5'
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

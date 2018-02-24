@@ -15,16 +15,25 @@ class RepasgccsController < ApplicationController
 
   # GET /repasgccs/new
   def new
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
     @repasgcc = Repasgcc.new
   end
 
   # GET /repasgccs/1/edit
   def edit
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
   end
 
   # POST /repasgccs
   # POST /repasgccs.json
   def create
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
     @repasgcc = Repasgcc.new(repasgcc_params)
 
     respond_to do |format|
@@ -41,6 +50,9 @@ class RepasgccsController < ApplicationController
   # PATCH/PUT /repasgccs/1
   # PATCH/PUT /repasgccs/1.json
   def update
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
     respond_to do |format|
       if @repasgcc.update(repasgcc_params)
         format.html { redirect_to @repasgcc, notice: 'Le formulaire pour le repas du grupo a bien été modifié.' }
@@ -55,6 +67,9 @@ class RepasgccsController < ApplicationController
   # DELETE /repasgccs/1
   # DELETE /repasgccs/1.json
   def destroy
+    if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+      return head :forbidden
+    end
     @repasgcc.destroy
     respond_to do |format|
       format.html { redirect_to repasgccs_url, notice: 'Le formulaire pour le repas du grupo a bien été supprimé.' }

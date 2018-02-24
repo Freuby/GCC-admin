@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127135701) do
+ActiveRecord::Schema.define(version: 20180116144354) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
@@ -67,11 +67,34 @@ ActiveRecord::Schema.define(version: 20171127135701) do
     t.boolean  "sold",             default: false
     t.integer  "elefe_id"
     t.integer  "paiement_id"
+    t.integer  "compdt_id"
     t.index ["com_batigrado_id"], name: "index_commandes_on_com_batigrado_id"
+    t.index ["compdt_id"], name: "index_commandes_on_compdt_id"
     t.index ["elefe_id"], name: "index_commandes_on_elefe_id"
     t.index ["paiement_id"], name: "index_commandes_on_paiement_id"
     t.index ["ticket_repa_id"], name: "index_commandes_on_ticket_repa_id"
     t.index ["user_id"], name: "index_commandes_on_user_id"
+  end
+
+  create_table "compdts", force: :cascade do |t|
+    t.integer  "qte"
+    t.string   "couleur"
+    t.string   "taille"
+    t.integer  "typ_livr"
+    t.integer  "vill_collect"
+    t.string   "nom"
+    t.string   "prenom"
+    t.string   "rue"
+    t.string   "cp"
+    t.string   "ville"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "user_id"
+    t.integer  "produit_id"
+    t.integer  "commande_id"
+    t.index ["commande_id"], name: "index_compdts_on_commande_id"
+    t.index ["produit_id"], name: "index_compdts_on_produit_id"
+    t.index ["user_id"], name: "index_compdts_on_user_id"
   end
 
   create_table "cours", force: :cascade do |t|
@@ -180,6 +203,71 @@ ActiveRecord::Schema.define(version: 20171127135701) do
     t.index ["cour_id"], name: "index_presences_on_cour_id"
     t.index ["elefe_id"], name: "index_presences_on_elefe_id"
     t.index ["enseignant_id"], name: "index_presences_on_enseignant_id"
+  end
+
+  create_table "produits", force: :cascade do |t|
+    t.string   "ref"
+    t.string   "nom"
+    t.string   "couleur"
+    t.string   "marque"
+    t.float    "prix"
+    t.boolean  "dispo"
+    t.integer  "delai"
+    t.integer  "typ_livr"
+    t.float    "tar_livr"
+    t.integer  "del_livr"
+    t.string   "descriptif"
+    t.string   "caract0"
+    t.string   "attr0"
+    t.string   "caract1"
+    t.string   "attr1"
+    t.string   "caract2"
+    t.string   "attr2"
+    t.string   "caract3"
+    t.string   "attr3"
+    t.string   "caract4"
+    t.string   "attr4"
+    t.string   "caract5"
+    t.string   "attr5"
+    t.string   "caract6"
+    t.string   "attr6"
+    t.string   "caract7"
+    t.string   "attr7"
+    t.string   "caract8"
+    t.string   "attr8"
+    t.string   "caract9"
+    t.string   "attr9"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "taille"
+    t.string   "photo1_file_name"
+    t.string   "photo1_content_type"
+    t.integer  "photo1_file_size"
+    t.datetime "photo1_updated_at"
+    t.string   "photo2_file_name"
+    t.string   "photo2_content_type"
+    t.integer  "photo2_file_size"
+    t.datetime "photo2_updated_at"
+    t.string   "photo3_file_name"
+    t.string   "photo3_content_type"
+    t.integer  "photo3_file_size"
+    t.datetime "photo3_updated_at"
+    t.string   "photo4_file_name"
+    t.string   "photo4_content_type"
+    t.integer  "photo4_file_size"
+    t.datetime "photo4_updated_at"
+    t.string   "photo5_file_name"
+    t.string   "photo5_content_type"
+    t.integer  "photo5_file_size"
+    t.datetime "photo5_updated_at"
+    t.string   "photo6_file_name"
+    t.string   "photo6_content_type"
+    t.integer  "photo6_file_size"
+    t.datetime "photo6_updated_at"
+    t.string   "notpdf_file_name"
+    t.string   "notpdf_content_type"
+    t.integer  "notpdf_file_size"
+    t.datetime "notpdf_updated_at"
   end
 
   create_table "repasgccs", force: :cascade do |t|
