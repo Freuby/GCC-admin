@@ -73,7 +73,7 @@ class EnseignantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def enseignant_params
-      params.require(:enseignant).permit(:nom, :prenom, :graduation)
+      params.require(:enseignant).permit(:nom, :prenom, :graduation, :photo)
     end
 
 end

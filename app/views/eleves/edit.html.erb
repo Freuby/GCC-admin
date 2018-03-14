@@ -1,6 +1,10 @@
 <h1>Modification d'une fiche élève</h1>
 
-<%= render 'form', elefe: @elefe %>
+<% if @current_user.admin == 3 %>
+    <%= render 'form2', elefe: @elefe %>
+<% else %>
+    <%= render 'form', elefe: @elefe %>
+<% end %>
 
 <%= link_to 'Voir', @elefe %> |
 <%= link_to 'Retour', eleves_path %>

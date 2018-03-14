@@ -21,7 +21,7 @@
             <%= @elefe.tel_mobile %>
             <br/>
             <strong>Graduation:</strong>
-            <%= @grades_adultes[@elefe.graduation.to_i] %>
+            <% if @elefe.graduation %><%= @grades_adultes[@elefe.graduation.to_i] %><% else %><i>sans</i><% end %>
         </div>
         <div class="col-md-4 col-12">
             <h4><strong>Prénom: </strong><%= @elefe.prenom %></h4>
@@ -52,6 +52,7 @@
             <br/>
         </div>
     </div>
+    <% if current_user.admin == 1 && current_user.admin == 2 %>
      <div class="row">
         <div class="col-12 text-center">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cert_med">
@@ -66,6 +67,7 @@
             <% if @elefe.a_signaler != "" %><%= @elefe.a_signaler %><% else %> Vous n'avez rien signalé<% end %>
         </div>
      </div>
+    <% end %>
     <div class="row">
 
         <div class="col-12"><br/><h6>Personne à prévenir en cas d’urgence</h6><br/></div>

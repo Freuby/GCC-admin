@@ -1,15 +1,19 @@
 <br/>
-<h5>
+<div class="text-center">
+  <%= image_tag @enseignant.photo.url(:medium), class: "img-fluid", id: "photo" %>
+</div>
+<br/>
+<h5 class="text-center">
   <strong>Nom:</strong>
   <%= @enseignant.nom %>
 </h5>
 <br/>
-<h5>
+<h5 class="text-center">
   <strong>Prénom:</strong>
   <%= @enseignant.prenom %>
 </h5>
 <br/>
-<p>
+<p class="text-center">
   <strong>Graduation:</strong>
     <%= @grades_adultes[@enseignant.graduation] %>
 </p>
@@ -18,7 +22,7 @@
   <strong>Référant des cours de:</strong>
   <ul>
   <% @cours_ens.each do |c| %>
-      <li><%= c.nomvil %> - <%= @typ_cours[c.typcours] %> les <%= c.jour.pluralize %> à <%= c.dateh.hour %>h<%= c.dateh.min %></li>
+      <li><%= c.nomvil %> - <%= @typ_cours[c.typcours] %> les <%= c.jour.pluralize %> à <%= c.dateh.strftime("%Hh%M") %></li>
   <% end %>
   </ul>
 

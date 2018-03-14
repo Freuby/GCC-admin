@@ -25,7 +25,12 @@
     <%= f.label :date_bat, "Date du Batigrado (le samedi)" %>
     <%= f.date_select :date_bat, order: [:day, :month, :year] %>
   </div>
-
+  <br/>
+  <div class="field">
+      <p>Vous pouvez ajoutez une image en jpg, png ou gif (< 1 mo)</p>
+      <%= f.file_field :photo %>
+  </div>
+  <br/>
   <div class="field">
     <%= f.label :adresse %>
     <%= f.text_area :adresse, class: "form-control" %>

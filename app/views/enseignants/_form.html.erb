@@ -20,7 +20,11 @@
     <%= f.label :prenom, "Prénom" %>
     <%= f.text_field :prenom, class:"form-control" %>
   </div>
-
+  <br/>
+  <div class="field">
+      <p>Ajoutez une photo au format photo d'identité en jpg, png ou gif (< 1 mo)</p>
+      <%= f.file_field :photo %>
+  </div>
   <div class="field">
     <%= f.label :graduation %>
     <%= f.select :graduation, @grades_adultes.collect { |g| [g, @grades_adultes.index(g)] }, {}, class: "form-control" %>

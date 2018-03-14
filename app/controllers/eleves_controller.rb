@@ -86,16 +86,18 @@ class ElevesController < ApplicationController
   # PATCH/PUT /eleves/1
   # PATCH/PUT /eleves/1.json
   def update
-    params[:elefe][:info_ville] = params[:elefe][:info_ville].join(',') if params[:elefe][:info_ville] != nil
-    params[:elefe][:prix] = @tarif[params[:elefe][:parentee].to_i] if params[:elefe][:parentee] != nil
-    params[:elefe][:signature] = false
-    cour = Cour.find_by(:id => params[:elefe][:ville_entrainement])
-    cours = @elefe.cours
-    if !cours.detect { |b| b.id == cour.id }
-      @elefe.cours << cour
+    if params[:elefe][:prix]
+      params[:elefe][:info_ville] = params[:elefe][:info_ville].join(',') if params[:elefe][:info_ville] != nil
+      params[:elefe][:prix] = @tarif[params[:elefe][:parentee].to_i] if params[:elefe][:parentee] != nil
+      params[:elefe][:signature] = false
+      cour = Cour.find_by(:id => params[:elefe][:ville_entrainement])
+      cours = @elefe.cours
+      if !cours.detect { |b| b.id == cour.id }
+        @elefe.cours << cour
+      end
+      @elefe.commandes.first.update(montant: params[:elefe][:prix])
+      @elefe.update_attributes(:updated_at => Time.now)
     end
-    @elefe.commandes.first.update(montant: params[:elefe][:prix])
-    @elefe.update_attributes(:updated_at => Time.now)
     respond_to do |format|
       if @elefe.update(elefe_params)
         format.html { redirect_to @elefe, notice: 'La fiche élève a bien été modifiée.' }
@@ -151,8 +153,6 @@ class ElevesController < ApplicationController
     @eleves_current_user.each do |el|
       @metats = Etat.where(elefe_id: el.id, etat: "P" || "M/B")
     end
-    puts "################-----############"
-    puts @metats.inspect
   end
 
   # GET /rei
@@ -170,7 +170,7 @@ class ElevesController < ApplicationController
     def set_elefe
       @elefe = Elefe.find(params[:id])
       if @elefe.user_id != current_user.id
-        if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2)
+        if !@current_user || (@current_user.admin != 1 && @current_user.admin != 2 && @current_user.admin != 3)
           return head :forbidden
         end
       end

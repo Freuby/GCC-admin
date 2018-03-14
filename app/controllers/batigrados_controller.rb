@@ -84,6 +84,6 @@ class BatigradosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def batigrado_params
-      params.require(:batigrado).permit(:titre, :description, :date_bat, :adresse, :cp, :ville, :tarif1, :tarif2, :tarif_ext, :tar_rep1, :tar_rep2, :tar_rep3, :tar_soiree, :adr_soiree, :heur_soiree)
+      params.require(:batigrado).permit(:titre, :description, :date_bat, :adresse, :cp, :ville, :tarif1, :tarif2, :tarif_ext, :tar_rep1, :tar_rep2, :tar_rep3, :tar_soiree, :adr_soiree, :heur_soiree, :photo)
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180116144354) do
+ActiveRecord::Schema.define(version: 20180312160504) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
@@ -28,8 +28,12 @@ ActiveRecord::Schema.define(version: 20180116144354) do
     t.float    "tar_soiree"
     t.string   "adr_soiree"
     t.datetime "heur_soiree"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "com_batigrados", force: :cascade do |t|
@@ -166,8 +170,12 @@ ActiveRecord::Schema.define(version: 20180116144354) do
     t.string   "nom"
     t.string   "prenom"
     t.integer  "graduation"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "etats", force: :cascade do |t|

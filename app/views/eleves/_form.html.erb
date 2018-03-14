@@ -13,160 +13,169 @@
 
 <div class="container">
 
-<div class="row">
-    <div class="col-12"><h3>Identification</h3></div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <p>Ajoutez votre photo au format photo d'identité en jpg, png ou gif (< 1 mo)</p>
-        <%= f.file_field :photo %>
+    <div class="row">
+        <div class="col-12"><h3>Identification</h3></div>
     </div>
-</div>
 
-<div class="row">
-  <div class="col-12 col-md-6 field">
-    <%= f.label :nom %>
-    <%= f.text_field :nom, class: "form-control "+field_class(elefe, :nom) %>
-  </div>
-  <div class="col-12 col-md-6 field">
-    <%= f.label :prenom, "Prénom" %>
-    <%= f.text_field :prenom, class: "form-control "+field_class(elefe, :prenom) %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-12 col-md-6 field">
-    <%= f.label :date_naissance, "Date de naissance" %><br />
-    <%= f.date_select :date_naissance, order: [:day, :month, :year], class: "form-control", start_year: Time.now.year-90, end_year: Time.now.year-3 %>
-  </div>
-  <div class="col-12 col-md-6 field">
-        <%= f.label :email %>
-        <%= f.text_field :email, value: current_user.email, readonly: true, class: "form-control" %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-12 col-md-6 field">
-    <%= f.label :rue, "Rue/Lieu-dit" %>
-    <%= f.text_field :rue, class: "form-control "+field_class(elefe, :rue) %>
-  </div>
-  <div class="col-4 col-md-2 field">
-    <%= f.label :cp, "Code Postal" %>
-    <%= f.text_field :cp, class: "form-control "+field_class(elefe, :cp), id: "code" %>
-  </div>
-  <div class="col-8 col-md-4 field">
-    <%= f.label :ville %>
-    <%= f.select :ville, '<option value="1" selected>'.html_safe+elefe.ville+"</option>".html_safe, {}, class: "form-control", id: "city" %>
-  </div>
-
-</div>
-
-<div class="row">
-  <div class="col-12 col-md-6 field">
-    <%= f.label :tel_mobile, "Tél. portable" %>
-    <%= f.text_field :tel_mobile, class: "form-control "+field_class(elefe, :tel_mobile) %>
-  </div>
-  <div class="col-12 col-md-6 field">
-    <%= f.label :tel_fixe, "Tél. fixe" %>
-    <%= f.text_field :tel_fixe, class: "form-control "+field_class(elefe, :tel_fixe) %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-12 col-md-6 field">
-    <%= f.label :graduation %>
-    <%= f.select :graduation, @grades_adultes.collect { |g| [g, @grades_adultes.index(g)] }, {}, class: "form-control" %>
-  </div>
-    <div class="col-12 col-md-6 field">
-        <%= f.label :ville_entrainement, "Ville d'entraînement principale : " %>
-        <%= f.select :ville_entrainement, @list_cours.collect { |g| [g, @cours_id[@list_cours.index(g)]] }, {}, class: "form-control", id: "cours" %>
+    <div class="row">
+        <div class="col-12">
+            <p>Ajoutez votre photo au format photo d'identité en jpg, png ou gif (< 1 mo)</p>
+            <%= f.file_field :photo %>
+        </div>
     </div>
-</div>
- <br/>
-<div class="row">
-  <div class="col-12">
-      <h3>Particularités médicales</h3>
-      <p>Une visite médicale est nécessaire à la pratique de cet Art Martial. Cette visite doit être passée et l’attestation rendue tous les 3 ans, impérativement dans un délai de 15 jours après l’affiliation ou
-        renouvellement.</p>
-       <p>Ajoutez votre certificat médical en jpg, png, gif ou pdf (< 1 mo)</p>
-       <%= f.file_field :certifmed %>
-  </div>
-</div>
 
-<div class="row">
-    <div class="col-12 field">
-        <br/>
-        <%= f.label :a_signaler,"Maladie/Traitement/Autre à signaler" %>
-        <%= f.text_area :a_signaler, class: "form-control" %>
-     </div>
-</div>
+    <div class="row">
+      <div class="col-12 col-md-6 field">
+        <%= f.label :nom %>
+        <%= f.text_field :nom, class: "form-control "+field_class(elefe, :nom) %>
+      </div>
+      <div class="col-12 col-md-6 field">
+        <%= f.label :prenom, "Prénom" %>
+        <%= f.text_field :prenom, class: "form-control "+field_class(elefe, :prenom) %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6 field">
+        <%= f.label :date_naissance, "Date de naissance" %><br />
+        <%= f.date_select :date_naissance, order: [:day, :month, :year], class: "form-control", start_year: Time.now.year-90, end_year: Time.now.year-3 %>
+      </div>
+      <div class="col-12 col-md-6 field">
+            <%= f.label :email %>
+            <%= f.text_field :email, value: current_user.email, readonly: true, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6 field">
+        <%= f.label :rue, "Rue/Lieu-dit" %>
+        <%= f.text_field :rue, class: "form-control "+field_class(elefe, :rue) %>
+      </div>
+      <div class="col-4 col-md-2 field">
+        <%= f.label :cp, "Code Postal" %>
+        <%= f.text_field :cp, class: "form-control "+field_class(elefe, :cp), id: "code" %>
+      </div>
+      <div class="col-8 col-md-4 field">
+        <%= f.label :ville %>
+        <%= f.select :ville, '<option value="1" selected>'.html_safe+elefe.ville+"</option>".html_safe, {}, class: "form-control", id: "city" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6 field">
+        <%= f.label :tel_mobile, "Tél. portable" %>
+        <%= f.text_field :tel_mobile, class: "form-control "+field_class(elefe, :tel_mobile) %>
+      </div>
+      <div class="col-12 col-md-6 field">
+        <%= f.label :tel_fixe, "Tél. fixe" %>
+        <%= f.text_field :tel_fixe, class: "form-control "+field_class(elefe, :tel_fixe) %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6 field">
+        <%= f.label :graduation %>
+        <%= f.select :graduation, @grades_adultes.collect { |g| [g, @grades_adultes.index(g)] }, {}, class: "form-control" %>
+      </div>
+        <div class="col-12 col-md-6 field">
+            <%= f.label :ville_entrainement, "Ville d'entraînement principale : " %>
+            <%= f.select :ville_entrainement, @list_cours.collect { |g| [g, @cours_id[@list_cours.index(g)]] }, {}, class: "form-control", id: "cours" %>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+      <div class="col-12">
+          <h3>Particularités médicales</h3>
+          <p>Une visite médicale est nécessaire à la pratique de cet Art Martial. Cette visite doit être passée et l’attestation rendue tous les 3 ans, impérativement dans un délai de 15 jours après l’affiliation ou
+            renouvellement.</p>
+           <p>Ajoutez votre certificat médical en jpg, png, gif ou pdf (< 1 mo)</p>
+           <%= f.file_field :certifmed %>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 field">
+            <br/>
+            <%= f.label :a_signaler,"Maladie/Traitement/Autre à signaler" %>
+            <%= f.text_area :a_signaler, class: "form-control" %>
+         </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+      <div class="col-12"><h6>Personne à prévenir en cas d’urgence</h6></div>
+
+      <div class="col-6 field">
+        <%= f.label :urgence_nom, "Nom" %>
+        <%= f.text_field :urgence_nom, class: "form-control "+field_class(elefe, :urgence_nom) %>
+      </div>
+
+      <div class="col-6 field">
+        <%= f.label :urgence_prenom, "Prénom" %>
+        <%= f.text_field :urgence_prenom, class: "form-control "+field_class(elefe, :urgence_prenom) %>
+      </div>
+
+      <div class="col-12 field">
+        <%= f.label :urgence_parentee, "Lien de parenté" %>
+        <%= f.text_field :urgence_parentee, class: "form-control" %>
+      </div>
+
+      <div class="col-12 field">
+        <%= f.label :urgence_tel, "Téléphone" %>
+        <%= f.text_field :urgence_tel, class: "form-control "+field_class(elefe, :urgence_tel) %>
+      </div>
+
+      <div class="col-12"><br/><p>J'autorise le représentant de l’Association Culture Brésil à prendre toute décision destinée à faire donner les soins médicaux chirurgicaux qui pourraient être nécessaires à :
+      </p></div>
+
+      <div class="col-6 field">
+        <%= f.radio_button :soin_moi, true %>
+        <%= f.label :soin_moi, "Moi-même", class: field_class(elefe, :soin_moi) %>
+      </div>
+
+      <div class="col-6 field">
+        <%= f.radio_button :soin_moi, false %>
+        <%= f.label :soin_moi, "Mon fils, ma fille, le mineur sous ma tutelle", class: field_class(elefe, :soin_moi) %>
+      </div>
+    </div>
+
+    <hr/><br/>
+
+    <div class="row">
+      <div class="col-12 field">
+          <p>Je souhaite être informé(e) des imprévus pouvant avoir lieu sur les cours dans les villes de :</p>
+          <% @nomvils = @cours.select(:nomvil).distinct %>
+          <% @nomvils.each do |c| %>
+            <%= f.check_box :info_ville, {multiple: true}, c.nomvil, nil %>
+            <%= f.label :info_ville, c.nomvil %>
+          <% end %>
+      </div>
+    </div>
+
+    <hr/><br/>
+
+    <div class=row">
+      <div class="col-12 field">
+         <p>Comment avez-vous connu le Grupo Cultura Capoeira ?</p>
+          <% @GCC_connait.each.with_index do |g, i| %>
+            <%= f.radio_button :gcc_connait, i %>
+            <%= f.label :gcc_connait, g %>
+          <% end %>
+      </div>
+    </div>
+
 <br/>
-<div class="row">
-  <div class="col-12"><h6>Personne à prévenir en cas d’urgence</h6></div>
 
-  <div class="col-6 field">
-    <%= f.label :urgence_nom, "Nom" %>
-    <%= f.text_field :urgence_nom, class: "form-control "+field_class(elefe, :urgence_nom) %>
-  </div>
-
-  <div class="col-6 field">
-    <%= f.label :urgence_prenom, "Prénom" %>
-    <%= f.text_field :urgence_prenom, class: "form-control "+field_class(elefe, :urgence_prenom) %>
-  </div>
-
-  <div class="col-12 field">
-    <%= f.label :urgence_parentee, "Lien de parenté" %>
-    <%= f.text_field :urgence_parentee, class: "form-control" %>
-  </div>
-
-  <div class="col-12 field">
-    <%= f.label :urgence_tel, "Téléphone" %>
-    <%= f.text_field :urgence_tel, class: "form-control "+field_class(elefe, :urgence_tel) %>
-  </div>
-
-  <div class="col-12"><br/><p>J'autorise le représentant de l’Association Culture Brésil à prendre toute décision destinée à faire donner les soins médicaux chirurgicaux qui pourraient être nécessaires à :
-  </p></div>
-
-  <div class="col-6 field">
-    <%= f.radio_button :soin_moi, true %>
-    <%= f.label :soin_moi, "Moi-même", class: field_class(elefe, :soin_moi) %>
-  </div>
-
-  <div class="col-6 field">
-    <%= f.radio_button :soin_moi, false %>
-    <%= f.label :soin_moi, "Mon fils, ma fille, le mineur sous ma tutelle", class: field_class(elefe, :soin_moi) %>
-  </div>
-</div>
-          <hr/><br/>
-<div class="row">
-  <div class="col-12 field">
-  <p>Je souhaite être informé(e) des imprévus pouvant avoir lieu sur les cours dans les villes de :</p>
-  <% @nomvils = @cours.select(:nomvil).distinct %>
-  <% @nomvils.each do |c| %>
-    <%= f.check_box :info_ville, {multiple: true}, c.nomvil, nil %>
-    <%= f.label :info_ville, c.nomvil %>
-  <% end %>
-  </div>
-</div>
-<hr/><br/>
-<div class=row">
-  <div class="col-12 field">
-  <p>Comment avez-vous connu le Grupo Cultura Capoeira ?</p>
-      <% @GCC_connait.each.with_index do |g, i| %>
-        <%= f.radio_button :gcc_connait, i %>
-        <%= f.label :gcc_connait, g %>
-      <% end %>
-  </div>
-</div>
-<br/>
-          <div class="row">
-              <div class="col-12">
+    <div class="row">
+       <div class="col-12">
                   <h3>Documents rendus aux affiliés</h3>
                   <p>Je reconnais avoir pris connaissance des informations générales du Grupo Cultura Capoeira et m’engage à les respecter.</p>
                   <p>Je reconnais pouvoir consulter<a href="https://www.grupoculturacapoeira.com/mediatheque-photo-video.html#Documents" target="_blank"> le Livret d’Accueil et le Chronogramme d’activités.</a></p>
-              </div>
-          </div>
+       </div>
+    </div>
 
 <!-- Si le cours est géré par ACB -->
 <div id="acb">
@@ -174,8 +183,9 @@
               <div class="col-12">
                   <h3>Réglement cotisation annuelle</h3>
 
-                  <% if elefe.signature == true %>
+                  <% if elefe.signature == true %> <!-- Déjà validé -->
                   <p>Votre réglement a déjà été validé.</p>
+                  </div></div></div>
                   <% else %>
 
                   <p>Je reconnais avoir pris connaissance des informations générales du Grupo Cultura Capoeira et m’engage à les respecter.
@@ -194,7 +204,7 @@
     <div class="row">
         <div class="col-12">
             <div id="" class="field">
-            <h4>Tarif de base enfants - Cotisation Annuelle</h4>
+                <h4>Tarif de base enfants - Cotisation Annuelle</h4>
                 <%= f.radio_button :parentee, 2 %>
                 <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[2].to_s+" euros/an)", class: field_class(elefe, :parentee) %>
                 <br/>
@@ -203,7 +213,7 @@
             </div>
             <p></p>
             <div id="" class="field">
-            <h4>Tarif de base adultes - Cotisation Annuelle</h4>
+                <h4>Tarif de base adultes - Cotisation Annuelle</h4>
                 <%= f.radio_button :parentee, 0 %>
                 <%= f.label :parentee, "1 entraînement par semaine ("+@tarif[0].to_s+" euros/an)", class: field_class(elefe, :parentee) %>
                 <br/>
@@ -218,8 +228,6 @@
             <p>Les réductions famille seront calculées après la création de chacune des fiches d'affiliations des membres de la famille.</p>
         </div>
     </div>
-
-
 <!--
       <div class="field">
         <%= f.label :reglement, "Choisissez votre mode de réglement:" %>
@@ -230,18 +238,19 @@
 
 <!-- Si le cours est géré par une mairie -->
 
-<div id="no_acb">
-    <p><strong>Merci de vous rapprocher de la ville de <span id="ville"></span> pour le réglement de votre cotisation.</strong></p>
-    <%= f.radio_button :parentee, 4 , id: "mairie"%>
-</div>
+    <div id="no_acb">
+        <p><strong>Merci de vous rapprocher de la ville de <span id="ville"></span> pour le réglement de votre cotisation.</strong></p>
+        <%= f.radio_button :parentee, 4 , id: "mairie"%>
+    </div>
 
-            <% end %> <!-- FIN de Si déjà validé -->
+                <% end %> <!-- FIN de Si déjà validé -->
 
-<br />
-  <div class="col-12 actions text-center">
-    <%= f.submit :go, value: "Valider", class: "btn btn-primary btn-lg" %>
-  </div>
-<br />
+    <br />
+      <div class="col-12 actions text-center">
+        <%= f.submit :go, value: "Valider", class: "btn btn-primary btn-lg" %>
+      </div>
+    <br />
+
 <% end %>
 
 </div>

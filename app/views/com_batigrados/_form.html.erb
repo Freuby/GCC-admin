@@ -47,6 +47,7 @@
 
       <% @batigrado = @batigrados.find(@even_sel) %>
       <div class="text-center">
+          <%= image_tag @batigrado.photo.url(:original), class: "img-fluid" %>
           <h3><%= @batigrado.titre %></h3>
           <p><%= @batigrado.description %></p>
       </div>

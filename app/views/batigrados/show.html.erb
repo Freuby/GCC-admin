@@ -1,5 +1,7 @@
 <h1><%= @batigrado.titre %></h1>
-
+<div class="text-center">
+  <%= image_tag @batigrado.photo.url(:original), class: "img-fluid" %>
+</div>
 <h4 class="text-center">
   <%= @batigrado.description %>
 </h4>

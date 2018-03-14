@@ -37,6 +37,7 @@ $theme-colors: (
 ) !default;
 
 @import "bootstrap";
+@import "enseignants.scss";
 
 $footer_col: $primary;
 
