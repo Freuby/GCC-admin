@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2f6bf2c-d06d-4b1b-b967-ce4a6bd0495a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environments/production.rb" afterPath="$PROJECT_DIR$/config/environments/production.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mailers/application_mailer.rb" afterPath="$PROJECT_DIR$/app/mailers/application_mailer.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mailers/user_mailer.rb" afterPath="$PROJECT_DIR$/app/mailers/user_mailer.rb" />
     </list>
     <ignored path="Admin_GCC.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -137,17 +138,27 @@
         <entry file="file://$PROJECT_DIR$/app/mailers/application_mailer.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_mailer.rb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/mailers/user_mailer.rb">
+      <file leaf-file-name="paiement_mailer.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/mailers/paiement_mailer.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user_mailer.rb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/mailers/user_mailer.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.078947365">
+              <caret line="2" column="96" selection-start-line="2" selection-start-column="96" selection-end-line="2" selection-end-column="96" />
               <folding />
             </state>
           </provider>
@@ -163,11 +174,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="production.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="production.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.68421054">
-              <caret line="102" column="2" selection-start-line="102" selection-start-column="2" selection-end-line="102" selection-end-column="2" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="91" column="42" selection-start-line="91" selection-start-column="42" selection-end-line="91" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -233,10 +244,10 @@
         <option value="$PROJECT_DIR$/app/views/layouts/annule_email.html.erb" />
         <option value="$PROJECT_DIR$/app/views/application/fact_pdf.pdf.erb" />
         <option value="$PROJECT_DIR$/app/controllers/application_controller.rb" />
-        <option value="$PROJECT_DIR$/app/mailers/user_mailer.rb" />
-        <option value="$PROJECT_DIR$/app/mailers/application_mailer.rb" />
         <option value="$PROJECT_DIR$/app/views/user_mailer/annule_email.html.erb" />
         <option value="$PROJECT_DIR$/config/environments/production.rb" />
+        <option value="$PROJECT_DIR$/app/mailers/application_mailer.rb" />
+        <option value="$PROJECT_DIR$/app/mailers/user_mailer.rb" />
       </list>
     </option>
   </component>
@@ -255,8 +266,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="65" />
-    <option name="y" value="211" />
+    <option name="x" value="49" />
+    <option name="y" value="501" />
     <option name="width" value="1319" />
     <option name="height" value="477" />
   </component>
@@ -1244,15 +1255,15 @@
       <workItem from="1520596647904" duration="710000" />
       <workItem from="1520610958542" duration="340000" />
       <workItem from="1520866349650" duration="4641000" />
-      <workItem from="1520961363931" duration="29417000" />
+      <workItem from="1520961363931" duration="29882000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="824099000" />
+    <option name="totallyTimeSpent" value="824564000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="211" width="1319" height="477" extended-state="0" />
+    <frame x="49" y="501" width="1319" height="477" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1658,14 +1669,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/mailers/paiement_mailer.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/layouts/paiement_email.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1690,22 +1693,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/mailers/user_mailer.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/mailers/application_mailer.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/user_mailer/annule_email.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.5">
@@ -1716,8 +1703,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68421054">
-          <caret line="102" column="2" selection-start-line="102" selection-start-column="2" selection-end-line="102" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="91" column="42" selection-start-line="91" selection-start-column="42" selection-end-line="91" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/mailers/application_mailer.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/mailers/paiement_mailer.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/mailers/user_mailer.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.078947365">
+          <caret line="2" column="96" selection-start-line="2" selection-start-column="96" selection-end-line="2" selection-end-column="96" />
           <folding />
         </state>
       </provider>

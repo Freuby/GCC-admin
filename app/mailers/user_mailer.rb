@@ -1,5 +1,7 @@
 class UserMailer < ApplicationMailer
-  default from: 'from@grupoculturacapoeira.com'
+	include Devise::Mailers::Helpers
+  	default template_path: 'devise/mailer' # to make sure that your mailer uses the devise views
+  default from: 'marcelo@grupoculturacapoeira.com'
 
   def paiement_email(user, pj)
     @user_fact = user

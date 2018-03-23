@@ -1,6 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
 
-  default from: 'from@grupoculturacapoeira.com'
+  default from: 'marcelo@grupoculturacapoeira.com'
 
 
 end
