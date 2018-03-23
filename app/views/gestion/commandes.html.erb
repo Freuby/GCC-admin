@@ -17,8 +17,13 @@
         <tr>
             <th class="text-center narrow"><%= c.id %></th>
             <th class="text-center"><%= c.created_at.strftime("%d/%m/%Y") %></th>
-            <th><%= paie_elefe(c).prenom %> <%= paie_elefe(c).nom %></th>
-            <th><%= @cours.find(paie_elefe(c).ville_entrainement).nomvil %></th>
+            <% if paie_elefe(c) != nil %>
+                <th><%= paie_elefe(c).prenom %> <%= paie_elefe(c).nom %></th>
+                <th><%= @cours.find(paie_elefe(c).ville_entrainement).nomvil %></th>
+            <% else %>
+                <th><% @u = User.find(c.user_id) %><%= @u.email %></th>
+                <th>N/A</th>
+            <% end %>
             <th><%= c.description %></th>
             <th class="text-right"><%= number_to_currency(c.montant, unit: "", separator: ",", delimiter: "") %></th>
             <th class="text-center">

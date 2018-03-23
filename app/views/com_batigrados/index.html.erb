@@ -39,6 +39,9 @@
       <% @combat_bat = @com_batigrados.where(:batigrado_id => batigrado.id).all %>
       <% @cbat_tri = @combat_bat.sort_by { |e| [ e.nom_grupo, e.nom, e.prenom ] } %>
         <% @cbat_tri.each do |com_batigrado| %>
+        <% @c = Commande.where(:com_batigrado_id => com_batigrado.id).last %>
+        <% @p = Paiement.find(@c.paiement_id) %>
+        <% if @p.valide == true %>
           <tr>
             <td>
                 <% if com_batigrado.elefe_id %>
@@ -70,7 +73,8 @@
             <!-- <td><%= link_to 'Voir', com_batigrado %></td> -->
             <!-- <td><%= link_to 'Supprimer', com_batigrado, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td> -->
           </tr>
-        <% end %>
+        <% end %> <!-- FIN test paiement ? -->
+        <% end %><!-- FIN each -->
       </tbody>
     </table>
     </div>

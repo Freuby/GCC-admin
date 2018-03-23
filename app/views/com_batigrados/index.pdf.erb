@@ -29,6 +29,9 @@
       <% @combat_bat = @com_batigrados.where(:batigrado_id => @batigrado.id).all %>
       <% @cbat_tri = @combat_bat.sort_by { |e| [ e.nom_grupo, e.nom, e.prenom ] } %>
         <% @cbat_tri.each do |com_batigrado| %>
+        <% @c = Commande.where(:com_batigrado_id => com_batigrado.id).last %>
+        <% @p = Paiement.find(@c.paiement_id) %>
+        <% if @p.valide == true %>
           <tr>
             <td><%= com_batigrado.nom %></td>
             <td><%= com_batigrado.prenom %></td>
@@ -46,6 +49,7 @@
             <td><%= com_batigrado.montant %></td>
             <td><%= @reglements[com_batigrado.reglt.to_i] %></td>
           </tr>
+        <% end %>
         <% end %>
       </tbody>
     </table>

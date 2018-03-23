@@ -19,6 +19,7 @@
     <% else %>
         <p>Afin de finaliser votre inscription au <strong><%= @batigrado.titre %></strong>, en tant que capoeiriste extérieur au Grupo Cultura Capoeira,  vous devrez régler un total de <strong><%= sprintf("%.2f", @com_batigrado.montant) %></strong> euros.</p>
         <br/>
+        <p class="text-center"><%= link_to "S'incrire à un batigrado", new_com_batigrado_path, class: "btn btn-outline-primary" %></p>
         <p class="text-center"><%= link_to "Accèder à mes commandes", panier_path, class: "btn btn-outline-primary" %></p>
     <% end %>
 <% else %>

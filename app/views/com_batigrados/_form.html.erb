@@ -67,6 +67,20 @@
             <%= f.text_field :ttshirt, class: "form-control" %>
         </div>
 
+      <hr/>
+      <!-- Demande taille corde pour un élève GCC non affilié -->
+      <p>Pour les élèves du Grupo Cultura Capoeira :</p>
+
+      <div class="field">
+        <%= f.check_box :gradup %>
+        <%= f.label :gradup, "Je change de grade" %>
+      </div>
+      <br/>
+      <div class="field">
+        <%= f.label :tpant,"Infos pour graduation: Taille pantalon (ex: 8ans/36/42) (sert à définir la taille de la corde)" %>
+        <%= f.text_field :tpant, class: "form-control" %>
+      </div>
+
         <hr/>
 
           <% if @batigrado.tarif_ext %>
@@ -128,7 +142,7 @@
       <div class="field">
         <%= f.label :tpant,"Infos pour graduation: Taille pantalon (ex: 8ans/36/42) (sert à définir la taille de la corde)" %>
         <%= f.text_field :tpant, class: "form-control" %>
-       </div>
+      </div>
 
 
     <% end %>

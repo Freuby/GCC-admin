@@ -73,7 +73,7 @@
                                     <% end %>
                                      - Le <%= p.updated_at.strftime( '%d/%m/%Y' ) %> -
                                      <%= number_to_currency(p.montant, unit: "", separator: ",", delimiter: "") %> euros -
-                                     paiement par <%= @reglements[p.mode_paie] %>
+                                     paiement par <% if p.mode_paie != nil %><%= @reglements[p.mode_paie] %><% else %>inconnu ou Paypal/CB<% end %>
                                  </div>
                                  <div class="col-1">
                                     <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#CommandesModal<%= p.id %>">Voir</button>
@@ -114,6 +114,10 @@
           </ul>
           </div>
           <div class="modal-footer">
+            <%= form_tag('/valide', method: "post") do |f| %>
+               <%= hidden_field_tag :id, p.id %>
+               <%= submit_tag "Annuler la commande", data: {confirm: "Êtes-vous sûr de vouloir confirmer cette commande ? Cette action est irréversible."}, class: "btn btn-outline-danger btn-sm" %>
+            <% end %>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
           </div>
         </div>
@@ -188,7 +192,7 @@
             <ul>
             <% current_user.paiements.each do |p| %>
                 <li>
-                    Le <%= p.updated_at.strftime( '%d/%m/%Y' ) %> : <%= number_to_currency(p.montant, unit: "", separator: ",", delimiter: "") %> euros par <%= @reglements[p.mode_paie] %> -
+                    Le <%= p.updated_at.strftime( '%d/%m/%Y' ) %> : <%= number_to_currency(p.montant, unit: "", separator: ",", delimiter: "") %> euros par <% if p.mode_paie != nil %><%= @reglements[p.mode_paie] %><% else %>inconnu ou Paypal/CB<% end %> -
                     <% if p.valide == true %>
                         reçu
                     <% else %>

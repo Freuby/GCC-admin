@@ -7,4 +7,8 @@ class UserMailer < ApplicationMailer
     attachments["facture"] = { content_type: "application/pdf", filename: "facture.pdf", body: pj }
     mail(to: user.email, subject: 'Votre facture')
   end
+
+  def annule_email(user)
+    mail(to: user.email, subject: 'Annulation de commande')
+  end
 end

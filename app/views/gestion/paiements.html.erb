@@ -15,9 +15,17 @@
         <tr>
             <th class="text-center narrow"><%= p.id %></th>
             <th class="text-center"><%= p.created_at.strftime("%d/%m/%Y") %></th>
-            <th><%= paie_elefe(p).prenom %> <%= paie_elefe(p).nom %></th>
+            <% if paie_elefe(p) != nil %>
+                <th><%= paie_elefe(p).prenom %> <%= paie_elefe(p).nom %></th>
+            <% else %>
+                <th><% @u = User.find(p.user_id) %><%= @u.email %></th>
+            <% end %>
             <th class="text-right"><%= number_to_currency(p.montant, unit: "", separator: ",", delimiter: "") %></th>
-            <th class="text-center"><%= @reglements[p.mode_paie] %></th>
+            <% if p.mode_paie != nil %>
+                <th class="text-center"><%= @reglements[p.mode_paie] %></th>
+            <% else %>
+                <th class="text-center">inconnu</th>
+            <% end %>
             <th class="text-center"><%= p.valide ? 'oui' : 'non' %></th>
         </tr>
         <% end %>

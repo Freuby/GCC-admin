@@ -23,9 +23,13 @@
                 <% @elefe_fact = Elefe.where(:user_id => @p.user_id).first %>
                     <h4>FACTURE du <%= @p.updated_at.strftime("%d/%m/%Y") %></h4>
                     <h4>
-                        <%= @elefe_fact.prenom %> <%= @elefe_fact.nom %><br/>
-                        <%= @elefe_fact.rue %><br/>
-                        <%= @elefe_fact.cp %> <%= @elefe_fact.ville %>
+                        <% if @elefe_fact != nil %>
+                            <%= @elefe_fact.prenom %> <%= @elefe_fact.nom %><br/>
+                            <%= @elefe_fact.rue %><br/>
+                            <%= @elefe_fact.cp %> <%= @elefe_fact.ville %>
+                        <% else %>
+                            Nom Prénom Adresse
+                        <% end %>
                     </h4>
         </div>
     </div>
@@ -68,7 +72,7 @@
         </div>
     </div>
     <div class="text-right">
-                    <p>Facture réglée le <%= @p.updated_at.strftime("%d/%m/%Y") %> par <%= @reglements[@p.mode_paie] %></p>
+                    <p>Facture réglée le <%= @p.updated_at.strftime("%d/%m/%Y") %> par <% if @p.mode_paie != nil %><%= @reglements[@p.mode_paie] %><% end %></p>
                     <br/><br/>
                     <p>Mr Brandão De Macedo Marcelo</p>
                     <p>Président</p>

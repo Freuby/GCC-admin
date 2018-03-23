@@ -109,20 +109,28 @@ require "yaml"
 
   # POST /valide
   def valide
-    @p = Paiement.find(params[:paiement])
-    @p.update(:valide => true)
-    filename = "fact_"+@p.created_at.to_s
-    save_path = Rails.root.join('public/factures', "#{filename}.pdf")
-    piece_jointe = render_to_string :pdf => "facture"+@p.id.to_s+"u"+@p.user_id.to_s, :template => 'application/fact_pdf.pdf.erb'
-    # sauvegarde facture dans /factures
-    File.open(save_path, 'wb') do |file|
-      file << piece_jointe
+    if params[:commit] == "Paiement reçu"
+      @p = Paiement.find(params[:paiement])
+      @p.update(:valide => true)
+      filename = "fact_"+@p.created_at.to_s
+      save_path = Rails.root.join('public/factures', "#{filename}.pdf")
+      piece_jointe = render_to_string :pdf => "facture"+@p.id.to_s+"u"+@p.user_id.to_s, :template => 'application/fact_pdf.pdf.erb'
+      # sauvegarde facture dans /factures
+      File.open(save_path, 'wb') do |file|
+        file << piece_jointe
+      end
+      @user = User.find(@p.user_id)
+      @elefe_fact = Elefe.where(:user_id => @p.user_id).first
+      # envoi facture par mail à user
+      UserMailer.paiement_email(@user, piece_jointe).deliver_now
+      # UserMailer.paiement_email(@mestre, piece_jointe).deliver_now (Ne fonctionne pas car pas elefe associé)
+    elsif params[:commit] == "Annuler la commande"
+      puts "#################### COMMANDE ANNULE ###################"
+      p = Paiement.find(params[:id])
+      u = User.find(p.user_id)
+      UserMailer.annule_email(u).deliver_now
+
     end
-    @user = User.find(@p.user_id)
-    @elefe_fact = Elefe.where(:user_id => @p.user_id).first
-    # envoi facture par mail à user
-    UserMailer.paiement_email(@user, piece_jointe).deliver_now
-    # UserMailer.paiement_email(@mestre, piece_jointe).deliver_now (Ne fonctionne pas car pas elefe associé)
     redirect_to root_path
   end
 
