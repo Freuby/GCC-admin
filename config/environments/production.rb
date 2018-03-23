@@ -98,7 +98,7 @@ Rails.application.configure do
 
   # ActionMailer::Base.delivery_method = :file
   # ActionMailer::Base.file_settings = { :location => Rails.root.join('tmp/mail') }
-  # ActionMailer::Base.perform_deliveries = true
-  # ActionMailer::Base.raise_delivery_errors = true
-  # ActionMailer::Base.default charset: "utf-8"
+  ActionMailer::Base.perform_deliveries = true
+  ActionMailer::Base.raise_delivery_errors = true
+  ActionMailer::Base.default charset: "utf-8"
 end
