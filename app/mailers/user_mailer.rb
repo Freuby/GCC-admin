@@ -3,6 +3,12 @@ class UserMailer < ApplicationMailer
   	default template_path: 'devise/mailer' # to make sure that your mailer uses the devise views
   default from: 'marcelo@grupoculturacapoeira.com'
 
+
+	def confirmation_instructions(record, token, opts={})
+    @token = token
+    devise_mail(record, :confirmation_instructions, opts)
+  end
+
   def paiement_email(user, pj)
     @user_fact = user
     @elefe_fact = Elefe.where(:user_id => user.id).first
