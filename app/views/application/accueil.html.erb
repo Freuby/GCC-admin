@@ -110,6 +110,10 @@
           <ul>
             <% p.commandes.each do |com| %>
                 <li><%= com.description %> | <%= number_to_currency(com.montant, unit: "", separator: ",", delimiter: "") %> euros</li>
+                <% if com.com_batigrado_id %>
+                    <% combat = ComBatigrado.find(com.com_batigrado_id) %>
+                    <p><%= combat.nom %> <%= combat.prenom %></p>
+                <% end %>
             <% end %>
           </ul>
           </div>
@@ -151,7 +155,7 @@
         <br/>
         <% if !@current_elefe %>
             <div class="text-center">
-                <%= link_to "Remplir le formulaire d'affiliation en ligne", new_elefe_path, class:  "btn btn-outline-primary btn-lg btn-block" %>
+               <!--  <%= link_to "Remplir le formulaire d'affiliation en ligne", new_elefe_path, class:  "btn btn-outline-primary btn-lg btn-block" %> -->
             </div>
             <br/>
         <% elsif @eleves_current_user != nil %>

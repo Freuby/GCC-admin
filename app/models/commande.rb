@@ -1,6 +1,6 @@
 class Commande < ApplicationRecord
   belongs_to :user
-  belongs_to :paiement
+  belongs_to :paiement, dependent: :destroy
   belongs_to :com_batigrado, dependent: :destroy
   belongs_to :ticket_repa, dependent: :destroy
   belongs_to :compdt, dependent: :destroy

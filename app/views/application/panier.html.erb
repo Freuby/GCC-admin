@@ -20,7 +20,14 @@
             <td class="text-right"><%= number_to_currency(com.montant, unit: "", separator: ",", delimiter: "") %></td>
             <td class="text-right">
                 <% if com.sold == true %><p>réglement envoyé</p>
-                <% else %><p class="blink_text">réglement à effectuer</p><%= link_to 'Supprimer', commande_path(com), method: :delete, data: { confirm: 'Êtes-vous sûr?' } %>
+                    <% paiement = Paiement.find(com.paiement_id) if Paiement.exists?(com.paiement_id)  %>
+                    <% if paiement %>
+                        <% if paiement.valide %><p>réglement reçu</p><% end %>
+                    <% end %>
+                <% else %><p class="blink_text">réglement à effectuer</p>
+                <% end %>
+                <% if paiement %>
+                    <% if !paiement.valide %><%= link_to 'Annuler', commande_path(com), method: :delete, data: { confirm: 'Êtes-vous sûr?' } %><% end %>
                 <% end %>
             </td>
         </tr>
@@ -51,7 +58,7 @@
                 <%= f.submit :famille, value: @txt_fam, data: { confirm: "Êtes-vous sûr de vouloir appliquer l'option famille ?"  }, class: "btn btn-success btn-lg" %>
             <% end %>
             <br/><br/>
-            <%= f.submit :sold, value: "Régler vos commandes", class: "btn btn-primary btn-lg", id: "submit" %>
+            <%= f.submit :sold, value: "Régler vos commandes", data: { confirm: "Valider votre paiement ?"  }, class: "btn btn-primary btn-lg", id: "submit" %>
         </div>
     </div>
 <% end %>
@@ -68,7 +75,7 @@ if ($('#paypal-button').length != 0) {
 
         client: {
             sandbox:    'AZWM2qaytFDXYhmE1qOTe6WbGWSXj7ZAWOnYJIDrz6dheLhO_dToYkbF9HCA46ftqngByO8yXjiu43Cd',
-            production: 'AQgewOy4dukgM0wDCXaGq9ebZOPw6AucEiBXlfJ6-xr475LVjCZY99ah1aGLktcJa1dFwWtKso9tQN1I'
+            production: 'ALusiKO6AHz5Fgy.kbENwXa6sN9vAG7-yJ8C8j37ZhAMh2dZMzojQVic'
         },
 
         commit: true, // Show a 'Pay Now' button

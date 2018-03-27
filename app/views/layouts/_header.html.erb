@@ -87,21 +87,13 @@
                                     </div>
                                 </li>
                 <% elsif current_user.admin == 0 %>
-                                <li class="dropdown">
+                                <!-- <li class="dropdown">
                                 <a class="nav-link dropdown-toggle <% if current_page?(new_elefe_path) || current_page?(eleves_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Affiliation</a>
                                     <div class="dropdown-menu">
                                         <%= link_to "Créer une fiche", new_elefe_path, class:  "dropdown-item" %>
                                         <%= link_to "Mes fiches", eleves_path, class:  "dropdown-item" %>
                                     </div>
-                                </li>
-                                <% if @current_elefe %>
-                                            <li class="dropdown">
-                                            <a class="nav-link dropdown-toggle <% if current_page?(tpsentrainement_path) || current_page?(rei_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ma capoeira</a>
-                                                <div class="dropdown-menu">
-                                                    <%= link_to "Temps d'entraînement", tpsentrainement_path, class:  "dropdown-item" %>
-                                                    <%= link_to "REI", rei_path, class:  "dropdown-item" %>
-                                                </div>
-                                            </li>
+                                </li> -->
                                     <% last_batigrado = Batigrado.last %>
                                     <% if last_batigrado %>
                                         <% if  !last_batigrado.date_bat.past? %>
@@ -114,6 +106,14 @@
                                             </li>
                                         <% end %>
                                     <% end %>
+                                <% if @current_elefe %>
+                                            <li class="dropdown">
+                                            <a class="nav-link dropdown-toggle <% if current_page?(tpsentrainement_path) || current_page?(rei_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ma capoeira</a>
+                                                <div class="dropdown-menu">
+                                                    <%= link_to "Temps d'entraînement", tpsentrainement_path, class:  "dropdown-item" %>
+                                                    <%= link_to "REI", rei_path, class:  "dropdown-item" %>
+                                                </div>
+                                            </li>
                                     <% repasgcc = @repasgccs.last %>
                                     <% if repasgcc %>
                                         <% if  !repasgcc.date_repas.past? %>

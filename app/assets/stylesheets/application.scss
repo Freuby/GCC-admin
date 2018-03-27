@@ -90,6 +90,18 @@ a.active::before {
   text-decoration: underline;
 }
 
+#submit {
+  display: none;
+}
+
+#batiasso {
+  display: none;
+}
+
+#taillepant {
+  display: none;
+}
+
 #datepres:hover ~ .visonhover {
   display: block;
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312160504) do
+ActiveRecord::Schema.define(version: 20180327191043) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20180312160504) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.integer  "batiasso_id"
   end
 
   create_table "com_batigrados", force: :cascade do |t|
@@ -56,6 +57,11 @@ ActiveRecord::Schema.define(version: 20180312160504) do
     t.datetime "updated_at",   null: false
     t.integer  "batigrado_id"
     t.integer  "elefe_id"
+    t.integer  "hbesoin"
+    t.integer  "hprop"
+    t.string   "hadresse"
+    t.string   "htelephone"
+    t.string   "gradactu"
     t.index ["batigrado_id"], name: "index_com_batigrados_on_batigrado_id"
     t.index ["elefe_id"], name: "index_com_batigrados_on_elefe_id"
   end

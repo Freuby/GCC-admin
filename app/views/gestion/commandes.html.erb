@@ -27,7 +27,7 @@
             <th><%= c.description %></th>
             <th class="text-right"><%= number_to_currency(c.montant, unit: "", separator: ",", delimiter: "") %></th>
             <th class="text-center">
-                <% if c.paiement_id %>
+                <% if c.paiement_id  && Paiement.exists?(c.paiement_id) %>
                     <%= Paiement.find(c.paiement_id) ? 'oui' : 'non' %>
                 <% end %>
             </th>

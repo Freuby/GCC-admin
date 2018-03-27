@@ -34,9 +34,11 @@ class ComBatigradosController < ApplicationController
         nom = nompren[0]
         prenom = nompren[1]
       else
+        @gcc = false
         @nom_ext = params[:resp][:nom]
         @prenom_ext = params[:resp][:prenom]
-        @grupo_ext = params[:resp][:nom_grupo]
+        @grupo = "Grupo Cultura Capoeira" if params[:resp][:nom_grupo] == "Grupo Cultura Capoeira"
+        @grupo = params[:resp][:grupo] if params[:resp][:nom_grupo] == "autre"
         @com_batigrado = ComBatigrado.new
         b = @batigrados.find(@even_sel)
         nom = @nom_ext
@@ -59,32 +61,42 @@ class ComBatigradosController < ApplicationController
   # POST /com_batigrados
   # POST /com_batigrados.json
   def create
-    @eleves_all = @eleves.where(:user_id => current_user.id).all
-    @elefe = @eleves_all.where(:nom => params[:com_batigrado][:nom], :prenom => params[:com_batigrado][:prenom])
-    b = @batigrados.find(params[:com_batigrado][:even_sel])
-      params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == '1' ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
-      if @elefe.exists? #Eleve du GCC
-        b.com_batigrados << @elefe[0].com_batigrados.create(com_batigrado_params)
-        current_user.commandes << Commande.create(description: b.titre, montant: params[:com_batigrado][:montant])
+    b = @batigrados.find(params[:even_sel])
+    if params[:com_batigrado][:bati2] == "1" # CREER UN COM_BATIGRADO DU BATIGRADO ASSOCIE
+        basso = @batigrados.find(b.batiasso_id)
+        basso.com_batigrados << ComBatigrado.create(nom: params[:com_batigrado][:nom], prenom: params[:com_batigrado][:prenom],nom_grupo: params[:com_batigrado][:nom_grupo], email: params[:com_batigrado][:email], ttshirt: params[:com_batigrado][:ttshirt], tpant: params[:com_batigrado][:tpant], bati1: params[:com_batigrado][:bati1], bati2: params[:com_batigrado][:bati2], gradup: false, repas1: params[:arepas1], repas2: params[:arepas2], repas3: params[:arepas3], soiree: params[:asoiree], montant: b.tarif2, hbesoin: params[:ahbesoin], hprop: params[:ahprop], hadresse: params[:ahadresse], htelephone: params[:ahtelephone], gradactu: params[:com_batigrado][:gradactu])
+        current_user.commandes << Commande.create(description: basso.titre, montant: b.tarif2)
         @com_batigrado = ComBatigrado.last
         @com_batigrado.commandes << current_user.commandes.last
-        respond_to do |format|
-        if @com_batigrados
-            format.html { redirect_to @com_batigrado, notice: "Votre demande d'inscription a bien été enregistrée." }
-            format.json { render :show, status: :created, location: @com_batigrado }
-          else
-            format.html { render :new }
-            format.json { render json: @com_batigrado.errors, status: :unprocessable_entity }
-          end
-        end
-      else  #Eleve exterieur
-        params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif_ext
+        params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == '1' ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
+    end
+   # @eleves_all = @eleves.where(:user_id => current_user.id).all
+   # @elefe = @eleves_all.where(:nom => params[:com_batigrado][:nom], :prenom => params[:com_batigrado][:prenom])
+
+     # params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == '1' ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
+     # if @elefe.exists? #Eleve du GCC
+     #   b.com_batigrados << @elefe[0].com_batigrados.create(com_batigrado_params)
+     #   current_user.commandes << Commande.create(description: b.titre, montant: params[:com_batigrado][:montant])
+      #  @com_batigrado = ComBatigrado.last
+      #  @com_batigrado.commandes << current_user.commandes.last
+      #  respond_to do |format|
+      #  if @com_batigrados
+       #     format.html { redirect_to @com_batigrado, notice: "Votre demande d'inscription a bien été enregistrée." }
+       #     format.json { render :show, status: :created, location: @com_batigrado }
+       #   else
+       #     format.html { render :new }
+       #     format.json { render json: @com_batigrado.errors, status: :unprocessable_entity }
+       #   end
+       # end
+     # else  #Eleve exterieur
+        # params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif_ext
+        params[:com_batigrado][:montant] = b.tarif1
         b.com_batigrados << ComBatigrado.create(com_batigrado_params)
-        current_user.commandes << Commande.create(description: b.titre, montant: params[:com_batigrado][:montant])
+        current_user.commandes << Commande.create(description: b.titre, montant: b.tarif1)
         @com_batigrado = ComBatigrado.last
         @com_batigrado.commandes << current_user.commandes.last
         respond_to do |format|
-          if @com_batigrados
+          if @com_batigrado.save
             format.html { redirect_to @com_batigrado, notice: "Votre demande d'inscription a bien été enregistrée." }
             format.json { render :show, status: :created, location: @com_batigrado }
           else
@@ -92,7 +104,7 @@ class ComBatigradosController < ApplicationController
             format.json { render json: @com_batigrado.errors, status: :unprocessable_entity }
           end
         end
-      end
+     # end
   end
 
   # PATCH/PUT /com_batigrados/1
@@ -100,7 +112,7 @@ class ComBatigradosController < ApplicationController
   def update
     @eleves_all = @eleves.where(:user_id => current_user.id).all
     @elefe = @eleves_all.where(:nom => params[:com_batigrado][:nom], :prenom => params[:com_batigrado][:prenom])
-    b = @batigrados.find(params[:com_batigrado][:even_sel])
+    b = @batigrados.find(params[:even_sel])
 
     if @elefe.exists? #Eleve du GCC
       params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == '1' ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
@@ -137,6 +149,6 @@ class ComBatigradosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def com_batigrado_params
-      params.require(:com_batigrado).permit(:nom, :prenom, :nom_grupo, :email, :ttshirt, :tpant, :bati1, :bati2, :gradup, :repas1, :repas2, :repas3, :soiree, :montant, :reglt)
+      params.require(:com_batigrado).permit(:nom, :prenom, :nom_grupo, :email, :ttshirt, :tpant, :bati1, :bati2, :gradup, :repas1, :repas2, :repas3, :soiree, :montant, :reglt, :hbesoin, :hprop, :hadresse, :htelephone, :gradactu)
     end
 end

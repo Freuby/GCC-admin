@@ -1,6 +1,5 @@
 class UserMailer < ApplicationMailer
 	include Devise::Mailers::Helpers
-  	default template_path: 'devise/mailer' # to make sure that your mailer uses the devise views
   default from: 'marcelo@grupoculturacapoeira.com'
 
 

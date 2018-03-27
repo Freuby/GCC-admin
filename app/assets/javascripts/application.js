@@ -23,6 +23,51 @@ var code;
 
 document.addEventListener("turbolinks:load", function() {
 
+// -- panier -- Affichage bouton Régler Commandes quand sélection paiement
+
+$("#mode_paie").click(function(event) {
+   $("#submit").css("display", "inline");
+});
+
+// -- Com_batigrado -- Controle champs nom prenom et grupo
+
+$("#subevent").click(function(event) {
+    if ( !$("#resp_nom").val() && !$("#resp_prenom").val() ) {
+        alert("Les champs nom et prénom sont obligatoires");
+        event.preventDefault();
+    }
+    if ( $("#resp_nom_grupo_autre").is(":checked") ) {
+        if ( !$("#resp_grupo").val() ) {
+            alert("Vous devez noter le nom de votre groupe de capoeira");
+            event.preventDefault();
+        }
+    }
+});
+
+// -- Com_batigrado -- Affichage de taille pantalon quand demande changt grade
+
+$("#com_batigrado_gradup").change(function () {
+    if ( $("#com_batigrado_gradup").is(":checked")) {
+        $("#taillepant").css('display', 'block');
+    }
+    else {
+        $("#taillepant").css('display', 'none');
+    }
+});
+
+// -- Com_batigrado -- Affichage id batiasso qd 2 batigrados associés
+
+$("#com_batigrado_bati2").change(function () {
+    if ($("#com_batigrado_bati2").is(":checked")) {
+        $("#batiasso").css('display', 'block');
+    }
+    else {
+        $("#batiasso").css('display', 'none');
+    }
+});
+
+// -- Formulaire elefe --
+
 $('#code').change().codePostal(function (cities) {
       if(cities.length) {
         $('#city').empty();

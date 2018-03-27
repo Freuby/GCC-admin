@@ -1,4 +1,6 @@
-<p>Merci <%= @com_batigrado.prenom %> pour votre inscription,</p>
+<br/>
+<h5>Merci <%= @com_batigrado.prenom %> pour votre inscription,</h5>
+<br/>
 <p>Vous avez réservé :</p>
 <ul>
     <li>un t-shirt taille <%= @com_batigrado.ttshirt %></li>
@@ -8,7 +10,15 @@
     <% if @com_batigrado.repas2 == true %><li>le petit déjeuner</li><% end %>
     <% if @com_batigrado.repas3 == true %><li>le repas du dimanche midi</li><% end %>
 </ul>
-<% if @com_batigrado.bati2 == true %><p>Vous participez aussi au 2ème batigrado lié au <%= @batigrado.titre %>.<% end %>
+
+<% bat = Batigrado.find(@com_batigrado.batigrado_id) %>
+<p>Vous participez au <%= bat.titre %>. Nous vous donnons rendez-vous le samedi <%= bat.date_bat.strftime("%d/%m/%y") %> à 9h à cette adresse :</p>
+<strong>
+<p><%= simple_format(bat.adresse) %></p>
+<p><%= bat.cp %> <%= bat.ville %></p>
+</strong>
+
+<!-- <% if @com_batigrado.bati2 == true %><p>Vous participez aussi au 2ème batigrado lié au <%= @batigrado.titre %>.<% end %> -->
 <% if @com_batigrado.tpant %>Vous nous avez indiqué une taille de pantalon <%= @com_batigrado.tpant %> pour définir la taille de votre corde.</p><% end %>
 
 <% if !current_user.commandes.where(sold: true).all.any? { |com| com.com_batigrado_id == @com_batigrado.id } %>
@@ -17,7 +27,7 @@
         <br/>
         <p class="text-center"><%= link_to "Accèder à mes commandes", panier_path, class: "btn btn-outline-primary" %></p>
     <% else %>
-        <p>Afin de finaliser votre inscription au <strong><%= @batigrado.titre %></strong>, en tant que capoeiriste extérieur au Grupo Cultura Capoeira,  vous devrez régler un total de <strong><%= sprintf("%.2f", @com_batigrado.montant) %></strong> euros.</p>
+        <p>Pour de finaliser votre inscription, cliquez sur le panier ou sur le bouton <a href="<%= panier_path %>">Accéder à mes commandes</a>.</p>
         <br/>
         <p class="text-center"><%= link_to "S'incrire à un batigrado", new_com_batigrado_path, class: "btn btn-outline-primary" %></p>
         <p class="text-center"><%= link_to "Accèder à mes commandes", panier_path, class: "btn btn-outline-primary" %></p>

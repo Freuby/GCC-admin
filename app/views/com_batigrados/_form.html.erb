@@ -19,13 +19,24 @@
                  <%= f.label :nom, "Sélectionnez le nom de l'élève" %>
                  <%= f.select :nom, options_for_select(@eleves_all.map {|el| el.nom + ', ' + el.prenom}), {}, class: "form-control" %>
         <% else %>
+                <p>Entrer le nom et prénom du participant :</p>
                 <%= f.text_field :nom, class: "form-control", placeholder: "Entrez un nom" %>
                 <%= f.text_field :prenom, class: "form-control", placeholder: "Entrez un prénom" %>
-                <%= f.text_field :nom_grupo, class: "form-control", placeholder: "Entrez le nom de votre groupe" %>
+
+                  <div class="field">
+                    <%= f.label :nom_grupo, "Nom de votre groupe" %><br />
+                    <%= f.radio_button :nom_grupo, "Grupo Cultura Capoeira", :checked => true %>
+                    <%= f.label :nom_grupo, "Grupo Cultura Capoeira" %>
+
+                    <br/>
+                    <%= f.radio_button :nom_grupo, "autre" %>
+                    <%= f.text_field :grupo %>
+
+                  </div>
         <% end %>
         <br/>
         <div class="actions text-center">
-            <%= f.submit:go, value: "Valider", class: "btn btn-primary btn-lg" %>
+            <%= f.submit:go, value: "Valider", class: "btn btn-primary btn-lg", id: "subevent" %>
         </div>
     <% end %>
 <% end %>
@@ -60,35 +71,70 @@
         <%= f.hidden_field :nom, value: @nom_ext %>
         <%= f.hidden_field :prenom, value: @prenom_ext %>
         <%= f.hidden_field :email, value: current_user.email %>
-        <%= f.hidden_field :even_sel, value: @even_sel %>
-        <%= f.hidden_field :nom_grupo, value: @grupo_ext %>
-        <div class="field">
-            <%= f.label :ttshirt, "Taille de T-Shirt (ex: 8ans/S/M...)" %>
-            <%= f.text_field :ttshirt, class: "form-control" %>
-        </div>
+        <%= hidden_field_tag :even_sel, @even_sel %>
+        <%= f.hidden_field :nom_grupo, value: @grupo %>
+
+   <!--   <% if @batigrado.tarif_ext %>
+              <div class="field text-center">
+                <%= f.check_box :bati1 %>
+                <%= f.label :bati1, "Je participe au "+@batigrado.titre+" (Tarif: "+@batigrado.tarif_ext.to_s+" euros)" %>
+              </div>
+          <% end %> -->
+          <% if @batigrado.tarif1 %>
+              <p>Le tarif pour participer au <strong><%= @batigrado.titre %></strong> est de <strong><%= @batigrado.tarif1.to_s+" euros" %></strong>.</p>
+              <%= f.hidden_field :bati1, value: '1' %>
+         <!-- <div class="field text-center">
+                <%= f.check_box :bati1 %>
+                <%= f.label :bati1, "Je participe au "+@batigrado.titre+" (Tarif: "+@batigrado.tarif1.to_s+" euros" %>
+              </div> -->
+          <% end %>
+          <% if @batigrado.tarif2 %>
+              <% batiasso = Batigrado.find(@batigrado.batiasso_id) %>
+              <p>Vous pouvez profiter de participer aussi au <strong><%= batiasso.titre %></strong> pour seulement <strong><%= @batigrado.tarif2.to_s+" euros" %></strong> de plus.</p>
+              <% tarif2 = @batigrado.tarif1+@batigrado.tarif2 %>
+              <hr/>
+              <div class="field">
+                <h6 style="text-align: left;">
+                <%= f.check_box :bati2 %>
+                <%= f.label :bati2, "Je participe aux 2 évènements associés (Tarif: "+tarif2.to_s+" euros)" %>
+                </h6>
+              </div>
+          <% end %>
 
       <hr/>
       <!-- Demande taille corde pour un élève GCC non affilié -->
-      <p>Pour les élèves du Grupo Cultura Capoeira :</p>
+      <% if @grupo == "Grupo Cultura Capoeira" %>
+          <!-- <p>Pour les élèves du Grupo Cultura Capoeira :</p> -->
 
-      <div class="field">
-        <%= f.check_box :gradup %>
-        <%= f.label :gradup, "Je change de grade" %>
-      </div>
-      <br/>
-      <div class="field">
-        <%= f.label :tpant,"Infos pour graduation: Taille pantalon (ex: 8ans/36/42) (sert à définir la taille de la corde)" %>
-        <%= f.text_field :tpant, class: "form-control" %>
-      </div>
+          <div class="field">
+            <h6 style="text-align: left;">
+            <%= f.check_box :gradup %>
+            <%= f.label :gradup, "Je change de grade (pour les adultes, avoir fait sa demande de REI)" %>
+            </h6>
+          </div>
+
+          <div class="field" id="taillepant" >
+            <%= f.label :gradactu,"Sélectionner votre grade actuel :" %>
+              <br/>
+            <%= f.select :gradactu, @grades_adultes, class: "form-control" %>
+            <br/>
+            <%= f.label :tpant,"Infos pour graduation: Taille pantalon (sert à définir la taille de la corde) :" %>
+              <br/>
+            <%= f.select :tpant, @taille_pant, class: "form-control" %>
+          </div>
+       <% end %>
+
+        <hr/>
+        <div class="field">
+            <h6 style="text-align: left;">
+            <%= f.label :ttshirt, "Taille de T-Shirt" %>
+            <br/>
+            <%= f.select :ttshirt, @taille_tshirt, class: "form-control" %>
+            </h6>
+        </div>
 
         <hr/>
 
-          <% if @batigrado.tarif_ext %>
-          <div class="field text-center">
-            <%= f.check_box :bati1 %>
-            <%= f.label :bati1, "Je participe au "+@batigrado.titre+" (Tarif: "+@batigrado.tarif_ext.to_s+" euros)" %>
-          </div>
-          <% end %>
       <% end %>
 
       <% if com_batigrado %>  <!-- Edition et non création -->
@@ -96,7 +142,7 @@
             <%= f.hidden_field :nom, value: com_batigrado.nom %>
             <%= f.hidden_field :prenom, value: com_batigrado.prenom %>
             <%= f.hidden_field :email, value: current_user.email %>
-            <%= f.hidden_field :even_sel, value: @even_sel %>
+            <%= hidden_field_tag :even_sel, @even_sel %>
             <%= f.hidden_field :nom_grupo, value: com_batigrado.nom_grupo %>
         <% end %>
       <% end %>
@@ -107,7 +153,7 @@
         <%= f.hidden_field :nom, value: @elefe[0].nom %>
         <%= f.hidden_field :prenom, value: @elefe[0].prenom %>
         <%= f.hidden_field :email, value: current_user.email %>
-        <%= f.hidden_field :even_sel, value: @even_sel %>
+        <%= hidden_field_tag :even_sel, @even_sel %>
         <%= f.hidden_field :nom_grupo, value: "Grupo Cultura Capoeira" %>
 
         <div class="field">
@@ -146,9 +192,10 @@
 
 
     <% end %>
-
-      <hr/>
-      <p class="text-center">Informations complèmentaires pour nous aider à mieux préparer l'événement</p>
+          <br/>
+      <h4 class="text-center">Informations complèmentaires pour nous aider à mieux préparer l'événement</h4>
+          <br/> <br/>
+      <h5>Pour le <%= @batigrado.titre %> :</h5>
       <% if @batigrado.tar_rep1 %>
       <div class="field">
         <%= f.check_box :repas1 %>
@@ -170,17 +217,81 @@
       <% if @batigrado.tar_soiree %>
       <div class="field">
         <%= f.check_box :soiree %>
-        <%= f.label :repas3, "Vous pensez participer au repas de la soirée du samedi (prix moyen indicatif: "+@batigrado.tar_soiree.to_s+" euros)" %>
+        <%= f.label :repas3, "Vous pensez participer au repas de la soirée gratuite du samedi ("+@batigrado.tar_soiree.to_s+" euros si vous souhaitez profiter du repas)" %>
       </div>
       <% end %>
-
-  <!--    <div class="field">
-        <%= f.label :reglt, "Choisissez votre mode de réglement:" %>
-        <%= f.select :reglt, @reglements.collect { |g| [g, @reglements.index(g)] }, {}, class: "form-control" %>
-      </div> -->
-      <br/>
-      <div class="actions text-center">
-        <%= f.submit :go, value: "Valider", class: "btn btn-primary btn-lg" %>
+      <div class="field">
+        <%= f.label :hbesoin, "Si vous avez besoin d'un hébergement, entrer le nombre de places désirées :" %>
+        <%= f.number_field :hbesoin, min: 0 %>
       </div>
+      <div class="field">
+        <%= f.label :hprop, "Vous pouvez proposer d'accueillir des capoeiristes, entrer le nombre de places disponibles :" %>
+        <%= f.number_field :hprop, min: 0 %>
+      </div>
+      <div class="field">
+        <%= f.label :hadresse, "Adresse de votre hébergement :" %>
+        <%= f.text_area :hadresse, class: "form-control"  %>
+      </div>
+      <div class="field">
+        <%= f.label :htelephone, "Un numéro de téléphone où vous joindre :" %>
+        <%= f.text_field :htelephone, class: "form-control" %>
+      </div>
+
+      <br/>
+
+      <!-- BATIGRADO ASSOCIE -->
+      <div id="batiasso">
+          <% if @batigrado.tarif2 %>
+          <p></p>
+          <% batiasso = Batigrado.find(@batigrado.batiasso_id) %>
+          <h5>Pour le <%= batiasso.titre %> :</h5>
+
+          <% if batiasso.tar_rep1 %>
+          <div class="field">
+            <%= check_box_tag :arepas1 %>
+            <%= label :arepas1, "Vous pensez commander un repas le samedi midi (prix moyen indicatif: "+batiasso.tar_rep1.to_s+" euros)" %>
+          </div>
+          <% end %>
+          <% if batiasso.tar_rep2 %>
+          <div class="field">
+            <%= check_box_tag :arepas2 %>
+            <%= label :arepas2, "Vous pensez commander un petit-déjeuner le dimanche matin (prix moyen indicatif: "+batiasso.tar_rep2.to_s+" euros)" %>
+          </div>
+          <% end %>
+          <% if batiasso.tar_rep3 %>
+          <div class="field">
+            <%= check_box_tag :arepas3 %>
+            <%= label :arepas3, "Vous pensez commander un repas le dimanche midi (prix moyen indicatif: "+batiasso.tar_rep3.to_s+" euros)" %>
+          </div>
+          <% end %>
+          <% if batiasso.tar_soiree %>
+          <div class="field">
+            <%= check_box_tag :asoiree %>
+            <%= label :arepas3, "Vous pensez participer au repas de la soirée gratuite du samedi ("+batiasso.tar_soiree.to_s+" euros si vous souhaitez profiter du repas)" %>
+          </div>
+          <% end %>
+          <div class="field">
+            <%= label :ahbesoin, "Si vous avez besoin d'un hébergement, entrer le nombre de places désirées :" %>
+            <%= number_field_tag :ahbesoin, min: 0 %>
+          </div>
+          <div class="field">
+            <%= label :ahprop, "Vous pouvez proposer d'accueillir des capoeiristes, entrer le nombre de places disponibles :" %>
+            <%= number_field_tag :ahprop, min: 0 %>
+          </div>
+          <div class="field">
+            <%= label :ahadresse, "Adresse de votre hébergement :" %>
+            <%= text_area_tag :ahadresse  %>
+          </div>
+          <div class="field">
+            <%= label :ahtelephone, "Un numéro de téléphone où vous joindre :" %>
+            <%= text_field_tag :ahtelephone %>
+          </div>
+      </div>
+          <br/>
+          <div class="actions text-center">
+            <%= f.submit :go, value: "Valider", class: "btn btn-primary btn-lg" %>
+          </div>
+
+    <% end %>
    <% end %>
 <% end %>

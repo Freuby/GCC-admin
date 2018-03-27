@@ -20,6 +20,9 @@
 <p>
   <strong>Tarif:</strong>
   <%= @batigrado.tarif1.round+@batigrado.tarif2.round %> euros pour 2 évènements
+  <% b = Batigrado.find(@batigrado.batiasso_id) %>
+   <p></p>
+  <strong>Batigrado associé : </strong><%= b.titre %>
 </p>
 <% end %>
 <% if @batigrado.tarif_ext %>

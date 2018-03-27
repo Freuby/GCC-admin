@@ -48,19 +48,25 @@
   </div>
   <hr/>
   <div class="row">
-      <div class="field col-4">
+      <div class="field col-6">
         <%= f.label :tarif1, "Tarif pour un batigrado" %>
         <%= f.number_field :tarif1, class: "form-control", step: 0.1 %>
       </div>
-
-      <div class="field col-4">
-        <%= f.label :tarif2, "Tarif du deuxième batigrado" %>
-        <%= f.number_field :tarif2, class: "form-control", step: 0.1 %>
-      </div>
-
-      <div class="field col-4">
+      <div class="field col-6">
         <%= f.label :tarif_ext, "Tarif pour les capoeiristes extérieurs" %>
         <%= f.number_field :tarif_ext, class: "form-control", step: 0.1 %>
+      </div>
+  </div>
+  <div class="row">
+      <div class="field col-6">
+        <%= f.label :tarif2, "Tarif du deuxième batigrado associé" %>
+        <%= f.number_field :tarif2, class: "form-control", step: 0.1 %>
+      </div>
+      <div class="field col-6">
+        <%= f.label :batiasso_id, "Sélectionner le batigrado associé" %>
+          <br/>
+        <% b = @batigrados.where.not(id: @batigrado.id).all %>
+        <%= f.select :batiasso_id, b.collect { |g| [g.titre, g.id] }, class: "form-control"  %>
       </div>
   </div>
   <hr/>

@@ -129,7 +129,11 @@ require "yaml"
       p = Paiement.find(params[:id])
       u = User.find(p.user_id)
       UserMailer.annule_email(u).deliver_now
-
+      commandes = Commande.where(paiement_id: params[:id]).all
+      commandes.each do |c|
+        c.update(sold: false)
+      end
+      Paiement.find(params[:id]).destroy
     end
     redirect_to root_path
   end
@@ -142,6 +146,8 @@ require "yaml"
     @grades_adultes = ["Enfant débutant", "Enfant gradé", "Adulte Débutant", "1e corda", "2e corda", "3e corda", "4e corda", "5e corda", "Estagiário", "Monitor", "Instrutor", "Contramestre", "Mestre Edificador", "Mestre Digno"]
     @reglements = ["Espèces", "Chèque", "Tickets CAF", "Chèques vacances ANCV", "Autres", "Paypal ou CB"]
     @GCC_connait = ["Démonstration","Moteur de recherche internet", "Site", "Affiche/Flyer", "Par un ami", "Vidéo", "Autre"]
+    @taille_tshirt = ["4 ans", "6 ans", "8 ans", "10 ans", "12 ans", "S Femme", "M Femme", "L Femme", "S Homme", "M Homme", "L Homme", "XL Homme", "XXL Homme", "XXXL Homme"]
+    @taille_pant = ["4 ans", "6 ans", "8 ans", "10 ans", "12 ans", "34-36", "38-40", "42-44", "46-48"]
     @tarif = [190, 230, 140, 180, 0]
     t = Time.now
     @date_fondation = Date.new(2001, 9, 1)
