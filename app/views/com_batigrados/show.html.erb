@@ -18,8 +18,30 @@
 <p><%= bat.cp %> <%= bat.ville %></p>
 </strong>
 
-<!-- <% if @com_batigrado.bati2 == true %><p>Vous participez aussi au 2ème batigrado lié au <%= @batigrado.titre %>.<% end %> -->
+<% if @com_batigrado.bati2 == true %>
+    <% batiasso = Batigrado.find(bat.batiasso_id) %>
+    <p>Vous participez aussi au <%= batiasso.titre %>. Nous vous donnons rendez-vous le samedi <%= batiasso.date_bat.strftime("%d/%m/%y") %> à 9h à cette adresse :</p>
+    <strong>
+    <p><%= simple_format(batiasso.adresse) %></p>
+    <p><%= batiasso.cp %> <%= batiasso.ville %></p>
+    </strong>
+<% end %>
+
 <% if @com_batigrado.tpant %>Vous nous avez indiqué une taille de pantalon <%= @com_batigrado.tpant %> pour définir la taille de votre corde.</p><% end %>
+
+<% if @com_batigrado.hbesoin %>
+    <p>Nous avons bien noté que vous avez besoin de <%= @com_batigrado.hbesoin %> place(s) d'hébergement pour le <%= bat.titre %>. Nous vous tiendrons informés par mail des possibilités d'accueil.</p>
+<% end %>
+
+<% if @com_batigrado.hprop %>
+    <p>Nous vous remercions beaucoup pour votre proposition de <%= @com_batigrado.hprop %> place(s) d'hébergement pour le <%= bat.titre %>.</p>
+    <p>Vous nous avez donné cette adresse :</p>
+    <p><%= simple_format(@com_batigrado.hadresse) %></p>
+    <p> Et ce numéro de téléphone : <%= @com_batigrado.htelephone %></p>
+<% end %>
+<% if @com_batigrado.bati2 == true %>
+    <p>Pour le <%= batiasso.titre %>, vous pouvez retrouver les informations d'hébergement dans <%= link_to "Mes Batigrados", com_batigrados_path %></p>
+<% end %>
 
 <% if !current_user.commandes.where(sold: true).all.any? { |com| com.com_batigrado_id == @com_batigrado.id } %>
     <% if @com_batigrado.elefe_id %>

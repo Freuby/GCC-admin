@@ -71,7 +71,7 @@ if ($('#paypal-button').length != 0) {
     var paiement = String($('#montant').text().replace(",","."));
 
     paypal.Button.render({
-        env: 'sandbox', // Or 'sandbox' or 'production',
+        env: 'production', // Or 'sandbox' or 'production',
 
         client: {
             sandbox:    'AZWM2qaytFDXYhmE1qOTe6WbGWSXj7ZAWOnYJIDrz6dheLhO_dToYkbF9HCA46ftqngByO8yXjiu43Cd',
