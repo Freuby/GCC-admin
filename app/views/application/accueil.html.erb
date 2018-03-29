@@ -145,14 +145,25 @@
                 <p class="text-center"><%= link_to "Accèder à mes commandes", panier_path, class: "btn btn-outline-primary" %></p>
             <% end %>
             <% if !@current_elefe %>
-            <p>Nous vous invitons à vous affilier à l'association par le biais du formulaire en ligne, et d'y joindre les pièces justificatives.</p>
+           <!-- <p>Nous vous invitons à vous affilier à l'association par le biais du formulaire en ligne, et d'y joindre les pièces justificatives.</p>
             <br/>
             <p>Vous avez également la possibilité de vous inscrire aux divers événements proposés par l'association.</p>
             <br/>
-            <p>Les formulaires d'inscription aux événements apparaitront dès leurs créations.</p>
+            <p>Les formulaires d'inscription aux événements apparaitront dès leurs créations.</p> -->
+            <p>Les inscriptions aux Batigrados de Laval et Allonnes sont ouvertes !</p>
+            <div style="border: 1px solid black; margin: 10px; padding: 15px; text-align: left;">
+                <h6 style="text-decoration: underline;"><strong>ATTENTION</strong></h6>
+                <p><strong>Jusqu'au 20 avril :</strong></p>
+                <p>Le tarif pour un Batigrado est de 50 euros et de 75 euros pour la participation de la même personne au 2ème Batigrado.</p>
+                <p><strong>A partir du 21 avril :</strong></p>
+                <p>Le tarif pour un Batigrado sera de 75 euros et de 100 euros pour la participation de la même personne au 2ème Batigrado.</p>
+                <p><strong>A partir du 3 mai :</strong></p>
+                <p>Nous ne pourrons plus réaliser votre t-shirt.</p>
+            </div>
+
             <% end %>
         </div>
-        <br/>
+
         <% if !@current_elefe %>
             <div class="text-center">
                <!--  <%= link_to "Remplir le formulaire d'affiliation en ligne", new_elefe_path, class:  "btn btn-outline-primary btn-lg btn-block" %> -->
@@ -200,7 +211,7 @@
                     <% if p.valide == true %>
                         reçu
                     <% else %>
-                        <span class="blink_text"> en cours</span>
+                        <span class="blink_text"> en cours</span> - <%= link_to "Annuler ma commande", panier_path %>
                     <% end %>
                 </li>
             <% end %>

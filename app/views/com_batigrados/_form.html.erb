@@ -12,7 +12,7 @@
             <% else %>
                 <%= f.radio_button :sel_bat, batigrado.id %>
             <% end %>
-            <%= f.label :sel_bat, batigrado.titre, value: batigrado.id %>
+            <%= f.label :sel_bat, batigrado.titre + ' - Les ' + batigrado.date_bat.strftime("%d") + ' et ' + batigrado.date_bat.tomorrow.strftime("%d/%m/%Y"), value: batigrado.id %>
         <% end %>
         <br/>
         <% if @eleves_all.exists? %>
@@ -81,7 +81,7 @@
               </div>
           <% end %> -->
           <% if @batigrado.tarif1 %>
-              <p>Le tarif pour participer au <strong><%= @batigrado.titre %></strong> est de <strong><%= @batigrado.tarif1.to_s+" euros" %></strong>.</p>
+              <p>Le tarif pour participer au <strong><%= @batigrado.titre %></strong> est de <strong><%= number_to_currency(@batigrado.tarif1, unit: "", separator: ",", delimiter: "")+" euros" %></strong>.</p>
               <%= f.hidden_field :bati1, value: '1' %>
          <!-- <div class="field text-center">
                 <%= f.check_box :bati1 %>
@@ -90,13 +90,13 @@
           <% end %>
           <% if @batigrado.tarif2 %>
               <% batiasso = Batigrado.find(@batigrado.batiasso_id) %>
-              <p>Vous pouvez profiter de participer aussi au <strong><%= batiasso.titre %></strong> pour seulement <strong><%= @batigrado.tarif2.to_s+" euros" %></strong> de plus.</p>
+              <p>Vous pouvez profiter de participer aussi au <strong><%= batiasso.titre %></strong> pour seulement <strong><%= number_to_currency(@batigrado.tarif2, unit: "", separator: ",", delimiter: "")+" euros" %></strong> de plus.</p>
               <% tarif2 = @batigrado.tarif1+@batigrado.tarif2 %>
               <hr/>
               <div class="field">
                 <h6 style="text-align: left;">
                 <%= f.check_box :bati2 %>
-                <%= f.label :bati2, "Je participe aux 2 évènements associés (Tarif: "+tarif2.to_s+" euros)" %>
+                <%= f.label :bati2, "Je participe aux 2 évènements associés (Tarif: "+number_to_currency(tarif2, unit: "", separator: ",", delimiter: "")+" euros)" %>
                 </h6>
               </div>
           <% end %>
@@ -109,7 +109,7 @@
           <div class="field">
             <h6 style="text-align: left;">
             <%= f.check_box :gradup %>
-            <%= f.label :gradup, "Je change de grade (pour les adultes, avoir fait sa demande de REI)" %>
+            <%= f.label :gradup, "Je change de grade (pour les adultes gradés, avoir fait sa demande de REI)" %>
             </h6>
           </div>
 
@@ -199,25 +199,29 @@
       <% if @batigrado.tar_rep1 %>
       <div class="field">
         <%= f.check_box :repas1 %>
-        <%= f.label :repas1, "Vous pensez commander un repas le samedi midi (prix moyen indicatif: "+@batigrado.tar_rep1.to_s+" euros)" %>
+        <%= f.label :repas1, "Vous pensez commander un repas le samedi midi (prix moyen indicatif: "+number_to_currency(@batigrado.tar_rep1, unit: "", separator: ",", delimiter: "")+" euros)" %>
       </div>
       <% end %>
       <% if @batigrado.tar_rep2 %>
       <div class="field">
         <%= f.check_box :repas2 %>
-        <%= f.label :repas2, "Vous pensez commander un petit-déjeuner le dimanche matin (prix moyen indicatif: "+@batigrado.tar_rep2.to_s+" euros)" %>
+        <%= f.label :repas2, "Vous pensez commander un petit-déjeuner le dimanche matin (prix moyen indicatif: "+number_to_currency(@batigrado.tar_rep2, unit: "", separator: ",", delimiter: "")+" euros)" %>
       </div>
       <% end %>
       <% if @batigrado.tar_rep3 %>
       <div class="field">
         <%= f.check_box :repas3 %>
-        <%= f.label :repas3, "Vous pensez commander un repas le dimanche midi (prix moyen indicatif: "+@batigrado.tar_rep3.to_s+" euros)" %>
+        <%= f.label :repas3, "Vous pensez commander un repas le dimanche midi (prix moyen indicatif: "+number_to_currency(@batigrado.tar_rep3, unit: "", separator: ",", delimiter: "")+" euros)" %>
       </div>
       <% end %>
       <% if @batigrado.tar_soiree %>
       <div class="field">
         <%= f.check_box :soiree %>
-        <%= f.label :repas3, "Vous pensez participer au repas de la soirée gratuite du samedi ("+@batigrado.tar_soiree.to_s+" euros si vous souhaitez profiter du repas)" %>
+        <%= f.label :soiree, "Vous pensez participer au repas de la soirée gratuite du samedi ("+number_to_currency(@batigrado.tar_soiree, unit: "", separator: ",", delimiter: "")+" euros si vous souhaitez profiter du repas)" %>
+        <div id="soirpay">
+            <%= f.check_box :soirpay %>
+            <%= f.label :soirpay, "Je paie mon repas pour la soirée dès maintenant" %>
+        </div>
       </div>
       <% end %>
       <div class="field">
@@ -249,25 +253,29 @@
           <% if batiasso.tar_rep1 %>
           <div class="field">
             <%= check_box_tag :arepas1 %>
-            <%= label :arepas1, "Vous pensez commander un repas le samedi midi (prix moyen indicatif: "+batiasso.tar_rep1.to_s+" euros)" %>
+            <%= label :arepas1, "Vous pensez commander un repas le samedi midi (prix moyen indicatif: "+number_to_currency(batiasso.tar_rep1, unit: "", separator: ",", delimiter: "")+" euros)" %>
           </div>
           <% end %>
           <% if batiasso.tar_rep2 %>
           <div class="field">
             <%= check_box_tag :arepas2 %>
-            <%= label :arepas2, "Vous pensez commander un petit-déjeuner le dimanche matin (prix moyen indicatif: "+batiasso.tar_rep2.to_s+" euros)" %>
+            <%= label :arepas2, "Vous pensez commander un petit-déjeuner le dimanche matin (prix moyen indicatif: "+number_to_currency(batiasso.tar_rep2, unit: "", separator: ",", delimiter: "")+" euros)" %>
           </div>
           <% end %>
           <% if batiasso.tar_rep3 %>
           <div class="field">
             <%= check_box_tag :arepas3 %>
-            <%= label :arepas3, "Vous pensez commander un repas le dimanche midi (prix moyen indicatif: "+batiasso.tar_rep3.to_s+" euros)" %>
+            <%= label :arepas3, "Vous pensez commander un repas le dimanche midi (prix moyen indicatif: "+number_to_currency(batiasso.tar_rep3, unit: "", separator: ",", delimiter: "")+" euros)" %>
           </div>
           <% end %>
           <% if batiasso.tar_soiree %>
           <div class="field">
             <%= check_box_tag :asoiree %>
-            <%= label :arepas3, "Vous pensez participer au repas de la soirée gratuite du samedi ("+batiasso.tar_soiree.to_s+" euros si vous souhaitez profiter du repas)" %>
+            <%= label :asoiree, "Vous pensez participer au repas de la soirée gratuite du samedi ("+number_to_currency(batiasso.tar_soiree, unit: "", separator: ",", delimiter: "")+" euros si vous souhaitez profiter du repas)" %>
+            <div id="assosoirpay">
+                <%= check_box_tag :asoirpay %>
+                <%= label :asoirpay, "Je paie mon repas pour la soirée dès maintenant" %>
+            </div>
           </div>
           <% end %>
           <div class="field">

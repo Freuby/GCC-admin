@@ -216,7 +216,7 @@ require "yaml"
   end
 
   def paiement_params
-    params.require(:paiement).permit(:montant, :mode_paie, :user_id, :valide)
+    params.require(:paiement).permit(:montant, :mode_paie, :user_id, :valide, :prenomfact, :nomfact, :addfact)
   end
 
 end

@@ -24,7 +24,9 @@
                     <% if paiement %>
                         <% if paiement.valide %><p>réglement reçu</p><% end %>
                     <% end %>
-                <% else %><p class="blink_text">réglement à effectuer</p>
+                <% else %>
+                    <p class="blink_text">réglement à effectuer</p>
+                    <%= link_to 'Annuler ma commande', commande_path(com), method: :delete, data: { confirm: 'Êtes-vous sûr?' } %>
                 <% end %>
                 <% if paiement %>
                     <% if !paiement.valide %><%= link_to 'Annuler', commande_path(com), method: :delete, data: { confirm: 'Êtes-vous sûr?' } %><% end %>
@@ -43,7 +45,7 @@
 
 <% if current_user.commandes.where(sold: false).all.any? %>
     <div class="row">
-        <div class="col-6 field">
+        <div class="col-12 col-md-6 field">
             <%= f.label :mode_paie, "Choisissez votre mode de réglement:" %> <p></p>
             <div class="text-center">
                 <div id="paypal-button"></div>
@@ -53,11 +55,16 @@
                 <%= f.hidden_field :valide, value: false %>
             </div>
         </div>
-        <div class="col-6 actions text-center">
+        <div class="col-12 col-md-6 actions text-center">
             <% if current_user.eleves.count > 1 && @txt_fam != "" %>
                 <%= f.submit :famille, value: @txt_fam, data: { confirm: "Êtes-vous sûr de vouloir appliquer l'option famille ?"  }, class: "btn btn-success btn-lg" %>
             <% end %>
-            <br/><br/>
+
+            <%= f.label :prenomfact, "Coordonnées facture :" %>
+            <%= f.text_field :prenomfact, placeholder: "Entrez un prénom", class: "form-control" %>
+            <%= f.text_field :nomfact, placeholder: "Entrez un nom", class: "form-control" %>
+            <%= f.text_area :addfact, placeholder: "Entrez une adresse", class: "form-control" %>
+                <br/>
             <%= f.submit :sold, value: "Régler vos commandes", data: { confirm: "Valider votre paiement ?"  }, class: "btn btn-primary btn-lg", id: "submit" %>
         </div>
     </div>

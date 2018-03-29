@@ -28,7 +28,8 @@
                             <%= @elefe_fact.rue %><br/>
                             <%= @elefe_fact.cp %> <%= @elefe_fact.ville %>
                         <% else %>
-                            Nom Prénom Adresse
+                            <%= @p.prenomfact %> <%= @p.nomfact %><br/>
+                            <%= simple_format(@p.addfact) %>
                         <% end %>
                     </h4>
         </div>

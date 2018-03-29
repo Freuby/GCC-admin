@@ -64,11 +64,11 @@ class ComBatigradosController < ApplicationController
     b = @batigrados.find(params[:even_sel])
     if params[:com_batigrado][:bati2] == "1" # CREER UN COM_BATIGRADO DU BATIGRADO ASSOCIE
         basso = @batigrados.find(b.batiasso_id)
-        basso.com_batigrados << ComBatigrado.create(nom: params[:com_batigrado][:nom], prenom: params[:com_batigrado][:prenom],nom_grupo: params[:com_batigrado][:nom_grupo], email: params[:com_batigrado][:email], ttshirt: params[:com_batigrado][:ttshirt], tpant: params[:com_batigrado][:tpant], bati1: params[:com_batigrado][:bati1], bati2: params[:com_batigrado][:bati2], gradup: false, repas1: params[:arepas1], repas2: params[:arepas2], repas3: params[:arepas3], soiree: params[:asoiree], montant: b.tarif2, hbesoin: params[:ahbesoin], hprop: params[:ahprop], hadresse: params[:ahadresse], htelephone: params[:ahtelephone], gradactu: params[:com_batigrado][:gradactu])
-        current_user.commandes << Commande.create(description: basso.titre, montant: b.tarif2)
+        basso.com_batigrados << ComBatigrado.create(nom: params[:com_batigrado][:nom], prenom: params[:com_batigrado][:prenom],nom_grupo: params[:com_batigrado][:nom_grupo], email: params[:com_batigrado][:email], ttshirt: params[:com_batigrado][:ttshirt], tpant: params[:com_batigrado][:tpant], bati1: params[:com_batigrado][:bati1], bati2: params[:com_batigrado][:bati2], gradup: false, repas1: params[:arepas1], repas2: params[:arepas2], repas3: params[:arepas3], soiree: params[:asoiree], montant: basso.tarif2+(params[:asoirpay] == '1' ? 1 : 0)*( basso.tar_soiree ? basso.tar_soiree : 0 ), hbesoin: params[:ahbesoin], hprop: params[:ahprop], hadresse: params[:ahadresse], htelephone: params[:ahtelephone], gradactu: params[:com_batigrado][:gradactu], soirpay: params[:asoirpay])
+        current_user.commandes << Commande.create(description: basso.titre, montant: basso.tarif2+(params[:asoirpay] == '1' ? 1 : 0)*( basso.tar_soiree ? basso.tar_soiree : 0 ))
         @com_batigrado = ComBatigrado.last
         @com_batigrado.commandes << current_user.commandes.last
-        params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == '1' ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
+        # params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif1 + (params[:com_batigrado][:bati2] == '1' ? 1 : 0)*( b.tarif2 ? b.tarif2 : 0 )
     end
    # @eleves_all = @eleves.where(:user_id => current_user.id).all
    # @elefe = @eleves_all.where(:nom => params[:com_batigrado][:nom], :prenom => params[:com_batigrado][:prenom])
@@ -90,9 +90,9 @@ class ComBatigradosController < ApplicationController
        # end
      # else  #Eleve exterieur
         # params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif_ext
-        params[:com_batigrado][:montant] = b.tarif1
+        params[:com_batigrado][:montant] = b.tarif1 + (params[:com_batigrado][:soirpay] == '1' ? 1 : 0)*( b.tar_soiree ? b.tar_soiree : 0 )
         b.com_batigrados << ComBatigrado.create(com_batigrado_params)
-        current_user.commandes << Commande.create(description: b.titre, montant: b.tarif1)
+        current_user.commandes << Commande.create(description: b.titre, montant: b.tarif1 + (params[:com_batigrado][:soirpay] == '1' ? 1 : 0)*( b.tar_soiree ? b.tar_soiree : 0 ))
         @com_batigrado = ComBatigrado.last
         @com_batigrado.commandes << current_user.commandes.last
         respond_to do |format|
@@ -149,6 +149,6 @@ class ComBatigradosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def com_batigrado_params
-      params.require(:com_batigrado).permit(:nom, :prenom, :nom_grupo, :email, :ttshirt, :tpant, :bati1, :bati2, :gradup, :repas1, :repas2, :repas3, :soiree, :montant, :reglt, :hbesoin, :hprop, :hadresse, :htelephone, :gradactu)
+      params.require(:com_batigrado).permit(:nom, :prenom, :nom_grupo, :email, :ttshirt, :tpant, :bati1, :bati2, :gradup, :repas1, :repas2, :repas3, :soiree, :montant, :reglt, :hbesoin, :hprop, :hadresse, :htelephone, :gradactu,:soirpay)
     end
 end

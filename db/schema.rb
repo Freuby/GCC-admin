@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180327191043) do
+ActiveRecord::Schema.define(version: 20180329130855) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20180327191043) do
     t.boolean  "soiree"
     t.float    "montant"
     t.string   "reglt"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "batigrado_id"
     t.integer  "elefe_id"
     t.integer  "hbesoin"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20180327191043) do
     t.string   "hadresse"
     t.string   "htelephone"
     t.string   "gradactu"
+    t.boolean  "soirpay",      default: false
     t.index ["batigrado_id"], name: "index_com_batigrados_on_batigrado_id"
     t.index ["elefe_id"], name: "index_com_batigrados_on_elefe_id"
   end
@@ -203,6 +204,9 @@ ActiveRecord::Schema.define(version: 20180327191043) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.string   "prenomfact"
+    t.string   "nomfact"
+    t.string   "addfact"
     t.index ["user_id"], name: "index_paiements_on_user_id"
   end
 

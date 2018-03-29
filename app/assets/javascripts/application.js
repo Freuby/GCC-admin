@@ -66,6 +66,27 @@ $("#com_batigrado_bati2").change(function () {
     }
 });
 
+// -- Com_batigrado -- Affichage id soiree qd particip repas
+
+$("#com_batigrado_soiree").change(function () {
+    if ($("#com_batigrado_soiree").is(":checked")) {
+        $("#soirpay").css('display', 'block');
+    }
+    else {
+        $("#soirpay").css('display', 'none');
+    }
+});
+
+// -- Com_batigrado -- Affichage id asoiree qd particip repas bati associe
+
+$("#asoiree").change(function () {
+    if ($("#asoiree").is(":checked")) {
+        $("#assosoirpay").css('display', 'block');
+    }
+    else {
+        $("#assosoirpay").css('display', 'none');
+    }
+});
 // -- Formulaire elefe --
 
 $('#code').change().codePostal(function (cities) {

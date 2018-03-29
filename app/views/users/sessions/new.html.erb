@@ -1,5 +1,13 @@
 <br/><br/>
 <div class="text-center">
+<h6>Bonjour, et bienvenue sur le site de l'association Grupo Cultura Capoeira</h6>
+    <br/>
+<p>Pour vous <strong>inscrire à un Batigrado</strong> vous devez d'abord <strong><%= link_to "créer un compte", new_registration_path(resource_name) %></strong>.</p>
+<p>Vous recevrez ensuite un mail de confirmation avec un lien qui vous permettra d'accèder aux inscriptions.</p>
+<p>Si vous rencontrez des difficultés vous pouvez envoyer un mail <a href="mailto: contact@artandteo.com"><strong>ICI</strong></a> ou contacter Monitora Caroline au <strong>06 70 32 46 66</strong></p>
+    <br/>
+    <p>Si votre compte est déjà activé vous pouvez vous connecter directement ci-dessous :</p>
+    <br/>
 <h2>Connexion</h2>
 <br />
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
