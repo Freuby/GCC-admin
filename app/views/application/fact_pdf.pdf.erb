@@ -23,14 +23,8 @@
                 <% @elefe_fact = Elefe.where(:user_id => @p.user_id).first %>
                     <h4>FACTURE du <%= @p.updated_at.strftime("%d/%m/%Y") %></h4>
                     <h4>
-                        <% if @elefe_fact != nil %>
-                            <%= @elefe_fact.prenom %> <%= @elefe_fact.nom %><br/>
-                            <%= @elefe_fact.rue %><br/>
-                            <%= @elefe_fact.cp %> <%= @elefe_fact.ville %>
-                        <% else %>
                             <%= @p.prenomfact %> <%= @p.nomfact %><br/>
                             <%= simple_format(@p.addfact) %>
-                        <% end %>
                     </h4>
         </div>
     </div>

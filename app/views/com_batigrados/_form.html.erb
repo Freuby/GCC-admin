@@ -1,6 +1,6 @@
 <% if com_batigrado %>
         <% @even_sel = com_batigrado.batigrado_id if com_batigrado.batigrado_id %>
-        <% @elefe = @eleves_all.where(:nom => com_batigrado.nom, :prenom => com_batigrado.prenom) if com_batigrado.nom%>
+        <% @elefe = @eleves_all.where(:nom => com_batigrado.nom, :prenom => com_batigrado.prenom) if com_batigrado.nom %>
 <% end %>
 <% if !@even_sel %>
     <%= form_for :resp, :url => {:action => "new"} do |f| %>
@@ -15,10 +15,7 @@
             <%= f.label :sel_bat, batigrado.titre + ' - Les ' + batigrado.date_bat.strftime("%d") + ' et ' + batigrado.date_bat.tomorrow.strftime("%d/%m/%Y"), value: batigrado.id %>
         <% end %>
         <br/>
-        <% if @eleves_all.exists? %>
-                 <%= f.label :nom, "Sélectionnez le nom de l'élève" %>
-                 <%= f.select :nom, options_for_select(@eleves_all.map {|el| el.nom + ', ' + el.prenom}), {}, class: "form-control" %>
-        <% else %>
+
                 <p>Entrer le nom et prénom du participant :</p>
                 <%= f.text_field :nom, class: "form-control", placeholder: "Entrez un nom" %>
                 <%= f.text_field :prenom, class: "form-control", placeholder: "Entrez un prénom" %>
@@ -33,7 +30,6 @@
                     <%= f.text_field :grupo %>
 
                   </div>
-        <% end %>
         <br/>
         <div class="actions text-center">
             <%= f.submit:go, value: "Valider", class: "btn btn-primary btn-lg", id: "subevent" %>
@@ -44,6 +40,7 @@
 <% if @even_sel %>
 
     <%= form_for(com_batigrado) do |f| %>
+
       <% if com_batigrado.errors.any? %>
         <div id="error_explanation" class="alert alert-danger" role="alert">
           <h2>Le formulaire ne peut pas être enregistré à cause de <%= pluralize(com_batigrado.errors.count, "erreur") %></h2>
@@ -64,7 +61,7 @@
       </div>
 
 
-      <% if !@elefe || !@elefe[0] %> <!-- Capoeiriste extérieur -->
+
         <p>Bonjour <%= @prenom_ext %>,</p>
         <p>C'est un grand plaisir de vous accueillir à notre batigrado.</p>
         <p>Merci de remplir la suite du formulaire ci-dessous pour vous inscrire.</p>
@@ -74,19 +71,9 @@
         <%= hidden_field_tag :even_sel, @even_sel %>
         <%= f.hidden_field :nom_grupo, value: @grupo %>
 
-   <!--   <% if @batigrado.tarif_ext %>
-              <div class="field text-center">
-                <%= f.check_box :bati1 %>
-                <%= f.label :bati1, "Je participe au "+@batigrado.titre+" (Tarif: "+@batigrado.tarif_ext.to_s+" euros)" %>
-              </div>
-          <% end %> -->
           <% if @batigrado.tarif1 %>
               <p>Le tarif pour participer au <strong><%= @batigrado.titre %></strong> est de <strong><%= number_to_currency(@batigrado.tarif1, unit: "", separator: ",", delimiter: "")+" euros" %></strong>.</p>
               <%= f.hidden_field :bati1, value: '1' %>
-         <!-- <div class="field text-center">
-                <%= f.check_box :bati1 %>
-                <%= f.label :bati1, "Je participe au "+@batigrado.titre+" (Tarif: "+@batigrado.tarif1.to_s+" euros" %>
-              </div> -->
           <% end %>
           <% if @batigrado.tarif2 %>
               <% batiasso = Batigrado.find(@batigrado.batiasso_id) %>
@@ -104,7 +91,6 @@
       <hr/>
       <!-- Demande taille corde pour un élève GCC non affilié -->
       <% if @grupo == "Grupo Cultura Capoeira" %>
-          <!-- <p>Pour les élèves du Grupo Cultura Capoeira :</p> -->
 
           <div class="field">
             <h6 style="text-align: left;">
@@ -135,63 +121,7 @@
 
         <hr/>
 
-      <% end %>
 
-      <% if com_batigrado %>  <!-- Edition et non création -->
-        <% if com_batigrado.batigrado_id %>
-            <%= f.hidden_field :nom, value: com_batigrado.nom %>
-            <%= f.hidden_field :prenom, value: com_batigrado.prenom %>
-            <%= f.hidden_field :email, value: current_user.email %>
-            <%= hidden_field_tag :even_sel, @even_sel %>
-            <%= f.hidden_field :nom_grupo, value: com_batigrado.nom_grupo %>
-        <% end %>
-      <% end %>
-
-      <% if @elefe && @elefe[0] %> <!-- Capoeiriste du GCC -->
-
-        Bonjour <%= @elefe[0].prenom %>,
-        <%= f.hidden_field :nom, value: @elefe[0].nom %>
-        <%= f.hidden_field :prenom, value: @elefe[0].prenom %>
-        <%= f.hidden_field :email, value: current_user.email %>
-        <%= hidden_field_tag :even_sel, @even_sel %>
-        <%= f.hidden_field :nom_grupo, value: "Grupo Cultura Capoeira" %>
-
-        <div class="field">
-            <%= f.label :ttshirt, "Taille de T-Shirt (ex: 8ans/S/M...)" %>
-            <%= f.text_field :ttshirt, class: "form-control" %>
-        </div>
-
-        <hr/>
-
-          <% if @batigrado.tarif1 %>
-          <%= f.hidden_field :bati1, value: '1' %>
-     <!-- <div class="field text-center">
-            <%= f.check_box :bati1 %>
-            <%= f.label :bati1, "Je participe au "+@batigrado.titre+" (Tarif: "+@batigrado.tarif1.to_s+" euros)" %>
-          </div> -->
-          <% end %>
-          <% if @batigrado.tarif2 %>
-          <% tarif2 = @batigrado.tarif1+@batigrado.tarif2 %>
-          <div class="field text-center">
-            <%= f.check_box :bati2 %>
-            <%= f.label :bati2, "Je participe aux 2 évènements associés (Tarif: "+tarif2.to_s+" euros)" %>
-          </div>
-          <% end %>
-
-      <hr/>
-
-      <div class="field">
-        <%= f.check_box :gradup %>
-        <%= f.label :gradup, "Je change de grade" %>
-      </div>
-      <br/>
-      <div class="field">
-        <%= f.label :tpant,"Infos pour graduation: Taille pantalon (ex: 8ans/36/42) (sert à définir la taille de la corde)" %>
-        <%= f.text_field :tpant, class: "form-control" %>
-      </div>
-
-
-    <% end %>
           <br/>
       <h4 class="text-center">Informations complèmentaires pour nous aider à mieux préparer l'événement</h4>
           <br/> <br/>
@@ -249,7 +179,7 @@
           <p></p>
           <% batiasso = Batigrado.find(@batigrado.batiasso_id) %>
           <h5>Pour le <%= batiasso.titre %> :</h5>
-
+          <% end %>
           <% if batiasso.tar_rep1 %>
           <div class="field">
             <%= check_box_tag :arepas1 %>
@@ -300,6 +230,5 @@
             <%= f.submit :go, value: "Valider", class: "btn btn-primary btn-lg" %>
           </div>
 
-    <% end %>
    <% end %>
 <% end %>

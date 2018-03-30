@@ -32,19 +32,21 @@
       <% @cbat_tri = @combat_bat.sort_by { |e| [ e.nom_grupo, e.nom, e.prenom ] } %>
         <% @cbat_tri.each do |com_batigrado| %>
         <% @c = Commande.where(:com_batigrado_id => com_batigrado.id).last %>
-        <% @p = Paiement.find(@c.paiement_id) if Paiement.exists?(@c.paiement_id) %>
-        <% if @p.valide == true && Paiement.exists?(@c.paiement_id) %>
+        <% if @c %>
+            <% @p = Paiement.find(@c.paiement_id) if Paiement.exists?(@c.paiement_id) %>
+            <% if @p.valide == true && Paiement.exists?(@c.paiement_id) %>
+        <% end %>
           <tr>
             <td><%= com_batigrado.nom %></td>
             <td><%= com_batigrado.prenom %></td>
             <td><%= com_batigrado.nom_grupo %></td>
             <td><%= com_batigrado.email %></td>
             <td class="text-center"><%= com_batigrado.ttshirt %></td>
-            <td class="text-center"><%= com_batigrado.tpant %></td>
+            <td class="text-center"><%= com_batigrado.tpant if com_batigrado.gradup %></td>
            <!--  <td class="text-center"><%= com_batigrado.bati1 ? 'X' : ' ' %></td>
             <% if @batigrado.tarif2 %><td class="text-center"><%= com_batigrado.bati2 ? 'X' : ' '  %></td><% end %> -->
             <td class="text-center"><%= com_batigrado.gradup ? 'X' : ' '  %></td>
-            <td class="text-center"><%= com_batigrado.gradactu %></td>
+            <td class="text-center"><%= com_batigrado.gradactu if com_batigrado.gradup %></td>
             <% if @batigrado.tar_rep1 %><td class="text-center"><%= com_batigrado.repas1 ? 'X' : ' '  %></td><% end %>
             <% if @batigrado.tar_rep2 %><td class="text-center"><%= com_batigrado.repas2 ? 'X' : ' '  %></td><% end %>
             <% if @batigrado.tar_rep3 %><td class="text-center"><%= com_batigrado.repas3 ? 'X' : ' '  %></td><% end %>

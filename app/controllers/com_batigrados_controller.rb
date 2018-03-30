@@ -25,15 +25,15 @@ class ComBatigradosController < ApplicationController
     @eleves_all = @eleves.where(:user_id => current_user.id).all
     if !params[:resp].blank?
       @even_sel = params[:resp][:sel_bat]
-      if @eleves_all.exists?
-        nompren = params[:resp][:nom]
-        nompren = nompren.split(', ')
-        @elefe = @eleves_all.where(:nom => nompren[0], :prenom => nompren[1])
-        @com_batigrado = ComBatigrado.new
-        b = @batigrados.find(@even_sel)
-        nom = nompren[0]
-        prenom = nompren[1]
-      else
+      #if @eleves_all.exists?
+      #  nompren = params[:resp][:nom]
+      #  nompren = nompren.split(', ')
+      #  @elefe = @eleves_all.where(:nom => nompren[0], :prenom => nompren[1])
+      #  @com_batigrado = ComBatigrado.new
+      #  b = @batigrados.find(@even_sel)
+      #  nom = nompren[0]
+      #  prenom = nompren[1]
+      # else
         @gcc = false
         @nom_ext = params[:resp][:nom]
         @prenom_ext = params[:resp][:prenom]
@@ -43,7 +43,7 @@ class ComBatigradosController < ApplicationController
         b = @batigrados.find(@even_sel)
         nom = @nom_ext
         prenom = @prenom_ext
-      end
+      #end
     end
     # verif pas déjà com_batigrado meme eleve meme batigrado
     if !@com_batigrados.find_by(batigrado_id: @even_sel, nom: nom, prenom: prenom )
