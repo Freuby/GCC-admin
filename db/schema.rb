@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180329130855) do
+ActiveRecord::Schema.define(version: 20180401161323) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
@@ -63,6 +63,12 @@ ActiveRecord::Schema.define(version: 20180329130855) do
     t.string   "htelephone"
     t.string   "gradactu"
     t.boolean  "soirpay",      default: false
+    t.integer  "ageactu"
+    t.string   "remarque"
+    t.integer  "repenfvege"
+    t.integer  "repenf"
+    t.integer  "repadvege"
+    t.integer  "repad"
     t.index ["batigrado_id"], name: "index_com_batigrados_on_batigrado_id"
     t.index ["elefe_id"], name: "index_com_batigrados_on_elefe_id"
   end

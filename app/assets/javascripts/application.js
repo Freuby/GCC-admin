@@ -87,6 +87,20 @@ $("#asoiree").change(function () {
         $("#assosoirpay").css('display', 'none');
     }
 });
+
+// -- Com Batigrado -- Affichage de ageactu quand Enfant gradé select
+
+$('#com_batigrado_gradactu').change(function() {
+    gradeactu = this.value;
+    if (gradeactu == "Enfant gradé") {
+        $('#ageactu').css("display", "block");
+    }
+    else {
+        $('#ageactu').css("display", "none");
+    }
+
+});
+
 // -- Formulaire elefe --
 
 $('#code').change().codePostal(function (cities) {

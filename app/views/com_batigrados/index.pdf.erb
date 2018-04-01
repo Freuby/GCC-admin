@@ -18,12 +18,19 @@
           <% if @batigrado.tar_rep1 %><th class="text-center">Repas 1</th><% end %>
           <% if @batigrado.tar_rep2 %><th class="text-center">Petit déj.</th><% end %>
           <% if @batigrado.tar_rep3 %><th class="text-center">Repas 2</th><% end %>
-          <% if @batigrado.tar_soiree %><th>Soirée</th><% end %>
+          <% if @batigrado.tar_soiree %>
+            <th>Soirée</th>
+            <th>Rep enf V</th>
+            <th>Rep enf</th>
+            <th>Rep ad V</th>
+            <th>Rep ad</th>
+          <% end %>
           <th>Montant</th>
           <th>Besoin Héb</th>
           <th>Prop. Héb</th>
           <th>Adress Héb</th>
           <th>Tél.</th>
+          <th>Obs</th>
         </tr>
       </thead>
 
@@ -50,12 +57,19 @@
             <% if @batigrado.tar_rep1 %><td class="text-center"><%= com_batigrado.repas1 ? 'X' : ' '  %></td><% end %>
             <% if @batigrado.tar_rep2 %><td class="text-center"><%= com_batigrado.repas2 ? 'X' : ' '  %></td><% end %>
             <% if @batigrado.tar_rep3 %><td class="text-center"><%= com_batigrado.repas3 ? 'X' : ' '  %></td><% end %>
-            <% if @batigrado.tar_soiree %><td class="text-center"><%= com_batigrado.soiree ? 'X' : ' '  %></td><% end %>
+            <% if @batigrado.tar_soiree %>
+                <td class="text-center"><%= com_batigrado.soiree ? 'X' : ' '  %></td>
+                <td class="text-center"><%= com_batigrado.repenfvege %></td>
+                <td class="text-center"><%= com_batigrado.repenf %></td>
+                <td class="text-center"><%= com_batigrado.repadvege %></td>
+                <td class="text-center"><%= com_batigrado.repad %></td>
+            <% end %>
             <td><%= com_batigrado.montant %></td>
             <td><%= com_batigrado.hbesoin %></td>
             <td><%= com_batigrado.hprop %></td>
             <td><%= com_batigrado.hadresse %></td>
             <td><%= com_batigrado.htelephone %></td>
+            <td><%= com_batigrado.remarque %></td>
           </tr>
         <% end %>
         <% end %>

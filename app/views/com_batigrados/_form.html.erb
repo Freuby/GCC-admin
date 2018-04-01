@@ -104,6 +104,11 @@
               <br/>
             <%= f.select :gradactu, @grades_adultes, class: "form-control" %>
             <br/>
+            <div id="ageactu">
+                <%= f.label :ageactu, "Sélectionner l'âge de l'enfant au 31 mai #{@batigrado.date_bat.strftime("%Y")} :" %><br/>
+                <%= f.number_field :ageactu, min: 6, max: 11 %> ans
+                <br/>
+            </div>
             <%= f.label :tpant,"Infos pour graduation: Taille pantalon (sert à définir la taille de la corde) :" %>
               <br/>
             <%= f.select :tpant, @taille_pant, class: "form-control" %>
@@ -147,10 +152,18 @@
       <% if @batigrado.tar_soiree %>
       <div class="field">
         <%= f.check_box :soiree %>
-        <%= f.label :soiree, "Vous pensez participer au repas de la soirée gratuite du samedi ("+number_to_currency(@batigrado.tar_soiree, unit: "", separator: ",", delimiter: "")+" euros si vous souhaitez profiter du repas)" %>
+        <%= f.label :soiree, "Vous pensez participer au repas de la soirée du samedi ("+number_to_currency(@batigrado.tar_soiree, unit: "", separator: ",", delimiter: "")+" euros adultes, 4 euros enfants)" %>
         <div id="soirpay">
-            <%= f.check_box :soirpay %>
-            <%= f.label :soirpay, "Je paie mon repas pour la soirée dès maintenant" %>
+            <%-# f.check_box :soirpay -%>
+            <%-# f.label :soirpay, "Je paie mon repas pour la soirée dès maintenant" -%>
+            <%= f.label :repenfvege, "Nombre de repas enfant végétatien :" %>
+            <%= f.number_field :repenfvege, min: 0 %>
+            <%= f.label :repenf, "Nombre de repas enfant classique :" %>
+            <%= f.number_field :repenf, min: 0 %>
+            <%= f.label :repadvege, "Nombre de repas adulte végétatien :" %>
+            <%= f.number_field :repadvege, min: 0 %>
+            <%= f.label :repad, "Nombre de repas adulte classique :" %>
+            <%= f.number_field :repad, min: 0 %>
         </div>
       </div>
       <% end %>
@@ -169,6 +182,10 @@
       <div class="field">
         <%= f.label :htelephone, "Un numéro de téléphone où vous joindre :" %>
         <%= f.text_field :htelephone, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :remarque, "Vos remarques ou demandes spécifiques concernant le Batigrado :" %>
+        <%= f.text_area :remarque, class: "form-control"  %>
       </div>
 
       <br/>
@@ -201,10 +218,18 @@
           <% if batiasso.tar_soiree %>
           <div class="field">
             <%= check_box_tag :asoiree %>
-            <%= label :asoiree, "Vous pensez participer au repas de la soirée gratuite du samedi ("+number_to_currency(batiasso.tar_soiree, unit: "", separator: ",", delimiter: "")+" euros si vous souhaitez profiter du repas)" %>
+            <%= label :asoiree, "Vous pensez participer au repas de la soirée du samedi ("+number_to_currency(batiasso.tar_soiree, unit: "", separator: ",", delimiter: "")+" euros 4 euros enfants)" %>
             <div id="assosoirpay">
-                <%= check_box_tag :asoirpay %>
-                <%= label :asoirpay, "Je paie mon repas pour la soirée dès maintenant" %>
+                <%-# check_box_tag :asoirpay -%>
+                <%-# label :asoirpay, "Je paie mon repas pour la soirée dès maintenant" -%>
+                <%= label :arepenfvege, "Nombre de repas enfant végétatien :" %>
+                <%= number_field_tag :arepenfvege, min: 0 %>
+                <%= label :arepenf, "Nombre de repas enfant classique :" %>
+                <%= number_field_tag :arepenf, min: 0 %>
+                <%= label :arepadvege, "Nombre de repas adulte végétatien :" %>
+                <%= number_field_tag :arepadvege, min: 0 %>
+                <%= label :arepad, "Nombre de repas adulte classique :" %>
+                <%= number_field_tag :arepad, min: 0 %>
             </div>
           </div>
           <% end %>
@@ -218,11 +243,15 @@
           </div>
           <div class="field">
             <%= label :ahadresse, "Adresse de votre hébergement :" %>
-            <%= text_area_tag :ahadresse  %>
+            <%= text_area_tag :ahadresse, nil, class: "form-control"  %>
           </div>
           <div class="field">
             <%= label :ahtelephone, "Un numéro de téléphone où vous joindre :" %>
-            <%= text_field_tag :ahtelephone %>
+            <%= text_field_tag :ahtelephone, nil, class: "form-control" %>
+          </div>
+           <div class="field">
+            <%= label :aremarque, "Vos remarques ou demandes spécifiques concernant le Batigrado :" %>
+            <%= text_area_tag :aremarque, nil, class: "form-control"  %>
           </div>
       </div>
           <br/>
