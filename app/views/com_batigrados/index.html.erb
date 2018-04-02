@@ -43,7 +43,7 @@
         <% if @c %>
             <% @p = Paiement.find(@c.paiement_id) if Paiement.exists?(@c.paiement_id) %>
             <% if @p.valide == true && Paiement.exists?(@c.paiement_id) %>
-        <% end %>
+
           <tr>
             <td>
                 <% if com_batigrado.elefe_id %>
@@ -76,11 +76,12 @@
             <!-- <td><%= link_to 'Supprimer', com_batigrado, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td> -->
           </tr>
         <% end %> <!-- FIN test paiement ? -->
+        <% end %> <!-- FIN @c existe ? -->
         <% end %><!-- FIN each -->
       </tbody>
     </table>
     </div>
-   </div>  
+   </div>
   </div>
 <% end %>
 

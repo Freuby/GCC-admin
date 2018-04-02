@@ -42,7 +42,6 @@
         <% if @c %>
             <% @p = Paiement.find(@c.paiement_id) if Paiement.exists?(@c.paiement_id) %>
             <% if @p.valide == true && Paiement.exists?(@c.paiement_id) %>
-        <% end %>
           <tr>
             <td><%= com_batigrado.nom %></td>
             <td><%= com_batigrado.prenom %></td>
@@ -79,6 +78,7 @@
             <td><%= com_batigrado.remarque %></td>
           </tr>
         <% end %>
+        <% end %> <!-- FIN @c existe ? -->
         <% end %>
       </tbody>
     </table>
