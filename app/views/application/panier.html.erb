@@ -50,6 +50,7 @@
             <div class="text-center">
                 <div id="paypal-button"></div>
                 <hr/>
+                <p style="text-align: left;">Autres modes de paiement :</p>
                 <%= f.select :mode_paie, @reglements[0..@reglements.count-2].collect { |g| [g, @reglements.index(g)] }, {}, class: "form-control", id: "mode_paie" %>
                 <%= f.hidden_field :montant, value: @sold %>
                 <%= f.hidden_field :valide, value: false %>

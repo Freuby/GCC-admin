@@ -14,7 +14,7 @@
           <th>Tshirt</th>
           <th>Abada</th>
           <th>Changt Grad.</th>
-          <th>Grad. actu.</th>
+          <th>Grad. actu. (age au 31/5)</th>
           <% if @batigrado.tar_rep1 %><th class="text-center">Repas 1</th><% end %>
           <% if @batigrado.tar_rep2 %><th class="text-center">Petit déj.</th><% end %>
           <% if @batigrado.tar_rep3 %><th class="text-center">Repas 2</th><% end %>
@@ -53,7 +53,14 @@
            <!--  <td class="text-center"><%= com_batigrado.bati1 ? 'X' : ' ' %></td>
             <% if @batigrado.tarif2 %><td class="text-center"><%= com_batigrado.bati2 ? 'X' : ' '  %></td><% end %> -->
             <td class="text-center"><%= com_batigrado.gradup ? 'X' : ' '  %></td>
-            <td class="text-center"><%= com_batigrado.gradactu if com_batigrado.gradup %></td>
+            <td class="text-center">
+            <% if com_batigrado.gradup %>
+                <%= com_batigrado.gradactu %>
+                <% if com_batigrado.ageactu %>
+                   (<%= com_batigrado.ageactu.to_s %> ans)
+                <% end %>
+            <% end %>
+            </td>
             <% if @batigrado.tar_rep1 %><td class="text-center"><%= com_batigrado.repas1 ? 'X' : ' '  %></td><% end %>
             <% if @batigrado.tar_rep2 %><td class="text-center"><%= com_batigrado.repas2 ? 'X' : ' '  %></td><% end %>
             <% if @batigrado.tar_rep3 %><td class="text-center"><%= com_batigrado.repas3 ? 'X' : ' '  %></td><% end %>
