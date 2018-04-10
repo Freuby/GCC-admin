@@ -40,9 +40,10 @@
       <% @cbat_tri = @combat_bat.sort_by { |e| [ e.nom_grupo, e.nom, e.prenom ] } %>
         <% @cbat_tri.each do |com_batigrado| %>
         <% @c = Commande.where(:com_batigrado_id => com_batigrado.id).last %>
+        <% puts @c.inspect %>
         <% if @c %>
             <% @p = Paiement.find(@c.paiement_id) if Paiement.exists?(@c.paiement_id) %>
-            <% if @p.valide == true && Paiement.exists?(@c.paiement_id) %>
+            <% if @p %><% if @p.valide == true && Paiement.exists?(@c.paiement_id) %><% end %>
 
           <tr>
             <td>
