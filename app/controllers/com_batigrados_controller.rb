@@ -11,6 +11,11 @@ class ComBatigradosController < ApplicationController
         @batigrado = @batigrados.find(params[:bat])
         render :pdf => "index", :layout => 'pdf.html', :orientation =>'Landscape'
       end
+      format.csv { send_data @com_batigrados.to_csv }
+      format.xls do # { send_data @com_batigrados.to_csv(col_sep: "\t") }
+        @batigrado = @batigrados.find(params[:bat])
+        render :xls => "index"
+      end
     end
   end
 

@@ -1,0 +1,87 @@
+<!doctype xlsx>
+<html>
+  <head>
+    <meta charset='utf-8' />
+  </head>
+
+<h2>Liste des participants au <%= @batigrado.titre %></h2>
+
+<table border='1'>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>Grupo</th>
+          <th>Email</th>
+          <th>Tshirt</th>
+          <th>Abada</th>
+          <th>Changt Grad.</th>
+          <th>Grad. actu. (age au 31/5)</th>
+          <% if @batigrado.tar_rep1 %><th class="text-center">Repas 1</th><% end %>
+          <% if @batigrado.tar_rep2 %><th class="text-center">Petit déj.</th><% end %>
+          <% if @batigrado.tar_rep3 %><th class="text-center">Repas 2</th><% end %>
+          <% if @batigrado.tar_soiree %>
+            <th>Soirée</th>
+            <th>Rep enf V</th>
+            <th>Rep enf</th>
+            <th>Rep ad V</th>
+            <th>Rep ad</th>
+          <% end %>
+          <th>Montant</th>
+          <th>Besoin Héb</th>
+          <th>Prop. Héb</th>
+          <th>Adress Héb</th>
+          <th>Tél.</th>
+          <th>Obs</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <% @combat_bat = @com_batigrados.where(:batigrado_id => @batigrado.id).all %>
+      <% @cbat_tri = @combat_bat.sort_by { |e| [ e.nom_grupo, e.nom, e.prenom ] } %>
+        <% @cbat_tri.each do |com_batigrado| %>
+        <% @c = Commande.where(:com_batigrado_id => com_batigrado.id).last %>
+        <% if @c %>
+            <% @p = Paiement.find(@c.paiement_id) if Paiement.exists?(@c.paiement_id) %>
+            <% if @p %><% if @p.valide == true && Paiement.exists?(@c.paiement_id) %><% end %>
+          <tr>
+            <td><%= com_batigrado.nom %></td>
+            <td><%= com_batigrado.prenom %></td>
+            <td><%= com_batigrado.nom_grupo %></td>
+            <td><%= com_batigrado.email %></td>
+            <td class="text-center"><%= com_batigrado.ttshirt %></td>
+            <td class="text-center"><%= com_batigrado.tpant if com_batigrado.gradup %></td>
+           <!--  <td class="text-center"><%= com_batigrado.bati1 ? 'X' : ' ' %></td>
+            <% if @batigrado.tarif2 %><td class="text-center"><%= com_batigrado.bati2 ? 'X' : ' '  %></td><% end %> -->
+            <td class="text-center"><%= com_batigrado.gradup ? 'X' : ' '  %></td>
+            <td class="text-center">
+            <% if com_batigrado.gradup %>
+                <%= com_batigrado.gradactu %>
+                <% if com_batigrado.ageactu %>
+                   (<%= com_batigrado.ageactu.to_s %> ans)
+                <% end %>
+            <% end %>
+            </td>
+            <% if @batigrado.tar_rep1 %><td class="text-center"><%= com_batigrado.repas1 ? 'X' : ' '  %></td><% end %>
+            <% if @batigrado.tar_rep2 %><td class="text-center"><%= com_batigrado.repas2 ? 'X' : ' '  %></td><% end %>
+            <% if @batigrado.tar_rep3 %><td class="text-center"><%= com_batigrado.repas3 ? 'X' : ' '  %></td><% end %>
+            <% if @batigrado.tar_soiree %>
+                <td class="text-center"><%= com_batigrado.soiree ? 'X' : ' '  %></td>
+                <td class="text-center"><%= com_batigrado.repenfvege %></td>
+                <td class="text-center"><%= com_batigrado.repenf %></td>
+                <td class="text-center"><%= com_batigrado.repadvege %></td>
+                <td class="text-center"><%= com_batigrado.repad %></td>
+            <% end %>
+            <td><%= com_batigrado.montant %></td>
+            <td><%= com_batigrado.hbesoin %></td>
+            <td><%= com_batigrado.hprop %></td>
+            <td><%= com_batigrado.hadresse %></td>
+            <td><%= com_batigrado.htelephone %></td>
+            <td><%= com_batigrado.remarque %></td>
+          </tr>
+        <% end %>
+        <% end %> <!-- FIN @c existe ? -->
+        <% end %>
+      </tbody>
+    </table>
+</html>
