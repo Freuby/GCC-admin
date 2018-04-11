@@ -1,6 +1,9 @@
 <br/>
 <h5>Merci <%= @com_batigrado.prenom %> pour votre inscription,</h5>
 <br/>
+<h6 style="text-align: left;"><strong><span style="text-decoration: underline;">ATTENTION :</span></strong> Pour de finaliser votre inscription, cliquez sur le panier ou sur le bouton <a href="<%= panier_path %>">Accèder à mes commandes</a>.</h6>
+<h6 style="text-align: left;">Pour pouvez aussi inscrire une autre personne en cliquant sur <a href="<%= new_com_batigrado_path %>">S'inscrire à un batigrado</a>.</h6>
+<br/>
 <p>Vous avez réservé :</p>
 <ul>
     <li>un t-shirt taille <%= @com_batigrado.ttshirt %></li>
@@ -49,8 +52,8 @@
         <br/>
         <p class="text-center"><%= link_to "Accèder à mes commandes", panier_path, class: "btn btn-outline-primary" %></p>
     <% else %>
-        <p>Pour de finaliser votre inscription, cliquez sur le panier ou sur le bouton <a href="<%= panier_path %>">Accéder à mes commandes</a>.</p>
-        <br/>
+        <!-- <p>Pour de finaliser votre inscription, cliquez sur le panier ou sur le bouton <a href="<%= panier_path %>">Accéder à mes commandes</a>.</p>
+        <br/> -->
         <p class="text-center"><%= link_to "S'incrire à un batigrado", new_com_batigrado_path, class: "btn btn-outline-primary" %></p>
         <p class="text-center"><%= link_to "Accèder à mes commandes", panier_path, class: "btn btn-outline-primary" %></p>
     <% end %>

@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2f6bf2c-d06d-4b1b-b967-ce4a6bd0495a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/com_batigrados/index.html.erb" afterPath="$PROJECT_DIR$/app/views/com_batigrados/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/com_batigrados/index.pdf.erb" afterPath="$PROJECT_DIR$/app/views/com_batigrados/index.pdf.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/com_batigrados/index.xls.erb" afterPath="$PROJECT_DIR$/app/views/com_batigrados/index.xls.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/com_batigrados/show.html.erb" afterPath="$PROJECT_DIR$/app/views/com_batigrados/show.html.erb" />
     </list>
     <ignored path="Admin_GCC.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -96,16 +90,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="accueil.html.erb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/application/accueil.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="158" column="50" selection-start-line="158" selection-start-column="50" selection-end-line="158" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="application_mailer.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/mailers/application_mailer.rb">
           <provider selected="true" editor-type-id="text-editor">
@@ -146,12 +130,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.xls.erb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.xls.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/com_batigrados/index.xls.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.23503326">
+            <state vertical-scroll-proportion="-8.833333">
               <caret line="46" column="12" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="show.html.erb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/com_batigrados/show.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.06651885">
+              <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+              <folding>
+                <element signature="n#style#0;n#h6#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#strong#0;n#h6#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h6#1;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -242,7 +240,6 @@
         <option value="$PROJECT_DIR$/app/models/paiement.rb" />
         <option value="$PROJECT_DIR$/app/controllers/application_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/registrations_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/com_batigrados/show.html.erb" />
         <option value="$PROJECT_DIR$/app/views/application/panier_confirm.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/application.scss" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/application.js" />
@@ -260,6 +257,7 @@
         <option value="$PROJECT_DIR$/app/views/com_batigrados/index.html.erb" />
         <option value="$PROJECT_DIR$/app/views/com_batigrados/index.pdf.erb" />
         <option value="$PROJECT_DIR$/app/views/com_batigrados/index.xls.erb" />
+        <option value="$PROJECT_DIR$/app/views/com_batigrados/show.html.erb" />
       </list>
     </option>
   </component>
@@ -1187,12 +1185,12 @@
       <workItem from="1520961363931" duration="30269000" />
       <workItem from="1521905499527" duration="2401000" />
       <workItem from="1521908595282" duration="78676000" />
-      <workItem from="1523446847189" duration="625000" />
+      <workItem from="1523446847189" duration="1785000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="906653000" />
+    <option name="totallyTimeSpent" value="907813000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2038" y="967" width="1808" height="1023" extended-state="6" />
@@ -1520,14 +1518,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/com_batigrados/show.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-35.625">
-          <caret line="57" column="45" selection-start-line="57" selection-start-column="45" selection-end-line="57" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/application/panier.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.291667">
@@ -1632,9 +1622,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/com_batigrados/index.xls.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23503326">
+        <state vertical-scroll-proportion="-8.833333">
           <caret line="46" column="12" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/com_batigrados/show.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.06651885">
+          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#h6#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#strong#0;n#h6#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h6#1;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
