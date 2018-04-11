@@ -43,7 +43,8 @@
         <% @c = Commande.where(:com_batigrado_id => com_batigrado.id).last %>
         <% if @c %>
             <% @p = Paiement.find(@c.paiement_id) if Paiement.exists?(@c.paiement_id) %>
-            <% if @p %><% if @p.valide == true && Paiement.exists?(@c.paiement_id) %><% end %>
+            <% if @p %>
+            <% if @p.valide == true && Paiement.exists?(@c.paiement_id) %>
           <tr>
             <td><%= com_batigrado.nom %></td>
             <td><%= com_batigrado.prenom %></td>
@@ -80,6 +81,7 @@
             <td><%= com_batigrado.remarque %></td>
           </tr>
         <% end %>
+        <% end %> <!-- FIN @p existe ? -->
         <% end %> <!-- FIN @c existe ? -->
         <% end %>
       </tbody>
