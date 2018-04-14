@@ -99,6 +99,8 @@
   <% @users.each do |u| %>
     <% if u.commandes.exists? %>
         <% u.commandes.where(sold: false).all.each.with_index do |c, j| %>
+         <% if !c.paiement_id %>
+
             <div class="row">
                 <div class="col-8">
                     <%= u.email %> - Le <%= c.updated_at.strftime( '%d/%m/%Y' ) %> - <%= c.description %> - <%= number_to_currency(c.montant, unit: "", separator: ",", delimiter: "") %> euros
@@ -139,7 +141,7 @@
                 </div>
               </div>
             </div>
-
+         <% end %> <!-- fin if !c.paiement_id -->
         <% end %>
     <% end %>
   <% end %>
