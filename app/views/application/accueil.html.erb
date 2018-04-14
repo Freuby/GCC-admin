@@ -99,7 +99,7 @@
   <% @users.each do |u| %>
     <% if u.commandes.exists? %>
         <% u.commandes.where(sold: false).all.each.with_index do |c, j| %>
-         <% if !c.paiement_id %>
+         <% if c.paiement_id == nil %>
 
             <div class="row">
                 <div class="col-8">
