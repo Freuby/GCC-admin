@@ -93,6 +93,61 @@
                 <% end %>
             <% end %>
 
+  <!-- COMMANDES NON VALIDEES -->
+
+  <h3>Commandes non validées</h3>
+  <% @users.each do |u| %>
+    <% if u.commandes.exists? %>
+        <% u.commandes.where(sold: false).all.each.with_index do |c, j| %>
+            <div class="row">
+                <div class="col-8">
+                    <%= u.email %> - Le <%= c.updated_at.strftime( '%d/%m/%Y' ) %> - <%= c.description %> - <%= number_to_currency(c.montant, unit: "", separator: ",", delimiter: "") %> euros
+                </div>
+                <div class="col-2">
+                    <%= link_to 'Supprimer', commande_path(c), method: :delete, data: { confirm: 'Êtes-vous sûr?' }, class: "btn btn-outline-danger btn-sm" %>
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#ManuModal<%= c.id %>">Valider</button>
+                </div>
+            </div>
+
+            <!-- Modals Validation manuelle du panier-->
+           <div class="modal fade" id="ManuModal<%= c.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header text-center">
+                    <h5 class="modal-title" id="exampleModalLabel">Validation manuelle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <%= form_tag('/valide', method: "post") do |f| %>
+                       <p style="text-align: left;">Type de paiement reçu :</p>
+                       <%= select_tag :mode_paie, options_for_select(@reglements[0..@reglements.count-2].collect { |g| [g, @reglements.index(g)] }), class: "form-control" %>
+                       <%= hidden_field_tag :id, c.id %>
+                       <%= hidden_field_tag :montant, c.montant %>
+                       <%= hidden_field_tag :userid, c.user_id %>
+                       <br/>
+                       <%= submit_tag "Valider cette commande", data: {confirm: "Créer manuellement un paiement pour cette commande ?"}, class: "btn btn-outline-primary btn-sm" %>
+                    <% end %>
+                  </div>
+                  <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <% end %>
+    <% end %>
+  <% end %>
+
+
+
+
+
   <!-- Modals Commandes -->
 
 <% @users.each do |u| %>

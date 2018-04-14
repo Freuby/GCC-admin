@@ -135,6 +135,19 @@ require "yaml"
       end
       Paiement.find(params[:id]).destroy
     end
+    if params[:commit] == "Valider cette commande"
+      puts "############### VALIDATION COMMANDE MANUELLE #############"
+      @paiement = Paiement.new(montant: params[:montant], mode_paie: params[:mode_paie], valide: true, user_id: params[:userid])
+      user = User.find(params[:userid])
+      com_user = Commande.find(params[:id])
+      @paiement.commandes << com_user
+      user.paiements << @paiement
+        if @paiement.save
+          com_user.update(sold: true)
+        else
+          flash[:alert] = "Cette commande n'a pas être validée"
+        end
+    end
     redirect_to root_path
   end
 
