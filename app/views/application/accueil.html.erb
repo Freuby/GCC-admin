@@ -100,10 +100,14 @@
     <% if u.commandes.exists? %>
         <% u.commandes.where(sold: false).all.each.with_index do |c, j| %>
          <% if c.paiement_id == nil %>
+            <% usercombat = ComBatigrado.find(c.com_batigrado_id) %>
 
             <div class="row">
                 <div class="col-8">
-                    <%= u.email %> - Le <%= c.updated_at.strftime( '%d/%m/%Y' ) %> - <%= c.description %> - <%= number_to_currency(c.montant, unit: "", separator: ",", delimiter: "") %> euros
+                    <i class="fa fa-angle-right"></i>
+                    <%= u.email %> - Le <%= c.updated_at.strftime( '%d/%m/%Y' ) %> - <%= number_to_currency(c.montant, unit: "", separator: ",", delimiter: "") %> euros
+                    <br/>
+                    <%= c.description %> - <%= usercombat.nom %> <% usercombat.prenom %>
                 </div>
                 <div class="col-2">
                     <%= link_to 'Supprimer', commande_path(c), method: :delete, data: { confirm: 'Êtes-vous sûr?' }, class: "btn btn-outline-danger btn-sm" %>
