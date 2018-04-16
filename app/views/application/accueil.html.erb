@@ -130,7 +130,7 @@
                   <div class="modal-body">
                     <%= form_tag('/valide', method: "post") do |f| %>
                        <p style="text-align: left;">Type de paiement reçu :</p>
-                       <%= select_tag :mode_paie, options_for_select(@reglements[0..@reglements.count-2].collect { |g| [g, @reglements.index(g)] }), class: "form-control" %>
+                       <%= select_tag :mode_paie, options_for_select(@reglements[0..@reglements.count-1].collect { |g| [g, @reglements.index(g)] }), class: "form-control" %>
                        <%= hidden_field_tag :id, c.id %>
                        <%= hidden_field_tag :montant, c.montant %>
                        <%= hidden_field_tag :userid, c.user_id %>
