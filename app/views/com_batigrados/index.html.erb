@@ -17,6 +17,7 @@
     <table class="table table-responsive">
       <thead>
         <tr>
+          <th class="narrow"></th>
           <th>Nom</th>
           <th>Prenom</th>
           <th>Grupo</th>
@@ -39,14 +40,16 @@
       <tbody>
       <% @combat_bat = @com_batigrados.where(:batigrado_id => batigrado.id).all %>
       <% @cbat_tri = @combat_bat.sort_by { |e| [ e.nom_grupo, e.nom, e.prenom ] } %>
+      <% nb = 0 %>
         <% @cbat_tri.each do |com_batigrado| %>
         <% @c = Commande.where(:com_batigrado_id => com_batigrado.id).last %>
         <% if @c %>
             <% @p = Paiement.find(@c.paiement_id) if Paiement.exists?(@c.paiement_id) %>
             <% if @p %>
             <% if @p.valide == true && Paiement.exists?(@c.paiement_id) %>
-
+            <% nb = nb + 1 %>
           <tr>
+            <td class="narrow"><%= nb %></td>
             <td>
                 <% if com_batigrado.elefe_id %>
                     <%= link_to com_batigrado.nom, elefe_path(com_batigrado.elefe_id)  %>
