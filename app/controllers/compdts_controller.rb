@@ -5,6 +5,7 @@ class CompdtsController < ApplicationController
   # GET /compdts.json
   def index
     @compdts = Compdt.where(user_id: current_user.id).all
+    @compdtsall = Compdt.all
   end
 
   # GET /compdts/1

@@ -66,6 +66,7 @@
                                         <div class="dropdown-menu">
                                             <%= link_to "Créer un nouveau produit", new_produit_path, class:  "dropdown-item" %>
                                             <%= link_to "Produits en ligne", produits_path, class:  "dropdown-item" %>
+                                            <%= link_to "Livraisons", compdts_path, class: "dropdown-item" %>
                                         </div>
                                     </li>
                                     <li class="dropdown">
@@ -106,6 +107,7 @@
                                             </li>
                                         <% end %>
                                     <% end %>
+                                <!-- if @current_elefe -->
                                 <% if @current_elefe %>
                                             <li class="dropdown">
                                             <a class="nav-link dropdown-toggle <% if current_page?(tpsentrainement_path) || current_page?(rei_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ma capoeira</a>
@@ -127,16 +129,17 @@
                                              </li>
                                         <% end %>
                                     <% end %>
+                                <% end %>
                                     <% if @produits_all %>
                                         <li class="dropdown">
-                                        <a class="nav-link dropdown-toggle <% if current_page?(produits_path) || current_page?(commandes_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Commandes</a>
+                                        <a class="nav-link dropdown-toggle <% if current_page?(produits_path) || current_page?(commandes_path) %>active<% end %>" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">E-commerce</a>
                                             <div class="dropdown-menu">
-                                                <%= link_to "Vêtements & Instruments", produits_path, class:  "dropdown-item" %>
+                                                <%= link_to "Produits en ligne", produits_path, class:  "dropdown-item" %>
                                                 <%= link_to "Mes commandes", commandes_path, class:  "dropdown-item" %>
                                             </div>
                                         </li>
                                     <% end %>
-                                <% end %>
+                                <!-- end current elefe-->
                 <% end %>
             </ul>
             <% if current_user.admin == 0 %><div class="navbar-text float-right"><a style="color: white;" href="<%= panier_path %>"><i class="fa fa-shopping-basket fa-2x" aria-hidden="true"></i> <%= number_to_currency(@sold, unit: "", separator: ",", delimiter: "").to_s %> <i class="fa fa-eur" aria-hidden="true"></i></a></div><% end %>

@@ -49,12 +49,21 @@
             <%= f.number_field :qte, options = { value: 1, min: 1 } %>
             <%= f.hidden_field :couleur, value: @produit.couleur %>
             <%= f.hidden_field :typ_livr, value: @produit.typ_livr %>
-            <br/>
+            <br/><br/>
             <strong>Ville de livraison:</strong>
             <% @collect = @cours.collect { |c| [c.nomvil + ' ' + c.dateh.hour.to_s + 'h' + c.dateh.min.to_s, c.id] } %>
             <%= f.select :vill_collect, options_for_select(@collect), class: "form-control" %>
-            <%= f.hidden_field :nom, value: @current_elefe.nom if @current_elefe %>
-            <%= f.hidden_field :prenom, value: @current_elefe.prenom if @current_elefe %>
+            <% if @current_elefe %>
+                <%= f.hidden_field :nom, value: @current_elefe.nom %>
+                <%= f.hidden_field :prenom, value: @current_elefe.prenom %>
+            <% else %>
+                <br/>
+                <%= f.label :nom, "Entrer votre nom :" %>
+                <%= f.text_field :nom, class: "form-control " %>
+                <%= f.label :prenom, "Entrer votre prenom :" %>
+                <%= f.text_field :prenom, class: "form-control " %>
+            <% end %>
+
             <%= f.hidden_field :rue, value: @current_elefe.rue if @current_elefe %>
             <%= f.hidden_field :cp, value: @current_elefe.cp if @current_elefe %>
             <%= f.hidden_field :ville, value: @current_elefe.ville if @current_elefe %>

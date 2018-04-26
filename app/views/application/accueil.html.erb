@@ -100,7 +100,8 @@
     <% if u.commandes.exists? %>
         <% u.commandes.where(sold: false).all.each.with_index do |c, j| %>
          <% if c.paiement_id == nil %>
-            <% usercombat = ComBatigrado.find(c.com_batigrado_id) %>
+            <% usercombat = ComBatigrado.find(c.com_batigrado_id) if ComBatigrado.exists?(c.com_batigrado_id) %>
+            <% usercombat = Compdt.find(c.compdt_id) if Compdt.exists?(c.compdt_id) %>
 
             <div class="row">
                 <div class="col-8">
@@ -172,7 +173,11 @@
             <% p.commandes.each do |com| %>
                 <li><%= com.description %> | <%= number_to_currency(com.montant, unit: "", separator: ",", delimiter: "") %> euros</li>
                 <% if com.com_batigrado_id %>
-                    <% combat = ComBatigrado.find(com.com_batigrado_id) %>
+                    <% combat = ComBatigrado.find(com.com_batigrado_id) if ComBatigrado.exists?(com.com_batigrado_id) %>
+                    <p><%= combat.nom %> <%= combat.prenom %></p>
+                <% end %>
+                <% if Compdt.exists?(com.compdt_id) %>
+                    <% combat = Compdt.find(com.compdt_id) %>
                     <p><%= combat.nom %> <%= combat.prenom %></p>
                 <% end %>
             <% end %>
