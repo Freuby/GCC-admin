@@ -166,5 +166,7 @@
     <p>Produit non disponible pour le moment.</p>
 <% end %>
 
-<%= link_to 'Modifier', edit_produit_path(@produit) %> |
+<% if current_user.admin == 1 %>
+    <%= link_to 'Modifier', edit_produit_path(@produit) %> |
+<% end %>
 <%= link_to 'Retour', produits_path %>
