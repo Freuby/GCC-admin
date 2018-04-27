@@ -71,6 +71,7 @@
         <%= hidden_field_tag :even_sel, @even_sel %>
         <%= f.hidden_field :nom_grupo, value: @grupo %>
 
+        <% if @grupo == "Grupo Cultura Capoeira" %>
           <% if @batigrado.tarif1 %>
               <p>Le tarif pour participer au <strong><%= @batigrado.titre %></strong> est de <strong><%= number_to_currency(@batigrado.tarif1, unit: "", separator: ",", delimiter: "")+" euros" %></strong>.</p>
               <%= f.hidden_field :bati1, value: '1' %>
@@ -87,6 +88,12 @@
                 </h6>
               </div>
           <% end %>
+        <% else %>
+          <% if @batigrado.tarif_ext %>
+              <p>Le tarif pour participer au <strong><%= @batigrado.titre %></strong> est de <strong><%= number_to_currency(@batigrado.tarif_ext, unit: "", separator: ",", delimiter: "")+" euros" %></strong>.</p>
+              <%= f.hidden_field :bati1, value: '1' %>
+          <% end %>
+        <% end %> <!-- fin if @grupo -->
 
       <hr/>
       <!-- Demande taille corde pour un élève GCC non affilié -->

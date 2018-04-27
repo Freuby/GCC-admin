@@ -95,9 +95,14 @@ class ComBatigradosController < ApplicationController
        # end
      # else  #Eleve exterieur
         # params[:com_batigrado][:montant] = (params[:com_batigrado][:bati1] == '1' ? 1 : 0)*b.tarif_ext
-        params[:com_batigrado][:montant] = b.tarif1 + (params[:com_batigrado][:soirpay] == '1' ? 1 : 0)*( b.tar_soiree ? b.tar_soiree : 0 )
+        if params[:com_batigrado][:nom_grupo] == "Grupo Cultura Capoeira"
+          mont = b.tarif1 + (params[:com_batigrado][:soirpay] == '1' ? 1 : 0)*( b.tar_soiree ? b.tar_soiree : 0 )
+        else
+          mont = b.tarif_ext + (params[:com_batigrado][:soirpay] == '1' ? 1 : 0)*( b.tar_soiree ? b.tar_soiree : 0 )
+        end
+        params[:com_batigrado][:montant] = mont
         b.com_batigrados << ComBatigrado.create(com_batigrado_params)
-        current_user.commandes << Commande.create(description: b.titre, montant: b.tarif1 + (params[:com_batigrado][:soirpay] == '1' ? 1 : 0)*( b.tar_soiree ? b.tar_soiree : 0 ))
+        current_user.commandes << Commande.create(description: b.titre, montant: mont)
         @com_batigrado = ComBatigrado.last
         @com_batigrado.commandes << current_user.commandes.last
         respond_to do |format|
