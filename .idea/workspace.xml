@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f2f6bf2c-d06d-4b1b-b967-ce4a6bd0495a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/produits/show.html.erb" afterPath="$PROJECT_DIR$/app/views/produits/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Admin_GCC.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -91,10 +90,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="accueil.html.erb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="accueil.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/application/accueil.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.3758316">
+            <state vertical-scroll-proportion="-126.875">
               <caret line="203" column="9" selection-start-line="203" selection-start-column="9" selection-end-line="203" selection-end-column="32" />
               <folding />
             </state>
@@ -113,11 +112,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.html.erb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="show.html.erb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/produits/show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-33.833332">
-              <caret line="170" column="9" selection-start-line="170" selection-start-column="9" selection-end-line="171" selection-end-column="38" />
+            <state vertical-scroll-proportion="0.085365854">
+              <caret line="80" column="37" selection-start-line="80" selection-start-column="37" selection-end-line="80" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -1187,12 +1186,12 @@
       <workItem from="1521905499527" duration="2401000" />
       <workItem from="1521908595282" duration="78676000" />
       <workItem from="1523446847189" duration="9921000" />
-      <workItem from="1524490412847" duration="6461000" />
+      <workItem from="1524490412847" duration="6627000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="922410000" />
+    <option name="totallyTimeSpent" value="922576000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1023" extended-state="0" />
@@ -1628,18 +1627,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/produits/show.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/application/accueil.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-33.833332">
-          <caret line="170" column="9" selection-start-line="170" selection-start-column="9" selection-end-line="171" selection-end-column="38" />
+        <state vertical-scroll-proportion="-126.875">
+          <caret line="203" column="9" selection-start-line="203" selection-start-column="9" selection-end-line="203" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/application/accueil.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/produits/show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.3758316">
-          <caret line="203" column="9" selection-start-line="203" selection-start-column="9" selection-end-line="203" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.085365854">
+          <caret line="80" column="37" selection-start-line="80" selection-start-column="37" selection-end-line="80" selection-end-column="37" />
           <folding />
         </state>
       </provider>
