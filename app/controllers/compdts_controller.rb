@@ -6,6 +6,8 @@ class CompdtsController < ApplicationController
   def index
     @compdts = Compdt.where(user_id: current_user.id).all
     @compdtsall = Compdt.all
+    @comlivre = @compdtsall.where(livre: true)
+    @comnonlivre = @compdtsall.where(livre: false)
   end
 
   # GET /compdts/1
@@ -25,20 +27,35 @@ class CompdtsController < ApplicationController
   # POST /compdts
   # POST /compdts.json
   def create
-    @compdt = Compdt.new(compdt_params)
-    produit = Produit.find(@compdt.produit_id)
+    if params[:compdt_id]
 
-    current_user.commandes << Commande.create(description: params[:compdt][:qte]+'x'+produit.nom, montant: produit.prix*params[:compdt][:qte].to_f)
-    @compdt.commandes << current_user.commandes.last
-
-    respond_to do |format|
-      if @compdt.save
-        format.html { redirect_to @compdt, notice: 'Votre commande est ajoutée au panier.' }
-        format.json { render :show, status: :created, location: @compdt }
+      puts "C'est bon ça"
+      compdt = Compdt.find(params[:compdt_id])
+      if compdt.livre == false
+        compdt.update(livre: true)
       else
-        format.html { render :new }
-        format.json { render json: @compdt.errors, status: :unprocessable_entity }
+        compdt.update(livre: false)
       end
+      redirect_back(fallback_location: compdts_path)
+
+    else
+
+      @compdt = Compdt.new(compdt_params)
+      produit = Produit.find(@compdt.produit_id)
+
+      current_user.commandes << Commande.create(description: params[:compdt][:qte]+'x'+produit.nom, montant: produit.prix*params[:compdt][:qte].to_f)
+      @compdt.commandes << current_user.commandes.last
+
+      respond_to do |format|
+        if @compdt.save
+          format.html { redirect_to @compdt, notice: 'Votre commande est ajoutée au panier.' }
+          format.json { render :show, status: :created, location: @compdt }
+        else
+          format.html { render :new }
+          format.json { render json: @compdt.errors, status: :unprocessable_entity }
+        end
+      end
+
     end
   end
 
@@ -74,6 +91,6 @@ class CompdtsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def compdt_params
-      params.require(:compdt).permit(:qte, :couleur, :taille, :typ_livr, :vill_collect, :nom, :prenom, :rue, :cp, :ville, :user_id, :produit_id)
+      params.require(:compdt).permit(:qte, :couleur, :taille, :typ_livr, :vill_collect, :nom, :prenom, :rue, :cp, :ville, :user_id, :produit_id, :commande_id, :livre)
     end
 end

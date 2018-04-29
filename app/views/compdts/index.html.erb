@@ -52,7 +52,7 @@
 <% if current_user.admin == 1 %>
 
     <h1>Livraisons</h1>
-
+    <h4>Produits non livrés</h4>
     <table class="table">
       <thead>
         <tr>
@@ -64,6 +64,9 @@
           <th>Vill collect</th>
           <th>Nom</th>
           <th>Prenom</th>
+          <th>Payé</th>
+          <th>Livré</th>
+          <th></th>
           <!-- <th>Typ livr</th>
           <th>Rue</th>
           <th>Cp</th>
@@ -73,8 +76,9 @@
       </thead>
 
       <tbody>
-        <% @compdtsall.each do |compdt| %>
+        <% @comnonlivre.each do |compdt| %>
           <% @pdt = Produit.find(compdt.produit_id) %>
+          <% @command = Commande.where(compdt_id: compdt.id).first if Commande.exists?(compdt_id: compdt.id) %>
           <tr>
             <td><%= compdt.created_at.strftime('%d/%m/%Y') %></td>
             <td><%= compdt.qte %></td>
@@ -85,6 +89,75 @@
             <td><%= c.nomvil + ' ' + c.dateh.hour.to_s + 'h' + c.dateh.min.to_s %></td>
             <td><%= compdt.nom %></td>
             <td><%= compdt.prenom %></td>
+            <td><% if @command.sold == true %>oui<% else %><span class="blink_text">non</span><% end %></td>
+            <td><% if compdt.livre %>oui<% else %>non<% end %></td>
+            <td>
+              <span style="display: inline-block;">
+                <%= form_tag('/compdts', method: "post") do |f| %>
+                   <%= hidden_field_tag :compdt_id, compdt.id %>
+                   <%= submit_tag "livré", class: "btn btn-outline-success btn-sm" %>
+                <% end %>
+              </span>
+            </td>
+            <!-- <td><%= compdt.typ_livr %></td>
+            <td><%= compdt.rue %></td>
+            <td><%= compdt.cp %></td>
+            <td><%= compdt.ville %></td>
+            <td><%= link_to 'Show', compdt %></td>
+            <td><%= link_to 'Edit', edit_compdt_path(compdt) %></td>
+            <td><%= link_to 'Destroy', compdt, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <h4>Produits livrés</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Qte</th>
+          <th>Nom</th>
+          <th>Couleur</th>
+          <th>Taille</th>
+          <th>Vill collect</th>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>Payé</th>
+          <th>Livré</th>
+          <th></th>
+          <!-- <th>Typ livr</th>
+          <th>Rue</th>
+          <th>Cp</th>
+          <th>Ville</th>
+          <th colspan="3"></th> -->
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @comlivre.each do |compdt| %>
+          <% @pdt = Produit.find(compdt.produit_id) %>
+          <% @command = Commande.where(compdt_id: compdt.id).first if Commande.exists?(compdt_id: compdt.id) %>
+          <tr>
+            <td><%= compdt.created_at.strftime('%d/%m/%Y') %></td>
+            <td><%= compdt.qte %></td>
+            <td><%= @pdt.nom %></td>
+            <td><%= compdt.couleur %></td>
+            <td><%= compdt.taille %></td>
+            <% c = @cours.find(compdt.vill_collect) %>
+            <td><%= c.nomvil + ' ' + c.dateh.hour.to_s + 'h' + c.dateh.min.to_s %></td>
+            <td><%= compdt.nom %></td>
+            <td><%= compdt.prenom %></td>
+            <td><% if @command.sold == true %>oui<% else %><span class="blink_text">non</span><% end %></td>
+            <td><% if compdt.livre %>oui<% else %>non<% end %></td>
+            <td>
+              <span style="display: inline-block;">
+                <%= form_tag('/compdts', method: "post") do |f| %>
+                   <%= hidden_field_tag :compdt_id, compdt.id %>
+                   <%= submit_tag "non livré", class: "btn btn-outline-danger btn-sm" %>
+                <% end %>
+              </span>
+            </td>
             <!-- <td><%= compdt.typ_livr %></td>
             <td><%= compdt.rue %></td>
             <td><%= compdt.cp %></td>

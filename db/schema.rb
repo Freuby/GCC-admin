@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180401161323) do
+ActiveRecord::Schema.define(version: 20180428083500) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
@@ -104,11 +104,12 @@ ActiveRecord::Schema.define(version: 20180401161323) do
     t.string   "rue"
     t.string   "cp"
     t.string   "ville"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "user_id"
     t.integer  "produit_id"
     t.integer  "commande_id"
+    t.boolean  "livre",        default: false
     t.index ["commande_id"], name: "index_compdts_on_commande_id"
     t.index ["produit_id"], name: "index_compdts_on_produit_id"
     t.index ["user_id"], name: "index_compdts_on_user_id"
