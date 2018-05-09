@@ -5,14 +5,18 @@
 <% if !@even_sel %>
     <%= form_for :resp, :url => {:action => "new"} do |f| %>
         <%= f.label :sel_bat, "Sélectionnez votre évènement:" %>
-        <% @batigrados.each.with_index do |batigrado, i| %>
+        <% i = 0 %>
+        <% @batigrados.each do |batigrado| %>
+          <% if batigrado.date_bat > Time.now %>
             <br/>
             <% if i == 0 %>
                 <%= f.radio_button :sel_bat, batigrado.id, :checked => true %>
+                <% i = i + 1 %>
             <% else %>
                 <%= f.radio_button :sel_bat, batigrado.id %>
             <% end %>
             <%= f.label :sel_bat, batigrado.titre + ' - Les ' + batigrado.date_bat.strftime("%d") + ' et ' + batigrado.date_bat.tomorrow.strftime("%d/%m/%Y"), value: batigrado.id %>
+          <% end %>
         <% end %>
         <br/>
 
@@ -78,15 +82,17 @@
           <% end %>
           <% if @batigrado.tarif2 %>
               <% batiasso = Batigrado.find(@batigrado.batiasso_id) %>
-              <p>Vous pouvez profiter de participer aussi au <strong><%= batiasso.titre %></strong> pour seulement <strong><%= number_to_currency(@batigrado.tarif2, unit: "", separator: ",", delimiter: "")+" euros" %></strong> de plus.</p>
-              <% tarif2 = @batigrado.tarif1+@batigrado.tarif2 %>
-              <hr/>
-              <div class="field">
-                <h6 style="text-align: left;">
-                <%= f.check_box :bati2 %>
-                <%= f.label :bati2, "Je participe aux 2 évènements associés (Tarif: "+number_to_currency(tarif2, unit: "", separator: ",", delimiter: "")+" euros)" %>
-                </h6>
-              </div>
+              <% if batiasso.date_bat > Time.now %>
+                  <p>Vous pouvez profiter de participer aussi au <strong><%= batiasso.titre %></strong> pour seulement <strong><%= number_to_currency(@batigrado.tarif2, unit: "", separator: ",", delimiter: "")+" euros" %></strong> de plus.</p>
+                  <% tarif2 = @batigrado.tarif1+@batigrado.tarif2 %>
+                  <hr/>
+                  <div class="field">
+                    <h6 style="text-align: left;">
+                    <%= f.check_box :bati2 %>
+                    <%= f.label :bati2, "Je participe aux 2 évènements associés (Tarif: "+number_to_currency(tarif2, unit: "", separator: ",", delimiter: "")+" euros)" %>
+                    </h6>
+                  </div>
+              <% end %>
           <% end %>
         <% else %>
           <% if @batigrado.tarif_ext %>

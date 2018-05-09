@@ -48,6 +48,11 @@
         <%= f.label :dispo, "Produit en stock" %>
       </div>
 
+      <div class="field col-12 col-md-6">
+        <%= f.label :stock, "Nombre en stock" %>
+        <%= f.text_field :stock, class: "form-control " %>
+      </div>
+
       <div class="field col-12 col-md-12">
         <%= f.label :descriptif, "Descriptif *" %>
         <%= f.text_area :descriptif, class: "form-control "+field_class(produit, :descriptif) %>

@@ -76,7 +76,7 @@
       </thead>
 
       <tbody>
-        <% @comnonlivre.each do |compdt| %>
+        <% @comnonlivre.sort_by{ |p| p.produit_id }.each do |compdt| %>
           <% @pdt = Produit.find(compdt.produit_id) %>
           <% @command = Commande.where(compdt_id: compdt.id).first if Commande.exists?(compdt_id: compdt.id) %>
           <tr>

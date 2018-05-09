@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180428083500) do
+ActiveRecord::Schema.define(version: 20180504091433) do
 
   create_table "batigrados", force: :cascade do |t|
     t.string   "titre"
@@ -293,6 +293,7 @@ ActiveRecord::Schema.define(version: 20180428083500) do
     t.string   "notpdf_content_type"
     t.integer  "notpdf_file_size"
     t.datetime "notpdf_updated_at"
+    t.integer  "stock"
   end
 
   create_table "repasgccs", force: :cascade do |t|
