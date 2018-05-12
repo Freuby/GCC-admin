@@ -8,6 +8,7 @@ class CompdtsController < ApplicationController
     @compdtsall = Compdt.all
     @comlivre = @compdtsall.where(livre: true)
     @comnonlivre = @compdtsall.where(livre: false)
+    @pdts = Produit.where(dispo: true).all
   end
 
   # GET /compdts/1
@@ -28,8 +29,6 @@ class CompdtsController < ApplicationController
   # POST /compdts.json
   def create
     if params[:compdt_id]
-
-      puts "C'est bon ça"
       compdt = Compdt.find(params[:compdt_id])
       if compdt.livre == false
         compdt.update(livre: true)

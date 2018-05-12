@@ -17,6 +17,11 @@
     <div class="col-12 col-sm-6">
         <h5 style="display: inline;"><%= @produit.nom %></h5><p style="display: inline;"> de <%= @produit.marque %></p>
         <p>(ref: <%= @produit.ref %>)</p>
+        <% if @produit.stock %>
+            <p>
+                Plus que <%= @produit.stock - @nbprod_com %> disponible(s)
+            </p>
+        <% end %>
         <% if @produit.couleur.length > 0 %>
             <p>
               <strong>Couleur:</strong>
@@ -71,7 +76,9 @@
             <%= f.hidden_field :produit_id, value: @produit.id %>
             <% if current_user.admin == 0 %>
             <hr/>
-            <%= f.submit "Ajouter au caddy", class: "btn btn-primary" %>
+                <% if @produit.stock - @nbprod_com > 0 %>
+                    <%= f.submit "Ajouter au caddy", class: "btn btn-primary" %>
+                <% end %>
             <% end %>
         <% end %>
         <p></p>

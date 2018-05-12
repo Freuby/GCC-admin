@@ -14,6 +14,8 @@ class ProduitsController < ApplicationController
     if prod.taille.length > 0
       @tailles = prod.taille.split(',')
     end
+    prod_com = Compdt.where(produit_id: @produit.id).all
+    @nbprod_com = prod_com.count
   end
 
   # GET /produits/new
