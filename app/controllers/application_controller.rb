@@ -3,7 +3,7 @@ require "yaml"
 
   protect_from_forgery with: :exception
   before_action :set_locale
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [ :mention ]
   before_action :set_constants
   before_action :set_current_eleve
   before_action :set_data
@@ -12,6 +12,11 @@ require "yaml"
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
+  end
+
+  # GET /mention
+  def mention
+
   end
 
   # GET /panier

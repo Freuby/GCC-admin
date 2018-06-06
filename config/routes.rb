@@ -43,5 +43,7 @@ Rails.application.routes.draw do
   get '/gestion/tableau', to: 'gestion#tableau'
   get '/gestion/factures', to: 'gestion#factures'
 
+  get '/application/mentions', to: 'application#mention'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
